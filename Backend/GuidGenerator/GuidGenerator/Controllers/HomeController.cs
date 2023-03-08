@@ -46,6 +46,12 @@ public class HomeController : ControllerBase
     {
         var db = _multiplexer.GetDatabase();
 
+        // Check if chat exists
+        var chatRedisValue = await db.StringGetAsync($"chat:{chatName}");
+
+        if (chatRedisValue.IsNull)
+            return NotFound();
+        
         var entity = new MessageEntity()
         {
             Content = content,
@@ -71,9 +77,9 @@ public class HomeController : ControllerBase
     
         var listKey = $"messages:{chatName}";
     
-        var messageJsons = await db.ListRangeAsync(listKey);
+        var redisValues = await db.ListRangeAsync(listKey);
     
-        var messages = messageJsons
+        var messages = redisValues
             .Select(x => JsonConvert.DeserializeObject<MessageEntity>(x.ToString()));
 
         return Ok(messages);
