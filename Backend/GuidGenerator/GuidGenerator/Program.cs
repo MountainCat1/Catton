@@ -1,11 +1,35 @@
+using StackExchange.Redis;
+using StackExchange.Redis.Extensions.Core.Configuration;
+using StackExchange.Redis.Extensions.Newtonsoft;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var services = builder.Services;
+
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+
+// Register Redis stuff
+
+var redisConfiguration = new RedisConfiguration()
+{
+    AbortOnConnectFail = false,
+    Hosts = new RedisHost[]
+    {
+        new RedisHost() { Host = "localhost", Port = 6379 },
+        new RedisHost() { Host = "localhost", Port = 54 }
+    },
+    AllowAdmin = true,
+    ConnectTimeout = 5000,
+    Database = 0,
+};
+
+services.AddScoped<IConnectionMultiplexer>(_
+    => ConnectionMultiplexer.Connect($"{"localhost"},password={"SUPER_SECRET_PASSWORD_123"}"));
+services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
 
 var app = builder.Build();
 
@@ -16,7 +40,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
