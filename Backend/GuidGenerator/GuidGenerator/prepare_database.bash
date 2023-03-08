@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Set default container name
+# Define variables
 container_name="guid-generator-redis"
+remove_existing_container=0
 
 # Define environment variables for Redis container
 export REDIS_PASSWORD
@@ -10,7 +11,6 @@ export REDIS_PORT
 REDIS_PASSWORD=$(cat "$(dirname "$0")/Secrets/database-password-secret")
 REDIS_PORT=6379
 
-remove_existing_container=0
 
 # Check for command-line arguments
 while [[ $# -gt 0 ]]; do
