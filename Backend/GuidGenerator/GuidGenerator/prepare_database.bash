@@ -10,8 +10,6 @@ export REDIS_PORT
 REDIS_PASSWORD=$(cat "$(dirname "$0")/Secrets/database-password-secret")
 REDIS_PORT=6379
 
-echo "Password: $REDIS_PASSWORD"
-
 remove_existing_container=0
 
 # Check for command-line arguments
