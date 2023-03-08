@@ -16,38 +16,66 @@ public class HomeController : ControllerBase
         _multiplexer = multiplexer;
     }
 
-    [HttpPost("{topic}/{title}/{content}")]
-    public async Task<IActionResult> Create(string topic = "default", string title = "Super Title!", string content = "This is a content of some fancy message! :D")
+    [HttpPost("{name}")]
+    public async Task<IActionResult> CreateChat(string name)
+    {
+        var db = _multiplexer.GetDatabase();
+
+        var newEntity = new ChatEntity()
+        {
+            Name = name,
+            TimeCreated = DateTime.Now
+        };
+
+        var json = JsonConvert.SerializeObject(newEntity);
+
+        var partitionKey = "chat";
+        
+        var key = name;
+
+        var fullKey = $"{partitionKey}:{key}";
+        
+        // Add the entity to Redis
+        await db.StringSetAsync(fullKey, json);
+        
+        return Ok();
+    }
+
+    [HttpPost("{chatName}/{sender}/{content}")]
+    public async Task<IActionResult> CreateMessages(string chatName, string sender, string content)
     {
         var db = _multiplexer.GetDatabase();
 
         var entity = new MessageEntity()
         {
             Content = content,
-            Topic = topic,
-            Title = title,
+            ChatName = chatName,
+            Sender = sender,
             CreatedTime = DateTime.Now
         };
-        
+    
         // Serialize the entity into JSON
         var json = JsonConvert.SerializeObject(entity);
 
-        // Generate a unique key for the entity
-        var key = Guid.NewGuid().ToString();
+        // Add the entity to the chat room list in Redis
+        var listKey = $"messages:{entity.ChatName}";
+        await db.ListRightPushAsync(listKey, json);
+    
+        return Ok();
+    }
+    
+    [HttpGet("{chatName}")]
+    public async Task<IActionResult> GetChat(string chatName)
+    {
+        var db = _multiplexer.GetDatabase();
+    
+        var listKey = $"messages:{chatName}";
+    
+        var messageJsons = await db.ListRangeAsync(listKey);
+    
+        var messages = messageJsons
+            .Select(x => JsonConvert.DeserializeObject<MessageEntity>(x.ToString()));
 
-        var partitionKey = $"{entity.Topic}:{entity.CreatedTime.Minute}";
-
-        var fullKey = $"{partitionKey}:{key}";
-        
-        // Add the entity to Redis
-        await db.StringSetAsync(fullKey, json);
-
-        // Retrieve the entity from Redis
-        var resultJson = await db.StringGetAsync(fullKey);
-
-        // Deserialize the entity from JSON
-        var resultEntity = JsonConvert.DeserializeObject<MessageEntity>(resultJson);
-        
-        return Ok(resultEntity);
+        return Ok(messages);
     }
 }
