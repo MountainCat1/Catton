@@ -21,8 +21,8 @@ while [[ $# -gt 0 ]]; do
     remove_existing_container=1
     shift
     ;;
-  -p=*)
-    REDIS_PORT=${1#*=}
+  --port=*)
+    REDIS_PORT=${1#*=} # remove prefix "--port="
     shift
     ;;
   --name=*)
