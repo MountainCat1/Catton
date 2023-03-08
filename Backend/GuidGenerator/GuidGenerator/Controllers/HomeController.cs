@@ -16,15 +16,16 @@ public class HomeController : ControllerBase
         _multiplexer = multiplexer;
     }
 
-    [HttpGet(Name = "")]
-    public async Task<IActionResult> Get()
+    [HttpPost("{topic}/{title}/{content}")]
+    public async Task<IActionResult> Create(string topic = "default", string title = "Super Title!", string content = "This is a content of some fancy message! :D")
     {
         var db = _multiplexer.GetDatabase();
 
         var entity = new MessageEntity()
         {
-            Message = "Hellow! It's a message!",
-            Title = "Super title",
+            Content = content,
+            Topic = topic,
+            Title = title,
             CreatedTime = DateTime.Now
         };
         
@@ -34,7 +35,7 @@ public class HomeController : ControllerBase
         // Generate a unique key for the entity
         var key = Guid.NewGuid().ToString();
 
-        var partitionKey = entity.CreatedTime.Minute.ToString();
+        var partitionKey = $"{entity.Topic}:{entity.CreatedTime.Minute}";
 
         var fullKey = $"{partitionKey}:{key}";
         
