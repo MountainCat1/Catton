@@ -107,41 +107,6 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
-      },
-      "User.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Microsoft.AspNetCore.OpenApi": "7.0.1",
-          "Swashbuckle.AspNetCore": "6.4.0"
-        },
-        "compile": {
-          "bin/placeholder/User.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/User.Domain.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
-      "User.Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Microsoft.AspNetCore.OpenApi": "7.0.1",
-          "Swashbuckle.AspNetCore": "6.4.0",
-          "User.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/User.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/User.Infrastructure.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       }
     }
   },
@@ -486,58 +451,41 @@
         "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
-    },
-    "User.Domain/1.0.0": {
-      "type": "project",
-      "path": "../User.Domain/User.Domain.csproj",
-      "msbuildProject": "../User.Domain/User.Domain.csproj"
-    },
-    "User.Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../User.Infrastructure/User.Infrastructure.csproj",
-      "msbuildProject": "../User.Infrastructure/User.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.AspNetCore.OpenApi >= 7.0.1",
-      "Swashbuckle.AspNetCore >= 6.4.0",
-      "User.Domain >= 1.0.0",
-      "User.Infrastructure >= 1.0.0"
+      "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mountain Cat\\.nuget\\packages\\": {}
+    "C:\\Users\\tbanas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mountain Cat\\RiderProjects\\Catton\\Backend\\User\\User.Application\\User.Application.csproj",
+      "projectUniqueName": "C:\\Users\\tbanas\\Repos\\MountainCat\\Catton\\Backend\\User\\User.Application\\User.Application.csproj",
       "projectName": "User.Application",
-      "projectPath": "C:\\Users\\Mountain Cat\\RiderProjects\\Catton\\Backend\\User\\User.Application\\User.Application.csproj",
-      "packagesPath": "C:\\Users\\Mountain Cat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mountain Cat\\RiderProjects\\Catton\\Backend\\User\\User.Application\\obj\\",
+      "projectPath": "C:\\Users\\tbanas\\Repos\\MountainCat\\Catton\\Backend\\User\\User.Application\\User.Application.csproj",
+      "packagesPath": "C:\\Users\\tbanas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tbanas\\Repos\\MountainCat\\Catton\\Backend\\User\\User.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mountain Cat\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\tbanas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {
-            "C:\\Users\\Mountain Cat\\RiderProjects\\Catton\\Backend\\User\\User.Domain\\User.Domain.csproj": {
-              "projectPath": "C:\\Users\\Mountain Cat\\RiderProjects\\Catton\\Backend\\User\\User.Domain\\User.Domain.csproj"
-            },
-            "C:\\Users\\Mountain Cat\\RiderProjects\\Catton\\Backend\\User\\User.Infrastructure\\User.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Mountain Cat\\RiderProjects\\Catton\\Backend\\User\\User.Infrastructure\\User.Infrastructure.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -578,7 +526,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Mountain Cat\\.dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
