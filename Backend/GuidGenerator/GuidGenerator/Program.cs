@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
@@ -17,18 +18,22 @@ services.AddSwaggerGen();
 var redisConfiguration = new RedisConfiguration()
 {
     AbortOnConnectFail = false,
-    Hosts = new RedisHost[]
-    {
-        new RedisHost() { Host = "localhost", Port = 6379 },
-        new RedisHost() { Host = "localhost", Port = 54 }
-    },
+    // Hosts = new RedisHost[]
+    // {
+    //     new RedisHost() { Host = "localhost", Port = 6379 },
+    // },
     AllowAdmin = true,
-    ConnectTimeout = 5000,
+    ConnectTimeout = 1000,
     Database = 0,
 };
 
-services.AddScoped<IConnectionMultiplexer>(_
-    => ConnectionMultiplexer.Connect($"{"localhost"},password={"SUPER_SECRET_PASSWORD_123"}"));
+var configurationOptions = new ConfigurationOptions
+{
+    EndPoints = { "localhost:7001" },
+    Password = "SUPER_SECRET_PASSWORD_123",
+};
+
+services.AddScoped<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(configurationOptions));
 services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
 
 var app = builder.Build();
@@ -45,5 +50,12 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var delay = serviceProvider.GetRequiredService<IConnectionMultiplexer>().GetDatabase().Ping();
+    Console.WriteLine(delay);
+}
 
 app.Run();

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Define variables
 container_name="redis-cluster"
 remove_existing_container=1

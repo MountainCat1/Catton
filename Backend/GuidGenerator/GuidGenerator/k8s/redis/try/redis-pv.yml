@@ -1,0 +1,44 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: Immediate
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: redis-local-pv
+#  namespace: redis
+#spec:
+#  capacity:
+#    storage: 1Gi
+#  accessModes:
+#    - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Recycle
+#  storageClassName: local-storage
+#  local:
+#    path: /mnt/data/redis-cluster
+#  nodeAffinity:
+#    required:
+#      nodeSelectorTerms:
+#        - matchExpressions:
+#            - key: kubernetes.io/hostname
+#              operator: In
+#              values:
+#                - <none>
