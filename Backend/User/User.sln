@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Domain", "User.Domain\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Infrastructure", "User.Infrastructure\User.Infrastructure.csproj", "{AF81EBFD-DB38-45F3-929A-896B86B9C7E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainCat.Microwo", "MountainCat.Microwo\MountainCat.Microwo.csproj", "{7E71B0C1-B9F7-4644-A42E-A39078AED5FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +24,5 @@ Global
 		{AF81EBFD-DB38-45F3-929A-896B86B9C7E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF81EBFD-DB38-45F3-929A-896B86B9C7E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF81EBFD-DB38-45F3-929A-896B86B9C7E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E71B0C1-B9F7-4644-A42E-A39078AED5FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E71B0C1-B9F7-4644-A42E-A39078AED5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E71B0C1-B9F7-4644-A42E-A39078AED5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E71B0C1-B9F7-4644-A42E-A39078AED5FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

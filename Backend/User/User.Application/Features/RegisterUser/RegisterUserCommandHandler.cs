@@ -1,24 +1,24 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using User.Application.Services;
+using User.Domain.Abstractions;
 using User.Domain.Entities;
-using User.Infrastructure.DatabaseContext;
 
 namespace User.Application.Features.RegisterUser;
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand>
 {
-    private readonly UserDbContext _userDbContext;
+    private readonly IRepository<UserEntity> _userRepository;
     private readonly IPasswordService _passwordService;
 
 
-    public RegisterUserCommandHandler(UserDbContext userDbContext, IPasswordService passwordService)
+    public RegisterUserCommandHandler(IPasswordService passwordService, IRepository<UserEntity> userRepository)
     {
-        _userDbContext = userDbContext;
         _passwordService = passwordService;
+        _userRepository = userRepository;
     }
 
-    public Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         var passwordHash = _passwordService.CreateHash(request.Password);
         
@@ -26,8 +26,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand>
             username: request.Username,
             passwordHash: passwordHash);
 
-        _userDbContext.Users.Add(newEntity);
-        
-        return Task.CompletedTask;
+        await _userRepository.CreateAsync(newEntity);
+
+        await _userRepository.SaveChangesAsync();
     }
 }

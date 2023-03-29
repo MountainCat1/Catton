@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using User.Domain.Abstractions;
 
 namespace User.Domain.Entities;
 
-public class UserEntity
+public class UserEntity : IEntity
 {
     public UserEntity(string username, string passwordHash)
     {

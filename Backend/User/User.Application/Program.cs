@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using User.Application;
 using User.Application.Services;
+using User.Domain.Abstractions;
+using User.Domain.Entities;
 using User.Infrastructure.DatabaseContext;
+using User.Infrastructure.Generics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,9 @@ services.AddMediatR(configuration =>
     configuration.RegisterServicesFromAssembly(typeof(AssemblyPointer).Assembly);
 });
 services.AddAutoMapper(typeof(AssemblyPointer));
+
+
+services.AddScoped<IRepository<UserEntity>, Repository<UserEntity, UserDbContext>>();
 
 // === APP RUN ===
 var app = builder.Build();
