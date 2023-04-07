@@ -54,7 +54,7 @@ services
     .AddJwtBearer(jwtBearerOptions =>
     {
         jwtBearerOptions.SecurityTokenValidators.Clear();
-        jwtBearerOptions.SecurityTokenValidators.Add(new GoogleTokenValidator("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"));
+        jwtBearerOptions.SecurityTokenValidators.Add(new GoogleTokenValidator(authenticationSettings.Google.ClientSecret));
     });
 
 services.AddControllers();
