@@ -8,12 +8,12 @@ namespace Account.Api;
 
 public class GoogleTokenValidator : ISecurityTokenValidator
 {
-    private readonly string _clientId;
+    private readonly string _clientSecret;
     private readonly JwtSecurityTokenHandler _tokenHandler;
 
-    public GoogleTokenValidator(string clientId)
+    public GoogleTokenValidator(string clientSecret)
     {
-        _clientId = clientId;
+        _clientSecret = clientSecret;
         _tokenHandler = new JwtSecurityTokenHandler();
     }
 
@@ -29,7 +29,7 @@ public class GoogleTokenValidator : ISecurityTokenValidator
     public ClaimsPrincipal ValidateToken(string securityToken, TokenValidationParameters validationParameters, out SecurityToken validatedToken)
     {
         validationParameters.ValidateIssuer = true;
-        var payload = GoogleJsonWebSignature.ValidateAsync(securityToken, new GoogleJsonWebSignature.ValidationSettings() { Audience =  new[] { _clientId }}).Result; // here is where I delegate to Google to validate
+        var payload = GoogleJsonWebSignature.ValidateAsync(securityToken, new GoogleJsonWebSignature.ValidationSettings() { Audience =  new[] { _clientSecret }}).Result; // here is where I delegate to Google to validate
         validatedToken = _tokenHandler.ReadToken(securityToken);
             
         var claims = new List<Claim>
