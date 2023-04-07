@@ -47,8 +47,8 @@ services
     })
     .AddGoogle(googleOptions =>
     {
-        googleOptions.ClientId = "934344019711-htpk4uv143hibkpol9vka7fk9qaasq86.apps.googleusercontent.com";
-        googleOptions.ClientSecret = "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";
+        googleOptions.ClientId = authenticationSettings.Google.ClientId;
+        googleOptions.ClientSecret = authenticationSettings.Google.ClientSecret;
         googleOptions.ClaimsIssuer = "https://accounts.google.com";
     })
     .AddJwtBearer(jwtBearerOptions =>
