@@ -25,7 +25,7 @@ services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigins", builder =>
     {
-        builder.WithOrigins(new string[]
+        builder.WithOrigins(new[]
             {
                 "http://localhost:4200", // local frontend
                 "https://localhost:5000", // local swagger 
