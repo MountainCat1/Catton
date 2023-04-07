@@ -4,7 +4,7 @@ using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Authentication;
+namespace Account.Api;
 
 public class GoogleTokenValidator : ISecurityTokenValidator
 {

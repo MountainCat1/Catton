@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "Authentication\Authentication.csproj", "{9DC2F13E-68AC-4744-8F8D-0F1742F11015}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Api", "Account.Api\Account.Api.csproj", "{9DC2F13E-68AC-4744-8F8D-0F1742F11015}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

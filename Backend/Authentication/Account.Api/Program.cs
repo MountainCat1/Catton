@@ -1,6 +1,6 @@
-using Authentication;
-using Authentication.Features.GoogleAuthentication;
-using Authentication.Settings;
+using Account.Api;
+using Account.Api.Features.GoogleAuthentication;
+using Account.Api.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);

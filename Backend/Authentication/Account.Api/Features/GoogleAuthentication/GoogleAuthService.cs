@@ -1,8 +1,8 @@
-﻿using Authentication.Services.Abstractions;
-using Authentication.Settings;
+﻿using Account.Api.Services.Abstractions;
+using Account.Api.Settings;
 using Google.Apis.Auth;
 
-namespace Authentication.Features.GoogleAuthentication;
+namespace Account.Api.Features.GoogleAuthentication;
 
 public interface IGoogleAuthProviderService : IAuthProviderService<GoogleAccount, GoogleAuthenticationData>
 {
@@ -45,7 +45,7 @@ public class GoogleAuthProviderService : IGoogleAuthProviderService
         //     .OfType<GoogleAccount>()
         //     .FirstAsync(x => x.GoogleId == jwtPayload.Subject);
         //
-        // _logger.LogInformation($"Google Authentication successful!");
+        // _logger.LogInformation($"Google Account.Api successful!");
         //
         // return account;
     }
@@ -74,7 +74,7 @@ public class GoogleAuthProviderService : IGoogleAuthProviderService
         // await _databaseContext.Accounts.AddAsync(newAccount);
         // await _databaseContext.SaveChangesAsync();
         //
-        // _logger.LogInformation($"Account registered!");
+        // _logger.LogInformation($"Account.Api registered!");
         // return authenticationData;
     }
 

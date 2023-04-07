@@ -1,7 +1,7 @@
-﻿using Authentication.Dto;
+﻿using Account.Api.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Authentication.Features.GoogleAuthentication;
+namespace Account.Api.Features.GoogleAuthentication;
 
 [ApiController]
 [Route("api/auth/google")]
