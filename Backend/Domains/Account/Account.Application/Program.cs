@@ -1,6 +1,7 @@
 using Account.Application;
 using Account.Application.Features.GoogleAuthentication;
 using Account.Application.Settings;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,10 @@ configuration.GetSection("AuthenticationSettings").Bind(authenticationSettings);
 var services = builder.Services;
 
 services.AddSingleton<AuthenticationSettings>(authenticationSettings);
+
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 
 services.AddLogging();
 
@@ -57,9 +62,8 @@ services
         jwtBearerOptions.SecurityTokenValidators.Add(new GoogleTokenValidator(authenticationSettings.Google.ClientSecret));
     });
 
-services.AddControllers();
-services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+
+services.AddMediatR(typeof(AssemlyMarker).Assembly);
 
 var app = builder.Build();
 
