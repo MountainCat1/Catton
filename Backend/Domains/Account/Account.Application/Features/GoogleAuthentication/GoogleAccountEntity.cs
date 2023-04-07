@@ -1,6 +1,6 @@
 ﻿using Account.Domain.Entities;
 
-namespace Account.Api.Features.GoogleAuthentication;
+namespace Account.Application.Features.GoogleAuthentication;
 
 public class GoogleAccountEntity : AccountEntity
 {

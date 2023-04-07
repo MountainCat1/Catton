@@ -1,4 +1,4 @@
-﻿namespace Account.Api.Settings;
+﻿namespace Account.Application.Settings;
 public class AuthenticationSettings
 {
     public int JwtExpireDays { get; set; }

@@ -1,6 +1,6 @@
 ﻿using Account.Domain.Entities;
 
-namespace Account.Api.Services.Abstractions;
+namespace Account.Application.Services.Abstractions;
 public interface IAuthProviderService<TAccount, TAuthenticationData> where TAccount : AccountEntity
 {
     /// <summary>

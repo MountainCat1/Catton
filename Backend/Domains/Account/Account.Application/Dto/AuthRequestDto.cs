@@ -1,4 +1,4 @@
-﻿namespace Account.Api.Dto;
+﻿namespace Account.Application.Dto;
 
 public enum AuthMethod {
     Default,

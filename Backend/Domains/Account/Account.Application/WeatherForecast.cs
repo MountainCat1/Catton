@@ -1,4 +1,4 @@
-namespace Account.Api;
+namespace Account.Application;
 
 public class WeatherForecast
 {
