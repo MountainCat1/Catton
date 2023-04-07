@@ -1,6 +1,13 @@
-﻿namespace Account.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using Account.Domain.Abstractions;
 
-public class AccountEntity
+namespace Account.Domain.Entities;
+
+public abstract class AccountEntity : IEntity
 {
-    
+    [Key]
+    public Guid Id { get; set; }
+
+    public string Username { get; set; }
+    public string Email { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Account.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Account.Infrastructure.Contexts;
 
@@ -8,4 +9,7 @@ public class AccountDbContext : DbContext
     {
         
     }
+
+    public DbSet<AccountEntity> Accounts { get; set; }
+    public DbSet<GoogleAccountEntity> GoogleAccounts { get; set; }
 }
