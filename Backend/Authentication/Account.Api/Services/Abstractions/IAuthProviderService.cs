@@ -1,4 +1,4 @@
-﻿using Account.Api.Entities;
+﻿using Account.Domain.Entities;
 
 namespace Account.Api.Services.Abstractions;
 public interface IAuthProviderService<TAccount, TAuthenticationData> where TAccount : AccountEntity

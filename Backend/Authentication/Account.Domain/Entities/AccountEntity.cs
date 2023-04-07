@@ -1,4 +1,4 @@
-﻿namespace Account.Api.Entities;
+﻿namespace Account.Domain.Entities;
 
 public class AccountEntity
 {
