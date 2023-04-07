@@ -1,6 +1,7 @@
-﻿namespace Account.Api.Services.Abstractions;
+﻿using Account.Api.Entities;
 
-public interface IAuthProviderService<TAccount, TAuthenticationData> where TAccount : Entities.Account
+namespace Account.Api.Services.Abstractions;
+public interface IAuthProviderService<TAccount, TAuthenticationData> where TAccount : AccountEntity
 {
     /// <summary>
     /// Authenticates account via authentication data, if authentication is successful returns connected account

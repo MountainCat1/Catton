@@ -23,4 +23,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Account.Domain\Account.Domain.csproj" />
+      <ProjectReference Include="..\Account.Infrastructure\Account.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

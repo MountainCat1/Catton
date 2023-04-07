@@ -1,6 +1,6 @@
 ﻿namespace Account.Api.Features.GoogleAuthentication;
 
-public class GoogleAccount : Entities.Account
+public class GoogleAccountEntity : Entities.AccountEntity
 {
     
 }

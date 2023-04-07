@@ -4,7 +4,7 @@ using Google.Apis.Auth;
 
 namespace Account.Api.Features.GoogleAuthentication;
 
-public interface IGoogleAuthProviderService : IAuthProviderService<GoogleAccount, GoogleAuthenticationData>
+public interface IGoogleAuthProviderService : IAuthProviderService<GoogleAccountEntity, GoogleAuthenticationData>
 {
     /// <summary>
     /// Validates google JWT and its return payload
@@ -32,7 +32,7 @@ public class GoogleAuthProviderService : IGoogleAuthProviderService
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public async Task<GoogleAccount> AuthenticateAsync(HttpRequest request)
+    public async Task<GoogleAccountEntity> AuthenticateAsync(HttpRequest request)
     {
         throw new NotImplementedException();
         // _logger.LogInformation($"Authenticating http request with google...");
