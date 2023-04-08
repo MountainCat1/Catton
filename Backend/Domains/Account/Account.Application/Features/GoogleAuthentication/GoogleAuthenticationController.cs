@@ -22,7 +22,7 @@ public class AuthenticationController : Controller
         _accountRepository = accountRepository;
     }
 
-    [HttpPost("authenticate")]
+    [HttpPost("register")]
     public async Task<IActionResult> CreateAccount([FromBody] AuthRequestDto authRequestDto)
     {
         var request = new CreateGoogleAccountRequest(authRequestDto.Token);
@@ -32,7 +32,7 @@ public class AuthenticationController : Controller
         return Ok(accountDto);
     }
 
-    [HttpPost("register")]
+    [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate([FromBody] AuthRequestDto authRequestDto)
     {
         var v = await _googleAuthProvider.ValidateGoogleJwtAsync(authRequestDto.Token);
@@ -43,6 +43,6 @@ public class AuthenticationController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return Ok( _accountRepository.GetAllAsync());
+        return Ok( await _accountRepository.GetAllAsync());
     }
 }
