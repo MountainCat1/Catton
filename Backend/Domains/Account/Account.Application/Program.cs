@@ -48,7 +48,8 @@ services.AddCors(options =>
 
 services.AddDbContext<AccountDbContext>(options =>
 {
-    options.UseInMemoryDatabase("AccountDb");
+    options.UseSqlServer(configuration.GetConnectionString("AccountDb"),  
+        b => b.MigrationsAssembly(typeof(AssemlyMarker).Assembly.FullName));
 });
 
 services.AddScoped<IAccountRepository, AccountRepository>();

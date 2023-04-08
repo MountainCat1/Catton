@@ -1,5 +1,6 @@
 ﻿using Account.Application.Services.Abstractions;
 using Account.Application.Settings;
+using Account.Domain.Entities;
 using Google.Apis.Auth;
 
 namespace Account.Application.Features.GoogleAuthentication;

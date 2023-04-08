@@ -1,5 +1,6 @@
 ﻿using Account.Application.Dto;
 using Account.Application.Extensions.DtoMapping;
+using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using MediatR;
 
@@ -23,8 +24,11 @@ public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAcc
         var googleAccount = new GoogleAccountEntity()
         {
             Email = googleTokenPayload.Email,
+            Username = $"{googleTokenPayload.Name} {googleTokenPayload.FamilyName}"
         };
 
+        await _googleAccountRepository.CreateAsync(googleAccount);
+        
         // TODO add some type of validation so you cannot create two users with the same email
         await _googleAccountRepository.SaveChangesAsync();
 
