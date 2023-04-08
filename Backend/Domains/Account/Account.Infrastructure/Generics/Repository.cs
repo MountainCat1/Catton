@@ -2,6 +2,7 @@
 using Account.Domain.Abstractions;
 using Account.Infrastructure.Errors.Database;
 using Account.Infrastructure.Extensions;
+using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -132,7 +133,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         }
         catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())
         {
-            return new DuplicateEntryException("A duplicate entry was detected.", ex);
+            return new DuplicateEntryException("A duplicate entry was detected.");
         }
 
         return null;

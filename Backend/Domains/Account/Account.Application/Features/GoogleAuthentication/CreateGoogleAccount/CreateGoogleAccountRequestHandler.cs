@@ -34,9 +34,11 @@ public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAcc
         
         createdEntity.AddDomainEvent(new CreateAccountDomainEvent());
         
-        // TODO add some type of validation so you cannot create two users with the same email
-        await _googleAccountRepository.SaveChangesAsync();
+        var dbException = await _googleAccountRepository.SaveChangesAsync();
 
+        if (dbException is not null)
+            return new Result<GoogleAccountDto>(dbException);
+        
         return googleAccount.ToDto();
     }
 }
