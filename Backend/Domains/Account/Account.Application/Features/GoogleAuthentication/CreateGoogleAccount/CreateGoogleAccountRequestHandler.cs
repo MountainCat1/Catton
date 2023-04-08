@@ -32,10 +32,7 @@ public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAcc
 
         var createdEntity = await _googleAccountRepository.CreateAsync(googleAccount);
         
-        createdEntity.AddDomainEvent(new CreateAccountDomainEvent()
-        {
-            CreatedEntity = createdEntity
-        });
+        createdEntity.AddDomainEvent(new CreateAccountDomainEvent());
         
         // TODO add some type of validation so you cannot create two users with the same email
         await _googleAccountRepository.SaveChangesAsync();

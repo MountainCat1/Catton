@@ -7,7 +7,7 @@ public interface IRepository
 {
     
 }
-public interface IRepository<TEntity> : IRepository where TEntity : class, IEntity
+public interface IRepository<TEntity> : IRepository where TEntity : Entity
 {
     public Task<TEntity?> GetOneAsync(params object[] keys);
     public Task<IEnumerable<TEntity>> GetAsync(

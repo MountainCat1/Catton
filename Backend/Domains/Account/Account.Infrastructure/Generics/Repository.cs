@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Account.Infrastructure.Generics;
 
 public class Repository<TEntity, TDbContext> : IRepository<TEntity>
-    where TEntity : class, IEntity
+    where TEntity : Entity
     where TDbContext : DbContext
 {
     private readonly DbSet<TEntity> _dbSet;
