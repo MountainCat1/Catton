@@ -1,8 +1,13 @@
 using Account.Application;
 using Account.Application.Features.GoogleAuthentication;
+using Account.Application.Services;
 using Account.Application.Settings;
+using Account.Domain.Repositories;
+using Account.Infrastructure.Contexts;
+using Account.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +46,15 @@ services.AddCors(options =>
     });
 });
 
+services.AddDbContext<AccountDbContext>(options =>
+{
+    options.UseInMemoryDatabase("AccountDb");
+});
+
+services.AddScoped<IAccountRepository, AccountRepository>();
+services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
+
+
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
 
 services
@@ -63,7 +77,7 @@ services
     });
 
 
-services.AddMediatR(typeof(AssemlyMarker).Assembly);
+services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(AssemlyMarker).Assembly));
 
 var app = builder.Build();
 

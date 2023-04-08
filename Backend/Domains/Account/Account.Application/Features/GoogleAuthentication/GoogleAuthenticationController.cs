@@ -1,4 +1,6 @@
 ﻿using Account.Application.Dto;
+using Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Application.Features.GoogleAuthentication;
@@ -8,24 +10,28 @@ namespace Account.Application.Features.GoogleAuthentication;
 public class AuthenticationController : Controller
 {
     private IGoogleAuthProviderService _googleAuthProvider;
+    private IMediator _mediator;
 
-    public AuthenticationController(IGoogleAuthProviderService googleAuthProvider)
+    public AuthenticationController(IGoogleAuthProviderService googleAuthProvider, IMediator mediator)
     {
         _googleAuthProvider = googleAuthProvider;
+        _mediator = mediator;
     }
 
-    [HttpPost]
+    [HttpPost("authenticate")]
     public async Task<IActionResult> CreateAccount([FromBody] AuthRequestDto authRequestDto)
     {
-        var result = await _googleAuthProvider.ValidateGoogleJwt(authRequestDto.Token);
-        
-        return Ok(authRequestDto.Token);
+        var request = new CreateGoogleAccountRequest(authRequestDto.Token);
+
+        var accountDto = await _mediator.Send(request);
+
+        return Ok(accountDto);
     }
-    
-    [HttpGet]
+
+    [HttpGet("register")]
     public async Task<IActionResult> Authenticate([FromBody] AuthRequestDto authRequestDto)
     {
-        var result = await _googleAuthProvider.ValidateGoogleJwt(authRequestDto.Token);
+        var v = await _googleAuthProvider.ValidateGoogleJwtAsync(authRequestDto.Token);
         
         return Ok(authRequestDto.Token);
     }
