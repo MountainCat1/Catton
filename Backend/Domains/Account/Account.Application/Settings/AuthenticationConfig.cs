@@ -1,5 +1,5 @@
 ﻿namespace Account.Application.Settings;
-public class AuthenticationSettings
+public class AuthenticationConfig
 {
     public int JwtExpireDays { get; set; }
     public Google Google { get; set; }

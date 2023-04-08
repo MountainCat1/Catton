@@ -1,5 +1,4 @@
-﻿using Account.Domain.Abstractions;
-using Account.Domain.Entities;
+﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Generics;

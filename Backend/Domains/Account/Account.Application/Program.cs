@@ -1,13 +1,15 @@
 using Account.Application;
+using Account.Application.Extensions;
 using Account.Application.Features.GoogleAuthentication;
 using Account.Application.Services;
 using Account.Application.Settings;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Repositories;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,15 +17,15 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 
-configuration.AddJsonFile("Secrets/authentication.json");
-var authenticationSettings = new AuthenticationSettings();
-configuration.GetSection("AuthenticationSettings").Bind(authenticationSettings);
+// TODO: start using `services.Configure<T>()`
+var authenticationConfig = configuration.GetConfiguration<AuthenticationConfig>("Secrets/authentication.json");
+var jwtConfig = configuration.GetConfiguration<JwtConfig>("Secrets/jwt.json");
 
 // Add services to the container.
 
 var services = builder.Services;
 
-services.AddSingleton<AuthenticationSettings>(authenticationSettings);
+services.AddSingleton<AuthenticationConfig>(authenticationConfig);
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
@@ -58,24 +60,7 @@ services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
 
-services
-    .AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddGoogle(googleOptions =>
-    {
-        googleOptions.ClientId = authenticationSettings.Google.ClientId;
-        googleOptions.ClientSecret = authenticationSettings.Google.ClientSecret;
-        googleOptions.ClaimsIssuer = "https://accounts.google.com";
-    })
-    .AddJwtBearer(jwtBearerOptions =>
-    {
-        jwtBearerOptions.SecurityTokenValidators.Clear();
-        jwtBearerOptions.SecurityTokenValidators.Add(new GoogleTokenValidator(authenticationSettings.Google.ClientSecret));
-    });
+services.AddAsymmetricAuthentication(jwtConfig);
 
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(AssemlyMarker).Assembly));

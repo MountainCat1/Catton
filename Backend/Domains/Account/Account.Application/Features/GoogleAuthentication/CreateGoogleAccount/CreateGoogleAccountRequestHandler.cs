@@ -24,7 +24,8 @@ public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAcc
         var googleAccount = new GoogleAccountEntity()
         {
             Email = googleTokenPayload.Email,
-            Username = $"{googleTokenPayload.Name} {googleTokenPayload.FamilyName}"
+            Username = $"{googleTokenPayload.Name} {googleTokenPayload.FamilyName}",
+            Id = googleTokenPayload.JwtId
         };
 
         await _googleAccountRepository.CreateAsync(googleAccount);

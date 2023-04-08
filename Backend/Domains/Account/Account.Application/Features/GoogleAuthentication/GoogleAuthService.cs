@@ -17,14 +17,14 @@ public interface IGoogleAuthProviderService : IAuthProviderService<GoogleAccount
 
 public class GoogleAuthProviderService : IGoogleAuthProviderService
 {
-    private readonly AuthenticationSettings _authenticationSettings;
+    private readonly AuthenticationConfig _authenticationConfig;
     private readonly ILogger<IGoogleAuthProviderService> _logger;
     
     public GoogleAuthProviderService(
-        AuthenticationSettings authenticationSettings, 
+        AuthenticationConfig authenticationConfig, 
         ILogger<IGoogleAuthProviderService> logger)
     {
-        _authenticationSettings = authenticationSettings;
+        _authenticationConfig = authenticationConfig;
         _logger = logger;
     }
 
@@ -44,7 +44,7 @@ public class GoogleAuthProviderService : IGoogleAuthProviderService
                 jwt, 
                 new GoogleJsonWebSignature.ValidationSettings()
                 {
-                    Audience =  new[] { _authenticationSettings.Google.ClientId }
+                    Audience =  new[] { _authenticationConfig.Google.ClientId }
                 }
             );
             return payload;
