@@ -1,4 +1,6 @@
-﻿using Account.Application.Dto;
+﻿using System.ComponentModel.DataAnnotations;
+using Account.Application.Dto;
+using Account.Application.Extensions;
 using Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 using Account.Domain.Repositories;
 using MediatR;
@@ -14,8 +16,9 @@ public class AuthenticationController : Controller
     private IMediator _mediator;
 
     private IAccountRepository _accountRepository;
-    
-    public AuthenticationController(IGoogleAuthProviderService googleAuthProvider, IMediator mediator, IAccountRepository accountRepository)
+
+    public AuthenticationController(IGoogleAuthProviderService googleAuthProvider, IMediator mediator,
+        IAccountRepository accountRepository)
     {
         _googleAuthProvider = googleAuthProvider;
         _mediator = mediator;
@@ -27,22 +30,22 @@ public class AuthenticationController : Controller
     {
         var request = new CreateGoogleAccountRequest(authRequestDto.Token);
 
-        var accountDto = await _mediator.Send(request);
+        var result = await _mediator.Send(request);
 
-        return Ok(accountDto);
+        return result.ToOk();
     }
 
     [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate([FromBody] AuthRequestDto authRequestDto)
     {
         var v = await _googleAuthProvider.ValidateGoogleJwtAsync(authRequestDto.Token);
-        
+
         return Ok(authRequestDto.Token);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return Ok( await _accountRepository.GetAllAsync());
+        return Ok(await _accountRepository.GetAllAsync());
     }
 }

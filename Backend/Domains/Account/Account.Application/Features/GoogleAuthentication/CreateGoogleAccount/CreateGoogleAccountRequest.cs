@@ -1,9 +1,10 @@
 ﻿using Account.Application.Dto;
+using LanguageExt.Common;
 using MediatR;
 
 namespace Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 
-public class CreateGoogleAccountRequest : IRequest<GoogleAccountDto>
+public class CreateGoogleAccountRequest : IRequest<Result<GoogleAccountDto>>
 {
     public CreateGoogleAccountRequest(string googleAuthToken)
     {
