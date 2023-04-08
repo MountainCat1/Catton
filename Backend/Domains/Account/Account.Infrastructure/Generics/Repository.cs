@@ -1,10 +1,12 @@
 ﻿using System.Linq.Expressions;
 using Account.Domain.Abstractions;
+using Account.Infrastructure.Errors.Database;
+using Account.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Account.Infrastructure.Generics;
 
-public class Repository<TEntity, TDbContext> : IRepository<TEntity> 
+public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     where TEntity : class, IEntity
     where TDbContext : DbContext
 {
@@ -16,22 +18,19 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     {
         _dbSet = dbContext.Set<TEntity>();
 
-        _saveChangesAsyncDelegate = async () =>
-        {
-            await dbContext.SaveChangesAsync();
-        };
+        _saveChangesAsyncDelegate = async () => { await dbContext.SaveChangesAsync(); };
     }
 
     public virtual async Task<TEntity?> GetOneAsync(params object[] guids)
     {
         if (guids.Length == 0)
             throw new ArgumentException("No key provided");
-        
+
         var entity = await _dbSet.FindAsync(guids);
-        
+
         return entity;
     }
-    
+
     public virtual async Task<IEnumerable<TEntity>> GetAsync(
         Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
@@ -58,7 +57,9 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
             return await query.ToListAsync();
         }
     }
-    public async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null, params string[] includeProperties)
+
+    public async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null,
+        params string[] includeProperties)
     {
         IQueryable<TEntity> query = _dbSet;
 
@@ -88,7 +89,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     public virtual async Task<ICollection<TEntity>> GetAllAsync()
     {
         var entities = await _dbSet.ToListAsync();
-        
+
         return entities;
     }
 
@@ -102,7 +103,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     public virtual Task<TEntity> CreateAsync(TEntity entity)
     {
         _dbSet.Add(entity);
-        
+
         return Task.FromResult(entity);
     }
 
@@ -116,8 +117,19 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         return entity;
     }
 
-    public virtual async Task SaveChangesAsync()
+    public virtual async Task<Exception?> SaveChangesAsync()
     {
-        await _saveChangesAsyncDelegate();
+        try
+        {
+            await _saveChangesAsyncDelegate();
+        }
+        catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())
+        {
+            return new DuplicateEntryException("A duplicate entry was detected.", ex);
+        }
+
+        return null;
     }
+    
+    
 }

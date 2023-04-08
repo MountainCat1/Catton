@@ -1,12 +1,10 @@
 using Account.Application;
 using Account.Application.Extensions;
 using Account.Application.Features.GoogleAuthentication;
-using Account.Application.Services;
 using Account.Application.Settings;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 

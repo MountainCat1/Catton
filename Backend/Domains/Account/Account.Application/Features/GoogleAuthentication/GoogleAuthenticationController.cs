@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Account.Application.Dto;
+﻿using Account.Application.Dto;
 using Account.Application.Extensions;
 using Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 using Account.Domain.Repositories;
