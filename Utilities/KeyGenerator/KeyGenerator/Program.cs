@@ -8,7 +8,7 @@ public class Program
     {
         var keys =  GenerateString();
         
-        GenerateJwtConfigurationJson(keys.publicKey, keys.privateKey, keys.publicKeyInfo);
+        GenerateJwtConfigurationJson(keys.privateKey, keys.publicKey, keys.publicKeyInfo);
     }
 
     static (string publicKey, string privateKey, string publicKeyInfo) GenerateString()
