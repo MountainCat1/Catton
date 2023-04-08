@@ -2,6 +2,7 @@
 using Account.Domain.Abstractions;
 using Account.Infrastructure.Errors.Database;
 using Account.Infrastructure.Extensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Account.Infrastructure.Generics;
@@ -12,10 +13,14 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
 {
     private readonly DbSet<TEntity> _dbSet;
     private readonly Func<Task> _saveChangesAsyncDelegate;
+    private IMediator _mediator;
+    private TDbContext _dbContext;
 
 
-    public Repository(TDbContext dbContext)
+    public Repository(TDbContext dbContext, IMediator mediator)
     {
+        _dbContext = dbContext;
+        _mediator = mediator;
         _dbSet = dbContext.Set<TEntity>();
 
         _saveChangesAsyncDelegate = async () => { await dbContext.SaveChangesAsync(); };
@@ -121,6 +126,8 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     {
         try
         {
+            await _mediator.DispatchDomainEventsAsync(_dbContext);
+            
             await _saveChangesAsyncDelegate();
         }
         catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())

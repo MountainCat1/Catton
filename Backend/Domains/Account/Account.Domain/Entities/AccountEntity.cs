@@ -2,7 +2,7 @@
 
 namespace Account.Domain.Entities;
 
-public abstract class AccountEntity : IEntity
+public abstract class AccountEntity : Entity
 {
     public string Id { get; set; }
 
