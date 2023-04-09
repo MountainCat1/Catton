@@ -14,9 +14,8 @@ public class AccountDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<AccountEntity>().HasKey(x => x.Id);
-        
         // == ACCOUNTS
+        modelBuilder.Entity<AccountEntity>().HasKey(x => x.Id);
         
         // email
         modelBuilder.Entity<AccountEntity>().Property(x => x.Email).IsRequired();
