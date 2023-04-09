@@ -27,9 +27,9 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> CreateAccount([FromBody] AuthRequestModel authRequestModel)
+    public async Task<IActionResult> CreateAccount([FromBody] CreateGoogleAccountDto authRequestModel)
     {
-        var request = new CreateGoogleAccountRequest(authRequestModel.Token);
+        var request = new CreateGoogleAccountRequest(authRequestModel.AuthToken);
 
         var result = await _mediator.Send(request);
 
@@ -37,11 +37,11 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("authenticate")]
-    public async Task<IActionResult> Authenticate([FromBody] AuthRequestModel authRequestModel)
+    public async Task<IActionResult> Authenticate([FromBody] AuthiViaGoogleDto requestDto)
     {
         var request = new AuthiViaGoogleRequest()
         {
-            GoogleAuthToken = authRequestModel.Token
+            GoogleAuthToken = requestDto.AuthToken
         };
 
         var result = await _mediator.Send(request);
