@@ -16,6 +16,8 @@ public class AccountDbContext : DbContext
 
         // == ACCOUNTS
         modelBuilder.Entity<AccountEntity>().HasKey(x => x.Id);
+        modelBuilder.Entity<AccountEntity>().HasDiscriminator<string>("discriminator")
+            .HasValue<GoogleAccountEntity>("google");
         
         // email
         modelBuilder.Entity<AccountEntity>().Property(x => x.Email).IsRequired();
