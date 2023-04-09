@@ -1,5 +1,6 @@
 using Account.Application;
 using Account.Application.Extensions;
+using Account.Application.Features.EmailPasswordAuthentication;
 using Account.Application.Features.GoogleAuthentication;
 using Account.Application.Services;
 using Account.Application.Settings;
@@ -54,12 +55,15 @@ services.AddDbContext<AccountDbContext>(options =>
         b => b.MigrationsAssembly(typeof(AssemlyMarker).Assembly.FullName));
 });
 
+services.AddScoped<IHashingService, HashingService>();
 services.AddScoped<IJWTService, JWTService>();
+
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
-
+services.AddScoped<IPasswordAccountRepository, PasswordAccountRepository>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
+services.AddScoped<IPasswordAuthProviderService, PasswordAuthProviderService>();
 
 services.AddAsymmetricAuthentication(jwtConfig);
 

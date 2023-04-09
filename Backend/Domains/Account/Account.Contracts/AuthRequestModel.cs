@@ -1,11 +1,13 @@
-﻿namespace Account.Application.Dto;
+﻿using Account.Contracts.Abstractions;
+
+namespace Account.Contracts;
 
 public enum AuthMethod {
     Default,
     Google
 }
 
-public class AuthRequestDto {
+public class AuthRequestModel {
     public string Token { get; set; }
     public AuthMethod Method { get; set; }
 }

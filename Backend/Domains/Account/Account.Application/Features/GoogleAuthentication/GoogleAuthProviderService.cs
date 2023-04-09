@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Account.Application.Features.GoogleAuthentication;
 
-public interface IGoogleAuthProviderService : IAuthProviderService<GoogleAccountEntity, GoogleAuthenticationData>
+public interface IGoogleAuthProviderService : IAuthProviderService<GoogleAccountEntity>
 {
     /// <summary>
     /// Validates google JWT and its return payload

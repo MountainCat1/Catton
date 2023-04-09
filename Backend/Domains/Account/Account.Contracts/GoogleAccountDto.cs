@@ -1,4 +1,4 @@
-﻿namespace Account.Application.Dto;
+﻿namespace Account.Contracts;
 
 public class GoogleAccountDto : AccountDto
 {

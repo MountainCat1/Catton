@@ -14,11 +14,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Account.Contracts\Account.Contracts.csproj" />
       <ProjectReference Include="..\Account.Domain\Account.Domain.csproj" />
       <ProjectReference Include="..\Account.Infrastructure\Account.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
       <PackageReference Include="Google.Apis.Auth" Version="1.60.0" />

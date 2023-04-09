@@ -10,18 +10,18 @@ using LanguageExt.Common;
 
 namespace Account.Application.Features.EmailPasswordAuthentication;
 
-public interface IEmailAuthProviderService : IAuthProviderService<PasswordAccountEntity>
+public interface IPasswordAuthProviderService : IAuthProviderService<PasswordAccountEntity>
 {
     public Task<Result<AccountDto>> ValidateCredentials(CredentialsModel credentialsModel);
 }
 
-public class EmailAuthProviderService : IEmailAuthProviderService
+public class PasswordAuthProviderService : IPasswordAuthProviderService
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
     private readonly IHashingService _hashingService;
 
 
-    public EmailAuthProviderService(IPasswordAccountRepository passwordAccountRepository, IHashingService hashingService)
+    public PasswordAuthProviderService(IPasswordAccountRepository passwordAccountRepository, IHashingService hashingService)
     {
         _passwordAccountRepository = passwordAccountRepository;
         _hashingService = hashingService;

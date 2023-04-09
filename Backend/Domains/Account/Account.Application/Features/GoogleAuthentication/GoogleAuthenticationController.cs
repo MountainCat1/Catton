@@ -1,7 +1,7 @@
-﻿using Account.Application.Dto;
-using Account.Application.Extensions;
+﻿using Account.Application.Extensions;
 using Account.Application.Features.GoogleAuthentication.AuthViaGoogle;
 using Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
+using Account.Contracts;
 using Account.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Account.Application.Features.GoogleAuthentication;
 
 [ApiController]
-[Route("api/auth/google")]
+[Route("api/authentication/google")]
 public class AuthenticationController : Controller
 {
-    private IGoogleAuthProviderService _googleAuthProvider;
-    private IMediator _mediator;
+    private readonly IGoogleAuthProviderService _googleAuthProvider;
+    private readonly IMediator _mediator;
 
-    private IAccountRepository _accountRepository;
+    private readonly IAccountRepository _accountRepository;
 
     public AuthenticationController(IGoogleAuthProviderService googleAuthProvider, IMediator mediator,
         IAccountRepository accountRepository)
@@ -27,9 +27,9 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> CreateAccount([FromBody] AuthRequestDto authRequestDto)
+    public async Task<IActionResult> CreateAccount([FromBody] AuthRequestModel authRequestModel)
     {
-        var request = new CreateGoogleAccountRequest(authRequestDto.Token);
+        var request = new CreateGoogleAccountRequest(authRequestModel.Token);
 
         var result = await _mediator.Send(request);
 
@@ -37,11 +37,11 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("authenticate")]
-    public async Task<IActionResult> Authenticate([FromBody] AuthRequestDto authRequestDto)
+    public async Task<IActionResult> Authenticate([FromBody] AuthRequestModel authRequestModel)
     {
         var request = new AuthiViaGoogleRequest()
         {
-            GoogleAuthToken = authRequestDto.Token
+            GoogleAuthToken = authRequestModel.Token
         };
 
         var result = await _mediator.Send(request);
