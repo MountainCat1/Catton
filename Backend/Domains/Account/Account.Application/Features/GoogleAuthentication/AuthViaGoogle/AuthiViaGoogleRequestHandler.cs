@@ -37,13 +37,7 @@ public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogle
 
         var account = await _accountRepository.GetOneRequiredAsync(account => account.Email == payload.Email);
 
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.PrimarySid, account.Id.ToString()),
-            new Claim(ClaimTypes.Email, account.Email),
-        };
-
-        var jwt = _jwtService.GenerateAsymmetricJwtToken(new ClaimsIdentity(claims));
+        var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
 
         return jwt;
     }
