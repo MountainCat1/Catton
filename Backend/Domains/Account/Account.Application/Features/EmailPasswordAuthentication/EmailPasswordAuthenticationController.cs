@@ -17,10 +17,11 @@ public class EmailPasswordAuthenticationController : Controller
         _mediator = mediator;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> RegisterAccount([FromBody] CreatePasswordAccountModel model)
+    
+    [HttpPost("auth")]
+    public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordModel model)
     {
-        var request = new CreatePasswordAccountRequest()
+        var request = new AuthViaPasswordRequest()
         {
             Email = model.Email,
             Password = model.Password,
@@ -30,11 +31,11 @@ public class EmailPasswordAuthenticationController : Controller
 
         return result.ToOk(x => x);
     }
-
-    [HttpPost("auth")]
-    public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordModel model)
+    
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterAccount([FromBody] CreatePasswordAccountModel model)
     {
-        var request = new AuthViaPasswordRequest()
+        var request = new CreatePasswordAccountRequest()
         {
             Email = model.Email,
             Password = model.Password,
