@@ -1,4 +1,4 @@
-﻿namespace Account.Application.Features.EmailPasswordAuthentication;
+﻿namespace Account.Application.Features.EmailPasswordAuthentication.CreatePasswordAccount;
 
 public class CreatePasswordAccountModel
 {
