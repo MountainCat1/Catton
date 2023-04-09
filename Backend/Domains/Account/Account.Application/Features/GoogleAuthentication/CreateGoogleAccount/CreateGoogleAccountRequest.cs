@@ -3,7 +3,7 @@ using Account.Contracts;
 
 namespace Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 
-public class CreateGoogleAccountRequest : IResultRequest<GoogleAccountDto>
+public class CreateGoogleAccountRequest : IResultRequest
 {
     public CreateGoogleAccountRequest(string googleAuthToken)
     {
