@@ -17,7 +17,8 @@ public class AccountDbContext : DbContext
         // == ACCOUNTS
         modelBuilder.Entity<AccountEntity>().HasKey(x => x.Id);
         modelBuilder.Entity<AccountEntity>().HasDiscriminator<string>("discriminator")
-            .HasValue<GoogleAccountEntity>("google");
+            .HasValue<GoogleAccountEntity>("google")
+            .HasValue<PasswordAccountEntity>("passwordemail");
         
         // email
         modelBuilder.Entity<AccountEntity>().Property(x => x.Email).IsRequired();
@@ -29,4 +30,5 @@ public class AccountDbContext : DbContext
 
     public DbSet<AccountEntity> Accounts { get; set; }
     public DbSet<GoogleAccountEntity> GoogleAccounts { get; set; }
+    public DbSet<PasswordAccountEntity> PassowrdAccounts { get; set; }
 }

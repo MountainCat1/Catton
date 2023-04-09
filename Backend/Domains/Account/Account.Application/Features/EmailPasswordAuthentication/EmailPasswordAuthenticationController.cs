@@ -16,30 +16,21 @@ public class EmailPasswordAuthenticationController : Controller
     {
         _mediator = mediator;
     }
-
     
     [HttpPost("auth")]
-    public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordModel model)
+    public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordDto dto) // <...>Dto - to co przychodzi z front endu
     {
-        var request = new AuthViaPasswordRequest()
-        {
-            Email = model.Email,
-            Password = model.Password,
-        };
+        var request = new AuthViaPasswordRequest(dto);
 
-        var result = await _mediator.Send(request);
+        var result = await _mediator.Send(request); 
 
-        return result.ToOk(x => x);
+        return result.ToOk();
     }
     
     [HttpPost("register")]
-    public async Task<IActionResult> RegisterAccount([FromBody] CreatePasswordAccountModel model)
+    public async Task<IActionResult> RegisterAccount([FromBody] CreatePasswordAccountDto dto)
     {
-        var request = new CreatePasswordAccountRequest()
-        {
-            Email = model.Email,
-            Password = model.Password,
-        };
+        var request = new CreatePasswordAccountRequest(dto);
 
         var result = await _mediator.Send(request);
 

@@ -1,10 +1,19 @@
 ﻿using Account.Application.Abstractions;
 using Account.Contracts;
+using MediatR;
 
 namespace Account.Application.Features.EmailPasswordAuthentication.CreatePasswordAccount;
 
-public class CreatePasswordAccountRequest : IResultRequest<AccountDto>
+public class CreatePasswordAccountRequest : IResultRequest<Unit>
 {
-    public required string Email { get; set; }
-    public required string Password { get; set; }
+    public CreatePasswordAccountRequest(CreatePasswordAccountDto dto)
+    {
+        Email = dto.Email;
+        Password = dto.Password;
+        Username = dto.Username;
+    }
+
+    public string Email { get; }
+    public string Password { get; }
+    public string Username { get; }
 }

@@ -5,7 +5,7 @@ using LanguageExt.Common;
 
 namespace Account.Application.Features.EmailPasswordAuthentication.AuthViaPassword;
 
-public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswordRequest, string>
+public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswordRequest, AuthViaPasswordResponseDto>
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
     private readonly IHashingService _hashingService;
@@ -18,7 +18,7 @@ public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswo
         _passwordAccountRepository = passwordAccountRepository;
     }
 
-    public async Task<Result<string>> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
+    public async Task<Result<AuthViaPasswordResponseDto>> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

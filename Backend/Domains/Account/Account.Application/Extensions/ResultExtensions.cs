@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LanguageExt;
 using LanguageExt.Common;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,25 @@ public static class ResultExtensions
             Succ: obj =>
             {
                 return new OkObjectResult(obj);
+            },
+            Fail: exception =>
+            {
+                if (exception is ValidationException validationException)
+                {
+                    return new BadRequestObjectResult(validationException);
+                }
+
+                return new StatusCodeResult(500);
+            });
+    }
+    
+    public static IActionResult ToOk<TResult, TContract>(
+        this Result<Unit> result)
+    {
+        return result.Match<IActionResult>(
+            Succ: obj =>
+            {
+                return new OkResult();
             },
             Fail: exception =>
             {

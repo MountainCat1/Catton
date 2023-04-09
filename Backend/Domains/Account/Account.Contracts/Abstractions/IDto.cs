@@ -2,6 +2,9 @@
 
 namespace Account.Contracts.Abstractions;
 
-public interface IDto<T> where T : IEntity
+public interface IDto
+{
+}
+public interface IDto<T> : IDto where T : IEntity
 {
 }
