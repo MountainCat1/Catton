@@ -1,11 +1,11 @@
-﻿using Account.Application.Services;
+﻿using Account.Application.Abstractions;
+using Account.Application.Services;
 using Account.Domain.Repositories;
 using LanguageExt.Common;
-using MediatR;
 
 namespace Account.Application.Features.EmailPasswordAuthentication.AuthViaPassword;
 
-public class AuthViaPasswordRequestHandler : IRequestHandler<AuthViaPasswordRequest, Result<string>>
+public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswordRequest, string>
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
     private readonly IHashingService _hashingService;

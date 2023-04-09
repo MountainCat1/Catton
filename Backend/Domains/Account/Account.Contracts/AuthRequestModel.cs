@@ -1,6 +1,4 @@
-﻿using Account.Contracts.Abstractions;
-
-namespace Account.Contracts;
+﻿namespace Account.Contracts;
 
 public enum AuthMethod {
     Default,

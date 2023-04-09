@@ -1,7 +1,4 @@
 ﻿using Account.Application.Abstractions;
-using Account.Domain.Entities;
-using LanguageExt.Common;
-using MediatR;
 
 namespace Account.Application.Features.EmailPasswordAuthentication.AuthViaPassword;
 

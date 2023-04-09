@@ -2,7 +2,6 @@
 using Account.Domain.Abstractions;
 using Account.Infrastructure.Errors.Database;
 using Account.Infrastructure.Extensions;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

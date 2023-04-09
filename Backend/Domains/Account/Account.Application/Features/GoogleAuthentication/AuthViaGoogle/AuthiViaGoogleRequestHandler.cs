@@ -1,13 +1,13 @@
 ﻿using System.Security.Claims;
+using Account.Application.Abstractions;
 using Account.Application.Services;
 using Account.Domain.Repositories;
 using Google.Apis.Auth;
 using LanguageExt.Common;
-using MediatR;
 
 namespace Account.Application.Features.GoogleAuthentication.AuthViaGoogle;
 
-public class AuthiViaGoogleRequestHandler : IRequestHandler<AuthiViaGoogleRequest, Result<string>>
+public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogleRequest, string>
 {
     private IAccountRepository _accountRepository;
     private IGoogleAuthProviderService _authProviderService;

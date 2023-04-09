@@ -1,4 +1,5 @@
-﻿using Account.Application.Extensions.DtoMapping;
+﻿using Account.Application.Abstractions;
+using Account.Application.Extensions.DtoMapping;
 using Account.Contracts;
 using Account.Domain.DomainEvents;
 using Account.Domain.Entities;
@@ -8,7 +9,7 @@ using MediatR;
 
 namespace Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 
-public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAccountRequest, Result<GoogleAccountDto>>
+public class CreateGoogleAccountRequestHandler : IResultRequestHandler<CreateGoogleAccountRequest, GoogleAccountDto>
 {
     private readonly IGoogleAccountRepository _googleAccountRepository;
     private readonly IGoogleAuthProviderService _googleService;

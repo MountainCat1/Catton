@@ -1,6 +1,4 @@
 ﻿using Account.Application.Abstractions;
-using LanguageExt.Common;
-using MediatR;
 
 namespace Account.Application.Features.GoogleAuthentication.AuthViaGoogle;
 
