@@ -11,12 +11,12 @@ public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogle
 {
     private IAccountRepository _accountRepository;
     private IGoogleAuthProviderService _authProviderService;
-    private IJWTService _jwtService;
+    private IJwtService _jwtService;
 
     public AuthiViaGoogleRequestHandler(
         IAccountRepository accountRepository,
         IGoogleAuthProviderService authProviderService,
-        IJWTService jwtService)
+        IJwtService jwtService)
     {
         _accountRepository = accountRepository;
         _authProviderService = authProviderService;

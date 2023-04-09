@@ -56,7 +56,7 @@ services.AddDbContext<AccountDbContext>(options =>
 });
 
 services.AddScoped<IHashingService, HashingService>();
-services.AddScoped<IJWTService, JWTService>();
+services.AddScoped<IJwtService, JwtService>();
 
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();

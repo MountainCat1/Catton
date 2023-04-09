@@ -34,6 +34,6 @@ public class EmailPasswordAuthenticationController : Controller
 
         var result = await _mediator.Send(request);
 
-        return result.ToOk(x => x);
+        return result.ToOk();
     }
 }

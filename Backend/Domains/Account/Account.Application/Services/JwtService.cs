@@ -3,21 +3,24 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Account.Application.Settings;
+using Account.Contracts;
+using Account.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Account.Application.Services;
 
-public interface IJWTService
+public interface IJwtService
 {
     public string GenerateAsymmetricJwtToken(ClaimsIdentity claimsIdentity);
+    public string GenerateAsymmetricJwtToken(AccountEntity accountDto);
 }
 
-public class JWTService : IJWTService
+public class JwtService : IJwtService
 {
     private readonly JwtConfig _jwtConfig;
 
-    public JWTService(IOptions<JwtConfig> jwtConfiguration)
+    public JwtService(IOptions<JwtConfig> jwtConfiguration)
     {
         _jwtConfig = jwtConfiguration.Value;
     }
@@ -50,7 +53,16 @@ public class JWTService : IJWTService
 
         return stringToken;
     }
-    
+
+    public string GenerateAsymmetricJwtToken(AccountEntity account)
+    {
+        return GenerateAsymmetricJwtToken(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.PrimarySid, account.Id.ToString()),
+            new Claim(ClaimTypes.Email, account.Email),
+        }));
+    }
+
     private string GenerateSymmetricJwtToken(ClaimsIdentity claimsIdentity)
     {
         var tokenHandler = new JwtSecurityTokenHandler();

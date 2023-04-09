@@ -1,5 +1,7 @@
-﻿using Account.Application.Abstractions;
+﻿using System.Security.Claims;
+using Account.Application.Abstractions;
 using Account.Application.Services;
+using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using LanguageExt.Common;
 
@@ -9,17 +11,42 @@ public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswo
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
     private readonly IHashingService _hashingService;
+    private readonly IJwtService _jwtService;
 
     public AuthViaPasswordRequestHandler(
         IHashingService hashingService, 
-        IPasswordAccountRepository passwordAccountRepository)
+        IPasswordAccountRepository passwordAccountRepository,
+        IJwtService jwtService)
     {
         _hashingService = hashingService;
         _passwordAccountRepository = passwordAccountRepository;
+        _jwtService = jwtService;
     }
 
     public async Task<Result<AuthViaPasswordResponseDto>> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        PasswordAccountEntity? account;
+        try
+        {
+            account = await _passwordAccountRepository
+                .GetOneAsync(x => x.Email == request.Email);
+        }
+        catch (Exception ex)
+        {
+            return new Result<AuthViaPasswordResponseDto>(ex);
+        }
+
+        if (account is null)
+            return new Result<AuthViaPasswordResponseDto>(new UnauthorizedAccessException());
+        
+        if(!_hashingService.VerifyPassword(account.PasswordHash, request.Password))
+            return new Result<AuthViaPasswordResponseDto>(new UnauthorizedAccessException());
+        
+        var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
+
+        return new AuthViaPasswordResponseDto()
+        {
+            Token = jwt
+        };
     }
 }

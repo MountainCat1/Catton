@@ -1,12 +1,10 @@
 ﻿using Account.Application.Abstractions;
-using Account.Application.Extensions.DtoMapping;
 using Account.Application.Services;
-using Account.Contracts;
 using Account.Domain.DomainEvents;
 using Account.Domain.Entities;
 using Account.Domain.Repositories;
+using LanguageExt;
 using LanguageExt.Common;
-using MediatR;
 
 namespace Account.Application.Features.EmailPasswordAuthentication.CreatePasswordAccount;
 
@@ -39,6 +37,6 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
         if (dbException is not null)
             return new Result<Unit>(dbException);
         
-        return new Result<Unit>(Unit.Value);
+        return new Result<Unit>(Unit.Default);
     }
 }

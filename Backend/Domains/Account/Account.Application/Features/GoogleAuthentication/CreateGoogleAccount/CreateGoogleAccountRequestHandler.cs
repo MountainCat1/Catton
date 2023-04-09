@@ -5,7 +5,6 @@ using Account.Domain.DomainEvents;
 using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using LanguageExt.Common;
-using MediatR;
 
 namespace Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 

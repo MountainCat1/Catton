@@ -15,7 +15,7 @@ public interface IResultRequestHandler<TResultRequest, TResult>
 }
 
 public interface IResultRequestHandler<TResultRequest> 
-    : IRequestHandler<TResultRequest, Result<Unit>>, IResultRequestHandler 
-    where TResultRequest : IResultRequest<Unit>
+    : IRequestHandler<TResultRequest, Result<LanguageExt.Unit>>, IResultRequestHandler 
+    where TResultRequest : IResultRequest<LanguageExt.Unit>
 {
 }

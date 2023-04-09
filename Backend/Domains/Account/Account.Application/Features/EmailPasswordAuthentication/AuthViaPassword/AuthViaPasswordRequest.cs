@@ -1,5 +1,4 @@
 ﻿using Account.Application.Abstractions;
-using LanguageExt.Pipes;
 
 namespace Account.Application.Features.EmailPasswordAuthentication.AuthViaPassword;
 

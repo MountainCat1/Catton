@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Diagnostics;
+using FluentValidation;
 using LanguageExt;
 using LanguageExt.Common;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,7 @@ public static class ResultExtensions
             },
             Fail: exception =>
             {
-                if (exception is ValidationException validationException)
-                {
-                    return new BadRequestObjectResult(validationException);
-                }
-
-                return new StatusCodeResult(500);
+                return ProcessFail(exception);
             });
     }
     
@@ -37,16 +33,11 @@ public static class ResultExtensions
             },
             Fail: exception =>
             {
-                if (exception is ValidationException validationException)
-                {
-                    return new BadRequestObjectResult(validationException);
-                }
-
-                return new StatusCodeResult(500);
+                return ProcessFail(exception);
             });
     }
     
-    public static IActionResult ToOk<TResult, TContract>(
+    public static IActionResult ToOk(
         this Result<Unit> result)
     {
         return result.Match<IActionResult>(
@@ -56,12 +47,22 @@ public static class ResultExtensions
             },
             Fail: exception =>
             {
-                if (exception is ValidationException validationException)
-                {
-                    return new BadRequestObjectResult(validationException);
-                }
-
-                return new StatusCodeResult(500);
+                return ProcessFail(exception);
             });
+    }
+
+    private static IActionResult ProcessFail(Exception exception)
+    {
+        if (exception is ValidationException validationException)
+        {
+            return new BadRequestObjectResult(validationException);
+        }
+                
+        if (exception is UnauthorizedAccessException ex)
+        {
+            return new UnauthorizedObjectResult(ex);
+        }
+
+        return new StatusCodeResult(500);
     }
 }
