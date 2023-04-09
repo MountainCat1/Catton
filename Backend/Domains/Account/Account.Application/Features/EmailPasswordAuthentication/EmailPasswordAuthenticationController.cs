@@ -18,7 +18,7 @@ public class EmailPasswordAuthenticationController : Controller
     }
     
     [HttpPost("auth")]
-    public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordDto dto) // <...>Dto - to co przychodzi z front endu
+    public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordDto dto)
     {
         var request = new AuthViaPasswordRequest(dto);
 
