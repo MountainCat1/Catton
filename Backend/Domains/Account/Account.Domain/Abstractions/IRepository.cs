@@ -18,9 +18,13 @@ public interface IRepository<TEntity> : IRepository where TEntity : Entity
         Expression<Func<TEntity, bool>>? filter = null,
         params string[] includeProperties);
     public Task<TEntity> GetOneRequiredAsync(params object[] keys);
+    Task<TEntity> GetOneRequiredAsync(Expression<Func<TEntity, bool>>? filter = null,
+        params string[] includeProperties);
     public Task<ICollection<TEntity>> GetAllAsync();
     public Task DeleteAsync(params object[] keys);
     public Task<TEntity> CreateAsync(TEntity entity);
     public Task<TEntity> UpdateAsync(object update, params object[] keys);
     public Task<Exception?> SaveChangesAsync();
+
+
 }

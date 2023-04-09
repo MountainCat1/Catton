@@ -2,6 +2,7 @@
 using Account.Application.Settings;
 using Account.Domain.Entities;
 using Google.Apis.Auth;
+using Microsoft.Extensions.Options;
 
 namespace Account.Application.Features.GoogleAuthentication;
 
@@ -21,10 +22,10 @@ public class GoogleAuthProviderService : IGoogleAuthProviderService
     private readonly ILogger<IGoogleAuthProviderService> _logger;
     
     public GoogleAuthProviderService(
-        AuthenticationConfig authenticationConfig, 
+        IOptions<AuthenticationConfig> authenticationConfig, 
         ILogger<IGoogleAuthProviderService> logger)
     {
-        _authenticationConfig = authenticationConfig;
+        _authenticationConfig = authenticationConfig.Value;
         _logger = logger;
     }
 

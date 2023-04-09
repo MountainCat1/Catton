@@ -1,28 +1,50 @@
-﻿using Account.Domain.Repositories;
+﻿using System.Security.Claims;
+using Account.Application.Services;
+using Account.Domain.Repositories;
+using Google.Apis.Auth;
+using LanguageExt.Common;
 using MediatR;
 
 namespace Account.Application.Features.GoogleAuthentication.AuthViaGoogle;
 
-public class AuthiViaGoogleRequestHandler : IRequestHandler<AuthiViaGoogleRequest, string>
+public class AuthiViaGoogleRequestHandler : IRequestHandler<AuthiViaGoogleRequest, Result<string>>
 {
     private IAccountRepository _accountRepository;
     private IGoogleAuthProviderService _authProviderService;
-    
-    public AuthiViaGoogleRequestHandler(IAccountRepository accountRepository, IGoogleAuthProviderService authProviderService)
+    private IJWTService _jwtService;
+
+    public AuthiViaGoogleRequestHandler(
+        IAccountRepository accountRepository,
+        IGoogleAuthProviderService authProviderService,
+        IJWTService jwtService)
     {
         _accountRepository = accountRepository;
         _authProviderService = authProviderService;
+        _jwtService = jwtService;
     }
 
-    public async Task<string> Handle(AuthiViaGoogleRequest request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(AuthiViaGoogleRequest request, CancellationToken cancellationToken)
     {
-        var payload = await _authProviderService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
-        var account = await _accountRepository.GetOneAsync(payload.JwtId);
-        
-        // TODO: payload.JwtId idk if is good for this
-        Console.WriteLine(account.Email);
-        
-        // TODO: get an account via goole id, create our JWT and return
-        throw new NotImplementedException();
+        GoogleJsonWebSignature.Payload payload;
+        try
+        {
+            payload = await _authProviderService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
+        }
+        catch (Exception ex)
+        {
+            return new Result<string>(ex);
+        }
+
+        var account = await _accountRepository.GetOneRequiredAsync(account => account.Email == payload.Email);
+
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.PrimarySid, account.Id.ToString()),
+            new Claim(ClaimTypes.Email, account.Email),
+        };
+
+        var jwt = _jwtService.GenerateAsymmetricJwtToken(new ClaimsIdentity(claims));
+
+        return jwt;
     }
 }

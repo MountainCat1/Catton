@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using LanguageExt.Common;
+using MediatR;
 
 namespace Account.Application.Features.GoogleAuthentication.AuthViaGoogle;
 
-public class AuthiViaGoogleRequest : IRequest<string>
+public class AuthiViaGoogleRequest : IRequest<Result<string>>
 {
-    public string GoogleAuthToken { get; set; }
+    public required string GoogleAuthToken { get; set; }
 }

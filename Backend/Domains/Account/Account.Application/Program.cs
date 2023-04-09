@@ -1,6 +1,7 @@
 using Account.Application;
 using Account.Application.Extensions;
 using Account.Application.Features.GoogleAuthentication;
+using Account.Application.Services;
 using Account.Application.Settings;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
@@ -14,16 +15,17 @@ var builder = WebApplication.CreateBuilder(args);
 // ========= CONFIGURATION  =========
 var configuration = builder.Configuration;
 
+configuration.AddJsonFile("Secrets/authentication.json");
+configuration.AddJsonFile("Secrets/jwt.json");
 
-// TODO: start using `services.Configure<T>()`
-var authenticationConfig = configuration.GetConfiguration<AuthenticationConfig>("Secrets/authentication.json");
-var jwtConfig = configuration.GetConfiguration<JwtConfig>("Secrets/jwt.json");
+var jwtConfig = configuration.GetConfiguration<JwtConfig>();
 
 // Add services to the container.
 
 var services = builder.Services;
 
-services.AddSingleton<AuthenticationConfig>(authenticationConfig);
+services.Configure<AuthenticationConfig>(configuration.GetSection(nameof(AuthenticationConfig)));
+services.Configure<JwtConfig>(configuration.GetSection(nameof(JwtConfig)));
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
@@ -52,6 +54,7 @@ services.AddDbContext<AccountDbContext>(options =>
         b => b.MigrationsAssembly(typeof(AssemlyMarker).Assembly.FullName));
 });
 
+services.AddScoped<IJWTService, JWTService>();
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
 
@@ -59,7 +62,6 @@ services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
 
 services.AddAsymmetricAuthentication(jwtConfig);
-
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(AssemlyMarker).Assembly));
 

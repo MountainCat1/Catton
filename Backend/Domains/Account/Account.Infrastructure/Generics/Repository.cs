@@ -81,6 +81,17 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
 
         return await query.FirstOrDefaultAsync();
     }
+    
+    public async Task<TEntity> GetOneRequiredAsync(Expression<Func<TEntity, bool>>? filter = null,
+        params string[] includeProperties)
+    {
+        var entity = await GetOneAsync(filter, includeProperties);
+
+        if (entity == null)
+            throw new ItemNotFoundException();
+
+        return entity;
+    }
 
     public virtual async Task<TEntity> GetOneRequiredAsync(params object[] guids)
     {

@@ -1,8 +1,10 @@
 ﻿using Account.Application.Dto;
 using Account.Application.Extensions;
+using Account.Application.Features.GoogleAuthentication.AuthViaGoogle;
 using Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 using Account.Domain.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Application.Features.GoogleAuthentication;
@@ -37,14 +39,22 @@ public class AuthenticationController : Controller
     [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate([FromBody] AuthRequestDto authRequestDto)
     {
-        var v = await _googleAuthProvider.ValidateGoogleJwtAsync(authRequestDto.Token);
+        var request = new AuthiViaGoogleRequest()
+        {
+            GoogleAuthToken = authRequestDto.Token
+        };
 
-        return Ok(authRequestDto.Token);
+        var result = await _mediator.Send(request);
+        
+        return result.ToOk();
     }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
+    
+    [Authorize]
+    [HttpGet("claims")]
+    public async Task<IActionResult> GetAllClaims()
     {
-        return Ok(await _accountRepository.GetAllAsync());
+        var claims = User.Claims;
+        
+        return Ok(claims.Select(claim => new { claim.Type, claim.Value }).ToList());
     }
 }
