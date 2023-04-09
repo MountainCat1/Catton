@@ -25,16 +25,8 @@ public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswo
 
     public async Task<Result<AuthViaPasswordResponseDto>> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
     {
-        PasswordAccountEntity? account;
-        try
-        {
-            account = await _passwordAccountRepository
-                .GetOneAsync(x => x.Email == request.Email);
-        }
-        catch (Exception ex)
-        {
-            return new Result<AuthViaPasswordResponseDto>(ex);
-        }
+        var account = await _passwordAccountRepository
+            .GetOneAsync(x => x.Email == request.Email);
 
         if (account is null)
             return new Result<AuthViaPasswordResponseDto>(new UnauthorizedAccessException());
