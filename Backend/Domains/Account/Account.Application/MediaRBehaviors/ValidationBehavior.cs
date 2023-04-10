@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
-using LanguageExt.Common;
 using MediatR;
-using Unit = LanguageExt.Unit;
 
 namespace Account.Application.MediaRBehaviors;
 

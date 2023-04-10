@@ -1,14 +1,14 @@
 using Account.Application;
 using Account.Application.Extensions;
-using Account.Application.Features.EmailPasswordAuthentication;
-using Account.Application.Features.EmailPasswordAuthentication.CreatePasswordAccount;
-using Account.Application.Features.GoogleAuthentication;
 using Account.Application.MediaRBehaviors;
-using Account.Application.Services;
 using Account.Application.Settings;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Repositories;
+using Account.Service;
+using Account.Service.Features.EmailPasswordAuthentication;
+using Account.Service.Features.GoogleAuthentication;
+using Account.Service.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -59,7 +59,7 @@ services.AddDbContext<AccountDbContext>(options =>
 });
 
 services.AddFluentValidationAutoValidation();
-services.AddValidatorsFromAssemblyContaining<AssemlyMarker>();
+services.AddValidatorsFromAssemblyContaining<ServiceAssemlyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 services.AddScoped<IHashingService, HashingService>();
@@ -74,7 +74,7 @@ services.AddScoped<IPasswordAuthProviderService, PasswordAuthProviderService>();
 
 services.AddAsymmetricAuthentication(jwtConfig);
 
-services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(AssemlyMarker).Assembly));
+services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ServiceAssemlyMarker).Assembly));
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using FluentValidation;
+﻿using FluentValidation;
 using LanguageExt;
 using LanguageExt.Common;
 using Microsoft.AspNetCore.Mvc;
