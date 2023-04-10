@@ -1,5 +1,5 @@
 ﻿using Account.Application.Extensions;
-"using Account.Service.Features.GetClaims;
+using Account.Service.Features.GetClaims;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
