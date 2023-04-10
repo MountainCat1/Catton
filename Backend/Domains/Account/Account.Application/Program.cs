@@ -34,8 +34,12 @@ services.Configure<JwtConfig>(configuration.GetSection(nameof(JwtConfig)));
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
-
-services.AddLogging();
+services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddDebug();
+    loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+});
 
 services.AddCors(options =>
 {

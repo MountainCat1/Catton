@@ -137,17 +137,27 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     {
         try
         {
-            await _mediator.DispatchDomainEventsAsync(_dbContext);
-            
             await _saveChangesAsyncDelegate();
         }
         catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())
         {
+            ClearDomainEvents();
             return new DuplicateEntryException("A duplicate entry was detected.");
         }
-
+        
+        await _mediator.DispatchDomainEventsAsync(_dbContext);
+        
         return null;
     }
-    
-    
+
+    private void ClearDomainEvents()
+    {
+        var domainEntities = _dbContext.ChangeTracker
+            .Entries<Entity>()
+            .Where(entry => entry.Entity.DomainEvents != null && entry.Entity.DomainEvents.Any())
+            .ToArray();
+
+        foreach (var entry in domainEntities)
+            entry.Entity.ClearDomainEvents();
+    }
 }

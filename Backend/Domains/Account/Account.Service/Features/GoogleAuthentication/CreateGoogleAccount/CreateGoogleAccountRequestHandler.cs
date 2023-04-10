@@ -1,5 +1,4 @@
-﻿using Account.Domain.DomainEvents;
-using Account.Domain.Entities;
+﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using Account.Service.Abstractions;
 using LanguageExt;
