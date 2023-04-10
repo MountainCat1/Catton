@@ -1,12 +1,17 @@
 using Account.Application;
 using Account.Application.Extensions;
 using Account.Application.Features.EmailPasswordAuthentication;
+using Account.Application.Features.EmailPasswordAuthentication.CreatePasswordAccount;
 using Account.Application.Features.GoogleAuthentication;
+using Account.Application.MediaRBehaviors;
 using Account.Application.Services;
 using Account.Application.Settings;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Repositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -54,6 +59,10 @@ services.AddDbContext<AccountDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("AccountDb"),  
         b => b.MigrationsAssembly(typeof(AssemlyMarker).Assembly.FullName));
 });
+
+services.AddFluentValidationAutoValidation();
+services.AddValidatorsFromAssemblyContaining<AssemlyMarker>();
+services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 services.AddScoped<IHashingService, HashingService>();
 services.AddScoped<IJwtService, JwtService>();

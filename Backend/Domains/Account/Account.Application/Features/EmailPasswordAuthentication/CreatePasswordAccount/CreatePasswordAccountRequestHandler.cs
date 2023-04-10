@@ -3,6 +3,7 @@ using Account.Application.Services;
 using Account.Domain.DomainEvents;
 using Account.Domain.Entities;
 using Account.Domain.Repositories;
+using FluentValidation;
 using LanguageExt;
 using LanguageExt.Common;
 
@@ -21,6 +22,13 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
     public async Task<Result<Unit>> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
+        // var validationResult = await new CreatePasswordAccountValidator().ValidateAsync(request, cancellationToken);
+        //
+        // if (!validationResult.IsValid)
+        // {
+        //     return new Result<Unit>(new ValidationException(validationResult.Errors));
+        // }
+        
         var googleAccount = new PasswordAccountEntity()
         {
             Email = request.Email,
