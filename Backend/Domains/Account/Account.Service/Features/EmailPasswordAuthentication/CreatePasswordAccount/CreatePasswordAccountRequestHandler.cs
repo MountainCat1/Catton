@@ -21,17 +21,14 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
     public async Task<Result<Unit>> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        var googleAccount = new PasswordAccountEntity()
-        {
-            Email = request.Email,
-            PasswordHash = _hashingService.HashPassword(request.Password),
-            Username = request.Username,
-        };
+        var googleAccount = new PasswordAccountEntity(
+            email: request.Email,
+            username: request.Username,
+            passwordHash: _hashingService.HashPassword(request.Password)
+        );
 
-        var createdEntity = await _passwordAccountRepository.CreateAsync(googleAccount);
-        
-        createdEntity.AddDomainEvent(new CreateAccountDomainEvent());
-        
+        await _passwordAccountRepository.AddAsync(googleAccount);
+
         var dbException = await _passwordAccountRepository.SaveChangesAsync();
 
         if (dbException is not null)

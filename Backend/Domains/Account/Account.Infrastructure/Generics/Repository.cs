@@ -116,7 +116,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         _dbSet.Remove(entity);
     }
 
-    public virtual Task<TEntity> CreateAsync(TEntity entity)
+    public virtual Task<TEntity> AddAsync(TEntity entity)
     {
         _dbSet.Add(entity);
 

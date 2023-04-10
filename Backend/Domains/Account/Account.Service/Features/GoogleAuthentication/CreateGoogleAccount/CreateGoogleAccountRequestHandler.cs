@@ -22,15 +22,12 @@ public class CreateGoogleAccountRequestHandler : IResultRequestHandler<CreateGoo
     {
         var googleTokenPayload = await _googleService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
 
-        var googleAccount = new GoogleAccountEntity()
-        {
-            Email = googleTokenPayload.Email,
-            Username = $"{googleTokenPayload.Name} {googleTokenPayload.FamilyName}",
-        };
+        var googleAccount = new GoogleAccountEntity(
+            email: googleTokenPayload.Email,
+            username: googleTokenPayload.Name
+        );
 
-        var createdEntity = await _googleAccountRepository.CreateAsync(googleAccount);
-        
-        createdEntity.AddDomainEvent(new CreateAccountDomainEvent());
+        await _googleAccountRepository.AddAsync(googleAccount);
         
         var dbException = await _googleAccountRepository.SaveChangesAsync();
 
