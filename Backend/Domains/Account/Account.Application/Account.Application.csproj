@@ -38,7 +38,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Dtos\Abstractions" />
       <Folder Include="Exceptions" />
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Migrations\20230409211420_asdas.cs" />
+      <Compile Remove="Migrations\20230409211420_asdas.Designer.cs" />
+      <Compile Remove="Migrations\20230409020418_someMigration.Designer.cs" />
     </ItemGroup>
 
 </Project>

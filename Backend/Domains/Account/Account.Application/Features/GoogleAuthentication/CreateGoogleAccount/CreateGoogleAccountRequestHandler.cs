@@ -1,6 +1,5 @@
 ﻿using Account.Application.Abstractions;
 using Account.Application.Extensions.DtoMapping;
-using Account.Contracts;
 using Account.Domain.DomainEvents;
 using Account.Domain.Entities;
 using Account.Domain.Repositories;

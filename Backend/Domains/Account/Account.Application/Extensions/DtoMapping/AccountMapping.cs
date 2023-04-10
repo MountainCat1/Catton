@@ -1,4 +1,4 @@
-﻿using Account.Contracts;
+﻿using Account.Application.Dtos;
 using Account.Domain.Entities;
 
 namespace Account.Application.Extensions.DtoMapping;

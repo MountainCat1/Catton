@@ -1,5 +1,4 @@
 ﻿using Account.Application.Abstractions;
-using Account.Contracts;
 
 namespace Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
 

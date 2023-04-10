@@ -1,7 +1,7 @@
-﻿using Account.Application.Extensions.DtoMapping;
+﻿using Account.Application.Dtos;
+using Account.Application.Extensions.DtoMapping;
 using Account.Application.Services;
 using Account.Application.Services.Abstractions;
-using Account.Contracts;
 using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using FluentValidation;

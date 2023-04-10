@@ -1,7 +1,6 @@
 ﻿using Account.Application.Extensions;
 using Account.Application.Features.GoogleAuthentication.AuthViaGoogle;
 using Account.Application.Features.GoogleAuthentication.CreateGoogleAccount;
-using Account.Contracts;
 using Account.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
