@@ -61,34 +61,27 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
     public async Task<Result<Unit>> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        var accountCreationResultTask = PasswordAccountEntity.CreateAsync(
+        var accountCreationResult = await PasswordAccountEntity.CreateAsync(
             email: request.Email,
             username: request.Username,
             passwordHash: _hashingService.HashPassword(request.Password)
         );
 
-        // we need to STOP using LanguageExt...
-        var result= await accountCreationResultTask.Match();
-        
-        await _passwordAccountRepository.AddAsync(accountCreationResult);
+        var saveInDatabaseResult = await accountCreationResult.Match(
+            Fail: exception => Task.FromResult(new Result<Unit>(exception)),
+            Succ: async entity =>
+            {
+                await _passwordAccountRepository.AddAsync(entity);
 
-        var dbException = await _passwordAccountRepository.SaveChangesAsync();
+                var dbException = await _passwordAccountRepository.SaveChangesAsync();
 
-        if (dbException is not null)
-            return new Result<Unit>(dbException);
+                if (dbException is not null)
+                    return new Result<Unit>(dbException);
         
-        return new Result<Unit>(Unit.Default);
-    }
-    
-    public static Option<int> GetValueFromResult<T1>(Result<int, string> result)
-    {
-        if (result.IsSuccess)
-        {
-            return result.Valu;
-        }
-        else
-        {
-            return Option<int>.None;
-        }
+                return new Result<Unit>(Unit.Default);
+            }
+        );
+        
+        return saveInDatabaseResult;
     }
 }
