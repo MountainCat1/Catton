@@ -7,7 +7,17 @@ using LanguageExt.Common;
 
 namespace Account.Service.Features.GoogleAuthentication.AuthViaGoogle;
 
-public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogleRequest, AuthTokenResponseDto>
+public class AuthiViaGoogleRequestContract
+{
+    public required string AuthToken { get; set; }
+}
+
+public class AuthiViaGoogleRequest : IResultRequest<AuthTokenResponseContract>
+{
+    public required string GoogleAuthToken { get; set; }
+}
+
+public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogleRequest, AuthTokenResponseContract>
 {
     private IAccountRepository _accountRepository;
     private IGoogleAuthProviderService _authProviderService;
@@ -23,7 +33,7 @@ public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogle
         _jwtService = jwtService;
     }
 
-    public async Task<Result<AuthTokenResponseDto>> Handle(AuthiViaGoogleRequest request, CancellationToken cancellationToken)
+    public async Task<Result<AuthTokenResponseContract>> Handle(AuthiViaGoogleRequest request, CancellationToken cancellationToken)
     {
         GoogleJsonWebSignature.Payload payload;
         try
@@ -32,14 +42,14 @@ public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogle
         }
         catch (Exception ex)
         {
-            return new Result<AuthTokenResponseDto>(ex);
+            return new Result<AuthTokenResponseContract>(ex);
         }
 
         var account = await _accountRepository.GetOneRequiredAsync(account => account.Email == payload.Email);
 
         var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
 
-        return new AuthTokenResponseDto()
+        return new AuthTokenResponseContract()
         {
             AuthToken = jwt
         };
