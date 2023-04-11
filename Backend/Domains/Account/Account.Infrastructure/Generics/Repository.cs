@@ -2,8 +2,10 @@
 using Account.Domain.Abstractions;
 using Account.Infrastructure.Errors.Database;
 using Account.Infrastructure.Extensions;
+using LanguageExt;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Account.Infrastructure.Generics;
 
@@ -15,12 +17,14 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     private readonly Func<Task> _saveChangesAsyncDelegate;
     private IMediator _mediator;
     private TDbContext _dbContext;
+    private ILogger<Repository<TEntity, TDbContext>> _logger;
 
 
-    public Repository(TDbContext dbContext, IMediator mediator)
+    public Repository(TDbContext dbContext, IMediator mediator, ILogger<Repository<TEntity, TDbContext>> logger)
     {
         _dbContext = dbContext;
         _mediator = mediator;
+        _logger = logger;
         _dbSet = dbContext.Set<TEntity>();
 
         _saveChangesAsyncDelegate = async () => { await dbContext.SaveChangesAsync(); };
@@ -144,7 +148,13 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
             ClearDomainEvents();
             return new DuplicateEntryException("A duplicate entry was detected.");
         }
-        
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message);
+            ClearDomainEvents();
+            return ex;
+        }
+
         await _mediator.DispatchDomainEventsAsync(_dbContext);
         
         return null;

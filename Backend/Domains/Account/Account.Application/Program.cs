@@ -13,6 +13,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +61,11 @@ services.AddDbContext<AccountDbContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("AccountDb"),  
         b => b.MigrationsAssembly(typeof(AssemlyMarker).Assembly.FullName));
+    
+        
+    options.UseLoggerFactory(LoggerFactory.Create(builder => builder
+        .AddFilter((category, level) => false)
+        .AddConsole()));
 });
 
 services.AddFluentValidationAutoValidation();
