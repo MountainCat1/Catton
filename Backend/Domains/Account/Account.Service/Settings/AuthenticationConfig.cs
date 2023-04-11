@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Account.Application.Settings;
+namespace Account.Service.Settings;
 public class AuthenticationConfig
 {
     public int JwtExpireDays { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Account.Application.Settings;
+﻿namespace Account.Service.Settings;
 
 public class JwtConfig
 {

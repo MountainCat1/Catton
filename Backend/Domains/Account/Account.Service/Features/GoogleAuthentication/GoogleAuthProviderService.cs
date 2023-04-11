@@ -1,6 +1,6 @@
-﻿using Account.Application.Settings;
-using Account.Domain.Entities;
+﻿using Account.Domain.Entities;
 using Account.Service.Services.Abstractions;
+using Account.Service.Settings;
 using Google.Apis.Auth;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

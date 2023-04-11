@@ -1,5 +1,5 @@
 ﻿using System.Security.Cryptography;
-using Account.Application.Settings;
+using Account.Service.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

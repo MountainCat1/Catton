@@ -1,7 +1,6 @@
 using Account.Application;
 using Account.Application.Extensions;
 using Account.Application.MediaRBehaviors;
-using Account.Application.Settings;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Repositories;
@@ -9,6 +8,7 @@ using Account.Service;
 using Account.Service.Features.EmailPasswordAuthentication;
 using Account.Service.Features.GoogleAuthentication;
 using Account.Service.Services;
+using Account.Service.Settings;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
