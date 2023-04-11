@@ -1,8 +1,11 @@
 ﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using Account.Service.Abstractions;
+using Account.Service.Extensions;
 using Account.Service.Services;
+using Azure.Core;
 using FluentValidation;
+using Google.Apis.Util;
 using LanguageExt;
 using LanguageExt.Common;
 
@@ -58,13 +61,16 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
     public async Task<Result<Unit>> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        var googleAccount = new PasswordAccountEntity(
+        var accountCreationResultTask = PasswordAccountEntity.CreateAsync(
             email: request.Email,
             username: request.Username,
             passwordHash: _hashingService.HashPassword(request.Password)
         );
 
-        await _passwordAccountRepository.AddAsync(googleAccount);
+        // we need to STOP using LanguageExt...
+        var result= await accountCreationResultTask.Match();
+        
+        await _passwordAccountRepository.AddAsync(accountCreationResult);
 
         var dbException = await _passwordAccountRepository.SaveChangesAsync();
 
@@ -72,5 +78,17 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
             return new Result<Unit>(dbException);
         
         return new Result<Unit>(Unit.Default);
+    }
+    
+    public static Option<int> GetValueFromResult<T1>(Result<int, string> result)
+    {
+        if (result.IsSuccess)
+        {
+            return result.Valu;
+        }
+        else
+        {
+            return Option<int>.None;
+        }
     }
 }
