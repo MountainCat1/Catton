@@ -26,6 +26,7 @@ configuration.AddJsonFile("*.json", optional: true, reloadOnChange: true);
 
 var services = builder.Services;
 
+services.AddCors();
 services.AddControllers();
 services.AddOcelot(configuration);
 services.AddSingleton<ApiFallbackMiddleware>();
@@ -44,19 +45,19 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    
+    app.UseSwaggerForOcelotUI(opt =>
+    {
+        opt.PathToSwaggerGenerator = "/swagger/docs";
+    });
 }
 
 app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
+app.UseStaticFiles();
 app.UseRouting();
 
-app.UseSwaggerForOcelotUI(opt =>
-{
-    opt.PathToSwaggerGenerator = "/swagger/docs";
-});
-
-app.UseMiddleware<ApiFallbackMiddleware>();
+// app.UseMiddleware<ApiFallbackMiddleware>();
 
 app.UseOcelot().Wait();
 
