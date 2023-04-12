@@ -56,7 +56,7 @@ app.UseSwaggerForOcelotUI(opt =>
     opt.PathToSwaggerGenerator = "/swagger/docs";
 });
 
-app.UseMiddleware<ApiFallbackMiddleware>();
+// app.UseMiddleware<ApiFallbackMiddleware>();
 
 app.UseOcelot().Wait();
 
