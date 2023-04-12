@@ -1,9 +1,20 @@
-﻿using Account.Service.Abstractions;
+﻿using System.Security.Claims;
+using Account.Service.Abstractions;
 using Account.Service.Dtos;
 using Account.Service.Dtos.Responses;
 using Catton.Utilities;
 
 namespace Account.Service.Features.GetClaims;
+
+public class GetClaimsRequest : IResultRequest<GetClaimsResponseDto>
+{
+    public ClaimsPrincipal ClaimsPrincipal { get; set; }
+    
+    public GetClaimsRequest(ClaimsPrincipal claimsPrincipal)
+    {
+        ClaimsPrincipal = claimsPrincipal;
+    }
+}
 
 public class GetClaimsRequestHandler : IResultRequestHandler<GetClaimsRequest, GetClaimsResponseDto>
 {
@@ -16,4 +27,9 @@ public class GetClaimsRequestHandler : IResultRequestHandler<GetClaimsRequest, G
 
         return Task.FromResult(Result.Success(responseDto));
     }
+}
+
+public class GetClaimsResponseDto
+{
+    public required IEnumerable<ClaimDto> Claims { get; set; }
 }
