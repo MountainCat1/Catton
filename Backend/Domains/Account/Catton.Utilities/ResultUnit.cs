@@ -37,6 +37,16 @@ public class Result
     {
         return new Result();
     }
+    
+    public static Task<Result> SuccessTask()
+    {
+        return Task.FromResult(Result.Success());
+    }
+    
+    public static Task<Result<T>> SuccessTask<T>(T value)
+    {
+        return Task.FromResult(Result.Success(value));
+    }
 
     public static Result Failure(Exception exception)
     {

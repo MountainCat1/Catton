@@ -43,7 +43,6 @@ public class CreatePasswordAccountValidator : AbstractValidator<CreatePasswordAc
     {
         RuleFor(x => x.Email).EmailAddress();
         RuleFor(x => x.Password).Matches(PasswordRegex);
-        ;
     }
 }
 

@@ -46,6 +46,7 @@ public class Result<T>
         return new Result<T>(value);
     }
     
+    
     public static Result<T> Failure(Exception exception)
     {
         return new Result<T>(exception);

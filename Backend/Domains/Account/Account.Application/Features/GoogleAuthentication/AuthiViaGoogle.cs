@@ -1,4 +1,5 @@
-﻿using Account.Domain.Repositories;
+﻿using Account.Domain.Entities;
+using Account.Domain.Repositories;
 using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
 using Account.Service.Services;
@@ -35,23 +36,34 @@ public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogle
 
     public async Task<Result<AuthTokenResponseContract>> Handle(AuthiViaGoogleRequest request, CancellationToken cancellationToken)
     {
-        GoogleJsonWebSignature.Payload payload;
-        try
-        {
-            payload = await _authProviderService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
-        }
-        catch (Exception ex)
-        {
-            return  Result.Failure<AuthTokenResponseContract>(ex);
-        }
+        return 
+            await ValidateGoogleJwt(request)
+            .BindAsync(GetAccount)
+            .BindAsync(GenerateJwt)
+            .BindAsync(CreateResponseDto);
+    }
 
-        var account = await _accountRepository.GetOneRequiredAsync(account => account.Email == payload.Email);
-
-        var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
-
+    private async Task<Result<AuthTokenResponseContract>> CreateResponseDto(string jwt)
+    {
         return new AuthTokenResponseContract()
         {
             AuthToken = jwt
         };
+    }
+
+    private async Task<Result<string>> GenerateJwt(AccountEntity accountEntity)
+    {
+        return _jwtService.GenerateAsymmetricJwtToken(accountEntity);
+    }
+    private async Task<Result<AccountEntity>> GetAccount(GoogleJsonWebSignature.Payload payload)
+    {
+        return await _accountRepository.GetAccountByEmailAsync(payload.Email);
+    }
+
+    private async Task<Result<GoogleJsonWebSignature.Payload>> ValidateGoogleJwt(AuthiViaGoogleRequest request)
+    {
+        GoogleJsonWebSignature.Payload payload;
+        payload = await _authProviderService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
+        return payload;
     }
 }
