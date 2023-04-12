@@ -1,6 +1,8 @@
 ﻿using Account.Application.Extensions;
 using Account.Service.Features.GetClaims;
+using Azure.Core;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Application.Controllers;
@@ -17,6 +19,9 @@ public class ClaimsController : Controller
     }
 
     [HttpGet]
+    [Authorize]
+    [ProducesResponseType(typeof(GetClaimsResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetClaims()
     {
         var mediatorRequest = new GetClaimsRequest(User);

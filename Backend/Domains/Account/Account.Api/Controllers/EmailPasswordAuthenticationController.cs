@@ -1,6 +1,8 @@
 ﻿using Account.Application.Extensions;
+using Account.Service.Dtos.Responses;
 using Account.Service.Features.EmailPasswordAuthentication;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Application.Controllers;
@@ -17,6 +19,9 @@ public class EmailPasswordAuthenticationController : Controller
     }
     
     [HttpPost("auth")]
+    [AllowAnonymous]
+    [ProducesResponseType( typeof(AuthTokenResponseContract), StatusCodes.Status200OK)]
+    [ProducesResponseType( StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordRequestContract requestContract)
     {
         var request = new AuthViaPasswordRequest(requestContract);
@@ -27,6 +32,9 @@ public class EmailPasswordAuthenticationController : Controller
     }
     
     [HttpPost("register")]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterAccount([FromBody] CreatePasswordAccountRequestContract requestContract)
     {
         var request = new CreatePasswordAccountRequest(requestContract);

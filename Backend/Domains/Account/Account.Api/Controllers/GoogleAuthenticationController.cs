@@ -25,6 +25,9 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("register")]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAccount([FromBody] CreateGoogleAccountRequestContract authRequestModel)
     {
         var request = new CreateGoogleAccountRequest(authRequestModel.AuthToken);
@@ -35,6 +38,9 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("authenticate")]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Authenticate([FromBody] AuthiViaGoogleRequestContract requestRequestContract)
     {
         var request = new AuthiViaGoogleRequest()
@@ -45,14 +51,5 @@ public class AuthenticationController : Controller
         var result = await _mediator.Send(request);
         
         return result.ToOk();
-    }
-    
-    [Authorize]
-    [HttpGet("claims")]
-    public async Task<IActionResult> GetAllClaims()
-    {
-        var claims = User.Claims;
-        
-        return Ok(claims.Select(claim => new { claim.Type, claim.Value }).ToList());
     }
 }
