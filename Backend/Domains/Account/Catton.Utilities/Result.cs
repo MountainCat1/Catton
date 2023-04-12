@@ -111,7 +111,17 @@ public class Result<T>
             result = new Result<B>(await f(this.Value));
         return result;
     }
+
+    public Result<TU> Bind<TU>(Func<T, TU> next)
+    {
+        if(IsFaulted)
+            return new Result<TU>(exception);
+
+        return next(Value);
+    }
 }
+
+
 
 public class BottomException : Exception
 {

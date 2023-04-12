@@ -7,6 +7,6 @@ public interface IResultRequest<T> : IRequest<Result<T>>
 {
 }
 
-public interface IResultRequest : IResultRequest<Unit>
+public interface IResultRequest : IRequest<Result>
 {
 }

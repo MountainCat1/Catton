@@ -32,7 +32,7 @@ public class CreateGoogleAccountRequestHandler : IResultRequestHandler<CreateGoo
         _googleService = googleService;
     }
 
-    public async Task<Result<Unit>> Handle(CreateGoogleAccountRequest request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateGoogleAccountRequest request, CancellationToken cancellationToken)
     {
         var googleTokenPayload = await _googleService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
 

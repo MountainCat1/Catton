@@ -37,10 +37,10 @@ public static class ResultExtensions
     }
     
     public static IActionResult ToOk(
-        this Result<Unit> result)
+        this Result result)
     {
         return result.Match<IActionResult>(
-            Succ: obj =>
+            Succ: () =>
             {
                 return new OkResult();
             },
