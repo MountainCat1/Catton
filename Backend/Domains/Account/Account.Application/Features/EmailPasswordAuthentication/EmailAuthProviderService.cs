@@ -34,7 +34,7 @@ public class PasswordAuthProviderService : IPasswordAuthProviderService
 
         if (account is null)
         {
-            return new Result<AccountDto>(new ValidationException("Account does not exist", new[]
+            return Result<AccountDto>.Failure(new ValidationException("Account does not exist", new[]
             {
                 new ValidationFailure(nameof(CredentialsModel.Email), "Account with provided email does not exist")
             }));
@@ -42,7 +42,7 @@ public class PasswordAuthProviderService : IPasswordAuthProviderService
 
         if (!_hashingService.VerifyPassword(account.PasswordHash, credentialsModel.Password))
         {
-            return new Result<AccountDto>(new ValidationException("Password does not match", new[]
+            return Result<AccountDto>.Failure(new ValidationException("Password does not match", new[]
             {
                 new ValidationFailure(nameof(CredentialsModel.Password), "Password does not match")
             }));

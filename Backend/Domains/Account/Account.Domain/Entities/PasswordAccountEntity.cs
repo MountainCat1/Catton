@@ -24,9 +24,9 @@ public class PasswordAccountEntity : AccountEntity
 
         if (!validationResult.IsValid)
         {
-            return new Result<PasswordAccountEntity>(new ValidationException(validationResult.Errors));
+            return Result.Failure<PasswordAccountEntity>(new ValidationException(validationResult.Errors));
         }
         
-        return newAccount;
+        return Result.Success(newAccount);
     }
 }

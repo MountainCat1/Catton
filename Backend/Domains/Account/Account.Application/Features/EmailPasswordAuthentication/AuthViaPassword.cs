@@ -47,10 +47,10 @@ public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswo
             .GetOneAsync(x => x.Email == request.Email);
 
         if (account is null)
-            return new Result<AuthTokenResponseContract>(new UnauthorizedAccessException());
+            return Result<AuthTokenResponseContract>.Failure(new UnauthorizedAccessException());
         
         if(!_hashingService.VerifyPassword(account.PasswordHash, request.Password))
-            return new Result<AuthTokenResponseContract>(new UnauthorizedAccessException());
+            return Result<AuthTokenResponseContract>.Failure(new UnauthorizedAccessException());
         
         var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
 

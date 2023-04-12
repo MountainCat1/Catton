@@ -13,11 +13,11 @@ public static class TaskExtensions
 
             nextResult = result.IsSuccess
                 ? await next(result.Value)
-                : new Result<TU>(result.Exception);
+                : Result<TU>.Failure(result.Exception);
         }
         catch (Exception e)
         {
-            return new Result<TU>(e);
+            return Result<TU>.Failure(e);
         }
 
         return nextResult;
@@ -32,11 +32,11 @@ public static class TaskExtensions
 
             nextResult = result.IsSuccess
                 ? await next()
-                : new Result<TU>(result.Exception);
+                : Result<TU>.Failure(result.Exception);
         }
         catch (Exception e)
         {
-            return new Result<TU>(e);
+            return Result<TU>.Failure(e);
         }
 
         return nextResult;
@@ -52,11 +52,11 @@ public static class TaskExtensions
 
             nextResult = result.IsSuccess
                 ? await next(result.Value)
-                : new Result(result.Exception);
+                : Result.Failure(result.Exception);
         }
         catch (Exception e)
         {
-            return new Result(e);
+            return Result.Failure(e);
         }
 
         return nextResult;
@@ -71,11 +71,11 @@ public static class TaskExtensions
 
             nextResult = result.IsSuccess
                 ? await next()
-                : new Result(result.Exception);
+                : Result.Failure(result.Exception);
         }
         catch (Exception e)
         {
-            return new Result(e);
+            return Result.Failure(e);
         }
 
         return nextResult;
@@ -89,7 +89,7 @@ public static class TaskExtensions
 
             if (result.IsFaulted)
             {
-                return new Result(result.Exception);
+                return Result.Failure(result.Exception);
             }
 
             await next(result.Value);
@@ -98,7 +98,7 @@ public static class TaskExtensions
         }
         catch (Exception e)
         {
-            return new Result(e);
+            return Result.Failure(e);
         }
     }
 
@@ -110,7 +110,7 @@ public static class TaskExtensions
 
             if (result.IsFaulted)
             {
-                return new Result(result.Exception);
+                return Result.Failure(result.Exception);
             }
 
             await next();
@@ -119,7 +119,7 @@ public static class TaskExtensions
         }
         catch (Exception e)
         {
-            return new Result(e);
+            return Result.Failure(e);
         }
     }
 }

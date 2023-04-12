@@ -46,8 +46,8 @@ public class CreateGoogleAccountRequestHandler : IResultRequestHandler<CreateGoo
         var dbException = await _googleAccountRepository.SaveChangesAsync();
 
         if (dbException is not null)
-            return new Result<Unit>(dbException);
+            return Result.Failure(dbException);
         
-        return Result<Unit>.Default;
+        return Result.Success();
     }
 }

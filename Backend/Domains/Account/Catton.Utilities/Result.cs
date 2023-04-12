@@ -25,7 +25,7 @@ public class Result<T>
 
     /// <summary>Constructor of a concrete value</summary>
     /// <param name="value"></param>
-    public Result(T value)
+    private Result(T value)
     {
         this.State = ResultState.Success;
         this.Value = value;
@@ -34,11 +34,21 @@ public class Result<T>
 
     /// <summary>Constructor of an error value</summary>
     /// <param name="e"></param>
-    public Result(Exception e)
+    private Result(Exception e)
     {
         this.State = ResultState.Faulted;
         this.exception = e;
         this.Value = default(T);
+    }
+    
+    public static Result<T> Success(T value)
+    {
+        return new Result<T>(value);
+    }
+    
+    public static Result<T> Failure(Exception exception)
+    {
+        return new Result<T>(exception);
     }
 
     public static Result<Unit> Default { get; } = new(MediatR.Unit.Value);

@@ -91,7 +91,7 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
         var dbException = await _passwordAccountRepository.SaveChangesAsync();
 
-        if (dbException is not null) return new Result(dbException);
+        if (dbException is not null) return  Result.Failure(dbException);
 
         return Result.Default;
     }

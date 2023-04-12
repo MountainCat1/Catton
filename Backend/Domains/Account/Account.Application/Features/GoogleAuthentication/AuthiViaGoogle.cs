@@ -42,7 +42,7 @@ public class AuthiViaGoogleRequestHandler : IResultRequestHandler<AuthiViaGoogle
         }
         catch (Exception ex)
         {
-            return new Result<AuthTokenResponseContract>(ex);
+            return  Result.Failure<AuthTokenResponseContract>(ex);
         }
 
         var account = await _accountRepository.GetOneRequiredAsync(account => account.Email == payload.Email);

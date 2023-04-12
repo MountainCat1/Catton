@@ -9,7 +9,7 @@ public class Result
     {
         return HashCode.Combine((int)State, exception);
     }
-    
+
     internal readonly ResultState State;
     private readonly Exception exception;
 
@@ -17,7 +17,7 @@ public class Result
 
     /// <summary>Constructor of a concrete value</summary>
     /// <param name="value"></param>
-    public Result()
+    private Result()
     {
         this.State = ResultState.Success;
         this.exception = (Exception)null;
@@ -25,28 +25,49 @@ public class Result
 
     /// <summary>Constructor of an error value</summary>
     /// <param name="e"></param>
-    public Result(Exception e)
+    private Result(Exception e)
     {
         this.State = ResultState.Faulted;
         this.exception = e;
     }
 
     public static Result Default { get; } = new();
+
+    public static Result Success()
+    {
+        return new Result();
+    }
+
+    public static Result Failure(Exception exception)
+    {
+        return new Result(exception);
+    }
     
+    public static Result<T> Success<T>(T value)
+    {
+        return Result<T>.Success(value);
+    }
+
+    
+    public static Result<T> Failure<T>(Exception exception)
+    {
+        return Result<T>.Failure(exception);
+    }
+
     public static implicit operator Result(Result<Unit> result)
     {
         if (result.IsFaulted)
             return new Result(result.Exception);
-        
-        return new Result();
+
+        return Result.Success();
     }
-    
+
     public static implicit operator Result<Unit>(Result result)
     {
         if (result.IsFaulted)
-            return new Result<Unit>(result.Exception);
-        
-        return new Result<Unit>(Unit.Value);
+            return Result<Unit>.Failure(result.Exception);
+
+        return Result<Unit>.Success(Unit.Value);
     }
 
     /// <summary>True if the result is faulted</summary>
@@ -64,7 +85,7 @@ public class Result
             return this.exception == null || this.exception is BottomException;
         }
     }
-    
+
     /// <summary>True if the struct is in an success</summary>
     [Pure]
     public bool IsSuccess => this.State == ResultState.Success;
@@ -75,10 +96,10 @@ public class Result
     {
         if (this.IsFaulted)
             return this.exception?.ToString() ?? "(Bottom)";
-        
+
         return "(Success)";
     }
-    
+
     /// <summary>Equality check</summary>
     [Pure]
     public override bool Equals(object obj) => obj is Result other && this.Equals(other);
@@ -86,5 +107,4 @@ public class Result
     [Pure]
     public R Match<R>(Func<R> Succ, Func<Exception, R> Fail) =>
         !this.IsFaulted ? Succ() : Fail(this.Exception);
-    
 }

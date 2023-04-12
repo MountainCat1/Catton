@@ -1,4 +1,5 @@
 ﻿using Account.Service.Abstractions;
+using Account.Service.Dtos;
 using Account.Service.Dtos.Responses;
 using Catton.Utilities;
 
@@ -12,7 +13,7 @@ public class GetClaimsRequestHandler : IResultRequestHandler<GetClaimsRequest, G
         {
             Claims = request.ClaimsPrincipal.Claims.Select(x => new ClaimDto(x.Type, x.Value))
         };
-        
-        return Task.FromResult<Result<GetClaimsResponseDto>>(responseDto);
+
+        return Task.FromResult(Result.Success(responseDto));
     }
 }
