@@ -2,7 +2,6 @@
 using Account.Domain.Abstractions;
 using Account.Infrastructure.Errors.Database;
 using Account.Infrastructure.Extensions;
-using LanguageExt;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

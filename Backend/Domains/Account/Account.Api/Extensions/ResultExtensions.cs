@@ -1,6 +1,6 @@
-﻿using FluentValidation;
-using LanguageExt;
-using LanguageExt.Common;
+﻿using Catton.Utilities;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Application.Extensions;

@@ -1,6 +1,6 @@
 ﻿using Account.Domain.Validators;
+using Catton.Utilities;
 using FluentValidation;
-using LanguageExt.Common;
 
 
 namespace Account.Domain.Entities;

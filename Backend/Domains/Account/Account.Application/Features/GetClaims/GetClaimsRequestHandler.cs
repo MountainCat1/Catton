@@ -1,6 +1,6 @@
 ﻿using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
-using LanguageExt.Common;
+using Catton.Utilities;
 
 namespace Account.Service.Features.GetClaims;
 

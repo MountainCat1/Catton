@@ -1,6 +1,5 @@
-﻿using LanguageExt.Common;
+﻿using Catton.Utilities;
 using MediatR;
-using Unit = LanguageExt.Unit;
 
 namespace Account.Service.Abstractions;
 

@@ -1,13 +1,10 @@
 ﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using Account.Service.Abstractions;
-using Account.Service.Extensions;
 using Account.Service.Services;
-using Azure.Core;
+using Catton.Utilities;
 using FluentValidation;
-using Google.Apis.Util;
-using LanguageExt;
-using LanguageExt.Common;
+using MediatR;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
 
@@ -78,7 +75,7 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
                 if (dbException is not null)
                     return new Result<Unit>(dbException);
         
-                return new Result<Unit>(Unit.Default);
+                return new Result<Unit>(Unit.Value);
             }
         );
         

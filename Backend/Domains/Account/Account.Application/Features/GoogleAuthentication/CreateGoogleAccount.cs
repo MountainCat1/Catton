@@ -1,10 +1,10 @@
 ﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using Account.Service.Abstractions;
-using LanguageExt;
-using LanguageExt.Common;
+using Catton.Utilities;
+using MediatR;
 
-namespace Account.Service.Features.GoogleAuthentication.CreateGoogleAccount;
+namespace Account.Service.Features.GoogleAuthentication;
 
 public class CreateGoogleAccountRequestContract
 {
@@ -48,6 +48,6 @@ public class CreateGoogleAccountRequestHandler : IResultRequestHandler<CreateGoo
         if (dbException is not null)
             return new Result<Unit>(dbException);
         
-        return new Result<Unit>();
+        return Result<Unit>.Default;
     }
 }

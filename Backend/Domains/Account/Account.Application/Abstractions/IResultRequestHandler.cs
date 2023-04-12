@@ -1,4 +1,4 @@
-﻿using LanguageExt.Common;
+﻿using Catton.Utilities;
 using MediatR;
 
 namespace Account.Service.Abstractions;
@@ -15,7 +15,7 @@ public interface IResultRequestHandler<TResultRequest, TResult>
 }
 
 public interface IResultRequestHandler<TResultRequest> 
-    : IRequestHandler<TResultRequest, Result<LanguageExt.Unit>>, IResultRequestHandler 
-    where TResultRequest : IResultRequest<LanguageExt.Unit>
+    : IRequestHandler<TResultRequest, Result<Unit>>, IResultRequestHandler 
+    where TResultRequest : IResultRequest<Unit>
 {
 }

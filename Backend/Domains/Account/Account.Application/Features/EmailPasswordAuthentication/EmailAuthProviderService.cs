@@ -4,9 +4,9 @@ using Account.Service.Dtos;
 using Account.Service.Extensions.DtoMapping;
 using Account.Service.Services;
 using Account.Service.Services.Abstractions;
+using Catton.Utilities;
 using FluentValidation;
 using FluentValidation.Results;
-using LanguageExt.Common;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
 
