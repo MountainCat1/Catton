@@ -12,4 +12,9 @@ public class AccountRepository : Repository<AccountEntity, AccountDbContext>, IA
     public AccountRepository(AccountDbContext dbContext, IMediator mediator, ILogger<Repository<AccountEntity, AccountDbContext>> logger) : base(dbContext, mediator, logger)
     {
     }
+
+    public async Task<AccountEntity?> GetAccountByEmailAsync(string email)
+    {
+        return await GetOneAsync(x => x.Email == email);
+    }
 }
