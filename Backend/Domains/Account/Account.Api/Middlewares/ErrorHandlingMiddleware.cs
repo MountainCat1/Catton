@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Account.Service.Errors;
-using Catton.Utilities.Errors;
 
 namespace Account.Application.Middlewares;
 
