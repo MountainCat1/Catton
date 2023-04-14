@@ -1,4 +1,4 @@
-namespace Catton.Utilities.Errors;
+namespace Catut.Errors;
 
 public class NotFoundError : Exception
 {

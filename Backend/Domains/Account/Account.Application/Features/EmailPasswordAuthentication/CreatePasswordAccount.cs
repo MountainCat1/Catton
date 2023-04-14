@@ -1,5 +1,6 @@
 ﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
+using Account.Infrastructure.Errors.Database;
 using Account.Service.Abstractions;
 using Account.Service.Services;
 using Catton.Utilities;
@@ -90,7 +91,13 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
         var dbException = await _passwordAccountRepository.SaveChangesAsync();
 
-        if (dbException is not null) return  Result.Failure(dbException);
+        if (dbException is not null)
+        {
+            if (dbException is DuplicateEntryException)
+                return Result.Failure(new ValidationException("Email already in use"));
+            
+            Result.Failure(dbException);
+        }
 
         return Result.Default;
     }

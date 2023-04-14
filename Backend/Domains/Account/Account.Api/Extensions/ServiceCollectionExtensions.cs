@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using Account.Service.Settings;
+using Catton.Utilities.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

@@ -1,6 +1,7 @@
 ﻿using Account.Application.Extensions;
 using Account.Service.Dtos.Responses;
 using Account.Service.Features.EmailPasswordAuthentication;
+using Catton.Utilities.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
