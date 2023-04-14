@@ -1,9 +1,7 @@
-﻿using Catton.Utilities;
-using FluentValidation;
-using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Account.Application.Extensions;
+namespace Catton.Utilities.Extensions;
 
 public static class ResultExtensions
 {
@@ -64,7 +62,7 @@ public static class ResultExtensions
         {
             return new UnauthorizedObjectResult(ex);
         }
-
+        
         return new StatusCodeResult(500);
     }
 }
