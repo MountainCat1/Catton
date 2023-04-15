@@ -5,6 +5,7 @@ using Account.Service.Abstractions;
 using Account.Service.Services;
 using Catut;
 using FluentValidation;
+using Google.Apis.Util;
 using MediatR;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
@@ -62,26 +63,20 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
     public async Task<Result> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        return await   
-            CreateEntity(request)
-            .BindAsync(AddEntityToTheDatabase)
-            .BindAsync(SendNotification);
+        var entityCreationResult = await PasswordAccountEntity.CreateAsync(
+            email: request.Email,
+            username: request.Username,
+            passwordHash: _hashingService.HashPassword(request.Password)
+        );
+            
+        var adsa = entityCreationResult.Bind()            
+
+        return
     }
 
     private async Task<Result<PasswordAccountEntity>> CreateEntity(CreatePasswordAccountRequest request)
     {
-        return await PasswordAccountEntity.CreateAsync(
-            email:        request.Email,
-            username:     request.Username,
-            passwordHash: _hashingService.HashPassword(request.Password)
-        );
-    }
-
-    private async Task<Result> SendNotification()
-    {
-        await _mediator.Publish(new AccountCreatedNotification());
-        
-        return Result.Default;
+        return 
     }
 
     private async Task<Result> AddEntityToTheDatabase(PasswordAccountEntity entity)
@@ -94,14 +89,10 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
         {
             if (dbException is DuplicateEntryException)
                 return Result.Failure(new ValidationException("Email already in use"));
-            
+
             Result.Failure(dbException);
         }
 
         return Result.Default;
     }
-}
-
-internal class AccountCreatedNotification
-{
 }

@@ -122,4 +122,37 @@ public static class TaskExtensions
             return Result.Failure(e);
         }
     }
+    
+    public static async Task<T> HandleAsync<T>(this Task<Result<T>> task, Action<Exception> handler)
+    {
+        var result = await task;
+
+        if (result.IsFaulted)
+        {
+            handler(task.Exception!);
+            return default(T);
+        }
+
+        return result.Value;
+    }
+    
+    public static Task<T> HandleAsync<T>(this Task<Result<T>> task)
+    {
+        return task.HandleAsync(ex => throw ex);
+    }
+    
+    public static async Task HandleAsync(this Task<Result> task, Action<Exception> handler)
+    {
+        var result = await task;
+
+        if (result.IsFaulted)
+        {
+            handler(task.Exception!);
+        }
+    }
+    
+    public static Task HandleAsync<T>(this Task<Result> task)
+    {
+        return task.HandleAsync(ex => throw ex);
+    }
 }
