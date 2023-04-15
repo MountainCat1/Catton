@@ -1,7 +1,5 @@
-﻿using Account.Application.Extensions;
-using Account.Service.Features.GetClaims;
-using Azure.Core;
-using Catton.Utilities.Extensions;
+﻿using Account.Service.Features.GetClaims;
+using Catut.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

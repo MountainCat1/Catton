@@ -4,7 +4,7 @@ using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
 using Account.Service.Errors;
 using Account.Service.Services;
-using Catton.Utilities;
+using Catut;
 using Google.Apis.Auth;
 
 namespace Account.Service.Features.GoogleAuthentication;

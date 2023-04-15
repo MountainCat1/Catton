@@ -1,8 +1,7 @@
 ﻿using System.Security.Claims;
 using Account.Service.Abstractions;
-using Account.Service.Dtos;
 using Account.Service.Dtos.Responses;
-using Catton.Utilities;
+using Catut;
 
 namespace Account.Service.Features.GetClaims;
 

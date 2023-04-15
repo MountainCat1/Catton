@@ -9,7 +9,7 @@ using Account.Service.Features.EmailPasswordAuthentication;
 using Account.Service.Features.GoogleAuthentication;
 using Account.Service.Services;
 using Account.Service.Settings;
-using Catton.Utilities.Configuration;
+using Catut.Configuration;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;

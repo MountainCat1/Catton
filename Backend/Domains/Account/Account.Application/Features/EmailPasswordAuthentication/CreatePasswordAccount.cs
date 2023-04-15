@@ -3,10 +3,9 @@ using Account.Domain.Repositories;
 using Account.Infrastructure.Errors.Database;
 using Account.Service.Abstractions;
 using Account.Service.Services;
-using Catton.Utilities;
+using Catut;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore.InMemory.Storage.Internal;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
 

@@ -1,7 +1,6 @@
-﻿using Account.Application.Extensions;
-using Account.Domain.Repositories;
+﻿using Account.Domain.Repositories;
 using Account.Service.Features.GoogleAuthentication;
-using Catton.Utilities.Extensions;
+using Catut.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -2,7 +2,7 @@
 using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
 using Account.Service.Services;
-using Catton.Utilities;
+using Catut;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
 

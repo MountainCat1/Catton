@@ -4,7 +4,7 @@ using Account.Service.Dtos;
 using Account.Service.Extensions.DtoMapping;
 using Account.Service.Services;
 using Account.Service.Services.Abstractions;
-using Catton.Utilities;
+using Catut;
 using FluentValidation;
 using FluentValidation.Results;
 

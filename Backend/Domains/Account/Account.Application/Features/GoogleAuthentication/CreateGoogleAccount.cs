@@ -1,10 +1,8 @@
 ﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using Account.Service.Abstractions;
-using Catton.Utilities;
+using Catut;
 using Google.Apis.Auth;
-using MediatR;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace Account.Service.Features.GoogleAuthentication;
 
