@@ -79,6 +79,9 @@ public class Result
 
         return Result<Unit>.Success(Unit.Value);
     }
+    
+    [Pure]
+    public static implicit operator Result(Exception exception) => Result.Failure(exception);
 
     /// <summary>True if the result is faulted</summary>
     [Pure]

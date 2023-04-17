@@ -57,6 +57,9 @@ public class Result<T>
 
     [Pure]
     public static implicit operator Result<T>(T value) => new Result<T>(value);
+    
+    [Pure]
+    public static implicit operator Result<T>(Exception exception) => Result<T>.Failure(exception);
 
     /// <summary>True if the result is faulted</summary>
     [Pure]
