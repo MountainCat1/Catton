@@ -63,20 +63,15 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
 
     public async Task<Result> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        var entityCreationResult = await PasswordAccountEntity.CreateAsync(
+        var entity = await PasswordAccountEntity.CreateAsync(
             email: request.Email,
             username: request.Username,
             passwordHash: _hashingService.HashPassword(request.Password)
-        );
-            
-        var adsa = entityCreationResult.Bind()            
+        ).HandleAsync();
 
-        return
-    }
+        await AddEntityToTheDatabase(entity).HandleAsync(x => throw x);
 
-    private async Task<Result<PasswordAccountEntity>> CreateEntity(CreatePasswordAccountRequest request)
-    {
-        return 
+        return Result.Success();
     }
 
     private async Task<Result> AddEntityToTheDatabase(PasswordAccountEntity entity)

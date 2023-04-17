@@ -129,7 +129,7 @@ public static class TaskExtensions
 
         if (result.IsFaulted)
         {
-            handler(task.Exception!);
+            handler(result.Exception);
             return default(T);
         }
 
@@ -147,11 +147,11 @@ public static class TaskExtensions
 
         if (result.IsFaulted)
         {
-            handler(task.Exception!);
+            handler(result.Exception);
         }
     }
     
-    public static Task HandleAsync<T>(this Task<Result> task)
+    public static Task HandleAsync(this Task<Result> task)
     {
         return task.HandleAsync(ex => throw ex);
     }
