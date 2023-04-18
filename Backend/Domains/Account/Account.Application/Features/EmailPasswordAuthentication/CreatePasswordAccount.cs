@@ -17,7 +17,7 @@ public class CreatePasswordAccountRequestContract
     public required string Username { get; set; }
 }
 
-public class CreatePasswordAccountRequest : IResultRequest
+public class CreatePasswordAccountRequest : IRequest
 {
     public CreatePasswordAccountRequest(CreatePasswordAccountRequestContract requestContract)
     {
@@ -47,7 +47,7 @@ public class CreatePasswordAccountValidator : AbstractValidator<CreatePasswordAc
     }
 }
 
-public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreatePasswordAccountRequest>
+public class CreatePasswordAccountRequestHandler : IRequestHandler<CreatePasswordAccountRequest>
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
     private readonly IHashingService _hashingService;
@@ -61,17 +61,16 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
         _mediator = mediator;
     }
 
-    public async Task<Result> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
+    public async Task Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
         var entity = await PasswordAccountEntity.CreateAsync(
             email: request.Email,
             username: request.Username,
             passwordHash: _hashingService.HashPassword(request.Password)
-        ).HandleAsync();
+        );
 
-        await AddEntityToTheDatabase(entity).HandleAsync(x => throw x);
-
-        return Result.Success();
+        await AddEntityToTheDatabase(entity)
+            .HandleAsync(x => throw x); ;
     }
 
     private async Task<Result> AddEntityToTheDatabase(PasswordAccountEntity entity)
@@ -88,6 +87,6 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
             Result.Failure(dbException);
         }
 
-        return Result.Default;
+        return Result.Success();
     }
 }

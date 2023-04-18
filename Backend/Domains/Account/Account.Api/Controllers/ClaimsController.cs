@@ -27,6 +27,6 @@ public class ClaimsController : Controller
 
         var mediatorResult = await _mediator.Send(mediatorRequest);
 
-        return mediatorResult.ToOk();
+        return Ok(mediatorResult);
     }
 }

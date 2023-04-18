@@ -3,6 +3,7 @@ using Catut;
 using FluentValidation;
 
 
+
 namespace Account.Domain.Entities;
 
 public class PasswordAccountEntity : AccountEntity
@@ -14,7 +15,7 @@ public class PasswordAccountEntity : AccountEntity
         PasswordHash = passwordHash;
     }
 
-    public static async Task<Result<PasswordAccountEntity>> CreateAsync(string email, string username, string passwordHash)
+    public static async Task<PasswordAccountEntity> CreateAsync(string email, string username, string passwordHash)
     {
         var newAccount = new PasswordAccountEntity(email, username, passwordHash);
 
@@ -24,9 +25,9 @@ public class PasswordAccountEntity : AccountEntity
 
         if (!validationResult.IsValid)
         {
-            return Result.Failure<PasswordAccountEntity>(new ValidationException(validationResult.Errors));
+            throw new ValidationException(validationResult.Errors);
         }
-        
-        return Result.Success(newAccount);
+
+        return newAccount;
     }
 }

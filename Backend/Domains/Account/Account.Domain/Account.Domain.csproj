@@ -7,10 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Catut" Version="0.0.5" />
+      <PackageReference Include="Catut" Version="0.0.8" />
       <PackageReference Include="FluentValidation" Version="11.5.2" />
       <PackageReference Include="MediatR" Version="12.0.1" />
       <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Errors" />
     </ItemGroup>
 
 </Project>

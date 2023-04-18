@@ -32,9 +32,9 @@ public class AuthenticationController : Controller
     {
         var request = new CreateGoogleAccountRequest(authRequestModel.AuthToken);
 
-        var result = await _mediator.Send(request);
+        await _mediator.Send(request);
 
-        return result.ToOk();
+        return Ok();
     }
 
     [HttpPost("authenticate")]
@@ -50,6 +50,6 @@ public class AuthenticationController : Controller
 
         var result = await _mediator.Send(request);
         
-        return result.ToOk();
+        return Ok(result);
     }
 }

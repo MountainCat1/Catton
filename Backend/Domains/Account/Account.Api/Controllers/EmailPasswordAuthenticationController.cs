@@ -28,7 +28,7 @@ public class EmailPasswordAuthenticationController : Controller
 
         var result = await _mediator.Send(request); 
 
-        return result.ToOk();
+        return Ok(result);
     }
     
     [HttpPost("register")]
@@ -39,8 +39,8 @@ public class EmailPasswordAuthenticationController : Controller
     {
         var request = new CreatePasswordAccountRequest(requestContract);
 
-        var result = await _mediator.Send(request);
+        await _mediator.Send(request);
 
-        return result.ToOk();
+        return Ok();
     }
 }

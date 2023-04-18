@@ -3,6 +3,7 @@ using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
 using Account.Service.Services;
 using Catut;
+using MediatR;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
 
@@ -12,8 +13,7 @@ public class AuthViaPasswordRequestContract
     public required string Password { get; set; }
 }
 
-
-public class AuthViaPasswordRequest : IResultRequest<AuthTokenResponseContract>
+public class AuthViaPasswordRequest : IRequest<AuthTokenResponseContract>
 {
     public string Email { get; }
     public string Password { get; }
@@ -25,7 +25,7 @@ public class AuthViaPasswordRequest : IResultRequest<AuthTokenResponseContract>
     }
 }
 
-public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswordRequest, AuthTokenResponseContract>
+public class AuthViaPasswordRequestHandler : IRequestHandler<AuthViaPasswordRequest, AuthTokenResponseContract>
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
     private readonly IHashingService _hashingService;
@@ -41,16 +41,16 @@ public class AuthViaPasswordRequestHandler : IResultRequestHandler<AuthViaPasswo
         _jwtService = jwtService;
     }
 
-    public async Task<Result<AuthTokenResponseContract>> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
+    public async Task<AuthTokenResponseContract> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
     {
         var account = await _passwordAccountRepository
             .GetOneAsync(x => x.Email == request.Email);
 
         if (account is null)
-            return Result<AuthTokenResponseContract>.Failure(new UnauthorizedAccessException());
+            throw new UnauthorizedAccessException();
         
         if(!_hashingService.VerifyPassword(account.PasswordHash, request.Password))
-            return Result<AuthTokenResponseContract>.Failure(new UnauthorizedAccessException());
+            throw new UnauthorizedAccessException();
         
         var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
 
