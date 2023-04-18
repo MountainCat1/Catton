@@ -1,4 +1,4 @@
-namespace Catton.Utilities.Errors;
+namespace Account.Service.Errors;
 
 public class NotFoundError : Exception
 {

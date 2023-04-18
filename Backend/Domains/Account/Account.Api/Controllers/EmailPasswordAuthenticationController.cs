@@ -1,7 +1,6 @@
-﻿using Account.Application.Extensions;
-using Account.Service.Dtos.Responses;
+﻿using Account.Service.Dtos.Responses;
 using Account.Service.Features.EmailPasswordAuthentication;
-using Catton.Utilities.Extensions;
+using Catut.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +28,7 @@ public class EmailPasswordAuthenticationController : Controller
 
         var result = await _mediator.Send(request); 
 
-        return result.ToOk();
+        return Ok(result);
     }
     
     [HttpPost("register")]
@@ -40,8 +39,8 @@ public class EmailPasswordAuthenticationController : Controller
     {
         var request = new CreatePasswordAccountRequest(requestContract);
 
-        var result = await _mediator.Send(request);
+        await _mediator.Send(request);
 
-        return result.ToOk();
+        return Ok();
     }
 }

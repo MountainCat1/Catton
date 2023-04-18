@@ -79,6 +79,9 @@ public class Result
 
         return Result<Unit>.Success(Unit.Value);
     }
+    
+    [Pure]
+    public static implicit operator Result(Exception exception) => Result.Failure(exception);
 
     /// <summary>True if the result is faulted</summary>
     [Pure]
@@ -117,4 +120,33 @@ public class Result
     [Pure]
     public R Match<R>(Func<R> Succ, Func<Exception, R> Fail) =>
         !this.IsFaulted ? Succ() : Fail(this.Exception);
+    
+    [Pure]
+    public void Handle(Action<Exception> handler)
+    {
+        if (IsSuccess)
+            return;
+
+        handler(Exception);
+    }
+    
+    [Pure]
+    public async Task HandleAsync(Func<Exception, Task> handler)
+    {
+        if (IsSuccess)
+            return;
+
+        await handler(Exception);
+        
+        return;
+    }
+    
+    [Pure]
+    public void Handle()
+    {
+        if (IsSuccess)
+            return;
+
+        throw Exception;
+    }
 }

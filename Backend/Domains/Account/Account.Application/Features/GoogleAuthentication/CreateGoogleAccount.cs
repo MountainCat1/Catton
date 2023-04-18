@@ -1,10 +1,10 @@
-﻿using Account.Domain.Entities;
+﻿using System.Runtime.CompilerServices;
+using Account.Domain.Entities;
 using Account.Domain.Repositories;
 using Account.Service.Abstractions;
-using Catton.Utilities;
+using Catut;
 using Google.Apis.Auth;
 using MediatR;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace Account.Service.Features.GoogleAuthentication;
 
@@ -13,7 +13,7 @@ public class CreateGoogleAccountRequestContract
     public required string AuthToken { get; set; }
 }
 
-public class CreateGoogleAccountRequest : IResultRequest
+public class CreateGoogleAccountRequest : IRequest
 {
     public CreateGoogleAccountRequest(string googleAuthToken)
     {
@@ -23,7 +23,7 @@ public class CreateGoogleAccountRequest : IResultRequest
     public string GoogleAuthToken { get; set; }
 }
 
-public class CreateGoogleAccountRequestHandler : IResultRequestHandler<CreateGoogleAccountRequest>
+public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAccountRequest>
 {
     private readonly IGoogleAccountRepository _googleAccountRepository;
     private readonly IGoogleAuthProviderService _googleService;
@@ -35,43 +35,20 @@ public class CreateGoogleAccountRequestHandler : IResultRequestHandler<CreateGoo
         _googleService = googleService;
     }
 
-    public async Task<Result> Handle(CreateGoogleAccountRequest request, CancellationToken cancellationToken)
+    public async Task Handle(CreateGoogleAccountRequest request, CancellationToken cancellationToken)
     {
-        return await ValidateGoogleJwt(request)
-            .BindAsync(CreateEntity)
-            .BindAsync(SaveInDatabase);
-    }
-
-    private async Task<Result> SaveInDatabase(GoogleAccountEntity googleAccount)
-    {
-        await _googleAccountRepository.AddAsync(googleAccount);
+        var googleTokenPayload = await _googleService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
+        
+        var googleAccountEntity = new GoogleAccountEntity(
+            email: googleTokenPayload.Email,
+            username: googleTokenPayload.Name
+        ); 
+        
+        await _googleAccountRepository.AddAsync(googleAccountEntity);
 
         var dbException = await _googleAccountRepository.SaveChangesAsync();
 
         if (dbException is not null)
-            return Result.Failure(dbException);
-        
-        return Result.Success();
-    }
-
-    private static Task<Result<GoogleAccountEntity>> CreateEntity(GoogleJsonWebSignature.Payload googleTokenPayload)
-    {
-        return Task.FromResult<Result<GoogleAccountEntity>>(new GoogleAccountEntity(
-            email: googleTokenPayload.Email,
-            username: googleTokenPayload.Name
-        ));
-    }
-
-    private async Task<Result<GoogleJsonWebSignature.Payload>> ValidateGoogleJwt(CreateGoogleAccountRequest request)
-    {
-        try
-        {
-            var payload = await _googleService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
-            return Result.Success(payload);
-        }
-        catch (Exception e)
-        {
-            return Result.Failure<GoogleJsonWebSignature.Payload>(e);
-        }
+            throw dbException;
     }
 }

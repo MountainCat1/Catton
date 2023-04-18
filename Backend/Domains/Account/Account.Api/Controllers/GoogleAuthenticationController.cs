@@ -1,7 +1,6 @@
-﻿using Account.Application.Extensions;
-using Account.Domain.Repositories;
+﻿using Account.Domain.Repositories;
 using Account.Service.Features.GoogleAuthentication;
-using Catton.Utilities.Extensions;
+using Catut.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,9 +32,9 @@ public class AuthenticationController : Controller
     {
         var request = new CreateGoogleAccountRequest(authRequestModel.AuthToken);
 
-        var result = await _mediator.Send(request);
+        await _mediator.Send(request);
 
-        return result.ToOk();
+        return Ok();
     }
 
     [HttpPost("authenticate")]
@@ -51,6 +50,6 @@ public class AuthenticationController : Controller
 
         var result = await _mediator.Send(request);
         
-        return result.ToOk();
+        return Ok(result);
     }
 }

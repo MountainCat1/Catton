@@ -20,6 +20,7 @@ public class Result<T>
     internal readonly ResultState State;
     internal readonly T Value;
     private readonly Exception exception;
+    private Action<Exception> onFailure;
 
     internal Exception Exception => this.exception ?? (Exception)BottomException.Default;
 
@@ -56,6 +57,9 @@ public class Result<T>
 
     [Pure]
     public static implicit operator Result<T>(T value) => new Result<T>(value);
+    
+    [Pure]
+    public static implicit operator Result<T>(Exception exception) => Result<T>.Failure(exception);
 
     /// <summary>True if the result is faulted</summary>
     [Pure]
@@ -129,6 +133,37 @@ public class Result<T>
             return new Result<TU>(exception);
 
         return next(Value);
+    }
+
+    [Pure]
+    public T Handle(Action<Exception> handler)
+    {
+        if (IsSuccess)
+            return Value;
+
+        handler(Exception);
+        
+        return default(T);
+    }
+    
+    [Pure]
+    public async Task<T> HandleAsync(Func<Exception, Task> handler)
+    {
+        if (IsSuccess)
+            return Value;
+
+        await handler(Exception);
+        
+        return default(T);
+    }
+    
+    [Pure]
+    public T Handle()
+    {
+        if (IsSuccess)
+            return Value;
+
+        throw Exception;
     }
 }
 

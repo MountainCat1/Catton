@@ -3,10 +3,10 @@ using Account.Domain.Repositories;
 using Account.Infrastructure.Errors.Database;
 using Account.Service.Abstractions;
 using Account.Service.Services;
-using Catton.Utilities;
+using Catut;
 using FluentValidation;
+using Google.Apis.Util;
 using MediatR;
-using Microsoft.EntityFrameworkCore.InMemory.Storage.Internal;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
 
@@ -17,7 +17,7 @@ public class CreatePasswordAccountRequestContract
     public required string Username { get; set; }
 }
 
-public class CreatePasswordAccountRequest : IResultRequest
+public class CreatePasswordAccountRequest : IRequest
 {
     public CreatePasswordAccountRequest(CreatePasswordAccountRequestContract requestContract)
     {
@@ -47,7 +47,7 @@ public class CreatePasswordAccountValidator : AbstractValidator<CreatePasswordAc
     }
 }
 
-public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreatePasswordAccountRequest>
+public class CreatePasswordAccountRequestHandler : IRequestHandler<CreatePasswordAccountRequest>
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
     private readonly IHashingService _hashingService;
@@ -61,28 +61,16 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
         _mediator = mediator;
     }
 
-    public async Task<Result> Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
+    public async Task Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        return await   
-            CreateEntity(request)
-            .BindAsync(AddEntityToTheDatabase)
-            .BindAsync(SendNotification);
-    }
-
-    private async Task<Result<PasswordAccountEntity>> CreateEntity(CreatePasswordAccountRequest request)
-    {
-        return await PasswordAccountEntity.CreateAsync(
-            email:        request.Email,
-            username:     request.Username,
+        var entity = await PasswordAccountEntity.CreateAsync(
+            email: request.Email,
+            username: request.Username,
             passwordHash: _hashingService.HashPassword(request.Password)
         );
-    }
 
-    private async Task<Result> SendNotification()
-    {
-        await _mediator.Publish(new AccountCreatedNotification());
-        
-        return Result.Default;
+        await AddEntityToTheDatabase(entity)
+            .HandleAsync(x => throw x); ;
     }
 
     private async Task<Result> AddEntityToTheDatabase(PasswordAccountEntity entity)
@@ -95,14 +83,10 @@ public class CreatePasswordAccountRequestHandler : IResultRequestHandler<CreateP
         {
             if (dbException is DuplicateEntryException)
                 return Result.Failure(new ValidationException("Email already in use"));
-            
+
             Result.Failure(dbException);
         }
 
-        return Result.Default;
+        return Result.Success();
     }
-}
-
-internal class AccountCreatedNotification
-{
 }
