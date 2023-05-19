@@ -26,7 +26,7 @@ public class Result<T>
 
     /// <summary>Constructor of a concrete value</summary>
     /// <param name="value"></param>
-    private Result(T value)
+    internal Result(T value)
     {
         this.State = ResultState.Success;
         this.Value = value;
@@ -35,7 +35,7 @@ public class Result<T>
 
     /// <summary>Constructor of an error value</summary>
     /// <param name="e"></param>
-    private Result(Exception e)
+    internal Result(Exception e)
     {
         this.State = ResultState.Faulted;
         this.exception = e;
@@ -106,6 +106,7 @@ public class Result<T>
 
     [Pure]
     public static bool operator !=(Result<T> a, Result<T> b) => !(a == b);
+    
 
     [Pure]
     public R Match<R>(Func<T, R> Succ, Func<Exception, R> Fail) =>

@@ -23,13 +23,13 @@ public static class TaskExtensions
         return nextResult;
     }
 
-    public static async Task<Result<TU>> BindAsync<TU>(this Task<Result<Unit>> task, Func<Task<Result<TU>>> next)
+    public static async Task<Result<TU>> BindAsync<TU>(this Task<Result> task, Func<Task<Result<TU>>> next)
     {
         Result<TU> nextResult;
         try
         {
             var result = await task;
-
+    
             nextResult = result.IsSuccess
                 ? await next()
                 : Result<TU>.Failure(result.Exception);
@@ -38,7 +38,7 @@ public static class TaskExtensions
         {
             return Result<TU>.Failure(e);
         }
-
+    
         return nextResult;
     }
 
@@ -101,6 +101,26 @@ public static class TaskExtensions
             return Result.Failure(e);
         }
     }
+    public static async Task<Result> BindAsync(this Task<Result> task, Func<Result> next)
+    {
+        try
+        {
+            var result = await task;
+
+            if (result.IsFaulted)
+            {
+                return Result.Failure(result.Exception);
+            }
+
+            next();
+
+            return Result.Default;
+        }
+        catch (Exception e)
+        {
+            return Result.Failure(e);
+        }
+    }
 
     public static async Task<Result> BindAsync(this Task<Result> task, Func<Task> next)
     {
@@ -149,6 +169,54 @@ public static class TaskExtensions
         {
             handler(result.Exception);
         }
+    }
+    
+    public static async Task<Result> Success(this Task<Result> task)
+    {
+        var result = await task;
+
+        if (result.IsFaulted)
+        {
+            return Result.Failure(result.Exception);
+        }
+
+        return Result.Success();
+    }
+    
+    public static async Task<Result<TO>> Success<TO>(this Task<Result> task, TO value)
+    {
+        var result = await task;
+
+        if (result.IsFaulted)
+        {
+            return Result.Failure<TO>(result.Exception);
+        }
+
+        return Result.Success<TO>(value);
+    }
+    
+    public static async Task<Result<TO>> Success<TO, TU>(this Task<Result<TU>> task, TO value)
+    {
+        var result = await task;
+
+        if (result.IsFaulted)
+        {
+            return Result.Failure<TO>(result.Exception);
+        }
+
+        return Result.Success<TO>(value);
+    }
+    
+    public static async Task<Result> Success<TU>(this Task<Result<TU>> task)
+    {
+        var result = await task;
+
+        if (result.IsFaulted)
+        {
+            return Result.Failure(result.Exception);
+        }
+
+        return Result.Success();
     }
     
     public static Task HandleAsync(this Task<Result> task)
