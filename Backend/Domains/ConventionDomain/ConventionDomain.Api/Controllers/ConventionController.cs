@@ -28,4 +28,17 @@ public class ConventionController : Controller
 
         return Ok();
     }
+    
+    [HttpGet("/{id:guid}")]
+    public async Task<IActionResult> Get([FromRoute] Guid id)
+    {
+        var request = new GetConventionRequest()
+        {
+            Id = id
+        };
+
+        var result = await _mediator.Send(request);
+
+        return Ok(result);
+    }
 }

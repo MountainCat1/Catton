@@ -1,16 +1,17 @@
 ﻿using Account.Service.Errors;
+using ConventionDomain.Application.Dtos;
 using ConventionDomain.Domain.Repositories;
 using ConventionDomain.Infrastructure.Generics;
 using MediatR;
 
 namespace ConventionDomain.Application.Features.CreateConvention;
 
-public class GetConventionRequest : IRequest
+public class GetConventionRequest : IRequest<ConventionResponse>
 {
     public Guid Id { get; set; }
 }
 
-public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest>
+public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest, ConventionResponse>
 {
     private readonly IConventionRepository _conventionRepository;
 
@@ -19,7 +20,7 @@ public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest>
         _conventionRepository = conventionRepository;
     }
 
-    public async Task Handle(GetConventionRequest request, CancellationToken cancellationToken)
+    public async Task<ConventionResponse> Handle(GetConventionRequest request, CancellationToken cancellationToken)
     {
         var id = request.Id;
 
@@ -28,8 +29,6 @@ public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest>
         if (entity is null)
             throw new NotFoundError();
         
-        // TODO: make it map to dto
-        
-        return entity;
+        return entity.ToDto();
     }
 }

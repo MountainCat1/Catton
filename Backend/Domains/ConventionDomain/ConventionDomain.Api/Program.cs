@@ -1,5 +1,6 @@
 using ConventionDomain.Api;
 using ConventionDomain.Api.MediaRBehaviors;
+using ConventionDomain.Api.Middlewares;
 using ConventionDomain.Application;
 using ConventionDomain.Domain.Repositories;
 using ConventionDomain.Infrastructure.Contexts;
@@ -47,13 +48,13 @@ services.AddDbContext<ConventionDomainDbContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("ConventionDomainDatabase"),  
         b => b.MigrationsAssembly(typeof(ApiAssemblyMarker).Assembly.FullName));
-    
-        
     options.UseLoggerFactory(LoggerFactory.Create(builder => builder
         .AddFilter((_, _) => false)
         .AddConsole()));
 });
 
+
+services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
@@ -71,6 +72,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("AllowOrigins");
 
