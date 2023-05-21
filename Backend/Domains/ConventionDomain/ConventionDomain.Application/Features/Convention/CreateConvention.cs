@@ -1,13 +1,12 @@
 ﻿using ConventionDomain.Application.Dtos;
-using ConventionDomain.Domain.Entities;
 using ConventionDomain.Domain.Repositories;
 using MediatR;
 
-namespace ConventionDomain.Application.Features.CreateConvention;
+namespace ConventionDomain.Application.Features.Convention;
 
 public class CreateConventionRequest : IRequest
 {
-    public required CreateConventionDto CreateDto { get; init; }
+    public required ConventionCreateDto ConventionCreateDto { get; init; }
 }
 
 public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRequest>
@@ -21,9 +20,9 @@ public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRe
 
     public async Task Handle(CreateConventionRequest request, CancellationToken cancellationToken)
     {
-        var dto = request.CreateDto;
+        var dto = request.ConventionCreateDto;
 
-        var entity = Convention.CreateInstance(dto.Name, dto.Description);
+        var entity = Domain.Entities.Convention.CreateInstance(dto.Name, dto.Description);
 
         await _conventionRepository.AddAsync(entity);
         await _conventionRepository.SaveChangesAsync();

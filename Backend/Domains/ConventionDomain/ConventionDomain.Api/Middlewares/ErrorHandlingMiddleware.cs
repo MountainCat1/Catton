@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Account.Service.Errors;
+using ConventionDomain.Application.Errors;
 
 namespace ConventionDomain.Api.Middlewares;
 

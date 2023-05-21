@@ -1,10 +1,9 @@
-﻿using Account.Service.Errors;
-using ConventionDomain.Application.Dtos;
+﻿using ConventionDomain.Application.Dtos;
+using ConventionDomain.Application.Errors;
 using ConventionDomain.Domain.Repositories;
-using ConventionDomain.Infrastructure.Generics;
 using MediatR;
 
-namespace ConventionDomain.Application.Features.CreateConvention;
+namespace ConventionDomain.Application.Features.Convention;
 
 public class GetConventionRequest : IRequest<ConventionResponse>
 {
