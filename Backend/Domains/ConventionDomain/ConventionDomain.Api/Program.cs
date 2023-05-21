@@ -1,7 +1,9 @@
 using ConventionDomain.Api;
 using ConventionDomain.Api.MediaRBehaviors;
 using ConventionDomain.Application;
+using ConventionDomain.Domain.Repositories;
 using ConventionDomain.Infrastructure.Contexts;
+using ConventionDomain.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -57,6 +59,8 @@ services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
+
+services.AddScoped<IConventionRepository, ConventionRepository>();
 
 // ========= RUN  =========
 var app = builder.Build();
