@@ -7,11 +7,25 @@ import { TestAuthComponent } from './test-auth/test-auth.component';
 import {GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig} from "@abacritt/angularx-social-login";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CustomHttpInterceptor} from "./services/http-interceptor";
+import { PageComponent } from './page/page.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { PublicComponent } from './public/public.component';
+import { PrivateComponent } from './private/private.component';
+import { SecureComponent } from './secure/secure.component';
+import { PanelComponent } from './panel/panel.component';
+import { PublicPopupComponent } from './public-popup/public-popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestAuthComponent
+    TestAuthComponent,
+    PageComponent,
+    SignInComponent,
+    PublicComponent,
+    PrivateComponent,
+    SecureComponent,
+    PanelComponent,
+    PublicPopupComponent
   ],
   imports: [
     BrowserModule,

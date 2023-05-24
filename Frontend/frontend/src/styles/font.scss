@@ -1,0 +1,16 @@
+@import "src/styles/variables";
+
+html {
+  font-family: 'Lato', serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: $font-color-1;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('~src/fonts/Lato-Regular.ttf') format('truetype');
+}

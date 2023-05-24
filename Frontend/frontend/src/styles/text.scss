@@ -1,0 +1,18 @@
+h1 {
+  font-family: 'Lato', serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 54px;
+  line-height: 65px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  background: linear-gradient(180deg, #A43AFF 0%, rgba(164, 58, 255, 0) 100%), #774DFF;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+
+  text-shadow: 5px 5px 14px rgba(0, 0, 0, 0.25);
+}
