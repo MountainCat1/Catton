@@ -1,0 +1,65 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+@import "src/styles/variables";
+
+$accent: #774DFF;
+
+$my-palette: (
+  //50: rgba(149, 46, 238, 0.1),
+  100: rgba(149, 46, 238, 0.2),
+  //200: rgba(149, 46, 238, 0.3),
+  //300: rgba(149, 46, 238, 0.4),
+  //400: rgba(149, 46, 238, 0.5),
+  //500: rgba(149, 46, 238, 0.6),
+  //600: rgba(149, 46, 238, 0.7),
+  700: rgba(149, 46, 238, 0.8),
+  //800: rgba(149, 46, 238, 0.9),
+  //900: rgba(149, 46, 238, 1),
+  A100: $accent,
+  //A200: #774DFF,
+  //A400: #774DFF,
+  //A700: #774DFF,
+  contrast: (
+    50: black,
+    100: black,
+    200: black,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+
+$my-primary: mat.define-palette($my-palette, 700);
+$my-accent: mat.define-palette($my-palette, A100);
+
+$my-theme: mat.define-dark-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+@include mat.all-component-themes($my-theme);
+
+
+// override the rules from Angular Material so that the floating label is more visible
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+// override the rules from Angular Material so that caret is more visible
+.mdc-text-field .mdc-text-field__input {
+  caret-color: inherit;
+}

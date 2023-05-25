@@ -14,6 +14,13 @@ import { PrivateComponent } from './private/private.component';
 import { SecureComponent } from './secure/secure.component';
 import { PanelComponent } from './panel/panel.component';
 import { PublicPopupComponent } from './public-popup/public-popup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -31,7 +38,14 @@ import { PublicPopupComponent } from './public-popup/public-popup.component';
     BrowserModule,
     AppRoutingModule,
     GoogleSigninButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule
   ],
   providers: [
     {

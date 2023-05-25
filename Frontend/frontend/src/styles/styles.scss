@@ -1,14 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-
-
 @import "src/styles/variables";
 @import "src/styles/font";
 @import "src/styles/text";
 @import "src/styles/button";
 
+@import "src/styles/theme";
 
 @mixin full-screen-gradient-background() {
-  background: linear-gradient(to top, $color-1 0, $color-2 100%), #000000;
+  background: linear-gradient(to top, $background-color-2 0, $background-color-3 100%), #000000;
   height: 100vh;
 }
 
@@ -18,3 +16,6 @@ body {
   margin: 0;
   padding: 0;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
