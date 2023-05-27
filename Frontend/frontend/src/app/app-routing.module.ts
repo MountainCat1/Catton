@@ -7,11 +7,11 @@ import {
   RouterStateSnapshot,
   Routes
 } from '@angular/router';
-import {SignInComponent} from "./sign-in/sign-in.component";
-import {PublicComponent} from "./public/public.component";
-import {SecureComponent} from "./secure/secure.component";
+import {SignInComponent} from "./components/sign-in/sign-in.component";
+import {PublicComponent} from "./generic-components/public/public.component";
+import {SecureComponent} from "./generic-components/secure/secure.component";
 import {catchError, of} from "rxjs";
-import {PublicPopupComponent} from "./public-popup/public-popup.component";
+import {PublicPopupComponent} from "./generic-components/public-popup/public-popup.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {GoogleLoginProvider, SocialAuthService,} from '@abacritt/angularx-social-login';
-import {AuthService} from "../services/auth.service";
-import {AuthMethod, AuthRequestModel} from "../models/authRequestModel";
+import {AuthService} from "../../services/auth.service";
+import {AuthMethod, AuthRequestModel} from "../../models/authRequestModel";
 
 @Component({
   selector: 'app-test-auth',

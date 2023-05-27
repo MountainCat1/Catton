@@ -5,7 +5,7 @@ import {
   EmailPasswordAuthenticationService
 } from "../../services/openapi-generated";
 import {Observable} from "rxjs";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-sign-in',
