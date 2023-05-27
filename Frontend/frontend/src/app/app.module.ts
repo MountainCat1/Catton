@@ -27,6 +27,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {WithLoadingPipe} from "./with-loading.pipe";
 import {AuthService} from "./services/auth.service";
 import {JwtInterceptor} from "./jwt-interceptor";
+import { SelectConventionComponent } from './components/select-convention/select-convention.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {JwtInterceptor} from "./jwt-interceptor";
     PanelComponent,
     PublicPopupComponent,
 
-    WithLoadingPipe
+    WithLoadingPipe,
+      SelectConventionComponent
   ],
   imports: [
     BrowserModule,

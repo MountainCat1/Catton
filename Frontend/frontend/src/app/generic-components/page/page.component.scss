@@ -1,0 +1,12 @@
+@import "src/styles/styles";
+
+:host {
+  display: block;
+
+  width: 25em;
+  margin: auto;
+
+  min-height: 100vh;
+
+  background: $background-color-1;
+}

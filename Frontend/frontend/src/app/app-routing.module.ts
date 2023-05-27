@@ -14,6 +14,7 @@ import {catchError, of} from "rxjs";
 import {PublicPopupComponent} from "./generic-components/public-popup/public-popup.component";
 import {AuthenticationService} from "./services/openapi-generated";
 import {AuthService} from "./services/auth.service";
+import {SelectConventionComponent} from "./components/select-convention/select-convention.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -37,6 +38,7 @@ const PUBLIC_POPUP_ROUTES: Routes = [
   {path: 'sign-in', component: SignInComponent}
 ]
 const SECURE_ROUTES: Routes = [
+  {path: 'convetions', component: SelectConventionComponent}
 ]
 
 
