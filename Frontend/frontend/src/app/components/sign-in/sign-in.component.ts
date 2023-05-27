@@ -6,6 +6,7 @@ import {
 } from "../../services/openapi-generated";
 import {Observable} from "rxjs";
 import {AuthService} from "../../services/auth.service";
+import {Navigation, Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -23,6 +24,7 @@ export class SignInComponent implements OnInit {
     private authenticationService : EmailPasswordAuthenticationService,
     private authService : AuthService,
     private claimsService : ClaimsService,
+    private router : Router
   ) {
   }
 
@@ -45,10 +47,9 @@ export class SignInComponent implements OnInit {
     });
 
     this.authenticate$.subscribe(x => {
-      console.log(x)
       this.authService.setToken(x.authToken as string);
 
-      this.claimsService.apiAuthenticationClaimsGet().subscribe(x => console.log(x));
+      this.router.navigate(["/"])
     })
   }
 
