@@ -21,6 +21,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
+import {ApiModule} from "../services/openapi-generated";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import {MatChipsModule} from "@angular/material/chips";
     PrivateComponent,
     SecureComponent,
     PanelComponent,
-    PublicPopupComponent
+    PublicPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,9 @@ import {MatChipsModule} from "@angular/material/chips";
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    ApiModule,
+    FormsModule
   ],
   providers: [
     {

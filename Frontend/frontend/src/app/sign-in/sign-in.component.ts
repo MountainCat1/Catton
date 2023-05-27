@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  hide = true;
+  email: string = "";
+  password: string = "";
+  hide: boolean = true;
+
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
+  }
+
+  signIn() {
+    // Implement your sign-in logic here
+    console.log('Signing in...');
+    console.log('Username:', this.email);
+    console.log('Password:', this.password);
+  }
 }

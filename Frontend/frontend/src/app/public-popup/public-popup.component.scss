@@ -6,13 +6,14 @@
   height: 100vh;
   overflow: hidden;
 
-  background-color: rgba($background-color-1, $transparency);
-
   padding: 0.5em 2.5em;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  max-width: 700px;
+  margin: auto;
 }
 
 @media (min-width: 600px) and (min-height: 600px) {
@@ -38,17 +39,8 @@
   }
 }
 
-//@media (min-width: 600px) {
-//  :host {
-//    position: unset;
-//    display: block;
-//
-//    width: 100vw;
-//    height: 100vh;
-//
-//    border: none;
-//    box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.25);
-//    border-radius: 0;
-//  }
-//}
-//
+.panel-background {
+
+  background-color: rgba($background-color-1, $transparency);
+
+}
