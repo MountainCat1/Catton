@@ -1,28 +1,32 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { TestAuthComponent } from './test-auth/test-auth.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {TestAuthComponent} from './test-auth/test-auth.component';
 import {GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig} from "@abacritt/angularx-social-login";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {CustomHttpInterceptor} from "./services/http-interceptor";
-import { PageComponent } from './page/page.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { PublicComponent } from './public/public.component';
-import { PrivateComponent } from './private/private.component';
-import { SecureComponent } from './secure/secure.component';
-import { PanelComponent } from './panel/panel.component';
-import { PublicPopupComponent } from './public-popup/public-popup.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {PageComponent} from './page/page.component';
+import {SignInComponent} from './sign-in/sign-in.component';
+import {PublicComponent} from './public/public.component';
+import {PrivateComponent} from './private/private.component';
+import {SecureComponent} from './secure/secure.component';
+import {PanelComponent} from './panel/panel.component';
+import {PublicPopupComponent} from './public-popup/public-popup.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
-import {ApiModule} from "../services/openapi-generated";
+import {ApiModule, BASE_PATH, Configuration} from "../services/openapi-generated";
 import {FormsModule} from "@angular/forms";
+import {environment} from "../environments/environment";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {WithLoadingPipe} from "./with-loading.pipe";
+import {AuthService} from "./services/auth.service";
+import {JwtInterceptor} from "./jwt-interceptor";
 
 @NgModule({
   declarations: [
@@ -35,6 +39,8 @@ import {FormsModule} from "@angular/forms";
     SecureComponent,
     PanelComponent,
     PublicPopupComponent,
+
+    WithLoadingPipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,8 @@ import {FormsModule} from "@angular/forms";
     MatIconModule,
     MatChipsModule,
     ApiModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
@@ -68,8 +75,27 @@ import {FormsModule} from "@angular/forms";
           console.error(err);
         }
       } as SocialAuthServiceConfig,
+    },
+    {
+      provide: Configuration,
+      useFactory: (authService: AuthService) => new Configuration(
+        {
+          basePath: environment.API_BASE_PATH,
+          credentials : {
+            bearer: () => authService.getToken(),
+          },
+        }
+      ),
+      deps: [AuthService],
+      multi: false
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

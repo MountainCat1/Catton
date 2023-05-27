@@ -57,8 +57,6 @@ app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(
 app.UseStaticFiles();
 app.UseRouting();
 
-// app.UseMiddleware<ApiFallbackMiddleware>();
-
 app.UseOcelot().Wait();
 
 app.Run();

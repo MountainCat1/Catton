@@ -1,6 +1,7 @@
 ﻿using Account.Domain.Repositories;
 using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
+using Account.Service.Errors;
 using Account.Service.Services;
 using Catut;
 using MediatR;
@@ -47,10 +48,10 @@ public class AuthViaPasswordRequestHandler : IRequestHandler<AuthViaPasswordRequ
             .GetOneAsync(x => x.Email == request.Email);
 
         if (account is null)
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedError();
         
         if(!_hashingService.VerifyPassword(account.PasswordHash, request.Password))
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedError();
         
         var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
 

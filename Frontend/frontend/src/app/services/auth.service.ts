@@ -13,6 +13,7 @@ import urlJoin from "url-join";
 })
 export class AuthService {
   private apiUri = environment.apiEndpoint;
+  private readonly authCookieName = 'auth_token'
 
   constructor(private _cookieService: CookieService, private http: HttpClient) {
   }
@@ -44,4 +45,11 @@ export class AuthService {
     }
   }
 
+  public getToken() : string | undefined {
+    return this._cookieService.get(this.authCookieName);
+  }
+
+  public setToken(token : string) : void {
+    return this._cookieService.set(this.authCookieName, token);
+  }
 }

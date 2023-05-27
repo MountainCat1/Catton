@@ -6,8 +6,8 @@
 
   display: flex;
   flex-direction: column;
-  align-content: center;
-
+  justify-content: space-around;
+  align-items: center;
 }
 
 .buttons {
@@ -30,4 +30,8 @@
 
 .panel-header {
   text-align: center;
+}
+
+.result-container {
+  height: 5em;
 }

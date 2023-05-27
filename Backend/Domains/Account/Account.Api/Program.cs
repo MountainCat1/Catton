@@ -1,6 +1,7 @@
 using Account.Application;
 using Account.Application.Extensions;
 using Account.Application.MediaRBehaviors;
+using Account.Application.Middlewares;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Repositories;
@@ -86,6 +87,8 @@ services.AddAsymmetricAuthentication(jwtConfig);
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ServiceAssemlyMarker).Assembly));
 
+services.AddSingleton<ErrorHandlingMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -94,6 +97,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("AllowOrigins");
 
