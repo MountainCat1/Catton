@@ -27,7 +27,11 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {WithHttpLoadingPipe} from "./with-loading.pipe";
 import {AuthService} from "./services/auth.service";
 import {JwtInterceptor} from "./jwt-interceptor";
-import { SelectConventionComponent } from './components/select-convention/select-convention.component';
+import {SelectConventionComponent} from './components/select-convention/select-convention.component';
+import {LayoutModule} from '@angular/cdk/layout';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,7 @@ import { SelectConventionComponent } from './components/select-convention/select
     PublicPopupComponent,
 
     WithHttpLoadingPipe,
-      SelectConventionComponent
+    SelectConventionComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,11 @@ import { SelectConventionComponent } from './components/select-convention/select
     MatChipsModule,
     ApiModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [
     {
@@ -83,7 +91,7 @@ import { SelectConventionComponent } from './components/select-convention/select
       useFactory: (authService: AuthService) => new Configuration(
         {
           basePath: environment.API_BASE_PATH,
-          credentials : {
+          credentials: {
             bearer: () => authService.getToken(),
           },
         }

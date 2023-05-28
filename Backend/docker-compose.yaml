@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  api_gateway:
+    build:
+      context: ./ApiGateway
+      dockerfile: Dockerfile
+    ports:
+      - "4000:80"
+      - "5000:443"
+    environment:
+      - ENABLE_SWAGGER=true
+  account_domain:
+    build:
+      context: ./Domains/Account
+      dockerfile: Dockerfile
+    ports:
+      - "4001:80"
+      - "5001:443"
+    environment:
+      - ENABLE_SWAGGER=true

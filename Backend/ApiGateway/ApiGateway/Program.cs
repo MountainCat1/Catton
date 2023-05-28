@@ -19,7 +19,8 @@ foreach (string jsonFile in jsonFiles)
 }
 
 // Add all JSON files in the current directory and its subdirectories
-configuration.AddJsonFile("*.json", optional: true, reloadOnChange: true);
+// configuration.AddJsonFile("*.json", optional: true, reloadOnChange: true);
+configuration.AddJsonFile($"configuration/ocelot.{builder.Environment.EnvironmentName}.json"); 
 
 // =======================================
 // ===== SERVICES =====
@@ -41,16 +42,12 @@ services.AddSwaggerForOcelot(configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
+app.UseSwagger();
     
-    app.UseSwaggerForOcelotUI(opt =>
-    {
-        opt.PathToSwaggerGenerator = "/swagger/docs";
-    });
-}
+app.UseSwaggerForOcelotUI(opt =>
+{
+    opt.PathToSwaggerGenerator = "/swagger/docs";
+});
 
 app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 

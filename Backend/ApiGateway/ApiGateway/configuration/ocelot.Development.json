@@ -5,7 +5,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "account_domain",
           "Port": 5001
         }
       ],
@@ -16,7 +16,9 @@
         "GET"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "account"
+      "SwaggerKey": "account",
+
+      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
   "GlobalConfiguration": {
@@ -32,7 +34,7 @@
         {
           "Name": "Account API",
           "Version": "v1",
-          "Url": "https://localhost:5001/swagger/v1/swagger.json"
+          "Url": "https://account_domain:443/swagger/v1/swagger.json"
         }
       ]
     }
