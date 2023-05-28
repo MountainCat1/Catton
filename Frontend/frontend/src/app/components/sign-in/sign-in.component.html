@@ -24,8 +24,9 @@
   </button>
 </div>
 
+
 <div class="result-container">
-  <ng-container *ngIf="(authenticate$ | withLoading | async) as result">
+  <ng-container *ngIf="(authenticate$ | withHttpLoading | async) as result">
     <ng-container *ngIf="result.loading">
       <mat-spinner></mat-spinner>
     </ng-container>
@@ -33,7 +34,9 @@
       Data loaded: {{ (result.value | json) }}
     </ng-container>
     <ng-container *ngIf="result.error">
-      Error: {{ result.error.message }}
+      <div class="jasmine-errored">
+        <mat-error >{{ getUserFriendlyErrorMessage(result.error) }}</mat-error>
+      </div>
     </ng-container>
   </ng-container>
 </div>

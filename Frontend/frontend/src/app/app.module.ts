@@ -20,11 +20,11 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
-import {ApiModule, BASE_PATH, Configuration} from "./services/openapi-generated";
+import {ApiModule, Configuration} from "./services/openapi-generated";
 import {FormsModule} from "@angular/forms";
 import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {WithLoadingPipe} from "./with-loading.pipe";
+import {WithHttpLoadingPipe} from "./with-loading.pipe";
 import {AuthService} from "./services/auth.service";
 import {JwtInterceptor} from "./jwt-interceptor";
 import { SelectConventionComponent } from './components/select-convention/select-convention.component';
@@ -41,7 +41,7 @@ import { SelectConventionComponent } from './components/select-convention/select
     PanelComponent,
     PublicPopupComponent,
 
-    WithLoadingPipe,
+    WithHttpLoadingPipe,
       SelectConventionComponent
   ],
   imports: [

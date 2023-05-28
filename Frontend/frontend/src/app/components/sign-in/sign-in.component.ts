@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  AuthenticationService, AuthTokenResponseContract,
-  AuthViaPasswordRequestContract, ClaimsService,
+  AuthTokenResponseContract,
+  ClaimsService,
   EmailPasswordAuthenticationService
 } from "../../services/openapi-generated";
 import {Observable} from "rxjs";
 import {AuthService} from "../../services/auth.service";
-import {Navigation, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-sign-in',
@@ -28,7 +29,6 @@ export class SignInComponent implements OnInit {
   ) {
   }
 
-
   ngOnInit(): void {
 
   }
@@ -36,7 +36,6 @@ export class SignInComponent implements OnInit {
   togglePasswordVisibility() {
     this.hide = !this.hide;
   }
-
 
   signIn() {
     console.log('Signing in...');
@@ -46,6 +45,7 @@ export class SignInComponent implements OnInit {
       password:this.password
     });
 
+
     this.authenticate$.subscribe(x => {
       this.authService.setToken(x.authToken as string);
 
@@ -53,4 +53,9 @@ export class SignInComponent implements OnInit {
     })
   }
 
+  protected readonly Error = Error;
+
+  getUserFriendlyErrorMessage(error: HttpErrorResponse | undefined) {
+    return error?.statusText;
+  }
 }
