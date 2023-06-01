@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ConventionDomain.Domain.Validators;
 
-public class ConventionOrganizerValidator : AbstractValidator<ConventionOrganizer>
+public class ConventionOrganizerValidator : AbstractValidator<Organizer>
 {
     public ConventionOrganizerValidator()
     {

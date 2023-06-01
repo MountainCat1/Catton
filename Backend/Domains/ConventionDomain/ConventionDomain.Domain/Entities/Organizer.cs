@@ -5,13 +5,23 @@ using FluentValidation;
 
 namespace ConventionDomain.Domain.Entities;
 
-public enum OrganiserRole
+public enum OrganizerRole
 {
-    Owner, Administrator, Moderator, Announcer
+    Owner, Administrator, Moderator, Announcer, Helper
 }
 
-public class ConventionOrganizer : Entity
+public record OrganizerUpdate
 {
+    public virtual OrganizerRole Role { get; set; }
+}
+
+public class Organizer : Entity
+{
+    public static OrganizerRole DefaultRole
+    {
+        get => OrganizerRole.Helper;
+    }
+    
     public Guid Id { get; private set; }
     
     public Guid AccountId { private set; get; }
@@ -23,30 +33,37 @@ public class ConventionOrganizer : Entity
     
     public DateTime CreatedDate { get; set; }
     
-    public virtual ICollection<OrganiserRole> Roles { get; set; }
+    public virtual OrganizerRole Role { get; set; }
 
-    private ConventionOrganizer()
+    private Organizer()
     {
-        
     }
     
-    public static ConventionOrganizer CreateInstance(Convention convention, Guid accountId)
+    public static Organizer CreateInstance(Convention convention, Guid accountId, OrganizerRole? role = null)
     {
-        var entity = new ConventionOrganizer()
+        var entity = new Organizer()
         {
             Convention = convention,
             ConventionId = convention.Id,
             AccountId = accountId,
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.Now,
+            Role = role ?? DefaultRole
         };
 
         entity.ValidateAndThrow();
 
         return entity;
     }
-    
+
     public void ValidateAndThrow()
     {
         new ConventionOrganizerValidator().ValidateAndThrow(this);
+    }
+
+    public void Update(OrganizerUpdate update)
+    {
+        Role = update.Role;
+        
+        ValidateAndThrow();
     }
 }

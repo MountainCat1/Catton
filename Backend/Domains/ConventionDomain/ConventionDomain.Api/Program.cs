@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using ConventionDomain.Api;
 using ConventionDomain.Api.MediaRBehaviors;
 using ConventionDomain.Api.Middlewares;
@@ -19,7 +20,11 @@ var configuration = builder.Configuration;
 // ========= SERVICES  =========
 var services = builder.Services;
 
-services.AddControllers();
+services.AddControllers().AddJsonOptions(opts =>
+{
+    var enumConverter = new JsonStringEnumConverter();
+    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+});
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 services.AddLogging(loggingBuilder =>
@@ -62,6 +67,7 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
 services.AddScoped<IConventionRepository, ConventionRepository>();
+services.AddScoped<IOrganizerRepository, OrganizerRepository>();
 
 // ========= RUN  =========
 var app = builder.Build();

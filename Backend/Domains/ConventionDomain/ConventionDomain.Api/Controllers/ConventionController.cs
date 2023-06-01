@@ -1,5 +1,6 @@
 ﻿using ConventionDomain.Application.Dtos;
-using ConventionDomain.Application.Features.Convention;
+using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Features.ConventionFeature;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

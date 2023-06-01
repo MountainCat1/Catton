@@ -7,12 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace ConventionDomain.Infrastructure.Repositories;
 
-public class ConventionOrganizerRepository : Repository<ConventionOrganizer, ConventionDomainDbContext>, IConventionOrganizerRepository
+public class OrganizerRepository : Repository<Organizer, ConventionDomainDbContext>, IOrganizerRepository
 {
-    public ConventionOrganizerRepository(
+    public OrganizerRepository(
         ConventionDomainDbContext dbContext,
         IMediator mediator,
-        ILogger<Repository<ConventionOrganizer, ConventionDomainDbContext>> logger) : base(dbContext,
+        ILogger<Repository<Organizer, ConventionDomainDbContext>> logger) : base(dbContext,
         mediator,
         logger)
     {

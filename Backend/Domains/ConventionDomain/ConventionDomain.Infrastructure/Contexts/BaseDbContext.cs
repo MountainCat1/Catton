@@ -19,19 +19,22 @@ public class ConventionDomainDbContext : DbContext
         conventionEntity.Property(x => x.Name).IsRequired();
         conventionEntity.Property(x => x.Description).IsRequired();
         conventionEntity.Property(x => x.CreatedDate).IsRequired();
-
-
+        
         // ORGANIZER
-        var organizerEntity = mb.Entity<ConventionOrganizer>();
+        var organizerEntity = mb.Entity<Organizer>();
 
         organizerEntity.HasKey(x => x.Id);
 
         organizerEntity.Property(x => x.AccountId).IsRequired();
+        
+        organizerEntity
+            .Property(e => e.Role)
+            .HasConversion<string>();
 
         base.OnModelCreating(mb);
     }
 
 
     public DbSet<Convention> Conventions { get; set; } = null!;
-    public DbSet<ConventionOrganizer> Organizers { get; set; } = null!;
+    public DbSet<Organizer> Organizers { get; set; } = null!;
 }
