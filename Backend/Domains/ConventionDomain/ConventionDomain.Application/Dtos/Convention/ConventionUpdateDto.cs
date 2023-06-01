@@ -1,4 +1,4 @@
-﻿namespace ConventionDomain.Application.Dtos;
+﻿namespace ConventionDomain.Application.Dtos.Convention;
 
 public class ConventionUpdateDto
 {

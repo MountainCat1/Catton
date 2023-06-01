@@ -7,25 +7,34 @@ public class ConventionDomainDbContext : DbContext
 {
     public ConventionDomainDbContext(DbContextOptions<ConventionDomainDbContext> options) : base(options)
     {
-        
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder mb)
     {
-        modelBuilder.Entity<Convention>().HasKey(e => e.Id);
+        
+        // CONVENTION
+        var conventionEntity = mb.Entity<Convention>();
+        conventionEntity.HasKey(e => e.Id);
 
-        modelBuilder.Entity<Convention>().Property(x => x.Name).IsRequired();
-        modelBuilder.Entity<Convention>().Property(x => x.Description).IsRequired();
-        modelBuilder.Entity<Convention>().Property(x => x.CreatedDate).IsRequired();
+        conventionEntity.Property(x => x.Name).IsRequired();
+        conventionEntity.Property(x => x.Description).IsRequired();
+        conventionEntity.Property(x => x.CreatedDate).IsRequired();
         
-        modelBuilder.Entity<Convention>()
-            .Property(e => e.CreatedDate)
-            .HasComputedColumnSql("GETDATE()");
+        // ORGANIZER
+        var organizerEntity = mb.Entity<Organizer>();
+
+        organizerEntity.HasKey(x => x.Id);
+
+        organizerEntity.Property(x => x.AccountId).IsRequired();
         
-        
-        base.OnModelCreating(modelBuilder);
+        organizerEntity
+            .Property(e => e.Role)
+            .HasConversion<string>();
+
+        base.OnModelCreating(mb);
     }
 
 
     public DbSet<Convention> Conventions { get; set; } = null!;
+    public DbSet<Organizer> Organizers { get; set; } = null!;
 }

@@ -1,10 +1,9 @@
-﻿using ConventionDomain.Application.Dtos;
+﻿using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Domain.Entities;
 using ConventionDomain.Domain.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 
-namespace ConventionDomain.Application.Features.Convention;
+namespace ConventionDomain.Application.Features.ConventionFeature;
 
 public class UpdateConventionRequest : IRequest
 {
