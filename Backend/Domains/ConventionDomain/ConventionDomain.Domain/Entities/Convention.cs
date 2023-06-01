@@ -17,7 +17,7 @@ public class Convention : Entity
     public string Name { get; private set; }
     public string Description { get; private set; }
 
-    public DateTime CreatedDate { get;}
+    public DateTime CreatedDate { private set; get; }
     public bool Active { get; private set; }
 
 
@@ -30,7 +30,8 @@ public class Convention : Entity
         var entity = new Convention
         {
             Name = name,
-            Description = description
+            Description = description,
+            CreatedDate = DateTime.Now
         };
 
         entity.ValidateAndThrow();
