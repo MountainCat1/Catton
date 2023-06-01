@@ -1,6 +1,4 @@
-﻿using ConventionDomain.Domain.Entities;
-
-namespace ConventionDomain.Application.Dtos;
+﻿namespace ConventionDomain.Application.Dtos.Convention;
 
 public record ConventionResponse
 {
@@ -12,7 +10,7 @@ public record ConventionResponse
 
 public static class ConventionExtensions
 {
-    public static ConventionResponse ToDto(this Convention convention)
+    public static ConventionResponse ToDto(this Domain.Entities.Convention convention)
     {
         return new ConventionResponse
         {
