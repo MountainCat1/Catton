@@ -91,6 +91,9 @@ services.AddSingleton<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
 
+if (!app.Environment.IsDevelopment())
+    await app.MigrateDatabaseAsync<AccountDbContext>();
+    
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_SWAGGER"))
 {

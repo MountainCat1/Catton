@@ -1,6 +1,5 @@
 version: '3.8'
 services:
-  
   sql_database:
     build:
       context: ./SqlDatabase
