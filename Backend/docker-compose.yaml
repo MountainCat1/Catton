@@ -1,6 +1,16 @@
 version: '3.8'
 services:
+  
+  sql_database:
+    build:
+      context: ./SqlDatabase
+      dockerfile: Dockerfile
+    ports:
+       - "1433:1433"
+
   api_gateway:
+    env_file:
+      - dockerCompose.env
     build:
       context: ./ApiGateway
       dockerfile: Dockerfile
@@ -8,8 +18,12 @@ services:
       - "4000:80"
       - "5000:443"
     environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
+
   account_domain:
+    env_file:
+      - dockerCompose.env
     build:
       context: ./Domains/Account
       dockerfile: Dockerfile
@@ -17,4 +31,5 @@ services:
       - "4001:80"
       - "5001:443"
     environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
