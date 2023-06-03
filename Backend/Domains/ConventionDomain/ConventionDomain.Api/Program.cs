@@ -1,8 +1,10 @@
 using System.Text.Json.Serialization;
 using ConventionDomain.Api;
+using ConventionDomain.Api.Extensions;
 using ConventionDomain.Api.MediaRBehaviors;
 using ConventionDomain.Api.Middlewares;
 using ConventionDomain.Application;
+using ConventionDomain.Application.Configuration;
 using ConventionDomain.Domain.Repositories;
 using ConventionDomain.Infrastructure.Contexts;
 using ConventionDomain.Infrastructure.Repositories;
@@ -16,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // ========= CONFIGURATION  =========
 var configuration = builder.Configuration;
 
+var jwtConfig = configuration.GetConfiguration<JwtConfig>();
 
 // ========= SERVICES  =========
 var services = builder.Services;
@@ -48,6 +51,8 @@ services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+services.AddAsymmetricAuthentication(jwtConfig);
 
 services.AddDbContext<ConventionDomainDbContext>(options =>
 {
