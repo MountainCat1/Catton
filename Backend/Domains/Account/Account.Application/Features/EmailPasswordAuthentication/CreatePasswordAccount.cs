@@ -84,7 +84,7 @@ public class CreatePasswordAccountRequestHandler : IRequestHandler<CreatePasswor
             if (dbException is DuplicateEntryException)
                 return Result.Failure(new ValidationException("Email already in use"));
 
-            Result.Failure(dbException);
+            return Result.Failure(dbException);
         }
 
         return Result.Success();

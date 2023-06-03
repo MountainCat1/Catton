@@ -5,8 +5,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          "Host": "account_domain",
+          "Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/authentication{everything}",
@@ -34,7 +34,7 @@
         {
           "Name": "Account API",
           "Version": "v1",
-          "Url": "https://localhost:5001/swagger/v1/swagger.json"
+          "Url": "https://account_domain:443/swagger/v1/swagger.json"
         }
       ]
     }
