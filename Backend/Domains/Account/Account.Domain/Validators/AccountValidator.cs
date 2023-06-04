@@ -7,6 +7,6 @@ public class PasswordAccountValidator : AbstractValidator<PasswordAccountEntity>
 {
     public PasswordAccountValidator()
     {
-        
+        RuleFor(x => x.Email).EmailAddress();
     }
 }
