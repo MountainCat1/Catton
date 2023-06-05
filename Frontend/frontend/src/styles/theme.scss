@@ -51,7 +51,8 @@ $my-theme: mat.define-dark-theme((
   density: 0
 ));
 
-@include mat.all-component-themes($my-theme);
+@include mat.all-component-colors($my-theme);
+@include mat.all-component-typographies($my-theme);
 
 
 // override the rules from Angular Material so that the floating label is more visible

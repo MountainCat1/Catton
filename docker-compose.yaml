@@ -2,10 +2,21 @@ version: '3.8'
 services:
   sql_database:
     build:
-      context: ./SqlDatabase
+      context: ./Backend/SqlDatabase
       dockerfile: Dockerfile
     ports:
        - "1433:1433"
+
+  frontend:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Frontend/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    environment:
+      - API_BASE_PATH=https://api_gateway:5000
 
   api_gateway:
     env_file:
@@ -24,7 +35,7 @@ services:
     env_file:
       - dockerCompose.env
     build:
-      context: ./Domains/Account
+      context: ./Backend/Domains/Account
       dockerfile: Dockerfile
     ports:
       - "4001:80"
