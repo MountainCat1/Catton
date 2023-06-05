@@ -19,15 +19,13 @@ public class PasswordAccountEntity : AccountEntity
     {
         var newAccount = new PasswordAccountEntity(email, username, passwordHash);
 
-        var validator = new PasswordAccountValidator();
-
-        var validationResult = await validator.ValidateAsync(newAccount);
-
-        if (!validationResult.IsValid)
-        {
-            throw new ValidationException(validationResult.Errors);
-        }
+        await newAccount.ValidateAndThrow();
 
         return newAccount;
+    }
+    
+    public async Task ValidateAndThrow()
+    {
+        await new PasswordAccountValidator().ValidateAndThrowAsync(this);
     }
 }

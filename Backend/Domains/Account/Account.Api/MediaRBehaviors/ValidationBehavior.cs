@@ -18,8 +18,8 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
         CancellationToken cancellationToken
     )
     {
-        if (!typeof(TResponse).IsGenericType) 
-            return await next();
+        // if (!typeof(TResponse).IsGenericType) 
+        //     return await next();
         
         if (!_validators.Any()) 
             return await next();

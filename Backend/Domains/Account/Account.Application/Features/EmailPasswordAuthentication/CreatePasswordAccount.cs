@@ -31,6 +31,7 @@ public class CreatePasswordAccountRequest : IRequest
     public string Username { get; }
 }
 
+    
 public class CreatePasswordAccountValidator : AbstractValidator<CreatePasswordAccountRequest>
 {
     private const string PasswordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
@@ -53,9 +54,11 @@ public class CreatePasswordAccountRequestHandler : IRequestHandler<CreatePasswor
     private readonly IHashingService _hashingService;
     private readonly IMediator _mediator;
 
-    public CreatePasswordAccountRequestHandler(IPasswordAccountRepository passwordAccountRepository,
-        IHashingService hashingService, IMediator mediator)
-    {
+    public CreatePasswordAccountRequestHandler(
+        IPasswordAccountRepository passwordAccountRepository,
+        IHashingService hashingService,
+        IMediator mediator
+    ) {
         _passwordAccountRepository = passwordAccountRepository;
         _hashingService = hashingService;
         _mediator = mediator;
@@ -70,7 +73,7 @@ public class CreatePasswordAccountRequestHandler : IRequestHandler<CreatePasswor
         );
 
         await AddEntityToTheDatabase(entity)
-            .HandleAsync(x => throw x); ;
+            .HandleAsync();
     }
 
     private async Task<Result> AddEntityToTheDatabase(PasswordAccountEntity entity)
