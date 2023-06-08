@@ -1,4 +1,6 @@
+using ApiGateway.Extensions;
 using ApiGateway.Middleware;
+using Ocelot.Configuration.File;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -20,7 +22,8 @@ foreach (string jsonFile in jsonFiles)
 
 // Add all JSON files in the current directory and its subdirectories
 // configuration.AddJsonFile("*.json", optional: true, reloadOnChange: true);
-configuration.AddJsonFile($"configuration/ocelot.{builder.Environment.EnvironmentName}.json"); 
+configuration.AddJsonFile($"configuration/ocelot.{builder.Environment.EnvironmentName}.json");
+
 
 // =======================================
 // ===== SERVICES =====

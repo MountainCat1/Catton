@@ -19,17 +19,36 @@
       "SwaggerKey": "account",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
-
+    
     {
-      "DownstreamPathTemplate": "/api/convention{everything}",
+      "DownstreamPathTemplate": "/api/convention/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "https://host.docker.internal:5002",
-          "Port": 443
+          "Host": "host.docker.internal",
+          "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api/convention{everything}",
+      "UpstreamPathTemplate": "/api/convention/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "convention",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/convention",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/convention",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",

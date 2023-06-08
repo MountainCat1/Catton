@@ -2,11 +2,13 @@
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Features.ConventionFeature;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConventionDomain.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/convention")]
 public class ConventionController : Controller
 {

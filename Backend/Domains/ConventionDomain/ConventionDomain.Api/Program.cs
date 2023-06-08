@@ -82,6 +82,9 @@ services.AddScoped<IOrganizerRepository, OrganizerRepository>();
 // ========= RUN  =========
 var app = builder.Build();
 
+if (!app.Environment.IsDevelopment())
+    await app.MigrateDatabaseAsync<ConventionDomainDbContext>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

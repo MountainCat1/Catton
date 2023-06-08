@@ -14,9 +14,9 @@ services:
       context: ./Frontend/frontend
       dockerfile: Dockerfile
     ports:
-      - "4200:4200"
+      - "4269:80"
     environment:
-      - API_BASE_PATH=https://api_gateway:5000
+      - API_BASE_PATH=https://host.docker.internal:5000
 
   api_gateway:
     env_file:
