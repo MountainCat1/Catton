@@ -22,7 +22,7 @@ services:
     env_file:
       - dockerCompose.env
     build:
-      context: ./ApiGateway
+      context: ./Backend/ApiGateway
       dockerfile: Dockerfile
     ports:
       - "4000:80"
