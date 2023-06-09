@@ -5,6 +5,7 @@ using ConventionDomain.Api.MediaRBehaviors;
 using ConventionDomain.Api.Middlewares;
 using ConventionDomain.Application;
 using ConventionDomain.Application.Configuration;
+using ConventionDomain.Application.Services;
 using ConventionDomain.Domain.Repositories;
 using ConventionDomain.Infrastructure.Contexts;
 using ConventionDomain.Infrastructure.Repositories;
@@ -18,6 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 // ========= CONFIGURATION  =========
 var configuration = builder.Configuration;
 
+configuration.AddJsonFile("Secrets/jwt.json");
+
 var jwtConfig = configuration.GetConfiguration<JwtConfig>();
 
 // ========= SERVICES  =========
@@ -29,7 +32,10 @@ services.AddControllers().AddJsonOptions(opts =>
     opts.JsonSerializerOptions.Converters.Add(enumConverter);
 });
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+services.AddSwaggerGen(o =>
+{
+    o.AddSwaggerAuthUi();
+});
 services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
@@ -63,7 +69,8 @@ services.AddDbContext<ConventionDomainDbContext>(options =>
         .AddConsole()));
 });
 
-
+services.AddHttpContextAccessor();
+services.AddTransient<IUserAccessor, UserAccessor>();
 services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
@@ -77,12 +84,22 @@ services.AddScoped<IOrganizerRepository, OrganizerRepository>();
 // ========= RUN  =========
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+    await app.MigrateDatabaseAsync<ConventionDomainDbContext>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+
+        // Enable JWT authentication in Swagger UI
+        c.OAuthClientId("swagger");
+        c.OAuthAppName("Swagger UI");
+    });
 }
+
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

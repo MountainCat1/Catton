@@ -1,7 +1,4 @@
-﻿using ConventionDomain.Application.Dtos.Convention;
-using ConventionDomain.Application.Dtos.Organizer;
-using ConventionDomain.Application.Errors;
-using ConventionDomain.Domain.Repositories;
+﻿using ConventionDomain.Domain.Repositories;
 using MediatR;
 
 namespace ConventionDomain.Application.Features.OrganizerFeature;

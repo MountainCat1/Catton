@@ -12,21 +12,21 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     where TEntity : Entity
     where TDbContext : DbContext
 {
-    private readonly DbSet<TEntity> _dbSet;
-    private readonly Func<Task> _saveChangesAsyncDelegate;
-    private IMediator _mediator;
-    private TDbContext _dbContext;
-    private ILogger<Repository<TEntity, TDbContext>> _logger;
+    protected  DbSet<TEntity> DbSet { get; }
+    protected Func<Task> SaveChangesAsyncDelegate { get; }
+    protected IMediator Mediator { get; }
+    protected TDbContext DbContext { get; }
+    protected ILogger<Repository<TEntity, TDbContext>> Logger { get; }
 
 
     public Repository(TDbContext dbContext, IMediator mediator, ILogger<Repository<TEntity, TDbContext>> logger)
     {
-        _dbContext = dbContext;
-        _mediator = mediator;
-        _logger = logger;
-        _dbSet = dbContext.Set<TEntity>();
+        DbContext = dbContext;
+        Mediator = mediator;
+        Logger = logger;
+        DbSet = dbContext.Set<TEntity>();
 
-        _saveChangesAsyncDelegate = async () => { await dbContext.SaveChangesAsync(); };
+        SaveChangesAsyncDelegate = async () => { await dbContext.SaveChangesAsync(); };
     }
 
     public virtual async Task<TEntity?> GetOneAsync(params object[] guids)
@@ -34,17 +34,17 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         if (guids.Length == 0)
             throw new ArgumentException("No key provided");
 
-        var entity = await _dbSet.FindAsync(guids);
+        var entity = await DbSet.FindAsync(guids);
 
         return entity;
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAsync(
+    public virtual async Task<ICollection<TEntity>> GetAsync(
         Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         params string[] includeProperties)
     {
-        IQueryable<TEntity> query = _dbSet;
+        IQueryable<TEntity> query = DbSet;
 
         if (filter != null)
         {
@@ -69,7 +69,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     public async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null,
         params string[] includeProperties)
     {
-        IQueryable<TEntity> query = _dbSet;
+        IQueryable<TEntity> query = DbSet;
 
         if (filter != null)
         {
@@ -107,7 +107,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
 
     public virtual async Task<ICollection<TEntity>> GetAllAsync()
     {
-        var entities = await _dbSet.ToListAsync();
+        var entities = await DbSet.ToListAsync();
 
         return entities;
     }
@@ -116,12 +116,12 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     {
         var entity = await GetOneRequiredAsync(keys);
 
-        _dbSet.Remove(entity);
+        DbSet.Remove(entity);
     }
 
     public virtual Task<TEntity> AddAsync(TEntity entity)
     {
-        _dbSet.Add(entity);
+        DbSet.Add(entity);
 
         return Task.FromResult(entity);
     }
@@ -130,8 +130,8 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     {
         var entity = await GetOneRequiredAsync(keys);
 
-        _dbSet.Attach(entity).CurrentValues.SetValues(update);
-        _dbSet.Attach(entity).State = EntityState.Modified;
+        DbSet.Attach(entity).CurrentValues.SetValues(update);
+        DbSet.Attach(entity).State = EntityState.Modified;
 
         return entity;
     }
@@ -140,7 +140,8 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     {
         try
         {
-            await _saveChangesAsyncDelegate();
+            await Mediator.DispatchDomainEventsAsync(DbContext);
+            await SaveChangesAsyncDelegate();
         }
         catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())
         {
@@ -149,19 +150,19 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message);
+            Logger.LogError(ex.Message);
             ClearDomainEvents();
             return ex;
         }
 
-        await _mediator.DispatchDomainEventsAsync(_dbContext);
+
         
         return null;
     }
 
     private void ClearDomainEvents()
     {
-        var domainEntities = _dbContext.ChangeTracker
+        var domainEntities = DbContext.ChangeTracker
             .Entries<Entity>()
             .Where(entry => entry.Entity.DomainEvents != null && entry.Entity.DomainEvents.Any())
             .ToArray();

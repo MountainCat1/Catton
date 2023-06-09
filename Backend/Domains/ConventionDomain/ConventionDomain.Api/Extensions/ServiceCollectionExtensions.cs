@@ -2,6 +2,8 @@
 using ConventionDomain.Application.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ConventionDomain.Api.Extensions;
 
@@ -46,5 +48,37 @@ public static class ServiceCollectionExtensions
             });
 
         return services;
+    }
+    
+    
+    public static SwaggerGenOptions AddSwaggerAuthUi(this SwaggerGenOptions options)
+    {
+        // Add the security definition for JWT Bearer authentication
+        var securityScheme = new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Description = "Enter 'Bearer {token}'",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            Reference = new OpenApiReference
+            {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+            }
+        };
+
+        options.AddSecurityDefinition("Bearer", securityScheme);
+
+        // Apply the security requirement globally to all endpoints
+        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                securityScheme, new List<string>()
+            }
+        });
+
+        return options;
     }
 }
