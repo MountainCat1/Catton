@@ -7,12 +7,7 @@ public static class ServiceCollectionAuthorizationExtensions
 {
     public static IServiceCollection AddResourceAuthorization(this IServiceCollection services)
     {
-        services.AddAuthorization(options =>
-        {
-        });
-
         services.AddSingleton<IAuthorizationHandler, ConventionAuthorizationHandler>();
-
 
         return services;
     }
