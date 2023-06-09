@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+# === INFRASTRUCTURE === 
   sql_database:
     build:
       context: ./Backend/SqlDatabase
@@ -7,6 +8,7 @@ services:
     ports:
        - "1433:1433"
 
+# === FRONTEND === 
   frontend:
     env_file:
       - dockerCompose.env
@@ -18,6 +20,7 @@ services:
     environment:
       - API_BASE_PATH=https://host.docker.internal:5000
 
+# === DOMAINS === 
   api_gateway:
     env_file:
       - dockerCompose.env
@@ -40,6 +43,18 @@ services:
     ports:
       - "4001:80"
       - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
+      - ENABLE_SWAGGER=true
+  convention_domain:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Backend/Domains/ConventionDomain
+      dockerfile: Dockerfile
+    ports:
+      - "4002:80"
+      - "5002:443"
     environment:
       - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
