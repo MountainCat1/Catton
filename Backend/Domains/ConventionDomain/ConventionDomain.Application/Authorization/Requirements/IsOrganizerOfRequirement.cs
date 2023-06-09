@@ -2,7 +2,7 @@
 
 namespace ConventionDomain.Application.Authorization.Requirements;
 
-public class IsOrganizer : IAuthorizationRequirement
+public class IsOrganizerOfRequirement : IAuthorizationRequirement
 {
     
 }

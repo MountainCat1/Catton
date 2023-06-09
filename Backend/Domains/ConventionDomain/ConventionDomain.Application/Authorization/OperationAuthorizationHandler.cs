@@ -45,7 +45,7 @@ public abstract class OperationAuthorizationHandler<TResource> : AuthorizationHa
 
     private void HandleResult(AuthorizationResult result)
     {
-        if (result.Success)
+        if (result.Succeeded)
         {
             Context.Succeed(Requirement);
         }
@@ -63,21 +63,15 @@ public abstract class OperationAuthorizationHandler<TResource> : AuthorizationHa
 
     protected AuthorizationResult Succeed()
     {
-        return new AuthorizationResult()
-        {
-            Success = true
-        };
+        return AuthorizationResult.Success();
     }
     protected AuthorizationResult Fail()
     {
-        return new AuthorizationResult()
-        {
-            Success = false
-        };
+        return AuthorizationResult.Failed();
     }
 
-    protected class AuthorizationResult
-    {
-        public bool Success { get; set; } = false;
-    }
+    // protected class AuthorizationResult
+    // {
+    //     public bool Success { get; set; } = false;
+    // }
 }

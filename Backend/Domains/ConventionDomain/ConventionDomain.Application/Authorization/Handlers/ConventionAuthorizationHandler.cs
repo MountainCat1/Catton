@@ -1,5 +1,7 @@
 ﻿using System.Security.Claims;
+using ConventionDomain.Application.Authorization.Requirements;
 using ConventionDomain.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace ConventionDomain.Application.Authorization.Handlers;
@@ -7,45 +9,45 @@ namespace ConventionDomain.Application.Authorization.Handlers;
 public class ConventionAuthorizationHandler : OperationAuthorizationHandler<Convention>
 {
     private ILogger<ConventionAuthorizationHandler> _logger;
+    private IAuthorizationService _authorizationService;
 
-    public ConventionAuthorizationHandler(ILogger<ConventionAuthorizationHandler> logger)
+    public ConventionAuthorizationHandler(
+        ILogger<ConventionAuthorizationHandler> logger,
+        IAuthorizationService authorizationService)
     {
         _logger = logger;
+        _authorizationService = authorizationService;
     }
 
     protected override async Task<AuthorizationResult> HandleCreateRequirement()
     {
         // TODO: only admins or something can do it!
-        
+
         _logger.LogWarning("Creation of convetions doesnt have a authorization!");
-        
-        
+
+
         return Succeed();
     }
-    
+
 
     protected override async Task<AuthorizationResult> HandleReadRequirement()
     {
-        var accountIdString = User.Claims.First(x => x.Type == ClaimTypes.PrimarySid).Value;
-        var accountId = new Guid(accountIdString);
+        var requirement = new IsOrganizerOfRequirement();
 
-        
-        
-        if (!Resource.Organizers.Any(x => x.AccountId == accountId))
-        {
-            return Fail();
-        }
-        
-        return Succeed();
+        return await _authorizationService.AuthorizeAsync(User, Resource, requirement);
     }
 
-    protected override Task<AuthorizationResult> HandleUpdateRequirement()
+    protected override async Task<AuthorizationResult> HandleUpdateRequirement()
     {
-        throw new NotImplementedException();
+        var requirement = new IsOrganizerOfRequirement();
+
+        return await _authorizationService.AuthorizeAsync(User, Resource, requirement);
     }
 
-    protected override Task<AuthorizationResult> HandleDeleteRequirement()
+    protected override async Task<AuthorizationResult> HandleDeleteRequirement()
     {
-        throw new NotImplementedException();
+        var requirement = new IsOrganizerOfRequirement();
+
+        return await _authorizationService.AuthorizeAsync(User, Resource, requirement);
     }
 }
