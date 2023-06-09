@@ -1,5 +1,5 @@
-﻿using ConventionDomain.Application.Dtos;
-using ConventionDomain.Application.Dtos.Convention;
+﻿using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Features.ConventionFeature;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -39,7 +39,20 @@ public class ConventionController : Controller
         {
             Id = id
         };
+        
+        var result = await _mediator.Send(request);
 
+        return Ok(result);
+    }
+    
+    [HttpGet("")]
+    public async Task<IActionResult> GetAll()
+    {
+        var request = new GetAllConventionsRequest()
+        {
+            AccountId = User.GetUserId()
+        };
+        
         var result = await _mediator.Send(request);
 
         return Ok(result);

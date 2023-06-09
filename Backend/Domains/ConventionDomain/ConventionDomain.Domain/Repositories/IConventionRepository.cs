@@ -5,5 +5,5 @@ namespace ConventionDomain.Domain.Repositories;
 
 public interface IConventionRepository : IRepository<Convention>
 {
-    
+    Task<ICollection<Convention>> GetByOrganizatorId(Guid accountId);
 }

@@ -1,4 +1,5 @@
 ﻿using ConventionDomain.Domain.Abstractions;
+using ConventionDomain.Domain.Events;
 using ConventionDomain.Domain.Validators;
 using FluentValidation;
 
@@ -19,13 +20,15 @@ public class Convention : Entity
 
     public DateTime CreatedDate { private set; get; }
     public bool Active { get; private set; }
+    
+    public virtual ICollection<Organizer> Organizers { get; set; }
 
 
     private Convention()
     {
     }
 
-    public static Convention CreateInstance(string name, string description)
+    public static Convention CreateInstance(string name, string description, Guid creatorId)
     {
         var entity = new Convention
         {
@@ -35,6 +38,11 @@ public class Convention : Entity
         };
 
         entity.ValidateAndThrow();
+        
+        entity.AddDomainEvent(new ConventionCreatedDomainEvent()
+        {
+            AccountId = creatorId
+        });
 
         return entity;
     }

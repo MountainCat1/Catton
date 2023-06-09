@@ -5,6 +5,7 @@ using ConventionDomain.Api.MediaRBehaviors;
 using ConventionDomain.Api.Middlewares;
 using ConventionDomain.Application;
 using ConventionDomain.Application.Configuration;
+using ConventionDomain.Application.Services;
 using ConventionDomain.Domain.Repositories;
 using ConventionDomain.Infrastructure.Contexts;
 using ConventionDomain.Infrastructure.Repositories;
@@ -68,7 +69,8 @@ services.AddDbContext<ConventionDomainDbContext>(options =>
         .AddConsole()));
 });
 
-
+services.AddHttpContextAccessor();
+services.AddTransient<IUserAccessor, UserAccessor>();
 services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();

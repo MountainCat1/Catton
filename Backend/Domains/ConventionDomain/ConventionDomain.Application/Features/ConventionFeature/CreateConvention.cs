@@ -1,4 +1,6 @@
 ﻿using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Extensions;
+using ConventionDomain.Application.Services;
 using ConventionDomain.Domain.Entities;
 using ConventionDomain.Domain.Repositories;
 using MediatR;
@@ -13,17 +15,19 @@ public class CreateConventionRequest : IRequest
 public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRequest>
 {
     private readonly IConventionRepository _conventionRepository;
+    private readonly IUserAccessor _userAccessor;
 
-    public CreateConventionRequestHandler(IConventionRepository conventionRepository)
+    public CreateConventionRequestHandler(IConventionRepository conventionRepository, IUserAccessor userAccessor)
     {
         _conventionRepository = conventionRepository;
+        _userAccessor = userAccessor;
     }
 
     public async Task Handle(CreateConventionRequest request, CancellationToken cancellationToken)
     {
         var dto = request.ConventionCreateDto;
 
-        var entity = Convention.CreateInstance(dto.Name, dto.Description);
+        var entity = Convention.CreateInstance(dto.Name, dto.Description, _userAccessor.User.GetUserId());
 
         await _conventionRepository.AddAsync(entity);
         await _conventionRepository.SaveChangesAsync();
