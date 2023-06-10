@@ -10,9 +10,8 @@ import {
 import {SignInComponent} from "./components/sign-in/sign-in.component";
 import {PublicComponent} from "./generic-components/public/public.component";
 import {SecureComponent} from "./generic-components/secure/secure.component";
-import {catchError, of} from "rxjs";
+import {of} from "rxjs";
 import {PublicPopupComponent} from "./generic-components/public-popup/public-popup.component";
-import {AuthenticationService} from "./services/openapi-generated";
 import {AuthService} from "./services/auth.service";
 import {SelectConventionComponent} from "./components/select-convention/select-convention.component";
 

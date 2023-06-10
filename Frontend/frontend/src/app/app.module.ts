@@ -20,7 +20,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
-import {ApiModule, Configuration} from "./services/openapi-generated";
 import {FormsModule} from "@angular/forms";
 import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -32,6 +31,7 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {Configuration} from "./services/generated-api/account/openapi-generated";
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import {MatListModule} from '@angular/material/list';
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
-    ApiModule,
     FormsModule,
     MatProgressSpinnerModule,
     LayoutModule,
