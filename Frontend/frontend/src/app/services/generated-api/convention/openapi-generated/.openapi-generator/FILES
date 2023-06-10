@@ -1,0 +1,15 @@
+.gitignore
+.openapi-generator-ignore
+README.md
+api.module.ts
+api/api.ts
+api/convention.service.ts
+configuration.ts
+encoder.ts
+git_push.sh
+index.ts
+model/conventionCreateDto.ts
+model/conventionUpdateDto.ts
+model/models.ts
+param.ts
+variables.ts
