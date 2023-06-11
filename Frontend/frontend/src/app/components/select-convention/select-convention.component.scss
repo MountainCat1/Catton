@@ -1,0 +1,30 @@
+@import "src/styles/styles";
+
+
+.convention-list {
+  width: 100%;
+
+  display: flex;
+  row-gap: 1.5em;
+
+  justify-content: space-around;
+  align-items: center;
+
+  flex-direction: column;
+
+  margin-top: 4em;
+}
+
+.convention-entry {
+  border: #4B4499;
+
+  width: 30em;
+}
+
+
+.select-convention-button {
+  font-size: 1.2rem;
+
+  width: 14em;
+  padding: 1em;
+}

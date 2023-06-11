@@ -31,7 +31,23 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import {Configuration} from "./services/generated-api/account/openapi-generated";
+import {Configuration as AccountConfiguration} from "./services/generated-api/account/openapi-generated";
+import {
+  Configuration as ConventionConfiguration,
+  ConventionService
+} from "./services/generated-api/convention/openapi-generated";
+import {MatCardModule} from "@angular/material/card";
+import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
+
+const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
+  {
+    basePath: environment.API_BASE_PATH,
+    credentials: {
+      bearer: () => authService.getToken(),
+    },
+  }
+)
+
 
 @NgModule({
   declarations: [
@@ -47,6 +63,7 @@ import {Configuration} from "./services/generated-api/account/openapi-generated"
 
     WithHttpLoadingPipe,
     SelectConventionComponent,
+    StaticChipComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +82,8 @@ import {Configuration} from "./services/generated-api/account/openapi-generated"
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatCardModule
   ],
   providers: [
     {
@@ -86,15 +104,14 @@ import {Configuration} from "./services/generated-api/account/openapi-generated"
       } as SocialAuthServiceConfig,
     },
     {
-      provide: Configuration,
-      useFactory: (authService: AuthService) => new Configuration(
-        {
-          basePath: environment.API_BASE_PATH,
-          credentials: {
-            bearer: () => authService.getToken(),
-          },
-        }
-      ),
+      provide: AccountConfiguration,
+      useFactory: RegisterBackendConfiguration,
+      deps: [AuthService],
+      multi: false
+    },
+    {
+      provide: ConventionConfiguration,
+      useFactory: RegisterBackendConfiguration,
       deps: [AuthService],
       multi: false
     },
@@ -108,3 +125,4 @@ import {Configuration} from "./services/generated-api/account/openapi-generated"
 })
 export class AppModule {
 }
+

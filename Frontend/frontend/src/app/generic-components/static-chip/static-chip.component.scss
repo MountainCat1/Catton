@@ -1,0 +1,25 @@
+@import "src/styles/styles";
+
+.static-chip {
+  color: $font-color-2;
+
+  font-size: 0.75rem;
+
+  border-radius: 2em;
+  margin-left: 0.4em;
+
+  padding: 0.35em 0.5em;
+}
+
+.active-static-chip {
+  background-color: rgba(0, 176, 0, 0.5);
+}
+
+.pending-static-chip {
+  background-color: rgba(176, 153, 0, 0.5);
+}
+
+.stopped-static-chip {
+  background-color: rgba(176, 0, 0, 0.5);
+}
+

@@ -37,7 +37,7 @@ const PUBLIC_POPUP_ROUTES: Routes = [
   {path: 'sign-in', component: SignInComponent}
 ]
 const SECURE_ROUTES: Routes = [
-  {path: 'convetions', component: SelectConventionComponent}
+  {path: 'conventions', component: SelectConventionComponent}
 ]
 
 

@@ -9,7 +9,9 @@ encoder.ts
 git_push.sh
 index.ts
 model/conventionCreateDto.ts
+model/conventionResponse.ts
 model/conventionUpdateDto.ts
 model/models.ts
+model/problemDetails.ts
 param.ts
 variables.ts
