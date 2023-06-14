@@ -8,7 +8,7 @@
 
   <ng-container *ngIf="result.error">
     <div class="error-message-big">
-      <mat-error >Error: {{ getFriendlyErrorMessage(result.error) }}</mat-error>
+      <mat-error>Error: {{ getFriendlyErrorMessage(result.error) }}</mat-error>
     </div>
   </ng-container>
 
@@ -21,16 +21,14 @@
   </ng-container>
 </ng-container>
 
-
-
 <ng-template #conventionEntry let-item>
   <mat-card class="convention-entry">
     <mat-card-header>
       <mat-card-title>
         {{item.name}}
         <span>
-            <app-static-chip chipType="active">Active</app-static-chip>
-          </span>
+          <app-static-chip chipType="active">Active</app-static-chip>
+        </span>
       </mat-card-title>
       <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
     </mat-card-header>
