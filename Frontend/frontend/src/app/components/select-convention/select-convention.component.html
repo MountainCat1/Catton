@@ -1,20 +1,43 @@
 <h1 class="page-header">Select convention</h1>
-<div class="convention-list">
-  <div *ngFor="let item of conventions$ | async">
-    <mat-card class="convention-entry">
-      <mat-card-header>
-        <mat-card-title>
-          {{item.name}}
-          <span>
+
+<ng-container *ngIf="(conventions$ | withHttpLoading | async) as result">
+
+  <ng-container *ngIf="result.loading">
+    <mat-spinner></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="result.error">
+    <div class="error-message-big">
+      <mat-error >Error: {{ getFriendlyErrorMessage(result.error) }}</mat-error>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="result.value">
+    <div class="convention-list">
+      <div *ngFor="let item of conventions$ | async">
+        <ng-container *ngTemplateOutlet="conventionEntry; context: { $implicit: item }"></ng-container>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+
+
+<ng-template #conventionEntry let-item>
+  <mat-card class="convention-entry">
+    <mat-card-header>
+      <mat-card-title>
+        {{item.name}}
+        <span>
             <app-static-chip chipType="active">Active</app-static-chip>
           </span>
-        </mat-card-title>
-        <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-actions align="end">
-        <button mat-button>SELECT</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div>
+      </mat-card-title>
+      <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions align="end">
+      <button mat-button (click)="selectConvention(item.id!)">SELECT</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
+
 

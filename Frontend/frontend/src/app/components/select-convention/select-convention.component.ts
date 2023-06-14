@@ -3,6 +3,9 @@ import {ConventionResponse, ConventionService} from "../../services/generated-ap
 import {NgIf} from "@angular/common";
 import {Observable} from "rxjs";
 import {StaticChipType} from "../../generic-components/static-chip/static-chip.component";
+import {LocalCacheService} from "../../services/local-cache.service";
+import {Navigation, Router} from "@angular/router";
+import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
 
 @Component({
   selector: 'app-select-convention',
@@ -14,7 +17,9 @@ export class SelectConventionComponent implements OnInit {
 
 
   constructor(
-    private conventionService : ConventionService
+    private conventionService : ConventionService,
+    private localCacheService : LocalCacheService,
+    private router : Router
   ) {
   }
 
@@ -24,4 +29,11 @@ export class SelectConventionComponent implements OnInit {
     this.conventions$.subscribe(x => console.log(x))
   }
 
+  selectConvention(conventionId : string){
+    this.localCacheService.selectedConvention = conventionId;
+    this.router.navigate(['/']).then()
+  }
+
+  protected readonly String = String;
+  protected readonly getFriendlyErrorMessage = getFriendlyErrorMessage;
 }
