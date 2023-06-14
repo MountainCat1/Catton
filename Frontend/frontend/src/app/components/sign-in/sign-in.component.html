@@ -30,9 +30,6 @@
     <ng-container *ngIf="result.loading">
       <mat-spinner></mat-spinner>
     </ng-container>
-    <ng-container *ngIf="result.value">
-      Data loaded: {{ (result.value | json) }}
-    </ng-container>
     <ng-container *ngIf="result.error">
       <div class="jasmine-errored">
         <mat-error >{{ getUserFriendlyErrorMessage(result.error) }}</mat-error>
