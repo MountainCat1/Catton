@@ -1,0 +1,10 @@
+.error-message {
+  width: 100%;
+  text-align: center;
+}
+
+.error-message-big {
+  @extend .error-message;
+
+  font-size: 1.4rem;
+}

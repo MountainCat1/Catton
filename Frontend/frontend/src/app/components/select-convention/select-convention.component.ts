@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {StaticChipType} from "../../generic-components/static-chip/static-chip.component";
 import {LocalCacheService} from "../../services/local-cache.service";
 import {Navigation, Router} from "@angular/router";
+import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
 
 @Component({
   selector: 'app-select-convention',
@@ -34,4 +35,5 @@ export class SelectConventionComponent implements OnInit {
   }
 
   protected readonly String = String;
+  protected readonly getFriendlyErrorMessage = getFriendlyErrorMessage;
 }
