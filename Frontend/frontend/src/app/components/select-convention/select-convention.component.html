@@ -12,7 +12,7 @@
         <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-actions align="end">
-        <button mat-button>SELECT</button>
+        <button mat-button (click)="selectConvention(item.id!)">SELECT</button>
       </mat-card-actions>
     </mat-card>
   </div>
