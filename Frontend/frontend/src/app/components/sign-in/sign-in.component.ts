@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  AuthTokenResponseContract,
-  ClaimsService,
-  EmailPasswordAuthenticationService
-} from "../../services/openapi-generated";
 import {Observable} from "rxjs";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import {
+  AuthTokenResponseContract, ClaimsService,
+  EmailPasswordAuthenticationService
+} from "../../services/generated-api/account/openapi-generated";
 
 @Component({
   selector: 'app-sign-in',

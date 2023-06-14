@@ -20,7 +20,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
-import {ApiModule, Configuration} from "./services/openapi-generated";
 import {FormsModule} from "@angular/forms";
 import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -32,6 +31,23 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {Configuration as AccountConfiguration} from "./services/generated-api/account/openapi-generated";
+import {
+  Configuration as ConventionConfiguration,
+  ConventionService
+} from "./services/generated-api/convention/openapi-generated";
+import {MatCardModule} from "@angular/material/card";
+import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
+
+const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
+  {
+    basePath: environment.API_BASE_PATH,
+    credentials: {
+      bearer: () => authService.getToken(),
+    },
+  }
+)
+
 
 @NgModule({
   declarations: [
@@ -47,6 +63,7 @@ import {MatListModule} from '@angular/material/list';
 
     WithHttpLoadingPipe,
     SelectConventionComponent,
+    StaticChipComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,13 +77,13 @@ import {MatListModule} from '@angular/material/list';
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
-    ApiModule,
     FormsModule,
     MatProgressSpinnerModule,
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatCardModule
   ],
   providers: [
     {
@@ -87,15 +104,14 @@ import {MatListModule} from '@angular/material/list';
       } as SocialAuthServiceConfig,
     },
     {
-      provide: Configuration,
-      useFactory: (authService: AuthService) => new Configuration(
-        {
-          basePath: environment.API_BASE_PATH,
-          credentials: {
-            bearer: () => authService.getToken(),
-          },
-        }
-      ),
+      provide: AccountConfiguration,
+      useFactory: RegisterBackendConfiguration,
+      deps: [AuthService],
+      multi: false
+    },
+    {
+      provide: ConventionConfiguration,
+      useFactory: RegisterBackendConfiguration,
       deps: [AuthService],
       multi: false
     },
@@ -109,3 +125,4 @@ import {MatListModule} from '@angular/material/list';
 })
 export class AppModule {
 }
+

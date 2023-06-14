@@ -40,6 +40,7 @@ $frontend-theme: mat.define-light-theme((
 
 @import "src/styles/theme";
 
+@import "src/styles/page";
 @mixin full-screen-gradient-background() {
   background: linear-gradient(to top, $background-color-2 0, $background-color-3 100%), #000000;
   height: 100vh;

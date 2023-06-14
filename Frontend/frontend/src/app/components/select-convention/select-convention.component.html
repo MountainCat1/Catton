@@ -1,1 +1,20 @@
-asdasd
+<h1 class="page-header">Select convention</h1>
+<div class="convention-list">
+  <div *ngFor="let item of conventions$ | async">
+    <mat-card class="convention-entry">
+      <mat-card-header>
+        <mat-card-title>
+          {{item.name}}
+          <span>
+            <app-static-chip chipType="active">Active</app-static-chip>
+          </span>
+        </mat-card-title>
+        <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions align="end">
+        <button mat-button>SELECT</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+

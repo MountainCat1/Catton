@@ -7,6 +7,7 @@ import {firstValueFrom} from "rxjs";
 import {AuthRequestModel} from "../models/authRequestModel";
 import 'url-join';
 import urlJoin from "url-join";
+import {Configuration as ConventionConfiguration} from "./generated-api/convention/openapi-generated";
 
 @Injectable({
   providedIn: 'root'
