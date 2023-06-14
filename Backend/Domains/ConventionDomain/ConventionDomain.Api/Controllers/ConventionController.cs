@@ -20,6 +20,7 @@ public class ConventionController : Controller
     }
 
     [HttpPost]
+    [ProducesResponseType( StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Create(ConventionCreateDto conventionCreateDto)
     {
         var request = new CreateConventionRequest()
@@ -32,7 +33,10 @@ public class ConventionController : Controller
         return Ok();
     }
     
+    
     [HttpGet("{id:guid}")]
+    [ProducesResponseType( StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType( typeof(ConventionResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var request = new GetConventionRequest()
@@ -46,6 +50,8 @@ public class ConventionController : Controller
     }
     
     [HttpGet("")]
+    [ProducesResponseType( StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType( typeof(ICollection<ConventionResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
     {
         var request = new GetAllConventionsRequest()
@@ -59,6 +65,7 @@ public class ConventionController : Controller
     }
     
     [HttpPut("{id:guid}")]
+    [ProducesResponseType( StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ConventionUpdateDto updateDto)
     {
         var request = new UpdateConventionRequest()
