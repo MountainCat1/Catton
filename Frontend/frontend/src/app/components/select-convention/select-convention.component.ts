@@ -26,6 +26,14 @@ export class SelectConventionComponent implements OnInit {
   ngOnInit(): void {
     this.conventions$ = this.conventionService.apiConventionGet();
 
+    // If user has access to only one convention redirect them instantly to menu
+    // if they have no choice why do we would pretend they have XD
+    this.conventions$.subscribe(x => {
+      if(x.length === 1){
+        this.router.navigate(['/']).then();
+      }
+    });
+
     this.conventions$.subscribe(x => console.log(x))
   }
 
