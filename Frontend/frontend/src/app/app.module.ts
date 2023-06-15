@@ -38,6 +38,7 @@ import {
 } from "./services/generated-api/convention/openapi-generated";
 import {MatCardModule} from "@angular/material/card";
 import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -64,6 +65,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     WithHttpLoadingPipe,
     SelectConventionComponent,
     StaticChipComponent,
+    MainMenuComponent,
   ],
   imports: [
     BrowserModule,
