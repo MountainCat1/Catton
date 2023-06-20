@@ -58,3 +58,15 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
+  ticket_domain:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Backend/Domains/ConventionDomain
+      dockerfile: Dockerfile
+    ports:
+      - "4003:80"
+      - "5003:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
+      - ENABLE_SWAGGER=true
