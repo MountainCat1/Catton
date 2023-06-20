@@ -25,11 +25,27 @@
 
     <ItemGroup>
       <Folder Include="Controllers" />
+      <Folder Include="MediaRBehaviors" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\TicketDomain.Application\TicketDomain.Application.csproj" />
       <ProjectReference Include="..\TicketDomain.Infrastructure\TicketDomain.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Extensions\ServiceCollectionExtensions.cs" />
+      <Compile Remove="ApiAssemblyMarker.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove=".dockerignore" />
+      <None Remove="migration.sh" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="appsettings.Development.json" />
+      <Content Remove="appsettings.json" />
     </ItemGroup>
 
 </Project>

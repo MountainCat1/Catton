@@ -25,8 +25,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Errors\Database" />
       <Folder Include="Exceptions" />
+      <Folder Include="Extensions" />
+      <Folder Include="Generics" />
       <Folder Include="Repositories" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Errors\Database\DuplicateEntryException.cs" />
     </ItemGroup>
 
 </Project>
