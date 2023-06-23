@@ -14,7 +14,7 @@ public class TicketTemplateRepository : Repository<TicketTemplate, TicketTemplat
     public DbSet<TicketTemplate> TicketTemplates { get; set; }
 
 
-    public TicketTemplateRepository(TicketTemplateDomainDbContext dbContext, IMediator mediator, ILogger<Repository<TicketTemplate, TicketTemplateDomainDbContext>> logger, IDatabaseErrorHandler databaseErrorHandler) : base(dbContext, mediator, logger, databaseErrorHandler)
+    public TicketTemplateRepository(TicketTemplateDomainDbContext dbContext, IMediator mediator, ILogger<Repository<TicketTemplate, TicketTemplateDomainDbContext>> logger, IDatabaseErrorMapper databaseErrorMapper) : base(dbContext, mediator, logger, databaseErrorMapper)
     {
     }
 }

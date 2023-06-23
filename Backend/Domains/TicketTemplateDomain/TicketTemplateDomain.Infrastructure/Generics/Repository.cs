@@ -18,19 +18,19 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     private IMediator _mediator;
     private TDbContext _dbContext;
     private ILogger<Repository<TEntity, TDbContext>> _logger;
-    private IDatabaseErrorHandler _databaseErrorHandler;
+    private IDatabaseErrorMapper _databaseErrorMapper;
 
 
     public Repository(
         TDbContext dbContext,
         IMediator mediator,
         ILogger<Repository<TEntity, TDbContext>> logger,
-        IDatabaseErrorHandler databaseErrorHandler)
+        IDatabaseErrorMapper databaseErrorMapper)
     {
         _dbContext = dbContext;
         _mediator = mediator;
         _logger = logger;
-        _databaseErrorHandler = databaseErrorHandler;
+        _databaseErrorMapper = databaseErrorMapper;
         _dbSet = dbContext.Set<TEntity>();
 
         _saveChangesAsyncDelegate = async () => { await dbContext.SaveChangesAsync(); };
@@ -149,17 +149,8 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         return entity;
     }
 
+
     public virtual async Task SaveChangesAsync()
-    {
-        var exception = await SaveChangesWithoutHandlerAsync();
-
-        if (exception is null)
-            return;
-
-        await _databaseErrorHandler.HandleAsync(exception);
-    }
-
-    protected virtual async Task<DatabaseException?> SaveChangesWithoutHandlerAsync()
     {
         try
         {
@@ -173,12 +164,10 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         {
             _logger.LogError(ex.Message);
             ClearDomainEvents();
-            return ex;
+            throw;
         }
-
-        await _mediator.DispatchDomainEventsAsync(_dbContext);
         
-        return null;
+        await _mediator.DispatchDomainEventsAsync(_dbContext);
     }
 
     private void ClearDomainEvents()

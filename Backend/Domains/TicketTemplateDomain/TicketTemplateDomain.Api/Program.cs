@@ -67,11 +67,11 @@ services.AddDbContext<TicketTemplateDomainDbContext>(options =>
 
 services.AddHttpContextAccessor();
 services.AddTransient<IUserAccessor, UserAccessor>();
-services.AddSingleton<ErrorHandlingMiddleware>();
+services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddScoped<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-services.AddScoped<IDatabaseErrorHandler, DatabaseErrorHandler>();
 
 services.AddScoped<ITicketTemplateRepository, TicketTemplateRepository>();
 
