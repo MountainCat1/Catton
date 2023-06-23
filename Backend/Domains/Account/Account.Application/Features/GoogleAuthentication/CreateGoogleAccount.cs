@@ -1,9 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using Account.Domain.Entities;
+﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
-using Account.Service.Abstractions;
-using Catut;
-using Google.Apis.Auth;
+using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 
 namespace Account.Service.Features.GoogleAuthentication;
@@ -38,6 +36,15 @@ public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAcc
     public async Task Handle(CreateGoogleAccountRequest request, CancellationToken cancellationToken)
     {
         var googleTokenPayload = await _googleService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
+
+        // to refactor, should go to separate validator
+        if (await _googleAccountRepository.GetAccountByEmailAsync(googleTokenPayload.Email) is not null)
+        {
+            throw new ValidationException("Email has already been taken", new[]
+            {
+                new ValidationFailure(nameof(GoogleAccountEntity.Email), "Email has already been taken")
+            });
+        }
         
         var googleAccountEntity = new GoogleAccountEntity(
             email: googleTokenPayload.Email,
@@ -46,9 +53,6 @@ public class CreateGoogleAccountRequestHandler : IRequestHandler<CreateGoogleAcc
         
         await _googleAccountRepository.AddAsync(googleAccountEntity);
 
-        var dbException = await _googleAccountRepository.SaveChangesAsync();
-
-        if (dbException is not null)
-            throw dbException;
+        await _googleAccountRepository.SaveChangesAsync();
     }
 }

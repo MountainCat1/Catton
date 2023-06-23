@@ -5,5 +5,5 @@ namespace Account.Domain.Repositories;
 
 public interface IGoogleAccountRepository : IRepository<GoogleAccountEntity>
 {
-    
+    Task<GoogleAccountEntity?> GetAccountByEmailAsync(string email);
 }

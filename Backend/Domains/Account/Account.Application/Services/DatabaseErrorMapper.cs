@@ -1,8 +1,8 @@
-﻿using TicketTemplateDomain.Application.Errors;
-using TicketTemplateDomain.Infrastructure.Abstractions;
-using TicketTemplateDomain.Infrastructure.Errors.Database;
+﻿using Account.Service.Errors;
+using BaseApp.Infrastructure.Abstractions;
+using BaseApp.Infrastructure.Errors.Database;
 
-namespace TicketTemplateDomain.Application.Services;
+namespace Account.Service.Services;
 
 
 public class DatabaseErrorMapper : IDatabaseErrorMapper

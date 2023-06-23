@@ -1,6 +1,4 @@
-﻿using System.Threading.Channels;
-
-namespace Account.Domain.Abstractions;
+﻿namespace Account.Domain.Abstractions;
 
 
 public interface IEntity

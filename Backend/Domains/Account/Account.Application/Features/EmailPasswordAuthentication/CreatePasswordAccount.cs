@@ -1,11 +1,11 @@
 ﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
-using Account.Infrastructure.Errors.Database;
-using Account.Service.Abstractions;
+using Account.Domain.Services;
 using Account.Service.Services;
+using BaseApp.Infrastructure.Errors.Database;
 using Catut;
 using FluentValidation;
-using Google.Apis.Util;
+using FluentValidation.Results;
 using MediatR;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
@@ -51,45 +51,32 @@ public class CreatePasswordAccountRequest : IRequest
 public class CreatePasswordAccountRequestHandler : IRequestHandler<CreatePasswordAccountRequest>
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
+    private readonly IPasswordAccountService _passwordAccountService;
     private readonly IHashingService _hashingService;
     private readonly IMediator _mediator;
 
     public CreatePasswordAccountRequestHandler(
         IPasswordAccountRepository passwordAccountRepository,
         IHashingService hashingService,
-        IMediator mediator
-    ) {
+        IMediator mediator,
+        IPasswordAccountService passwordAccountService) 
+    {
         _passwordAccountRepository = passwordAccountRepository;
         _hashingService = hashingService;
         _mediator = mediator;
+        _passwordAccountService = passwordAccountService;
     }
 
     public async Task Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        var entity = await PasswordAccountEntity.CreateAsync(
+        var entity = await _passwordAccountService.CreateAsync(
             email: request.Email,
             username: request.Username,
             passwordHash: _hashingService.HashPassword(request.Password)
         );
 
-        await AddEntityToTheDatabase(entity)
-            .HandleAsync();
-    }
-
-    private async Task<Result> AddEntityToTheDatabase(PasswordAccountEntity entity)
-    {
         await _passwordAccountRepository.AddAsync(entity);
 
-        var dbException = await _passwordAccountRepository.SaveChangesAsync();
-
-        if (dbException is not null)
-        {
-            if (dbException is DuplicateEntryException)
-                return Result.Failure(new ValidationException("Email already in use"));
-
-            return Result.Failure(dbException);
-        }
-
-        return Result.Success();
+        await _passwordAccountRepository.SaveChangesAsync();
     }
 }

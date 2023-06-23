@@ -1,7 +1,5 @@
 ﻿using System.Security.Claims;
-using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
-using Catut;
 using MediatR;
 
 namespace Account.Service.Features.GetClaims;

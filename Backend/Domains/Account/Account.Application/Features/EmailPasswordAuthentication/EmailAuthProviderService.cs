@@ -21,7 +21,9 @@ public class PasswordAuthProviderService : IPasswordAuthProviderService
     private readonly IHashingService _hashingService;
 
 
-    public PasswordAuthProviderService(IPasswordAccountRepository passwordAccountRepository, IHashingService hashingService)
+    public PasswordAuthProviderService(
+        IPasswordAccountRepository passwordAccountRepository,
+        IHashingService hashingService)
     {
         _passwordAccountRepository = passwordAccountRepository;
         _hashingService = hashingService;
@@ -29,8 +31,7 @@ public class PasswordAuthProviderService : IPasswordAuthProviderService
 
     public async Task<Result<AccountDto>> ValidateCredentials(CredentialsModel credentialsModel)
     {
-        var account = await _passwordAccountRepository
-            .GetOneAsync(x => x.Email == credentialsModel.Email);
+        var account = await _passwordAccountRepository.GetAccountByEmailAsync(credentialsModel.Email);
 
         if (account is null)
         {

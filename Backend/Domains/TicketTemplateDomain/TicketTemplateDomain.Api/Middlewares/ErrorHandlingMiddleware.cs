@@ -23,36 +23,40 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
         catch (DatabaseException databaseException)
         {
-            var error = await _databaseErrorMapper.HandleAsync(databaseException);
-            HandleException(context, error);
+            var error = await _databaseErrorMapper.MapAsync(databaseException);
+            await HandleExceptionAsync(context, error);
         }
         catch (Exception ex)
         {
-            HandleException(context, ex);
+            await HandleExceptionAsync(context, ex);
         }
     }
 
-    private void HandleException(HttpContext context, Exception ex)
+    private async Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
         switch (ex)
         {
             case NotFoundError error:
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
-                context.Response.WriteAsync(error.Message);
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync(error.Message);
                 break;
             case UnauthorizedError error:
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                context.Response.WriteAsync(error.Message);
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync(error.Message);
                 break;
             case FluentValidation.ValidationException:
             case ValidationException:
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Response.WriteAsync(ex.Message);
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync(ex.Message);
                 break;
             default:
                 _logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                context.Response.WriteAsync("Something went wrong");
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync("Something went wrong");
                 break;
         }
     }

@@ -1,11 +1,7 @@
-﻿using Account.Domain.Entities;
-using Account.Domain.Repositories;
-using Account.Service.Abstractions;
+﻿using Account.Domain.Repositories;
 using Account.Service.Dtos.Responses;
 using Account.Service.Errors;
 using Account.Service.Services;
-using Catut;
-using Google.Apis.Auth;
 using MediatR;
 
 namespace Account.Service.Features.GoogleAuthentication;

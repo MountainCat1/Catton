@@ -1,4 +1,4 @@
-﻿namespace TicketTemplateDomain.Infrastructure.Abstractions;
+﻿namespace BaseApp.Infrastructure.Abstractions;
 
 public interface IDatabaseErrorMapper
 {

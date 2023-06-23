@@ -1,9 +1,7 @@
 ﻿using Account.Domain.Repositories;
-using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
 using Account.Service.Errors;
 using Account.Service.Services;
-using Catut;
 using MediatR;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
@@ -44,8 +42,7 @@ public class AuthViaPasswordRequestHandler : IRequestHandler<AuthViaPasswordRequ
 
     public async Task<AuthTokenResponseContract> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
     {
-        var account = await _passwordAccountRepository
-            .GetOneAsync(x => x.Email == request.Email);
+        var account = await _passwordAccountRepository.GetAccountByEmailAsync(request.Email);
 
         if (account is null)
             throw new UnauthorizedError();
