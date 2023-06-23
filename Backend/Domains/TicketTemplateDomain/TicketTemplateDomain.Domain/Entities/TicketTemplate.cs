@@ -23,6 +23,16 @@ public class TicketTemplate : Entity
 
     public string Description { get; set; } = null!;
     public decimal Price { get; set; }
-    
+
     public Guid ConventionId { get; set; }
+
+    public void Update(TicketTemplateUpdate update)
+    {
+        Description = update.Description;
+        Price = update.Price;
+    }
+}
+
+public record TicketTemplateUpdate(string Description, decimal Price) : IEntityUpdate<TicketTemplate>
+{
 }

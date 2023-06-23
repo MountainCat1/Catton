@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TicketTemplateDomain.Domain.Abstractions;
 using TicketTemplateDomain.Domain.Entities;
+using TicketTemplateDomain.Domain.Repositories;
 using TicketTemplateDomain.Infrastructure.Contexts;
 using TicketTemplateDomain.Infrastructure.Generics;
 
 namespace TicketTemplateDomain.Infrastructure.Repositories;
 
-public class TicketTemplateRepository : Repository<TicketTemplate, TicketTemplateDomainDbContext>, IRepository<TicketTemplate>
+public class TicketTemplateRepository : Repository<TicketTemplate, TicketTemplateDomainDbContext>, ITicketTemplateRepository
 {
     public DbSet<TicketTemplate> TicketTemplates { get; set; }
     

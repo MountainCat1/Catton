@@ -10,6 +10,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TicketTemplateDomain.Domain.Repositories;
+using TicketTemplateDomain.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +35,7 @@ services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
     loggingBuilder.AddDebug();
-    loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+    // loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.CKommand", LogLevel.Warning);
 });
 
 services.AddCors(options =>
@@ -57,9 +59,9 @@ services.AddDbContext<TicketTemplateDomainDbContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("TicketTemplateDomainDatabase"),
         b => b.MigrationsAssembly(typeof(ApiAssemblyMarker).Assembly.FullName));
-    options.UseLoggerFactory(LoggerFactory.Create(builder => builder
-        .AddFilter((_, _) => false)
-        .AddConsole()));
+    // options.UseLoggerFactory(LoggerFactory.Create(builder => builder
+    //     .AddFilter((_, _) => false)
+    //     .AddConsole()));
 });
 
 services.AddHttpContextAccessor();
@@ -68,6 +70,8 @@ services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+services.AddScoped<ITicketTemplateRepository, TicketTemplateRepository>();
 
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 services.AddAuthorizationHandlers();

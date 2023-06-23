@@ -30,7 +30,7 @@ public class TicketController : Controller
 
         var createdResource = await _mediator.Send(request);
 
-        string resourceUrl = Url.Action("GetTicket", "Ticket", new { ticketTemplateId = createdResource.Id })
+        string resourceUrl = Url.Action("Get", "Ticket", new { ticketTemplateId = createdResource.Id })
                              ?? throw new InvalidOperationException();
 
         return Created(resourceUrl, createdResource);
@@ -39,11 +39,27 @@ public class TicketController : Controller
     [HttpGet("{ticketTemplateId}")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetTicket([FromRoute] Guid ticketTemplateId)
+    public async Task<IActionResult> Get([FromRoute] Guid ticketTemplateId)
     {
         var reqeust = new GetTicketTemplateRequest()
         {
             Id = ticketTemplateId
+        };
+
+        var dto = await _mediator.Send(reqeust);
+
+        return Ok(dto);
+    }
+    
+    [HttpPut("{ticketTemplateId}")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get([FromRoute] Guid ticketTemplateId, [FromBody] TicketTemplateUpdateDto updateDto)
+    {
+        var reqeust = new UpdateTicketTemplateRequest()
+        {
+            Id = ticketTemplateId,
+            UpdateDto = updateDto
         };
 
         var dto = await _mediator.Send(reqeust);

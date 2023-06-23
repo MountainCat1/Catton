@@ -135,6 +135,13 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
 
         return entity;
     }
+    
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
+    {
+        _dbSet.Attach(entity).State = EntityState.Modified;
+
+        return entity;
+    }
 
     public virtual async Task<Exception?> SaveChangesAsync()
     {
