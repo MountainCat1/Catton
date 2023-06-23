@@ -24,10 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\TicketTemplateDomain.Application\TicketTemplateDomain.Application.csproj" />
       <ProjectReference Include="..\TicketTemplateDomain.Infrastructure\TicketTemplateDomain.Infrastructure.csproj" />
     </ItemGroup>
