@@ -37,11 +37,17 @@ public class TicketController : Controller
     }
 
     [HttpGet("{ticketTemplateId}")]
-    [Produces(typeof(TicketTemplateDto))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTicket([FromRoute] Guid ticketTemplateId)
     {
-        throw new NotImplementedException();
+        var reqeust = new GetTicketTemplateRequest()
+        {
+            Id = ticketTemplateId
+        };
+
+        var dto = await _mediator.Send(reqeust);
+
+        return Ok(dto);
     }
 }
