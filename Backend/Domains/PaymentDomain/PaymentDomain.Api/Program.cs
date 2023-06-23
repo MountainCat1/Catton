@@ -10,6 +10,10 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PaymentDomain.Domain.Entities;
+using PaymentDomain.Domain.Repositories;
+using PaymentDomain.Domain.Validators;
+using PaymentDomain.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +29,7 @@ var services = builder.Services;
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
+services.AddHttpContextAccessor();
 services.AddSwaggerGen(o =>
 {
     o.AddSwaggerAuthUi();
@@ -62,7 +67,8 @@ services.AddDbContext<PaymentDomainDbContext>(options =>
         .AddConsole()));
 });
 
-services.AddHttpContextAccessor();
+services.AddScoped<IConventionTicketRepository, ConventionTicketRepository>();
+
 services.AddTransient<IUserAccessor, UserAccessor>();
 services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
@@ -70,6 +76,7 @@ services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
+services.AddScoped<IValidator<ConventionTicket>, ConventionTicketValidator>();
 services.AddAuthorizationHandlers();
 
 // ========= RUN  =========
