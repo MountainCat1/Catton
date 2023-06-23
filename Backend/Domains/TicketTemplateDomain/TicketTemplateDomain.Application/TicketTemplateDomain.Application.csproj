@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PaymentDomain.Domain\PaymentDomain.Domain.csproj" />
-      <ProjectReference Include="..\PaymentDomain.Infrastructure\PaymentDomain.Infrastructure.csproj" />
+      <ProjectReference Include="..\TicketTemplateDomain.Domain\TicketTemplateDomain.Domain.csproj" />
+      <ProjectReference Include="..\TicketTemplateDomain.Infrastructure\TicketTemplateDomain.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,19 +1,18 @@
-using PaymentDomain.Api;
-using PaymentDomain.Api.Extensions;
-using PaymentDomain.Api.MediaRBehaviors;
-using PaymentDomain.Api.Middlewares;
-using PaymentDomain.Application;
-using PaymentDomain.Application.Configuration;
-using PaymentDomain.Application.Services;
-using PaymentDomain.Infrastructure.Contexts;
+using TicketTemplateDomain.Api;
+using TicketTemplateDomain.Api.Extensions;
+using TicketTemplateDomain.Api.MediaRBehaviors;
+using TicketTemplateDomain.Api.Middlewares;
+using TicketTemplateDomain.Application;
+using TicketTemplateDomain.Application.Configuration;
+using TicketTemplateDomain.Application.Services;
+using TicketTemplateDomain.Infrastructure.Contexts;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PaymentDomain.Domain.Entities;
-using PaymentDomain.Domain.Repositories;
-using PaymentDomain.Domain.Validators;
-using PaymentDomain.Infrastructure.Repositories;
+using TicketTemplateDomain.Domain.Repositories;
+using TicketTemplateDomain.Infrastructure.Abstractions;
+using TicketTemplateDomain.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +28,6 @@ var services = builder.Services;
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
-services.AddHttpContextAccessor();
 services.AddSwaggerGen(o =>
 {
     o.AddSwaggerAuthUi();
@@ -38,7 +36,7 @@ services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
     loggingBuilder.AddDebug();
-    loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+    // loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.CKommand", LogLevel.Warning);
 });
 
 services.AddCors(options =>
@@ -58,32 +56,33 @@ services.AddCors(options =>
 
 services.AddAsymmetricAuthentication(jwtConfig);
 
-services.AddDbContext<PaymentDomainDbContext>(options =>
+services.AddDbContext<TicketTemplateDomainDbContext>(options =>
 {
-    options.UseSqlServer(configuration.GetConnectionString("PaymentDomainDatabase"),
+    options.UseSqlServer(configuration.GetConnectionString("TicketTemplateDomainDatabase"),
         b => b.MigrationsAssembly(typeof(ApiAssemblyMarker).Assembly.FullName));
-    options.UseLoggerFactory(LoggerFactory.Create(builder => builder
-        .AddFilter((_, _) => false)
-        .AddConsole()));
+    // options.UseLoggerFactory(LoggerFactory.Create(builder => builder
+    //     .AddFilter((_, _) => false)
+    //     .AddConsole()));
 });
 
-services.AddScoped<IConventionTicketRepository, ConventionTicketRepository>();
-
+services.AddHttpContextAccessor();
 services.AddTransient<IUserAccessor, UserAccessor>();
-services.AddSingleton<ErrorHandlingMiddleware>();
+services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddScoped<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
+services.AddScoped<ITicketTemplateRepository, TicketTemplateRepository>();
+
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
-services.AddScoped<IValidator<ConventionTicket>, ConventionTicketValidator>();
 services.AddAuthorizationHandlers();
 
 // ========= RUN  =========
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
-    await app.MigrateDatabaseAsync<PaymentDomainDbContext>();
+    await app.MigrateDatabaseAsync<TicketTemplateDomainDbContext>();
 
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_SWAGGER"))
 {

@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PaymentDomain.Domain\PaymentDomain.Domain.csproj" />
+      <ProjectReference Include="..\TicketTemplateDomain.Domain\TicketTemplateDomain.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
