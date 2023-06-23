@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using PaymentDomain.Application.Errors;
 using TicketTemplateDomain.Application.Errors;
 using TicketTemplateDomain.Infrastructure.Abstractions;
 
