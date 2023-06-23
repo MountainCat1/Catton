@@ -11,7 +11,6 @@ public class DuplicateEntryException : DatabaseException
     public DuplicateEntryException()
     {
     }
-    
 
     public DuplicateEntryException(string? message, Exception? innerException) : base(message, innerException)
     {
