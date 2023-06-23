@@ -1,4 +1,5 @@
-﻿using TicketTemplateDomain.Application.Errors;
+﻿using PaymentDomain.Application.Errors;
+using TicketTemplateDomain.Application.Errors;
 using TicketTemplateDomain.Infrastructure.Abstractions;
 using TicketTemplateDomain.Infrastructure.Errors.Database;
 
