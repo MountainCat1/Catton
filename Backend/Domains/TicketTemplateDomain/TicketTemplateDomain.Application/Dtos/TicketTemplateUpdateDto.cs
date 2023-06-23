@@ -1,6 +1,4 @@
-﻿using TicketTemplateDomain.Domain.Entities;
-
-namespace TicketTemplateDomain.Application.Dtos;
+﻿namespace TicketTemplateDomain.Application.Dtos;
 
 public class TicketTemplateUpdateDto
 {

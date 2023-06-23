@@ -1,5 +1,4 @@
-﻿using System.Net.Security;
-using TicketTemplateDomain.Domain.Abstractions;
+﻿using TicketTemplateDomain.Domain.Abstractions;
 
 namespace TicketTemplateDomain.Domain.Entities;
 

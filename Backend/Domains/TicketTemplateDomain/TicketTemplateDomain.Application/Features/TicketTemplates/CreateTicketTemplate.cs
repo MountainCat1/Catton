@@ -30,7 +30,7 @@ public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTe
         );
 
         await _ticketTemplateRepository.AddAsync(entity);
-        await _ticketTemplateRepository.SaveChangesAndThrowAsync();
+        await _ticketTemplateRepository.SaveChangesAsync();
 
         return entity.ToDto();
     }

@@ -66,4 +66,19 @@ public class TicketController : Controller
 
         return Ok(dto);
     }
+    
+    [HttpDelete("{ticketTemplateId}")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Delete([FromRoute] Guid ticketTemplateId, [FromBody] TicketTemplateUpdateDto updateDto)
+    {
+        var reqeust = new DeleteTicketTemplateRequest()
+        {
+             Id = ticketTemplateId,
+        };
+
+        var dto = await _mediator.Send(reqeust);
+
+        return Ok(dto);
+    }
 }

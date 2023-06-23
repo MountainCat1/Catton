@@ -11,6 +11,7 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TicketTemplateDomain.Domain.Repositories;
+using TicketTemplateDomain.Infrastructure.Abstractions;
 using TicketTemplateDomain.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -70,6 +71,7 @@ services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+services.AddScoped<IDatabaseErrorHandler, DatabaseErrorHandler>();
 
 services.AddScoped<ITicketTemplateRepository, TicketTemplateRepository>();
 

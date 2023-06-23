@@ -5,6 +5,7 @@ using TicketTemplateDomain.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using TicketTemplateDomain.Infrastructure.Abstractions;
 
 namespace TicketTemplateDomain.Infrastructure.Generics;
 
@@ -17,13 +18,19 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     private IMediator _mediator;
     private TDbContext _dbContext;
     private ILogger<Repository<TEntity, TDbContext>> _logger;
+    private IDatabaseErrorHandler _databaseErrorHandler;
 
 
-    public Repository(TDbContext dbContext, IMediator mediator, ILogger<Repository<TEntity, TDbContext>> logger)
+    public Repository(
+        TDbContext dbContext,
+        IMediator mediator,
+        ILogger<Repository<TEntity, TDbContext>> logger,
+        IDatabaseErrorHandler databaseErrorHandler)
     {
         _dbContext = dbContext;
         _mediator = mediator;
         _logger = logger;
+        _databaseErrorHandler = databaseErrorHandler;
         _dbSet = dbContext.Set<TEntity>();
 
         _saveChangesAsyncDelegate = async () => { await dbContext.SaveChangesAsync(); };
@@ -112,11 +119,11 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         return entities;
     }
 
-    public virtual async Task DeleteAsync(params object[] keys)
+    public virtual async Task<TEntity> DeleteAsync(TEntity entity)
     {
-        var entity = await GetOneRequiredAsync(keys);
-
         _dbSet.Remove(entity);
+
+        return entity;
     }
 
     public virtual Task<TEntity> AddAsync(TEntity entity)
@@ -131,7 +138,6 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         var entity = await GetOneRequiredAsync(keys);
 
         _dbSet.Attach(entity).CurrentValues.SetValues(update);
-        _dbSet.Attach(entity).State = EntityState.Modified;
 
         return entity;
     }
@@ -143,7 +149,17 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         return entity;
     }
 
-    public virtual async Task<Exception?> SaveChangesAsync()
+    public virtual async Task SaveChangesAsync()
+    {
+        var exception = await SaveChangesWithoutHandlerAsync();
+
+        if (exception is null)
+            return;
+
+        await _databaseErrorHandler.HandleAsync(exception);
+    }
+
+    protected virtual async Task<DatabaseException?> SaveChangesWithoutHandlerAsync()
     {
         try
         {
@@ -151,10 +167,9 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         }
         catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())
         {
-            ClearDomainEvents();
-            return new DuplicateEntryException("A duplicate entry was detected.");
+            throw new DuplicateEntryException("A duplicate entry was detected.");
         }
-        catch (Exception ex)
+        catch (DatabaseException ex)
         {
             _logger.LogError(ex.Message);
             ClearDomainEvents();
@@ -164,27 +179,6 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         await _mediator.DispatchDomainEventsAsync(_dbContext);
         
         return null;
-    }
-    
-    public virtual async Task SaveChangesAndThrowAsync()
-    {
-        try
-        {
-            await _saveChangesAsyncDelegate();
-        }
-        catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())
-        {
-            ClearDomainEvents();
-            throw new DuplicateEntryException("A duplicate entry was detected.");
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            ClearDomainEvents();
-            throw;
-        }
-
-        await _mediator.DispatchDomainEventsAsync(_dbContext);
     }
 
     private void ClearDomainEvents()

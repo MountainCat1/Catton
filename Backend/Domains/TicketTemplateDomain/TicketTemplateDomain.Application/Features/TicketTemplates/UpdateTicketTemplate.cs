@@ -30,7 +30,7 @@ public class UpdateTicketTemplateRequestHandler : IRequestHandler<UpdateTicketTe
 
         entity.Update(update);
 
-        await _repository.SaveChangesAndThrowAsync();
+        await _repository.SaveChangesAsync();
         
         return entity.ToDto();
     }

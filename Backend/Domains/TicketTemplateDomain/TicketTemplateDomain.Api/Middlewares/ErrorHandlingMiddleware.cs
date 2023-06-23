@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using TicketTemplateDomain.Application.Errors;
+using TicketTemplateDomain.Infrastructure.Errors.Database;
 
 namespace TicketTemplateDomain.Api.Middlewares;
 
@@ -17,6 +18,11 @@ public class ErrorHandlingMiddleware : IMiddleware
         try
         {
             await next.Invoke(context);
+        }
+        catch (ItemNotFoundException exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            await context.Response.WriteAsync(exception.Message);
         }
         catch (NotFoundError error)
         {
