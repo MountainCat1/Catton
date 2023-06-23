@@ -30,17 +30,17 @@ public class TicketController : Controller
 
         var createdResource = await _mediator.Send(request);
 
-        string resourceUrl = Url.Action("GetTicket", "Ticket", new { ticketId = createdResource.Id })
+        string resourceUrl = Url.Action("GetTicket", "Ticket", new { ticketTemplateId = createdResource.Id })
                              ?? throw new InvalidOperationException();
 
         return Created(resourceUrl, createdResource);
     }
 
-    [HttpGet("{ticketId}")]
+    [HttpGet("{ticketTemplateId}")]
     [Produces(typeof(TicketTemplateDto))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetTicket([FromRoute] Guid ticketId)
+    public async Task<IActionResult> GetTicket([FromRoute] Guid ticketTemplateId)
     {
         throw new NotImplementedException();
     }
