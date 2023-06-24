@@ -17,6 +17,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,6 +85,7 @@ services.AddScoped<IPasswordAccountService, PasswordAccountService>();
 
 services.AddScoped<IHashingService, HashingService>();
 services.AddScoped<IJwtService, JwtService>();
+services.AddScoped<IJsonSerializer, SystemJsonSerializer>();
 services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();

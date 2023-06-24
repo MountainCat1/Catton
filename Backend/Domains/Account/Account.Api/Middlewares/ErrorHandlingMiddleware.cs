@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using Account.Service.Errors;
+using Account.Service.Services;
 using BaseApp.Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,16 @@ public class ErrorHandlingMiddleware : IMiddleware
 {
     private readonly ILogger<ErrorHandlingMiddleware> _logger;
     private readonly IDatabaseErrorMapper _databaseErrorMapper;
+    private readonly IJsonSerializer _serializer;
 
-    public ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger, IDatabaseErrorMapper databaseErrorMapper)
+    public ErrorHandlingMiddleware(
+        ILogger<ErrorHandlingMiddleware> logger,
+        IDatabaseErrorMapper databaseErrorMapper,
+        IJsonSerializer serializer)
     {
         _logger = logger;
         _databaseErrorMapper = databaseErrorMapper;
+        _serializer = serializer;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -40,19 +46,19 @@ public class ErrorHandlingMiddleware : IMiddleware
         {
             case NotFoundError error:
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(error.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(SerializeError(error));
                 break;
             case UnauthorizedError error:
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(error.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(SerializeError(error));
                 break;
             case FluentValidation.ValidationException:
             case ValidationException:
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(ex.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(_serializer.Serialize(ex.Message));
                 break;
             default:
                 _logger.LogError(ex, ex.Message);
@@ -61,5 +67,11 @@ public class ErrorHandlingMiddleware : IMiddleware
                 await context.Response.WriteAsync("Something went wrong");
                 break;
         }
+    }
+
+    private string SerializeError(ApplicationError error)
+    {
+        var problemDetails = error.ToError();
+        return _serializer.Serialize(problemDetails);
     }
 }

@@ -38,7 +38,7 @@ public class AuthiViaGoogleRequestHandler : IRequestHandler<AuthiViaGoogleReques
         var payload = await _authProviderService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
 
         var accountEntity = await _accountRepository.GetAccountByEmailAsync(payload.Email)
-                            ?? throw new NotFoundError();
+                            ?? throw new NotFoundError("Account does not exist");
 
         var jwt = _jwtService.GenerateAsymmetricJwtToken(accountEntity);
 

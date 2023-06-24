@@ -45,10 +45,10 @@ public class AuthViaPasswordRequestHandler : IRequestHandler<AuthViaPasswordRequ
         var account = await _passwordAccountRepository.GetAccountByEmailAsync(request.Email);
 
         if (account is null)
-            throw new UnauthorizedError();
+            throw new UnauthorizedError("Account does not exists");
         
         if(!_hashingService.VerifyPassword(account.PasswordHash, request.Password))
-            throw new UnauthorizedError();
+            throw new UnauthorizedError("Credentials are invalid");
         
         var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
 

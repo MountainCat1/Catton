@@ -1,13 +1,18 @@
+using Account.Service.Dtos;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Account.Service.Errors;
 
-public class NotFoundError : Exception
+public class NotFoundError : ApplicationError
 {
-    public NotFoundError()
+    public override int StatusCode
     {
+        get => 404;
     }
 
     public NotFoundError(string? message) : base(message)
     {
+        
     }
 
     public NotFoundError(string? message, Exception? innerException) : base(message, innerException)
