@@ -1,16 +1,21 @@
 using System.ComponentModel.DataAnnotations;
-using PaymentDomain.Application.Errors;
+using System.Text.Json;
+using BaseApp.Application.Errors;
+using TicketTemplateDomain.Application.Dtos;
 using TicketTemplateDomain.Application.Errors;
 using TicketTemplateDomain.Infrastructure.Abstractions;
 
 namespace TicketTemplateDomain.Api.Middlewares;
+
 
 public class ErrorHandlingMiddleware : IMiddleware
 {
     private readonly ILogger<ErrorHandlingMiddleware> _logger;
     private readonly IDatabaseErrorMapper _databaseErrorMapper;
 
-    public ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger, IDatabaseErrorMapper databaseErrorMapper)
+    public ErrorHandlingMiddleware(
+        ILogger<ErrorHandlingMiddleware> logger,
+        IDatabaseErrorMapper databaseErrorMapper)
     {
         _logger = logger;
         _databaseErrorMapper = databaseErrorMapper;
@@ -39,19 +44,19 @@ public class ErrorHandlingMiddleware : IMiddleware
         {
             case NotFoundError error:
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(error.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(SerializeError(error));
                 break;
             case UnauthorizedError error:
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(error.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(SerializeError(error));
                 break;
             case FluentValidation.ValidationException:
             case ValidationException:
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(ex.Message);
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(ex.Message));
                 break;
             default:
                 _logger.LogError(ex, ex.Message);
@@ -60,5 +65,14 @@ public class ErrorHandlingMiddleware : IMiddleware
                 await context.Response.WriteAsync("Something went wrong");
                 break;
         }
+    }
+
+    private string SerializeError(ApplicationError applicationError)
+    {
+        var errorResponse = new ErrorResponse()
+        {
+            ErrorContent = applicationError.ToError()
+        };
+        return JsonSerializer.Serialize(errorResponse);
     }
 }

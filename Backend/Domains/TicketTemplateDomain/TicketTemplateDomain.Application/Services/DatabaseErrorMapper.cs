@@ -1,5 +1,4 @@
-﻿using PaymentDomain.Application.Errors;
-using TicketTemplateDomain.Application.Errors;
+﻿using BaseApp.Application.Errors;
 using TicketTemplateDomain.Infrastructure.Abstractions;
 using TicketTemplateDomain.Infrastructure.Errors.Database;
 
@@ -12,7 +11,6 @@ public class DatabaseErrorMapper : IDatabaseErrorMapper
     {
         if (exception is ItemNotFoundException)
             return new NotFoundError(null, exception);
-
 
         return exception;
     }
