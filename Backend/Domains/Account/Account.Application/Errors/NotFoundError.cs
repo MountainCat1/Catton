@@ -5,10 +5,7 @@ namespace Account.Service.Errors;
 
 public class NotFoundError : ApplicationError
 {
-    public override int StatusCode
-    {
-        get => 404;
-    }
+    public override int StatusCode => 404;
 
     public NotFoundError(string? message) : base(message)
     {
