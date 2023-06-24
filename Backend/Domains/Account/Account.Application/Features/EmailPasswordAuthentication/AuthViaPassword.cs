@@ -1,9 +1,7 @@
 ﻿using Account.Domain.Repositories;
-using Account.Service.Abstractions;
 using Account.Service.Dtos.Responses;
-using Account.Service.Errors;
 using Account.Service.Services;
-using Catut;
+using Catut.Application.Errors;
 using MediatR;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;
@@ -44,14 +42,13 @@ public class AuthViaPasswordRequestHandler : IRequestHandler<AuthViaPasswordRequ
 
     public async Task<AuthTokenResponseContract> Handle(AuthViaPasswordRequest request, CancellationToken cancellationToken)
     {
-        var account = await _passwordAccountRepository
-            .GetOneAsync(x => x.Email == request.Email);
+        var account = await _passwordAccountRepository.GetAccountByEmailAsync(request.Email);
 
         if (account is null)
-            throw new UnauthorizedError();
+            throw new UnauthorizedError("Account does not exists");
         
         if(!_hashingService.VerifyPassword(account.PasswordHash, request.Password))
-            throw new UnauthorizedError();
+            throw new UnauthorizedError("Credentials are invalid");
         
         var jwt = _jwtService.GenerateAsymmetricJwtToken(account);
 

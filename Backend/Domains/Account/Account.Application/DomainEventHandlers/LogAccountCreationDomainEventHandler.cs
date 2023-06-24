@@ -1,5 +1,5 @@
-﻿using Account.Domain.Abstractions;
-using Account.Domain.DomainEvents;
+﻿using Account.Domain.DomainEvents;
+using Catut.Domain.Abstractions;
 using Microsoft.Extensions.Logging;
 
 namespace Account.Service.DomainEventHandlers;

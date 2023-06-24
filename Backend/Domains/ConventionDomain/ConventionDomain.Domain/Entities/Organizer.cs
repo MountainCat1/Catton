@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using ConventionDomain.Domain.Abstractions;
+using Catut.Domain.Abstractions;
 using ConventionDomain.Domain.Validators;
 using FluentValidation;
 

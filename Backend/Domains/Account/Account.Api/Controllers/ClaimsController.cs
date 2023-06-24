@@ -1,5 +1,4 @@
 ﻿using Account.Service.Features.GetClaims;
-using Catut.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

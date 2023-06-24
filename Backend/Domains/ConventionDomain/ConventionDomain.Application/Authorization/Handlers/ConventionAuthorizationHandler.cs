@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using ConventionDomain.Application.Authorization.Requirements;
+﻿using ConventionDomain.Application.Authorization.Requirements;
 using ConventionDomain.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentDomain.Application.Dtos;
 using PaymentDomain.Application.Features.ConventionTickets;
-using PaymentDomain.Domain.Entities;
 
 namespace PaymentDomain.Api.Controllers;
 

@@ -1,9 +1,10 @@
+using Catut.Application.Configuration;
+using Catut.Application.MediaRBehaviors;
+using Catut.Application.Middlewares;
+using Catut.Infrastructure.Abstractions;
 using TicketTemplateDomain.Api;
 using TicketTemplateDomain.Api.Extensions;
-using TicketTemplateDomain.Api.MediaRBehaviors;
-using TicketTemplateDomain.Api.Middlewares;
 using TicketTemplateDomain.Application;
-using TicketTemplateDomain.Application.Configuration;
 using TicketTemplateDomain.Application.Services;
 using TicketTemplateDomain.Infrastructure.Contexts;
 using FluentValidation;
@@ -11,7 +12,6 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TicketTemplateDomain.Domain.Repositories;
-using TicketTemplateDomain.Infrastructure.Abstractions;
 using TicketTemplateDomain.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

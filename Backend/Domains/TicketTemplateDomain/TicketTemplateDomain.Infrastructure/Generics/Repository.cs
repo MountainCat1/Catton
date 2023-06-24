@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
-using TicketTemplateDomain.Domain.Abstractions;
-using TicketTemplateDomain.Infrastructure.Errors.Database;
+using Catut.Domain.Abstractions;
+using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Errors.Database;
 using TicketTemplateDomain.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using TicketTemplateDomain.Infrastructure.Abstractions;
 
 namespace TicketTemplateDomain.Infrastructure.Generics;
 

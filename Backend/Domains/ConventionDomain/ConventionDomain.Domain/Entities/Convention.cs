@@ -1,4 +1,4 @@
-﻿using ConventionDomain.Domain.Abstractions;
+﻿using Catut.Domain.Abstractions;
 using ConventionDomain.Domain.Events;
 using ConventionDomain.Domain.Validators;
 using FluentValidation;

@@ -1,4 +1,4 @@
-﻿using PaymentDomain.Domain.Abstractions;
+﻿using Catut.Domain.Abstractions;
 using PaymentDomain.Domain.Entities;
 
 namespace PaymentDomain.Domain.Repositories;

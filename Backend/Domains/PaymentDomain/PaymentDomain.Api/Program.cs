@@ -1,9 +1,9 @@
+using Catut.Application.Configuration;
+using Catut.Application.MediaRBehaviors;
+using Catut.Application.Middlewares;
 using PaymentDomain.Api;
 using PaymentDomain.Api.Extensions;
-using PaymentDomain.Api.MediaRBehaviors;
-using PaymentDomain.Api.Middlewares;
 using PaymentDomain.Application;
-using PaymentDomain.Application.Configuration;
 using PaymentDomain.Application.Services;
 using PaymentDomain.Infrastructure.Contexts;
 using FluentValidation;

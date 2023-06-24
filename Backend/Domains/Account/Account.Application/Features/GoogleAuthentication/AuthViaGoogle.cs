@@ -1,11 +1,7 @@
-﻿using Account.Domain.Entities;
-using Account.Domain.Repositories;
-using Account.Service.Abstractions;
+﻿using Account.Domain.Repositories;
 using Account.Service.Dtos.Responses;
-using Account.Service.Errors;
 using Account.Service.Services;
-using Catut;
-using Google.Apis.Auth;
+using Catut.Application.Errors;
 using MediatR;
 
 namespace Account.Service.Features.GoogleAuthentication;
@@ -42,7 +38,7 @@ public class AuthiViaGoogleRequestHandler : IRequestHandler<AuthiViaGoogleReques
         var payload = await _authProviderService.ValidateGoogleJwtAsync(request.GoogleAuthToken);
 
         var accountEntity = await _accountRepository.GetAccountByEmailAsync(payload.Email)
-                            ?? throw new NotFoundError();
+                            ?? throw new NotFoundError("Account does not exist");
 
         var jwt = _jwtService.GenerateAsymmetricJwtToken(accountEntity);
 

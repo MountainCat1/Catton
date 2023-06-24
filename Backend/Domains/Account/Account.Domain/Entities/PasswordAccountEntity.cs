@@ -1,5 +1,4 @@
 ﻿using Account.Domain.Validators;
-using Catut;
 using FluentValidation;
 
 
@@ -15,7 +14,7 @@ public class PasswordAccountEntity : AccountEntity
         PasswordHash = passwordHash;
     }
 
-    public static async Task<PasswordAccountEntity> CreateAsync(string email, string username, string passwordHash)
+    internal static async Task<PasswordAccountEntity> CreateAsync(string email, string username, string passwordHash)
     {
         var newAccount = new PasswordAccountEntity(email, username, passwordHash);
 

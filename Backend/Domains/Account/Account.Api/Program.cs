@@ -1,8 +1,7 @@
 using Account.Application;
 using Account.Application.Extensions;
-using Account.Application.MediaRBehaviors;
-using Account.Application.Middlewares;
 using Account.Domain.Repositories;
+using Account.Domain.Services;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Repositories;
 using Account.Service;
@@ -10,7 +9,10 @@ using Account.Service.Features.EmailPasswordAuthentication;
 using Account.Service.Features.GoogleAuthentication;
 using Account.Service.Services;
 using Account.Service.Settings;
+using Catut.Application.MediaRBehaviors;
+using Catut.Application.Middlewares;
 using Catut.Configuration;
+using Catut.Infrastructure.Abstractions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -73,12 +75,16 @@ services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ServiceAssemlyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
-services.AddScoped<IHashingService, HashingService>();
-services.AddScoped<IJwtService, JwtService>();
 
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
 services.AddScoped<IPasswordAccountRepository, PasswordAccountRepository>();
+
+services.AddScoped<IPasswordAccountService, PasswordAccountService>();
+
+services.AddScoped<IHashingService, HashingService>();
+services.AddScoped<IJwtService, JwtService>();
+services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
 services.AddScoped<IPasswordAuthProviderService, PasswordAuthProviderService>();
@@ -87,7 +93,7 @@ services.AddAsymmetricAuthentication(jwtConfig);
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ServiceAssemlyMarker).Assembly));
 
-services.AddSingleton<ErrorHandlingMiddleware>();
+services.AddScoped<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
 
