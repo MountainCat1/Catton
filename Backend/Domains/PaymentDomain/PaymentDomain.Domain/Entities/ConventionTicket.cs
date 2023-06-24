@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using PaymentDomain.Domain.Abstractions;
+﻿using Catut.Domain.Abstractions;
+using FluentValidation;
 using PaymentDomain.Domain.Validators;
 
 namespace PaymentDomain.Domain.Entities;

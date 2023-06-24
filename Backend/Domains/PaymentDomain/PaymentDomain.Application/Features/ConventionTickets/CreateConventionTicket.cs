@@ -29,7 +29,7 @@ public class CreateConventionTicketRequestHandler : IRequestHandler<CreateConven
         );
 
         await _conventionTicketRepository.AddAsync(entity);
-        await _conventionTicketRepository.SaveChangesAndThrowAsync();
+        await _conventionTicketRepository.SaveChangesAsync();
 
         return entity.ToDto();
     }
