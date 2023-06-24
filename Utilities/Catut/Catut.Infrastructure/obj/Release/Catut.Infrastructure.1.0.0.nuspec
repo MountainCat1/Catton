@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Catut.Infrastructure</id>
+    <version>1.0.0</version>
+    <title>Catut.Infrastructure</title>
+    <authors>Tomasz Przemysław Banaś</authors>
+    <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <description>Simple package for my college project</description>
+    <copyright>Developed and owned by Tomasz Banaś</copyright>
+    <tags>cats are liquid</tags>
+    <dependencies>
+      <group targetFramework="net7.0">
+        <dependency id="Catut.Domain" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Data.SqlClient" version="5.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="7.0.8" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\Mountain Cat\Projects\Web Dev\Catton\Utilities\Catut\Catut.Infrastructure\bin\Release\net7.0\Catut.Infrastructure.dll" target="lib\net7.0\Catut.Infrastructure.dll" />
+  </files>
+</package>

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "li3MXk8sdqxaqXfEIvrJNGumQo2gKAXTl7uqwXYPEuGXyS9SIU7015/MS6VmBtcLoOgeXndGrjWn5owX5jRjhA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Mountain Cat\\Projects\\Web Dev\\Catton\\Utilities\\Catut\\Catut.Domain\\Catut.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mountain Cat\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
+    "C:\\Users\\Mountain Cat\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\Mountain Cat\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
