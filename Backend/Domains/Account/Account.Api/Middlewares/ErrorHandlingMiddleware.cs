@@ -12,16 +12,13 @@ public class ErrorHandlingMiddleware : IMiddleware
 {
     private readonly ILogger<ErrorHandlingMiddleware> _logger;
     private readonly IDatabaseErrorMapper _databaseErrorMapper;
-    private readonly IJsonSerializer _serializer;
 
     public ErrorHandlingMiddleware(
         ILogger<ErrorHandlingMiddleware> logger,
-        IDatabaseErrorMapper databaseErrorMapper,
-        IJsonSerializer serializer)
+        IDatabaseErrorMapper databaseErrorMapper)
     {
         _logger = logger;
         _databaseErrorMapper = databaseErrorMapper;
-        _serializer = serializer;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -59,7 +56,7 @@ public class ErrorHandlingMiddleware : IMiddleware
             case ValidationException:
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";
-                await context.Response.WriteAsync(_serializer.Serialize(ex.Message));
+                await context.Response.WriteAsync(JsonSerializer.Serialize(ex.Message));
                 break;
             default:
                 _logger.LogError(ex, ex.Message);
@@ -70,12 +67,12 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
     }
 
-    private string SerializeError(ApplicationError applicationError)
+    private static string SerializeError(ApplicationError applicationError)
     {
         var errorResponse = new ErrorResponse()
         {
             ErrorContent = applicationError.ToError()
         };
-        return _serializer.Serialize(errorResponse);
+        return JsonSerializer.Serialize(errorResponse);
     }
 }
