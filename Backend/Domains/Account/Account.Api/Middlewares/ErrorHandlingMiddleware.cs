@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
+using Account.Service.Dtos;
 using Account.Service.Errors;
 using Account.Service.Services;
 using BaseApp.Infrastructure.Abstractions;
@@ -69,9 +70,12 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
     }
 
-    private string SerializeError(ApplicationError error)
+    private string SerializeError(ApplicationError applicationError)
     {
-        var problemDetails = error.ToError();
-        return _serializer.Serialize(problemDetails);
+        var errorResponse = new ErrorResponse()
+        {
+            ErrorContent = applicationError.ToError()
+        };
+        return _serializer.Serialize(errorResponse);
     }
 }

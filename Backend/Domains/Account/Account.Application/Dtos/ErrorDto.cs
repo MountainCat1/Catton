@@ -1,12 +1,15 @@
-﻿namespace Account.Service.Dtos;
+﻿using System.Text.Json.Serialization;
 
-public class ErrorDto
+namespace Account.Service.Dtos;
+
+public class ErrorResponse
 {
-    public Error Error { get; set; }
+    [JsonPropertyName("error")]
+    public ErrorContent? ErrorContent { get; set; }
 }
 
-public class Error
+public class ErrorContent
 {
     public int StatusCode { get; set; }
-    public string Message { get; set; }
+    public string? Message { get; set; }
 }

@@ -16,9 +16,9 @@ public abstract class ApplicationError : Exception
 
     public abstract int StatusCode { get; }
 
-    public virtual Error ToError()
+    public virtual ErrorContent ToError()
     {
-        return new Error()
+        return new ErrorContent()
         {
             Message = Message,
             StatusCode = StatusCode,
