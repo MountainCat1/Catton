@@ -1,5 +1,5 @@
-﻿using ConventionDomain.Application.Dtos.Organizer;
-using ConventionDomain.Application.Errors;
+﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Domain.Entities;
 using ConventionDomain.Domain.Repositories;
 using MediatR;

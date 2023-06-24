@@ -11,14 +11,14 @@
         <Copyright>Developed and owned by Tomasz Banaś</Copyright>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
         <PackageTags>cats are liquid</PackageTags>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
     </PropertyGroup>
 
     <ItemGroup>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Catut.Domain" Version="1.0.0" />
+      <PackageReference Include="Catut.Domain" Version="1.0.2" />
       <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.8" />
     </ItemGroup>

@@ -1,4 +1,4 @@
-﻿using ConventionDomain.Domain.Abstractions;
+﻿using Catut.Domain.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

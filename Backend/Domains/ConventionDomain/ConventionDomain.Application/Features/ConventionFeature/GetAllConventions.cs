@@ -1,12 +1,9 @@
 ﻿using System.Security.Claims;
-using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Convention;
-using ConventionDomain.Application.Errors;
 using ConventionDomain.Application.Services;
 using ConventionDomain.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 

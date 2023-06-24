@@ -1,10 +1,10 @@
 using System.Text.Json.Serialization;
+using Catut.Application.Configuration;
+using Catut.Application.MediaRBehaviors;
+using Catut.Application.Middlewares;
 using ConventionDomain.Api;
 using ConventionDomain.Api.Extensions;
-using ConventionDomain.Api.MediaRBehaviors;
-using ConventionDomain.Api.Middlewares;
 using ConventionDomain.Application;
-using ConventionDomain.Application.Configuration;
 using ConventionDomain.Application.Services;
 using ConventionDomain.Domain.Repositories;
 using ConventionDomain.Infrastructure.Contexts;
