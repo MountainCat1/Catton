@@ -1,6 +1,7 @@
-﻿using Account.Service.Errors;
-using BaseApp.Infrastructure.Abstractions;
-using BaseApp.Infrastructure.Errors.Database;
+﻿using Account.Infrastructure.Generics;
+using Catut.Application.Errors;
+using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Errors.Database;
 
 namespace Account.Service.Services;
 

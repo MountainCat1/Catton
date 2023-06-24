@@ -1,8 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Account.Domain.Entities;
+﻿using Account.Domain.Entities;
 using Account.Domain.Repositories;
-using FluentValidation;
-using FluentValidation.Results;
 using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace Account.Domain.Services;

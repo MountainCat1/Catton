@@ -1,7 +1,7 @@
 ﻿using Account.Domain.Repositories;
 using Account.Service.Dtos.Responses;
-using Account.Service.Errors;
 using Account.Service.Services;
+using Catut.Application.Errors;
 using MediatR;
 
 namespace Account.Service.Features.GoogleAuthentication;

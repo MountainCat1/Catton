@@ -1,11 +1,6 @@
-﻿using Account.Domain.Entities;
-using Account.Domain.Repositories;
+﻿using Account.Domain.Repositories;
 using Account.Domain.Services;
 using Account.Service.Services;
-using BaseApp.Infrastructure.Errors.Database;
-using Catut;
-using FluentValidation;
-using FluentValidation.Results;
 using MediatR;
 
 namespace Account.Service.Features.EmailPasswordAuthentication;

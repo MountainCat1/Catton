@@ -1,9 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Account.Domain.Abstractions;
-using Account.Domain.Entities;
-using Account.Infrastructure.Extensions;
-using BaseApp.Infrastructure.Abstractions;
-using BaseApp.Infrastructure.Errors.Database;
+using Catut.Domain.Abstractions;
+using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Errors.Database;
+using Catut.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

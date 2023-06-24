@@ -2,7 +2,7 @@
 using Account.Domain.Repositories;
 using Account.Infrastructure.Contexts;
 using Account.Infrastructure.Generics;
-using BaseApp.Infrastructure.Abstractions;
+using Catut.Infrastructure.Abstractions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

@@ -1,7 +1,5 @@
 using Account.Application;
 using Account.Application.Extensions;
-using Account.Application.MediaRBehaviors;
-using Account.Application.Middlewares;
 using Account.Domain.Repositories;
 using Account.Domain.Services;
 using Account.Infrastructure.Contexts;
@@ -11,13 +9,14 @@ using Account.Service.Features.EmailPasswordAuthentication;
 using Account.Service.Features.GoogleAuthentication;
 using Account.Service.Services;
 using Account.Service.Settings;
-using BaseApp.Infrastructure.Abstractions;
+using Catut.Application.MediaRBehaviors;
+using Catut.Application.Middlewares;
 using Catut.Configuration;
+using Catut.Infrastructure.Abstractions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 

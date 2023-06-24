@@ -1,5 +1,5 @@
-﻿using Account.Domain.Abstractions;
-using Account.Domain.Entities;
+﻿using Account.Domain.Entities;
+using Catut.Domain.Abstractions;
 
 namespace Account.Domain.Repositories;
 
