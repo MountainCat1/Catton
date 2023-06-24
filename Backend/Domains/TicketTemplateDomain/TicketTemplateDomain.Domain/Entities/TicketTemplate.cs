@@ -1,4 +1,4 @@
-﻿using TicketTemplateDomain.Domain.Abstractions;
+﻿using Catut.Domain.Abstractions;
 
 namespace TicketTemplateDomain.Domain.Entities;
 

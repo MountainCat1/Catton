@@ -1,6 +1,6 @@
-﻿using BaseApp.Application.Errors;
-using TicketTemplateDomain.Infrastructure.Abstractions;
-using TicketTemplateDomain.Infrastructure.Errors.Database;
+﻿using Catut.Application.Errors;
+using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Errors.Database;
 
 namespace TicketTemplateDomain.Application.Services;
 

@@ -1,4 +1,4 @@
-﻿namespace TicketTemplateDomain.Domain.Abstractions;
+﻿namespace Catut.Domain.Abstractions;
 
 public interface IEntityUpdate<TEntity> where TEntity : IEntity
 {
