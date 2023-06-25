@@ -14,8 +14,10 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OpenApi.Account;
+using TicketTemplateDomain.Api.Extensions.ServiceCollection;
 using TicketTemplateDomain.Domain.Repositories;
 using TicketTemplateDomain.Infrastructure.Repositories;
+using ServiceCollectionExtensions = TicketTemplateDomain.Api.Extensions.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,39 +36,18 @@ services.Configure<ApiConfiguration>(configuration.GetSection(nameof(ApiConfigur
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen(o => { o.AddSwaggerAuthUi(); });
 services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
     loggingBuilder.AddDebug();
-    // loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.CKommand", LogLevel.Warning);
-});
-
-services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigins", builder =>
-    {
-        builder.WithOrigins(new[]
-            {
-                "http://localhost:4200", // local frontend
-                "https://localhost:5000", // local swagger 
-                "http://localhost:4000", // local swagger
-            })
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
 });
 
 services.AddAsymmetricAuthentication(jwtConfig);
 
-services.AddDbContext<TicketTemplateDomainDbContext>(options =>
-{
-    options.UseSqlServer(configuration.GetConnectionString("TicketTemplateDomainDatabase"),
-        b => b.MigrationsAssembly(typeof(ApiAssemblyMarker).Assembly.FullName));
-    // options.UseLoggerFactory(LoggerFactory.Create(builder => builder
-    //     .AddFilter((_, _) => false)
-    //     .AddConsole()));
-});
+services.InstallCors();
+services.InstallSwagger();
+services.InstallDbContext(configuration);
+services.InstallMassTransit(configuration);
 
 services.AddHttpContextAccessor();
 services.AddTransient<IUserAccessor, UserAccessor>();
