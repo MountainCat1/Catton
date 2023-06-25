@@ -1,4 +1,5 @@
 using Catut.Application.Configuration;
+using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
 using Catut.Infrastructure.Abstractions;
@@ -11,6 +12,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OpenApi.Account;
 using TicketTemplateDomain.Domain.Repositories;
 using TicketTemplateDomain.Infrastructure.Repositories;
 
@@ -22,16 +24,16 @@ var configuration = builder.Configuration;
 configuration.AddJsonFile("Secrets/jwt.json");
 
 var jwtConfig = configuration.GetConfiguration<JwtConfig>();
+var apiConfig = configuration.GetConfiguration<ApiConfiguration>();
 
 // ========= SERVICES  =========
 var services = builder.Services;
 
+services.Configure<ApiConfiguration>(configuration.GetSection(nameof(ApiConfiguration)));
+
 services.AddControllers();
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen(o =>
-{
-    o.AddSwaggerAuthUi();
-});
+services.AddSwaggerGen(o => { o.AddSwaggerAuthUi(); });
 services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
@@ -72,6 +74,8 @@ services.AddScoped<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+services.AddApiHttpClinet<IAccountApi, AccountApi>(apiConfig);
 
 services.AddScoped<ITicketTemplateRepository, TicketTemplateRepository>();
 

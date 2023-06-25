@@ -3,16 +3,16 @@
 set -e
 
 # Array of service names
-serviceNames=('convention' 'account' )
+serviceNames=('convention' 'account' 'ticket-template')
+targetFramework=dotnet 
 
 # Set variables
-TARGET_DIR="/openapi-generated"
+TARGET_DIR="/openapi-${targetFramework}"
 ABS_TARGET_DIR="$(pwd)$TARGET_DIR"
-OUTPUT_FOLDER_NAME="openapi-generated"
+OUTPUT_FOLDER_NAME="openapi"
 
 # Loop through the service names array
-for serviceName in "${serviceNames[@]}"
-do
+for serviceName in "${serviceNames[@]}"; do
   # Set variable with api specs
   apiSpecsDir="https://localhost:5000/swagger/docs/v1/${serviceName}"
   SPECS_TARGET_DIR="$TARGET_DIR/${serviceName}/api-spec.json"
@@ -31,8 +31,11 @@ do
   # Run the Docker container to generate the Angular service
   MSYS_NO_PATHCONV=1 docker run --rm -v "$ABS_TARGET_DIR/${serviceName}:/local" openapitools/openapi-generator-cli generate \
     -i /local/api-spec.json \
-    -g typescript-angular \
+    -g ${targetFramework} \
     -o /local/${OUTPUT_FOLDER_NAME}
+
+  echo 
+  mv .${TARGET_DIR}/${serviceName}/${OUTPUT_FOLDER_NAME}/* .${TARGET_DIR}/${serviceName}/
 
   echo "Angular service generated successfully for '$serviceName'."
 done
