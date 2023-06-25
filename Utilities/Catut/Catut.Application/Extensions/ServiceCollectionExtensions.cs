@@ -1,5 +1,8 @@
 ﻿using System.Collections.Specialized;
 using Catut.Application.Configuration;
+using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Generics;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -111,5 +114,19 @@ public static class ServiceCollectionExtensions
             throw new NullReferenceException("Problem with retreiving a name for a http client");
 
         return clientName;
+    }
+    
+    public static IServiceCollection AddBusEndpoint<TMessage>(this IServiceCollection services, string queueName)
+    {
+        services.AddScoped<IBusEndpoint<TMessage>, BusEndpoint<TMessage>>(x =>
+        {
+            var busEndpoint = new BusEndpoint<TMessage>(x.GetRequiredService<IBus>())
+            {
+                QueueName = queueName
+            };
+
+            return busEndpoint;
+        });
+        return services;
     }
 }

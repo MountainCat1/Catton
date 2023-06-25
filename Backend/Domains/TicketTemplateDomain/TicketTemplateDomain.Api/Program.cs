@@ -3,6 +3,7 @@ using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
 using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Generics;
 using TicketTemplateDomain.Api;
 using TicketTemplateDomain.Api.Extensions;
 using TicketTemplateDomain.Application;
