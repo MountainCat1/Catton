@@ -1,4 +1,6 @@
-﻿using ConventionDomain.Application.Dtos.Convention;
+﻿using Catut.Application.Dtos;
+using Catut.Application.Errors;
+using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Features.ConventionFeature;
 using MediatR;
@@ -20,7 +22,7 @@ namespace ConventionDomain.Api.Controllers;
         }
 
         [HttpPost]
-        [ProducesResponseType( StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Create(ConventionCreateDto conventionCreateDto)
         {
             var request = new CreateConventionRequest()
@@ -35,7 +37,7 @@ namespace ConventionDomain.Api.Controllers;
         
         
         [HttpGet("{id:guid}")]
-        [ProducesResponseType( StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType( typeof(ConventionResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
@@ -50,7 +52,7 @@ namespace ConventionDomain.Api.Controllers;
         }
         
         [HttpGet("")]
-        [ProducesResponseType( StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType( typeof(ErrorResponse),StatusCodes.Status401Unauthorized)]
         [ProducesResponseType( typeof(ICollection<ConventionResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
@@ -65,7 +67,7 @@ namespace ConventionDomain.Api.Controllers;
         }
         
         [HttpPut("{id:guid}")]
-        [ProducesResponseType( StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType( typeof(ErrorResponse),StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ConventionUpdateDto updateDto)
         {
             var request = new UpdateConventionRequest()
