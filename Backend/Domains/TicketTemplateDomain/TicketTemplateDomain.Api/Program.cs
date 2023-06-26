@@ -14,6 +14,7 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OpenApi.Account;
+using OpenApi.Convention;
 using TicketTemplateDomain.Api.Extensions.ServiceCollection;
 using TicketTemplateDomain.Domain.Repositories;
 using TicketTemplateDomain.Infrastructure.Repositories;
@@ -51,6 +52,7 @@ services.InstallMassTransit(configuration);
 
 services.AddHttpContextAccessor();
 services.AddTransient<IUserAccessor, UserAccessor>();
+services.AddTransient<IAuthTokenAccessor, AuthTokenAccessor>();
 services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
 services.AddScoped<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
@@ -58,6 +60,7 @@ services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 services.AddApiHttpClinet<IAccountApi, AccountApi>(apiConfig);
+services.AddApiHttpClinet<IConventionApi, ConventionApi>(apiConfig);
 
 services.AddScoped<ITicketTemplateRepository, TicketTemplateRepository>();
 

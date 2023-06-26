@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Catut.Infrastructure" Version="1.0.2" />
+      <PackageReference Include="Catton.ApiClient" Version="1.0.2" />
+      <PackageReference Include="Catut.Infrastructure" Version="1.0.3" />
+      <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.0.16" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.8" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8">
         <PrivateAssets>all</PrivateAssets>

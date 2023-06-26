@@ -2,8 +2,10 @@ using System.Text.Json.Serialization;
 using Catut.Application.Configuration;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
+using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Api;
 using ConventionDomain.Api.Extensions;
+using ConventionDomain.Api.Extensions.ServiceCollection;
 using ConventionDomain.Application;
 using ConventionDomain.Application.Services;
 using ConventionDomain.Domain.Repositories;
@@ -13,6 +15,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using ServiceCollectionExtensions = ConventionDomain.Api.Extensions.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,10 +35,6 @@ services.AddControllers().AddJsonOptions(opts =>
     opts.JsonSerializerOptions.Converters.Add(enumConverter);
 });
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen(o =>
-{
-    o.AddSwaggerAuthUi();
-});
 services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
@@ -43,33 +42,17 @@ services.AddLogging(loggingBuilder =>
     loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 });
 
-services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigins", builder =>
-    {
-        builder.WithOrigins(new[]
-            {
-                "http://localhost:4200", // local frontend
-                "https://localhost:5000", // local swagger 
-                "http://localhost:4000", // local swagger
-            })
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
+//  === INSTALLERS ===
+services.InstallSwagger();
+services.InstallMassTransit(configuration);
+services.InstallCors();
+services.InstallDbContext(configuration);
+//  ===            ===
 
 services.AddAsymmetricAuthentication(jwtConfig);
 
-services.AddDbContext<ConventionDomainDbContext>(options =>
-{
-    options.UseSqlServer(configuration.GetConnectionString("ConventionDomainDatabase"),  
-        b => b.MigrationsAssembly(typeof(ApiAssemblyMarker).Assembly.FullName));
-    options.UseLoggerFactory(LoggerFactory.Create(builder => builder
-        .AddFilter((_, _) => false)
-        .AddConsole()));
-});
-
 services.AddHttpContextAccessor();
+services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
 services.AddTransient<IUserAccessor, UserAccessor>();
 services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();

@@ -8,7 +8,7 @@ namespace TicketTemplateDomain.Api.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("api/ticket-templates")]
+[Route("api/conventions/{conventionId:guid}/ticket-templates")]
 public class TicketController : Controller
 {
     private readonly IMediator _mediator;
@@ -21,10 +21,11 @@ public class TicketController : Controller
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create(TicketTemplateCreateDto createDto)
+    public async Task<IActionResult> Create([FromRoute] Guid conventionId, [FromBody] TicketTemplateCreateDto createDto)
     {
         var request = new CreateTicketTemplateRequest()
         {
+            ConventionId = conventionId,
             TicketTemplateCreateDto = createDto
         };
 

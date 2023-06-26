@@ -4,6 +4,8 @@
 // </auto-generated>
 //----------------------
 
+using Catton.ApiClient;
+
 #pragma warning disable 108 // Disable "CS0108 '{derivedDto}.ToJson()' hides inherited member '{dtoBase}.ToJson()'. Use the new keyword if hiding was intended."
 #pragma warning disable 114 // Disable "CS0114 '{derivedDto}.RaisePropertyChanged(String)' hides inherited member 'dtoBase.RaisePropertyChanged(String)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword."
 #pragma warning disable 472 // Disable "CS0472 The result of the expression is always 'false' since a value of type 'Int32' is never equal to 'null' of type 'Int32?'
@@ -19,7 +21,7 @@ namespace OpenApi.Convention
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v10.0.0.0))")]
-    public partial interface IConventionApi
+    public partial interface IConventionApi : IApiClient
     {
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task ConventionPOSTAsync(ConventionCreateDto body);
@@ -56,15 +58,13 @@ namespace OpenApi.Convention
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v10.0.0.0))")]
-    public partial class ConventionApi : IConventionApi
+    public partial class ConventionApi : ApiClient, IConventionApi
     {
-        private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-        public ConventionApi(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public ConventionApi(System.Net.Http.HttpClient httpClient)
         {
-            BaseUrl = baseUrl;
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
         }
@@ -76,19 +76,9 @@ namespace OpenApi.Convention
             return settings;
         }
 
-        public string BaseUrl
-        {
-            get { return _baseUrl; }
-            set { _baseUrl = value; }
-        }
-
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
 
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task ConventionPOSTAsync(ConventionCreateDto body)
@@ -101,7 +91,7 @@ namespace OpenApi.Convention
         public virtual async System.Threading.Tasks.Task ConventionPOSTAsync(ConventionCreateDto body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/convention");
+            urlBuilder_.Append("api/convention");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -115,12 +105,12 @@ namespace OpenApi.Convention
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
-                    PrepareRequest(client_, request_, urlBuilder_);
+                    await PrepareRequestAsync(client_, request_, urlBuilder_, cancellationToken).ConfigureAwait(false);
 
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
 
-                    PrepareRequest(client_, request_, url_);
+                    await PrepareRequestAsync(client_, request_, url_, cancellationToken).ConfigureAwait(false);
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
@@ -133,7 +123,7 @@ namespace OpenApi.Convention
                                 headers_[item_.Key] = item_.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        await ProcessResponseAsync(client_, response_, cancellationToken).ConfigureAwait(false);
 
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 401)
@@ -185,7 +175,7 @@ namespace OpenApi.Convention
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionResponse>> ConventionAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/convention");
+            urlBuilder_.Append("api/convention");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -196,12 +186,12 @@ namespace OpenApi.Convention
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
+                    await PrepareRequestAsync(client_, request_, urlBuilder_, cancellationToken).ConfigureAwait(false);
 
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
 
-                    PrepareRequest(client_, request_, url_);
+                    await PrepareRequestAsync(client_, request_, url_, cancellationToken).ConfigureAwait(false);
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
@@ -214,7 +204,7 @@ namespace OpenApi.Convention
                                 headers_[item_.Key] = item_.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        await ProcessResponseAsync(client_, response_, cancellationToken).ConfigureAwait(false);
 
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 401)
@@ -272,7 +262,7 @@ namespace OpenApi.Convention
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/convention/{id}");
+            urlBuilder_.Append("api/convention/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -284,12 +274,12 @@ namespace OpenApi.Convention
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
+                    await PrepareRequestAsync(client_, request_, urlBuilder_, cancellationToken).ConfigureAwait(false);
 
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
 
-                    PrepareRequest(client_, request_, url_);
+                    await PrepareRequestAsync(client_, request_, url_, cancellationToken).ConfigureAwait(false);
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
@@ -302,7 +292,7 @@ namespace OpenApi.Convention
                                 headers_[item_.Key] = item_.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        await ProcessResponseAsync(client_, response_, cancellationToken).ConfigureAwait(false);
 
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 401)
@@ -358,7 +348,7 @@ namespace OpenApi.Convention
                 throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/convention/{id}");
+            urlBuilder_.Append("api/convention/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -373,12 +363,12 @@ namespace OpenApi.Convention
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
 
-                    PrepareRequest(client_, request_, urlBuilder_);
+                    await PrepareRequestAsync(client_, request_, urlBuilder_, cancellationToken).ConfigureAwait(false);
 
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
 
-                    PrepareRequest(client_, request_, url_);
+                    await PrepareRequestAsync(client_, request_, url_, cancellationToken).ConfigureAwait(false);
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
@@ -391,7 +381,7 @@ namespace OpenApi.Convention
                                 headers_[item_.Key] = item_.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        await ProcessResponseAsync(client_, response_, cancellationToken).ConfigureAwait(false);
 
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 401)
