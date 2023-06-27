@@ -35,16 +35,16 @@ public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTe
     {
         var jwt = _tokenAccessor.GetToken();
         var dto = request.TicketTemplateCreateDto;
-        var conventionsId = request.ConventionId;
-        var conventions = await _conventionsApi.AddJwt(jwt).ConventionsGETAsync(conventionsId, ct);
+        var conventionId = request.ConventionId;
+        var conventions = await _conventionsApi.AddJwt(jwt).ConventionsGETAsync(conventionId, ct);
 
         if (conventions is null)
-            throw new NotFoundError($"Convnetion with id {conventionsId} doesn't exist");
+            throw new NotFoundError($"Convnetion with id {conventionId} doesn't exist");
             
         var entity = TicketTemplate.Create(
             description: dto.Description,
             price: dto.Price,
-            conventionId: conventionsId
+            conventionId: conventionId
         );
 
         await _ticketTemplateRepository.AddAsync(entity);
