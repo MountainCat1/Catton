@@ -1,6 +1,6 @@
 ﻿namespace ConventionDomain.Application.Dtos.Convention;
 
-public record ConventionResponse
+public record ConventionDto
 {
     public required Guid Id { get; set; }
     public required string Name { get; init; }
@@ -10,9 +10,9 @@ public record ConventionResponse
 
 public static class ConventionExtensions
 {
-    public static ConventionResponse ToDto(this Conventions.Domain.Entities.Convention convention)
+    public static ConventionDto ToDto(this Conventions.Domain.Entities.Convention convention)
     {
-        return new ConventionResponse
+        return new ConventionDto
         {
             Id = convention.Id,
             Name = convention.Name,

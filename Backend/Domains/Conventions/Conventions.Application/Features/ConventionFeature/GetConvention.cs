@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 
-public class GetConventionRequest : IRequest<ConventionResponse>
+public class GetConventionRequest : IRequest<ConventionDto>
 {
     public Guid Id { get; set; }
 }
 
-public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest, ConventionResponse>
+public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest, ConventionDto>
 {
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
@@ -29,7 +29,7 @@ public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest,
         _userAccessor = userAccessor;
     }
 
-    public async Task<ConventionResponse> Handle(GetConventionRequest request, CancellationToken cancellationToken)
+    public async Task<ConventionDto> Handle(GetConventionRequest request, CancellationToken cancellationToken)
     {
         var id = request.Id;
 
