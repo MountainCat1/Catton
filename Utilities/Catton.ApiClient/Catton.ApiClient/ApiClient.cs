@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text;
+using OpenApi.Conventions;
 
 namespace Catton.ApiClient;
 
@@ -40,7 +41,12 @@ public static class ApiClientExtensions
         where TApiClient : IApiClient
     {
         apiClient.AddBearer(jwt);
-
+        
         return apiClient;
+    }
+
+    public static async Task XD()
+    {
+        var api = new ConventionsApi(null);
     }
 }

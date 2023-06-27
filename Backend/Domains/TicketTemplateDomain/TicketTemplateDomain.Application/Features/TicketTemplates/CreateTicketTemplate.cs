@@ -6,6 +6,7 @@ using TicketTemplateDomain.Application.Dtos;
 using TicketTemplateDomain.Application.Services;
 using TicketTemplateDomain.Domain.Entities;
 using TicketTemplateDomain.Domain.Repositories;
+using ApiException = OpenApi.Account.ApiException;
 
 namespace TicketTemplateDomain.Application.Features.TicketTemplates;
 
@@ -37,7 +38,7 @@ public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTe
         var dto = request.TicketTemplateCreateDto;
         var conventionId = request.ConventionId;
         var conventions = await _conventionsApi.AddJwt(jwt).ConventionsGETAsync(conventionId, ct);
-
+        
         if (conventions is null)
             throw new NotFoundError($"Convnetion with id {conventionId} doesn't exist");
             

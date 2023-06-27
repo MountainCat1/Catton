@@ -25,7 +25,6 @@ namespace OpenApi.Tickets
     
 
 
-
 }
 
 #pragma warning restore  108
