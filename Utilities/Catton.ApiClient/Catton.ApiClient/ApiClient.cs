@@ -44,9 +44,4 @@ public static class ApiClientExtensions
         
         return apiClient;
     }
-
-    public static async Task XD()
-    {
-        var api = new ConventionsApi(null);
-    }
 }
