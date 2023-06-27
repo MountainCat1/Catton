@@ -1,8 +1,7 @@
 ﻿using Catton.ApiClient;
 using Catut.Application.Errors;
-using MassTransit.Internals;
 using MediatR;
-using OpenApi.Convention;
+using OpenApi.Conventions;
 using TicketTemplateDomain.Application.Dtos;
 using TicketTemplateDomain.Application.Services;
 using TicketTemplateDomain.Domain.Entities;
@@ -19,16 +18,16 @@ public class CreateTicketTemplateRequest : IRequest<TicketTemplateDto>
 public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTemplateRequest, TicketTemplateDto>
 {
     private readonly ITicketTemplateRepository _ticketTemplateRepository;
-    private readonly IConventionApi _conventionApi;
+    private readonly IConventionsApi _conventionsApi;
     private readonly IAuthTokenAccessor _tokenAccessor;
 
     public CreateTicketTemplateRequestHandler(
         ITicketTemplateRepository ticketTemplateRepository,
-        IConventionApi conventionApi,
+        IConventionsApi conventionsApi,
         IAuthTokenAccessor tokenAccessor)
     {
         _ticketTemplateRepository = ticketTemplateRepository;
-        _conventionApi = conventionApi;
+        _conventionsApi = conventionsApi;
         _tokenAccessor = tokenAccessor;
     }
 
@@ -36,16 +35,16 @@ public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTe
     {
         var jwt = _tokenAccessor.GetToken();
         var dto = request.TicketTemplateCreateDto;
-        var conventionId = request.ConventionId;
-        var convention = await _conventionApi.AddJwt(jwt).ConventionGETAsync(conventionId, ct);
+        var conventionsId = request.ConventionId;
+        var conventions = await _conventionsApi.AddJwt(jwt).ConventionsGETAsync(conventionsId, ct);
 
-        if (convention is null)
-            throw new NotFoundError($"Convnetion with id {conventionId} doesn't exist");
+        if (conventions is null)
+            throw new NotFoundError($"Convnetion with id {conventionsId} doesn't exist");
             
         var entity = TicketTemplate.Create(
             description: dto.Description,
             price: dto.Price,
-            conventionId: conventionId
+            conventionId: conventionsId
         );
 
         await _ticketTemplateRepository.AddAsync(entity);

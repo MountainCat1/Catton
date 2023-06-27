@@ -21,7 +21,7 @@
     },
     
     {
-      "DownstreamPathTemplate": "/api/convention/{everything}",
+      "DownstreamPathTemplate": "/api/conventions/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -29,18 +29,18 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api/convention/{everything}",
+      "UpstreamPathTemplate": "/api/conventions/{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",
         "GET"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "convention",
+      "SwaggerKey": "conventions",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
-      "DownstreamPathTemplate": "/api/convention",
+      "DownstreamPathTemplate": "/api/conventions",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -48,14 +48,14 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api/convention",
+      "UpstreamPathTemplate": "/api/conventions",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",
         "GET"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "convention",
+      "SwaggerKey": "conventions",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
@@ -94,15 +94,15 @@
         {
           "Name": "Account API",
           "Version": "v1",
-          "Url": "https://account_domain:443/swagger/v1/swagger.json"
+          "Url": "https://host.docker.internal:5001/swagger/v1/swagger.json"
         }
       ]
     },
     {
-      "Key": "convention",
+      "Key": "conventions",
       "Config": [
         {
-          "Name": "Convention API",
+          "Name": "Conventions API",
           "Version": "v1",
           "Url": "https://host.docker.internal:5002/swagger/v1/swagger.json"
         }

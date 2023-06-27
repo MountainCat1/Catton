@@ -46,11 +46,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
-  convention_domain:
+  conventions_domain:
     env_file:
       - dockerCompose.env
     build:
-      context: ./Backend/Domains/ConventionDomain
+      context: ./Backend/Domains/Conventions
       dockerfile: Dockerfile
     ports:
       - "4002:80"
@@ -58,11 +58,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
-  ticket_domain:
+  tickets_domain:
     env_file:
       - dockerCompose.env
     build:
-      context: ./Backend/Domains/ConventionDomain
+      context: ./Backend/Domains/PaymentDomain
       dockerfile: Dockerfile
     ports:
       - "4003:80"

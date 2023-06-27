@@ -1,0 +1,48 @@
+﻿using Catut.Application.Errors;
+using Conventions.Application.Authorization;
+using Conventions.Application.Dtos.Convention;
+using Conventions.Application.Services;
+using Conventions.Domain.Repositories;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+
+namespace Conventions.Application.Features.ConventionFeature;
+
+public class GetConventionRequest : IRequest<ConventionResponse>
+{
+    public Guid Id { get; set; }
+}
+
+public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest, ConventionResponse>
+{
+    private readonly IConventionRepository _conventionRepository;
+    private readonly IAuthorizationService _authorizationService;
+    private readonly IUserAccessor _userAccessor;
+
+    public GetConventionRequestHandler(
+        IConventionRepository conventionRepository,
+        IAuthorizationService authorizationService,
+        IUserAccessor userAccessor)
+    {
+        _conventionRepository = conventionRepository;
+        _authorizationService = authorizationService;
+        _userAccessor = userAccessor;
+    }
+
+    public async Task<ConventionResponse> Handle(GetConventionRequest request, CancellationToken cancellationToken)
+    {
+        var id = request.Id;
+
+        var entity = await _conventionRepository.GetOneAsync(id);
+
+        if (entity is null)
+            throw new NotFoundError($"Convention with an id {id} does not exist");
+
+        var authorizationResult = await _authorizationService.AuthorizeAsync(_userAccessor.User, entity, Operations.Read);
+
+        if (!authorizationResult.Succeeded)
+            throw new UnauthorizedError();
+
+        return entity.ToDto();
+    }
+}

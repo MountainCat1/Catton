@@ -1,20 +1,21 @@
+using System.Text.Json.Serialization;
 using Catut.Application.Configuration;
-using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
 using Catut.Infrastructure.Abstractions;
-using TicketTemplateDomain.Api.Extensions;
-using TicketTemplateDomain.Application;
-using TicketTemplateDomain.Application.Services;
-using TicketTemplateDomain.Infrastructure.Contexts;
+using Conventions.Api;
+using Conventions.Api.Extensions;
+using Conventions.Api.Extensions.ServiceCollection;
+using Conventions.Application;
+using Conventions.Application.Services;
+using Conventions.Domain.Repositories;
+using Conventions.Infrastructure.Contexts;
+using Conventions.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
-using OpenApi.Account;
-using OpenApi.Conventions;
-using TicketTemplateDomain.Api.Extensions.ServiceCollection;
-using TicketTemplateDomain.Domain.Repositories;
-using TicketTemplateDomain.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using ServiceCollectionExtensions = Conventions.Api.Extensions.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,50 +25,50 @@ var configuration = builder.Configuration;
 configuration.AddJsonFile("Secrets/jwt.json");
 
 var jwtConfig = configuration.GetConfiguration<JwtConfig>();
-var apiConfig = configuration.GetConfiguration<ApiConfiguration>();
 
 // ========= SERVICES  =========
 var services = builder.Services;
 
-services.Configure<ApiConfiguration>(configuration.GetSection(nameof(ApiConfiguration)));
-
-services.AddControllers();
+services.AddControllers().AddJsonOptions(opts =>
+{
+    var enumConverter = new JsonStringEnumConverter();
+    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+});
 services.AddEndpointsApiExplorer();
 services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
     loggingBuilder.AddDebug();
+    loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 });
+
+//  === INSTALLERS ===
+services.InstallSwagger();
+services.InstallMassTransit(configuration);
+services.InstallCors();
+services.InstallDbContext(configuration);
+//  ===            ===
 
 services.AddAsymmetricAuthentication(jwtConfig);
 
-services.InstallCors();
-services.InstallSwagger();
-services.InstallDbContext(configuration);
-services.InstallMassTransit(configuration);
-
 services.AddHttpContextAccessor();
+services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
 services.AddTransient<IUserAccessor, UserAccessor>();
-services.AddTransient<IAuthTokenAccessor, AuthTokenAccessor>();
-services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
-services.AddScoped<ErrorHandlingMiddleware>();
+services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
-services.AddApiHttpClinet<IAccountApi, AccountApi>(apiConfig);
-services.AddApiHttpClinet<IConventionsApi, ConventionsApi>(apiConfig);
+services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
-services.AddScoped<ITicketTemplateRepository, TicketTemplateRepository>();
-
-services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
-services.AddAuthorizationHandlers();
+services.AddScoped<IConventionRepository, ConventionRepository>();
+services.AddScoped<IOrganizerRepository, OrganizerRepository>();
 
 // ========= RUN  =========
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
-    await app.MigrateDatabaseAsync<TicketTemplateDomainDbContext>();
+    await app.MigrateDatabaseAsync<ConventionDomainDbContext>();
 
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_SWAGGER"))
 {
@@ -81,6 +82,7 @@ if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_
         c.OAuthAppName("Swagger UI");
     });
 }
+
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

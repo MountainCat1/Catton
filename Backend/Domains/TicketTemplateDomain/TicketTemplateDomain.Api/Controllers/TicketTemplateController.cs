@@ -40,7 +40,7 @@ public class TicketController : Controller
     [HttpGet("{ticketTemplateId}")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get([FromRoute] Guid ticketTemplateId)
+    public async Task<IActionResult> Get([FromRoute] Guid ticketTemplateId, [FromRoute] Guid conventionId)
     {
         var reqeust = new GetTicketTemplateRequest()
         {
@@ -51,11 +51,14 @@ public class TicketController : Controller
 
         return Ok(dto);
     }
-    
+
     [HttpPut("{ticketTemplateId}")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get([FromRoute] Guid ticketTemplateId, [FromBody] TicketTemplateUpdateDto updateDto)
+    public async Task<IActionResult> Get(
+        [FromRoute] Guid ticketTemplateId,
+        [FromBody] TicketTemplateUpdateDto updateDto,
+        [FromRoute] Guid conventionId)
     {
         var reqeust = new UpdateTicketTemplateRequest()
         {
@@ -67,15 +70,18 @@ public class TicketController : Controller
 
         return Ok(dto);
     }
-    
+
     [HttpDelete("{ticketTemplateId}")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Delete([FromRoute] Guid ticketTemplateId, [FromBody] TicketTemplateUpdateDto updateDto)
+    public async Task<IActionResult> Delete(
+        [FromRoute] Guid ticketTemplateId,
+        [FromBody] TicketTemplateUpdateDto updateDto,
+        [FromRoute] Guid conventionId)
     {
         var reqeust = new DeleteTicketTemplateRequest()
         {
-             Id = ticketTemplateId,
+            Id = ticketTemplateId,
         };
 
         var dto = await _mediator.Send(reqeust);
