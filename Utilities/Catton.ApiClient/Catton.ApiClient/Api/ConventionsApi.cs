@@ -32,21 +32,21 @@ namespace OpenApi.Conventions
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionResponse>> ConventionsAllAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionDto>> ConventionsAllAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionResponse>> ConventionsAllAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionDto>> ConventionsAllAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ConventionResponse> ConventionsGETAsync(System.Guid id);
+        System.Threading.Tasks.Task<ConventionDto> ConventionsGETAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ConventionResponse> ConventionsGETAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ConventionDto> ConventionsGETAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task ConventionsPUTAsync(System.Guid id, ConventionUpdateDto body);
@@ -191,7 +191,7 @@ namespace OpenApi.Conventions
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionResponse>> ConventionsAllAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionDto>> ConventionsAllAsync()
         {
             return ConventionsAllAsync(System.Threading.CancellationToken.None);
         }
@@ -199,7 +199,7 @@ namespace OpenApi.Conventions
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionResponse>> ConventionsAllAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ConventionDto>> ConventionsAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/conventions");
@@ -246,7 +246,7 @@ namespace OpenApi.Conventions
                         else
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ConventionResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ConventionDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -275,7 +275,7 @@ namespace OpenApi.Conventions
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ConventionResponse> ConventionsGETAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ConventionDto> ConventionsGETAsync(System.Guid id)
         {
             return ConventionsGETAsync(id, System.Threading.CancellationToken.None);
         }
@@ -283,7 +283,7 @@ namespace OpenApi.Conventions
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ConventionResponse> ConventionsGETAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ConventionDto> ConventionsGETAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -334,7 +334,7 @@ namespace OpenApi.Conventions
                         else
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ConventionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<ConventionDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -794,7 +794,7 @@ namespace OpenApi.Conventions
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v10.0.0.0))")]
-    public partial class ConventionResponse
+    public partial class ConventionDto
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
@@ -934,5 +934,7 @@ namespace OpenApi.Conventions
 #pragma warning restore 1573
 #pragma warning restore 1591
 #pragma warning restore 8073
+#pragma warning restore 3016
+#pragma warning restore 8603
 #pragma warning restore 3016
 #pragma warning restore 8603
