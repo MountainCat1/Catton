@@ -1,9 +1,9 @@
-﻿using Conventions.Application.Dtos.Convention;
+﻿using ConventionDomain.Application.Dtos.Convention;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
 
-namespace Conventions.Application.Features.ConventionFeature;
+namespace ConventionDomain.Application.Features.ConventionFeature;
 
 public class UpdateConventionRequest : IRequest
 {

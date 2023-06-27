@@ -1,9 +1,9 @@
-﻿using Conventions.Application.Authorization.Requirements;
+﻿using ConventionDomain.Application.Authorization.Requirements;
 using Conventions.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
-namespace Conventions.Application.Authorization.Handlers;
+namespace ConventionDomain.Application.Authorization.Handlers;
 
 public class ConventionAuthorizationHandler : OperationAuthorizationHandler<Convention>
 {

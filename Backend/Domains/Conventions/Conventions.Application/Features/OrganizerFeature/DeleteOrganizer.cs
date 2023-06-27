@@ -2,7 +2,7 @@
 using Conventions.Domain.Repositories;
 using MediatR;
 
-namespace Conventions.Application.Features.OrganizerFeature;
+namespace ConventionDomain.Application.Features.OrganizerFeature;
 
 public class DeleteOrganizerRequest : IRequest
 {

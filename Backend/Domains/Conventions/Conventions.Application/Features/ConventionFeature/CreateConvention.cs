@@ -1,11 +1,11 @@
-﻿using Conventions.Application.Extensions;
-using Conventions.Application.Dtos.Convention;
-using Conventions.Application.Services;
+﻿using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Extensions;
+using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
 
-namespace Conventions.Application.Features.ConventionFeature;
+namespace ConventionDomain.Application.Features.ConventionFeature;
 
 public class CreateConventionRequest : IRequest
 {

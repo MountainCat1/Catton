@@ -1,9 +1,9 @@
-﻿using Conventions.Application.Dtos.Organizer;
+﻿using ConventionDomain.Application.Dtos.Organizer;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
 
-namespace Conventions.Application.Features.OrganizerFeature;
+namespace ConventionDomain.Application.Features.OrganizerFeature;
 
 public class UpdateOrganizerRequest : IRequest
 {

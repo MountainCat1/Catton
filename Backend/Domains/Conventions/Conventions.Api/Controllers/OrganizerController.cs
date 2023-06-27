@@ -1,5 +1,5 @@
-﻿using Conventions.Application.Dtos.Organizer;
-using Conventions.Application.Features.OrganizerFeature;
+﻿using ConventionDomain.Application.Dtos.Organizer;
+using ConventionDomain.Application.Features.OrganizerFeature;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

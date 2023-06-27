@@ -1,6 +1,6 @@
 ﻿using Conventions.Domain.Entities;
 
-namespace Conventions.Application.Dtos.Organizer;
+namespace ConventionDomain.Application.Dtos.Organizer;
 
 public class OrganizerUpdateDto
 {

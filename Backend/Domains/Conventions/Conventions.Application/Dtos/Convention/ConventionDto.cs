@@ -1,4 +1,4 @@
-﻿namespace Conventions.Application.Dtos.Convention;
+﻿namespace ConventionDomain.Application.Dtos.Convention;
 
 public record ConventionResponse
 {
@@ -10,7 +10,7 @@ public record ConventionResponse
 
 public static class ConventionExtensions
 {
-    public static ConventionResponse ToDto(this Domain.Entities.Convention convention)
+    public static ConventionResponse ToDto(this Conventions.Domain.Entities.Convention convention)
     {
         return new ConventionResponse
         {

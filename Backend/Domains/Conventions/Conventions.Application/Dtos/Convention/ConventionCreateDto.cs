@@ -1,4 +1,4 @@
-﻿namespace Conventions.Application.Dtos.Convention;
+﻿namespace ConventionDomain.Application.Dtos.Convention;
 
 public record ConventionCreateDto
 {

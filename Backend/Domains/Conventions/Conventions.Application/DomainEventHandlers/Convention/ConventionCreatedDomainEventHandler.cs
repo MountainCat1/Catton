@@ -3,7 +3,7 @@ using Conventions.Domain.Entities;
 using Conventions.Domain.Events;
 using Conventions.Domain.Repositories;
 
-namespace Conventions.Application.DomainEventHandlers.Convention;
+namespace ConventionDomain.Application.DomainEventHandlers.Convention;
 
 public class ConventionCreatedDomainEventHandler : IDomainEventHandler<ConventionCreatedDomainEvent>
 {

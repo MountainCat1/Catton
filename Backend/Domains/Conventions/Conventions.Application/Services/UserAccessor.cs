@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace Conventions.Application.Services;
+namespace ConventionDomain.Application.Services;
 
 public interface IUserAccessor { ClaimsPrincipal User { get; } }
 

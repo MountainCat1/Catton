@@ -1,4 +1,4 @@
-﻿using Conventions.Application.Authorization.Handlers;
+﻿using ConventionDomain.Application.Authorization.Handlers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Conventions.Api.Extensions;

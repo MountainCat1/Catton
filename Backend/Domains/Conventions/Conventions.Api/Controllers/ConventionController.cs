@@ -1,8 +1,8 @@
 ﻿using Catut.Application.Dtos;
 using Catut.Application.Errors;
-using Conventions.Application.Dtos.Convention;
-using Conventions.Application.Extensions;
-using Conventions.Application.Features.ConventionFeature;
+using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Extensions;
+using ConventionDomain.Application.Features.ConventionFeature;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
 ﻿using Conventions.Domain.Entities;
 
-namespace Conventions.Application.Dtos.Organizer;
+namespace ConventionDomain.Application.Dtos.Organizer;
 
 public record OrganizerResponse
 {
@@ -13,7 +13,7 @@ public record OrganizerResponse
 
 public static class ConventionOrganizerExtensions
 {
-    public static OrganizerResponse ToDto(this Domain.Entities.Organizer organizer)
+    public static OrganizerResponse ToDto(this Conventions.Domain.Entities.Organizer organizer)
     {
         return new OrganizerResponse
         {

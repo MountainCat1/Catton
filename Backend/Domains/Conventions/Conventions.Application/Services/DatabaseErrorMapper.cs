@@ -2,7 +2,7 @@
 using Catut.Infrastructure.Abstractions;
 using Catut.Infrastructure.Errors.Database;
 
-namespace Conventions.Application.Services;
+namespace ConventionDomain.Application.Services;
 
 
 public class DatabaseErrorMapper : IDatabaseErrorMapper

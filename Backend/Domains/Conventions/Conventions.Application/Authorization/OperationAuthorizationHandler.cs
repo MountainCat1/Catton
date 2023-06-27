@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 
-namespace Conventions.Application.Authorization;
+namespace ConventionDomain.Application.Authorization;
 
 public abstract class OperationAuthorizationHandler<TResource> : AuthorizationHandler<OperationAuthorizationRequirement, TResource>
 {

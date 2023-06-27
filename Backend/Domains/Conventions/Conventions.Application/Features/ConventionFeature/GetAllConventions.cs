@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
-using Conventions.Application.Dtos.Convention;
-using Conventions.Application.Services;
+using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Services;
 using Conventions.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Conventions.Application.Features.ConventionFeature;
+namespace ConventionDomain.Application.Features.ConventionFeature;
 
 public class GetAllConventionsRequest : IRequest<ICollection<ConventionResponse>>
 {
