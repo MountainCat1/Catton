@@ -1,7 +1,9 @@
 using System.Text.Json.Serialization;
+using Catut.Application.Abstractions;
 using Catut.Application.Configuration;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
+using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Application;
 using ConventionDomain.Application.Services;
@@ -53,7 +55,9 @@ services.AddAsymmetricAuthentication(jwtConfig);
 
 services.AddHttpContextAccessor();
 services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddSingleton<IApiExceptionMapper, ApiExceptionMapper>();
 services.AddTransient<IUserAccessor, UserAccessor>();
+services.AddTransient<IAuthTokenAccessor, AuthTokenAccessor>();
 services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
