@@ -5,7 +5,7 @@ namespace Catut.Application.Dtos;
 public class ErrorResponse
 {
     [JsonPropertyName("error")]
-    public ErrorContent? ErrorContent { get; set; }
+    public ErrorContent? Content { get; set; }
 }
 
 public class ErrorContent
