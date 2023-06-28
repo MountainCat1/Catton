@@ -11,11 +11,8 @@
         <Copyright>Developed and owned by Tomasz Banaś</Copyright>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
         <PackageTags>cats are liquid</PackageTags>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
     </PropertyGroup>
-
-    <ItemGroup>
-    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Catut.Domain" Version="1.0.2" />

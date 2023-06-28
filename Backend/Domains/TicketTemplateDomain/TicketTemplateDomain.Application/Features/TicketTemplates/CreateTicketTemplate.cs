@@ -6,7 +6,6 @@ using TicketTemplateDomain.Application.Dtos;
 using TicketTemplateDomain.Application.Services;
 using TicketTemplateDomain.Domain.Entities;
 using TicketTemplateDomain.Domain.Repositories;
-using ApiException = OpenApi.Account.ApiException;
 
 namespace TicketTemplateDomain.Application.Features.TicketTemplates;
 

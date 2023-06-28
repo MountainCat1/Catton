@@ -7,6 +7,10 @@
 // ReSharper disable RedundantNameQualifier
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 // ReSharper disable PartialTypeWithSinglePart
+
+using System.Text.Json;
+using Catut.Application.Dtos;
+
 #pragma warning disable CS8601
 #pragma warning disable CS8618
 #pragma warning disable 108 // Disable "CS0108 '{derivedDto}.ToJson()' hides inherited member '{dtoBase}.ToJson()'. Use the new keyword if hiding was intended."
@@ -27,7 +31,8 @@ public partial class ApiException : System.Exception
 {
     public int StatusCode { get; private set; }
 
-    public string Response { get; private set; }
+    // public string Response { get; private set; }
+    public ErrorResponse Response { get; private set; }
 
     public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
 
@@ -35,8 +40,11 @@ public partial class ApiException : System.Exception
         : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException)
     {
         StatusCode = statusCode;
-        Response = response;
+        // Response = response;
         Headers = headers;
+        
+        if (response != null) 
+            Response = JsonSerializer.Deserialize<ErrorResponse>(response);
     }
 
     public override string ToString()

@@ -7,7 +7,7 @@ namespace TicketTemplateDomain.Application.Services;
 
 public class DatabaseErrorMapper : IDatabaseErrorMapper
 {
-    public async Task<Exception> MapAsync(DatabaseException exception)
+    public Exception Map(DatabaseException exception)
     {
         if (exception is ItemNotFoundException)
             return new NotFoundError(null, exception);

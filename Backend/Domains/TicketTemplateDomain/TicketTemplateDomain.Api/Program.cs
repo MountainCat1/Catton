@@ -1,7 +1,9 @@
+using Catut.Application.Abstractions;
 using Catut.Application.Configuration;
 using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
+using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using TicketTemplateDomain.Api.Extensions;
 using TicketTemplateDomain.Application;
@@ -49,6 +51,7 @@ services.InstallMassTransit(configuration);
 services.AddHttpContextAccessor();
 services.AddTransient<IUserAccessor, UserAccessor>();
 services.AddTransient<IAuthTokenAccessor, AuthTokenAccessor>();
+services.AddScoped<IApiExceptionMapper, ApiExceptionMapper>();
 services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
 services.AddScoped<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();

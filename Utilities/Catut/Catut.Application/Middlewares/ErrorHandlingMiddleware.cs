@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
+using Catut.Application.Abstractions;
 using Catut.Application.Dtos;
 using Catut.Application.Errors;
+using Catut.Application.Exceptions;
 using Catut.Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -11,14 +13,18 @@ namespace Catut.Application.Middlewares;
 public class ErrorHandlingMiddleware : IMiddleware
 {
     private readonly ILogger<ErrorHandlingMiddleware> _logger;
+    
     private readonly IDatabaseErrorMapper _databaseErrorMapper;
+    private readonly IApiExceptionMapper _apiExceptionMapper;
 
     public ErrorHandlingMiddleware(
         ILogger<ErrorHandlingMiddleware> logger,
-        IDatabaseErrorMapper databaseErrorMapper)
+        IDatabaseErrorMapper databaseErrorMapper,
+        IApiExceptionMapper apiExceptionMapper)
     {
         _logger = logger;
         _databaseErrorMapper = databaseErrorMapper;
+        _apiExceptionMapper = apiExceptionMapper;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -29,7 +35,12 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
         catch (DatabaseException databaseException)
         {
-            var error = await _databaseErrorMapper.MapAsync(databaseException);
+            var error = _databaseErrorMapper.Map(databaseException);
+            await HandleExceptionAsync(context, error);
+        }
+        catch (ApiException apiException)
+        {
+            var error = _apiExceptionMapper.Map(apiException);
             await HandleExceptionAsync(context, error);
         }
         catch (Exception ex)
@@ -71,7 +82,7 @@ public class ErrorHandlingMiddleware : IMiddleware
     {
         var errorResponse = new ErrorResponse()
         {
-            ErrorContent = applicationError.ToErrorContent()
+            Content = applicationError.ToErrorContent()
         };
         return JsonSerializer.Serialize(errorResponse);
     }
