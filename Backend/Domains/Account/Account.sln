@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Api", "Account.Api\Account.Api.csproj", "{9DC2F13E-68AC-4744-8F8D-0F1742F11015}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounts.Api", "Accounts.Api\Accounts.Api.csproj", "{9DC2F13E-68AC-4744-8F8D-0F1742F11015}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Domain", "Account.Domain\Account.Domain.csproj", "{C8C1919E-5675-436D-BC23-A5F058E7E399}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounts.Domain", "Accounts.Domain\Accounts.Domain.csproj", "{C8C1919E-5675-436D-BC23-A5F058E7E399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Infrastructure", "Account.Infrastructure\Account.Infrastructure.csproj", "{99B799BA-8E89-4F10-8164-B14AB260EDB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounts.Infrastructure", "Accounts.Infrastructure\Accounts.Infrastructure.csproj", "{99B799BA-8E89-4F10-8164-B14AB260EDB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Application", "Account.Application\Account.Application.csproj", "{54777FFD-54F2-47EF-AA7F-4B7933372722}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounts.Application", "Accounts.Application\Accounts.Application.csproj", "{54777FFD-54F2-47EF-AA7F-4B7933372722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
