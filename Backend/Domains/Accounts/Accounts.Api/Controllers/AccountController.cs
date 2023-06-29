@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace Accounts.Application.Controllers;
 
 [ApiController]
-[Route("api/authentication")]
-public class EmailPasswordAuthenticationController : Controller
+[Route("api/accounts")]
+public class AccountController : Controller
 {
     private readonly IMediator _mediator;
 
-    public EmailPasswordAuthenticationController(IMediator mediator)
+    public AccountController(IMediator mediator)
     {
         _mediator = mediator;
     }
     
-    [HttpPost("auth")]
+    [HttpPost("login")]
     [AllowAnonymous]
     [ProducesResponseType( typeof(AuthTokenResponseContract), StatusCodes.Status200OK)]
     [ProducesResponseType( StatusCodes.Status401Unauthorized)]
@@ -30,7 +30,7 @@ public class EmailPasswordAuthenticationController : Controller
         return Ok(result);
     }
     
-    [HttpPost("register")]
+    [HttpPost]
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

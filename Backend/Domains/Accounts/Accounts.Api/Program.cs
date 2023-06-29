@@ -9,6 +9,7 @@ using Accounts.Service.Features.GoogleAuthentication;
 using Accounts.Service.Services;
 using Catut.Application.Abstractions;
 using Catut.Application.Configuration;
+using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
 using Catut.Application.Services;

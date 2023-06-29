@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Accounts.Application.Controllers;
 
 [ApiController]
-[Route("api/authentication/claims")]
+[Route("api/accounts/claims")]
 public class ClaimsController : Controller
 {
     private readonly IMediator _mediator;
