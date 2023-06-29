@@ -16,7 +16,6 @@ using Catut.Infrastructure.Abstractions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
-using AuthenticationConfig = Accounts.Service.Settings.AuthenticationConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
