@@ -1,5 +1,5 @@
 ﻿namespace Account.Application;
 
-public class AssemlyMarker
+public class ApiAssemblyMarker
 {
 }

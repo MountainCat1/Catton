@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Account.Domain.Entities;
-using Catut.Configuration;
+using Catut.Application.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -26,7 +26,7 @@ public class JwtService : IJwtService
     public string GenerateAsymmetricJwtToken(ClaimsIdentity claimsIdentity)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        string stringToken = String.Empty;    
+        string stringToken;    
         
         using (var rsa = RSA.Create())
         {

@@ -1,5 +1,6 @@
 using Account.Application;
 using Account.Application.Extensions;
+using Account.Application.Extensions.ServiceCollection;
 using Account.Domain.Repositories;
 using Account.Domain.Services;
 using Account.Infrastructure.Contexts;
@@ -8,15 +9,17 @@ using Account.Service;
 using Account.Service.Features.EmailPasswordAuthentication;
 using Account.Service.Features.GoogleAuthentication;
 using Account.Service.Services;
-using Account.Service.Settings;
+using Catut.Application.Abstractions;
+using Catut.Application.Configuration;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
-using Catut.Configuration;
+using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using AuthenticationConfig = Account.Service.Settings.AuthenticationConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +40,6 @@ services.Configure<JwtConfig>(configuration.GetSection(nameof(JwtConfig)));
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
 services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
@@ -45,36 +47,19 @@ services.AddLogging(loggingBuilder =>
     loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 });
 
-services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigins", builder =>
-    {
-        builder.WithOrigins(new[]
-            {
-                "http://localhost:4200", // local frontend
-                "https://localhost:5000", // local swagger 
-                "http://localhost:4000", // local swagger
-            })
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
-services.AddDbContext<AccountDbContext>(options =>
-{
-    options.UseSqlServer(configuration.GetConnectionString("AccountDb"),  
-        b => b.MigrationsAssembly(typeof(AssemlyMarker).Assembly.FullName));
-    
-        
-    options.UseLoggerFactory(LoggerFactory.Create(builder => builder
-        .AddFilter((category, level) => false)
-        .AddConsole()));
-});
+//  === INSTALLERS ===
+services.InstallSwagger();
+services.InstallMassTransit(configuration);
+services.InstallCors();
+services.InstallDbContext(configuration);
+//  ===            ===
 
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ServiceAssemlyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
+services.AddSingleton<IApiExceptionMapper, ApiExceptionMapper>();
+services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
 
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
@@ -87,7 +72,6 @@ services.AddScoped<IJwtService, JwtService>();
 services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
-services.AddScoped<IPasswordAuthProviderService, PasswordAuthProviderService>();
 
 services.AddAsymmetricAuthentication(jwtConfig);
 
