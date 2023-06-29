@@ -1,7 +1,7 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/authentication{everything}",
+      "DownstreamPathTemplate": "/api/accounts{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/api/authentication{everything}",
+      "UpstreamPathTemplate": "/api/accounts{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",

@@ -34,11 +34,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
 
-  account_domain:
+  accounts_domain:
     env_file:
       - dockerCompose.env
     build:
-      context: ./Backend/Domains/Account
+      context: ./Backend/Domains/Accounts
       dockerfile: Dockerfile
     ports:
       - "4001:80"

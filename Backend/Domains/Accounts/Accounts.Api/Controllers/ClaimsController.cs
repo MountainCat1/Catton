@@ -1,4 +1,5 @@
 ﻿using Accounts.Service.Features.GetClaims;
+using Catut.Application.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ public class ClaimsController : Controller
     [HttpGet]
     [Authorize]
     [ProducesResponseType(typeof(GetClaimsResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetClaims()
     {
         var mediatorRequest = new GetClaimsRequest(User);

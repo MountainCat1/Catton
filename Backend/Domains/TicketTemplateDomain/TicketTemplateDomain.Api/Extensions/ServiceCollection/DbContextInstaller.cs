@@ -5,7 +5,7 @@ namespace TicketTemplateDomain.Api.Extensions.ServiceCollection;
 
 public static class DbContextInstaller
 {
-    private const string DatabaseConnectionStringKey = "BaseAppDatabase";
+    private const string DatabaseConnectionStringKey = "Database";
     
     public static IServiceCollection InstallDbContext(this IServiceCollection services, ConfigurationManager configuration)
     {
