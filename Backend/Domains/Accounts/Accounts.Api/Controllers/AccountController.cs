@@ -1,4 +1,6 @@
-﻿using Accounts.Service.Dtos.Responses;
+﻿using Accounts.Service.Dtos;
+using Accounts.Service.Dtos.Responses;
+using Accounts.Service.Features.Account;
 using Accounts.Service.Features.EmailPasswordAuthentication;
 using Catut.Application.Dtos;
 using MediatR;
@@ -42,5 +44,21 @@ public class AccountController : Controller
         await _mediator.Send(request);
 
         return Ok();
+    }
+    
+    [HttpGet("{id:guid}")]
+    [AllowAnonymous]
+    [ProducesResponseType( typeof(AccountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAccount([FromRoute] Guid id)
+    {
+        var request = new GetAccountRequest()
+        {
+            AccountId = id
+        };
+        
+        var result =  await _mediator.Send(request);
+
+        return Ok(result);
     }
 }
