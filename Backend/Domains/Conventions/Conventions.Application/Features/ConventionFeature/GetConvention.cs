@@ -33,16 +33,16 @@ public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest,
     {
         var id = request.Id;
 
-        var entity = await _conventionRepository.GetOneAsync(id);
+        var convention = await _conventionRepository.GetOneWithOrganizersAsync(id);
 
-        if (entity is null)
+        if (convention is null)
             throw new NotFoundError($"Convention with an id {id} does not exist");
 
-        var authorizationResult = await _authorizationService.AuthorizeAsync(_userAccessor.User, entity, Operations.Read);
+        var authorizationResult = await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadConvention);
 
         if (!authorizationResult.Succeeded)
             throw new UnauthorizedError();
 
-        return entity.ToDto();
+        return convention.ToDto();
     }
 }

@@ -11,8 +11,6 @@ namespace Conventions.Infrastructure.Repositories;
 
 public class ConventionRepository : Repository<Convention, ConventionDomainDbContext>, IConventionRepository
 {
-
-
     public async Task<ICollection<Convention>> GetByOrganizatorId(Guid accountId)
     {
         var query = DbSet
@@ -20,6 +18,13 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .Where(convention => convention.Organizers.Any(organizer => organizer.AccountId == accountId));
 
         return await query.ToListAsync();
+    }
+
+    public async Task<Convention?> GetOneWithOrganizersAsync(Guid conventionId)
+    {
+        return await DbSet
+            .Include(convention => convention.Organizers)
+            .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
 
     public ConventionRepository(

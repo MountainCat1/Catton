@@ -1,4 +1,5 @@
 ﻿using ConventionDomain.Application.Authorization;
+using ConventionDomain.Application.Authorization.Handlers;
 using ConventionDomain.Application.Authorization.Requirements;
 using Microsoft.AspNetCore.Authorization;
 
@@ -8,6 +9,8 @@ public static class AuthorizationPoliciesDefiner
 {
     public static IServiceCollection DefineAuthorizationPolicies(this IServiceCollection services)
     {
+        services.AddSingleton<IAuthorizationHandler, IsOrganizerOfHandler>();
+        
         services.AddAuthorization(DefineAuthorizationPolicies);
 
         return services;
@@ -15,7 +18,12 @@ public static class AuthorizationPoliciesDefiner
 
     private static void DefineAuthorizationPolicies(AuthorizationOptions options)
     {
-        options.AddPolicyWithRequirements(Policies.CreateOrganizerPolicy, new IAuthorizationRequirement[]
+        options.AddPolicyWithRequirements(Policies.ReadConvention, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        
+        options.AddPolicyWithRequirements(Policies.CreateOrganizer, new IAuthorizationRequirement[]
         {
             new IsOrganizerOfRequirement()
         });
