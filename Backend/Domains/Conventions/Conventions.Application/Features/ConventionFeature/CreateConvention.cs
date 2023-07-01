@@ -7,12 +7,12 @@ using MediatR;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 
-public class CreateConventionRequest : IRequest
+public class CreateConventionRequest : IRequest<ConventionDto>
 {
     public required ConventionCreateDto ConventionCreateDto { get; init; }
 }
 
-public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRequest>
+public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRequest, ConventionDto>
 {
     private readonly IConventionRepository _conventionRepository;
     private readonly IUserAccessor _userAccessor;
@@ -23,7 +23,7 @@ public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRe
         _userAccessor = userAccessor;
     }
 
-    public async Task Handle(CreateConventionRequest request, CancellationToken cancellationToken)
+    public async Task<ConventionDto> Handle(CreateConventionRequest request, CancellationToken cancellationToken)
     {
         var dto = request.ConventionCreateDto;
 
@@ -31,5 +31,7 @@ public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRe
 
         await _conventionRepository.AddAsync(entity);
         await _conventionRepository.SaveChangesAsync();
+        
+        return entity.ToDto();
     }
 }

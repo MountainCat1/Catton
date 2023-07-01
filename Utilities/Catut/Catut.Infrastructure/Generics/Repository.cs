@@ -153,7 +153,9 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     {
         try
         {
-            await SaveChangesAsync();
+            await Mediator.DispatchDomainEventsAsync(DbContext);
+
+            await SaveChangesAsyncDelegate();
         }
         catch (DbUpdateException ex) when (ex.IsDuplicateEntryViolation())
         {
@@ -162,11 +164,12 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         catch (DatabaseException ex)
         {
             Logger.LogError(ex.Message);
-            ClearDomainEvents();
             throw;
         }
-        
-        await Mediator.DispatchDomainEventsAsync(DbContext);
+        finally
+        {
+            ClearDomainEvents();
+        }
     }
 
     private void ClearDomainEvents()

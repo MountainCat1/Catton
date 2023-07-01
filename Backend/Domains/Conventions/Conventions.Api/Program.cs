@@ -50,6 +50,7 @@ services.InstallSwagger();
 services.InstallMassTransit(configuration);
 services.InstallCors();
 services.InstallDbContext(configuration);
+services.DefineAuthorizationPolicies();
 //  ===            ===
 
 services.AddAsymmetricAuthentication(jwtConfig);
