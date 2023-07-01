@@ -2,26 +2,41 @@
 
 namespace Catut.Application.Errors;
 
-public abstract class ApplicationError : Exception
+public abstract class ApplicationError<TErrorResponse> : Exception
+    where TErrorResponse : ErrorResponse
 {
-
-    public ApplicationError(string? message) : base(message)
+    protected ApplicationError()
     {
     }
 
-    public ApplicationError(string? message, Exception? innerException) : base(message, innerException)
+    protected ApplicationError(string? message) : base(message)
     {
     }
 
     public abstract int StatusCode { get; }
+    public abstract string ErrorName { get; }
 
-    public virtual ErrorContent ToErrorContent()
+    public abstract TErrorResponse GetErrorResponse();
+
+}
+
+public abstract class ApplicationError : ApplicationError<ErrorResponse>
+{
+    protected ApplicationError()
     {
-        return new ErrorContent()
-        {
-            Message = Message,
-            StatusCode = StatusCode,
-        };
     }
 
+    protected ApplicationError(string? message) : base(message)
+    {
+    }
+
+    public override ErrorResponse GetErrorResponse()
+    {
+        return new ErrorResponse()
+        {
+            StatusCode = StatusCode,
+            Message = Message,
+            Error = ErrorName
+        };
+    }
 }

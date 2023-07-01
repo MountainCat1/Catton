@@ -1,22 +1,22 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/authentication{everything}",
+      "DownstreamPathTemplate": "/api/accounts{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "account_domain",
+          "Host": "accounts_domain",
           "Port": 443
         }
       ],
-      "UpstreamPathTemplate": "/api/authentication{everything}",
+      "UpstreamPathTemplate": "/api/accounts{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",
         "GET"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "account",
+      "SwaggerKey": "accounts",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     
@@ -89,10 +89,10 @@
   
   "SwaggerEndPoints": [
     {
-      "Key": "account",
+      "Key": "accounts",
       "Config": [
         {
-          "Name": "Account API",
+          "Name": "Accounts API",
           "Version": "v1",
           "Url": "https://host.docker.internal:5001/swagger/v1/swagger.json"
         }

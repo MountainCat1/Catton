@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using Catut.Application.Abstractions;
 using Catut.Application.Dtos;
@@ -13,7 +12,7 @@ namespace Catut.Application.Middlewares;
 public class ErrorHandlingMiddleware : IMiddleware
 {
     private readonly ILogger<ErrorHandlingMiddleware> _logger;
-    
+
     private readonly IDatabaseErrorMapper _databaseErrorMapper;
     private readonly IApiExceptionMapper _apiExceptionMapper;
 
@@ -63,27 +62,24 @@ public class ErrorHandlingMiddleware : IMiddleware
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(SerializeError(error));
                 break;
-            case FluentValidation.ValidationException:
-            case ValidationException:
+            case BadRequestError error:
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";
-                await context.Response.WriteAsync(JsonSerializer.Serialize(ex.Message));
+                await context.Response.WriteAsync(SerializeError(error));
                 break;
             default:
                 _logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync("Something went wrong");
+                context.Response.ContentType = "application/json";
+                var reponseText = SerializeError(new InternalServerError("Something went wrong"));
+                await context.Response.WriteAsync(reponseText);
                 break;
         }
     }
 
-    private string SerializeError(ApplicationError applicationError)
+    private string SerializeError<TErrorResponse>(ApplicationError<TErrorResponse> applicationError)
+        where TErrorResponse : ErrorResponse
     {
-        var errorResponse = new ErrorResponse()
-        {
-            Content = applicationError.ToErrorContent()
-        };
-        return JsonSerializer.Serialize(errorResponse);
+        return JsonSerializer.Serialize(applicationError.GetErrorResponse());
     }
 }

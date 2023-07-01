@@ -1,11 +1,13 @@
 using System.Text.Json.Serialization;
+using Catut.Application.Abstractions;
 using Catut.Application.Configuration;
+using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
+using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Application;
 using ConventionDomain.Application.Services;
-using Conventions.Api;
 using Conventions.Api.Extensions;
 using Conventions.Api.Extensions.ServiceCollection;
 using Conventions.Domain.Repositories;
@@ -14,8 +16,7 @@ using Conventions.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using ServiceCollectionExtensions = Conventions.Api.Extensions.ServiceCollectionExtensions;
+using OpenApi.Accounts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ var jwtConfig = configuration.GetConfiguration<JwtConfig>();
 
 // ========= SERVICES  =========
 var services = builder.Services;
+
+services.Configure<ApiConfiguration>(configuration.GetSection(nameof(ApiConfiguration)));
 
 services.AddControllers().AddJsonOptions(opts =>
 {
@@ -51,18 +54,22 @@ services.InstallDbContext(configuration);
 
 services.AddAsymmetricAuthentication(jwtConfig);
 
+services.AddApiHttpClinet<IAccountsApi, AccountsApi>();
+
+services.AddScoped<IConventionRepository, ConventionRepository>();
+services.AddScoped<IOrganizerRepository, OrganizerRepository>();
+
 services.AddHttpContextAccessor();
 services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddSingleton<IApiExceptionMapper, ApiExceptionMapper>();
 services.AddTransient<IUserAccessor, UserAccessor>();
+services.AddTransient<IAuthTokenAccessor, AuthTokenAccessor>();
 services.AddSingleton<ErrorHandlingMiddleware>();
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
-
-services.AddScoped<IConventionRepository, ConventionRepository>();
-services.AddScoped<IOrganizerRepository, OrganizerRepository>();
 
 // ========= RUN  =========
 var app = builder.Build();

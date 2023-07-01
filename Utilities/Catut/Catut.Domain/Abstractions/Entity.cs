@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Catut.Domain.Abstractions;
+﻿namespace Catut.Domain.Abstractions;
 
 
 public interface IEntity

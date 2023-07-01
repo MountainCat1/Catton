@@ -1,7 +1,7 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/authentication{everything}",
+      "DownstreamPathTemplate": "/api/accounts{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,14 +9,14 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/api/authentication{everything}",
+      "UpstreamPathTemplate": "/api/accounts{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",
         "GET"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "account",
+      "SwaggerKey": "accounts",
 
       "DangerousAcceptAnyServerCertificateValidator": true
     }
@@ -29,7 +29,7 @@
   },
   "SwaggerEndPoints": [
     {
-      "Key": "account",
+      "Key": "accounts",
       "Config": [
         {
           "Name": "Account API",
