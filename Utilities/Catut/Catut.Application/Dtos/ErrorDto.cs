@@ -4,12 +4,10 @@ namespace Catut.Application.Dtos;
 
 public class ErrorResponse
 {
-    [JsonPropertyName("error")]
-    public ErrorContent? Content { get; set; }
-}
-
-public class ErrorContent
-{
     public int StatusCode { get; set; }
+    public string Error { get; set; }
     public string? Message { get; set; }
+    
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Dictionary<string, string> Errors { get; set; }
 }

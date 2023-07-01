@@ -10,7 +10,7 @@ public class DatabaseErrorMapper : IDatabaseErrorMapper
     public Exception Map(DatabaseException exception)
     {
         if (exception is ItemNotFoundException)
-            return new NotFoundError(null, exception);
+            return new NotFoundError();
 
         return exception;
     }

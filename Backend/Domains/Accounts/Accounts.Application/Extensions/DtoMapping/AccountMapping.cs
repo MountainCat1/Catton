@@ -18,8 +18,9 @@ public static class AccountMapping
    {
       return new AccountDto()
       {
+         Id = entity.Id,
          Email = entity.Email,
-         Username = entity.Username
+         Username = entity.Username,
       };
    }
 }

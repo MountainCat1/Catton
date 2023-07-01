@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using Catut.Application.Configuration;
+﻿using Catut.Application.Configuration;
 using Catut.Infrastructure.Abstractions;
 using Catut.Infrastructure.Generics;
 using MassTransit;

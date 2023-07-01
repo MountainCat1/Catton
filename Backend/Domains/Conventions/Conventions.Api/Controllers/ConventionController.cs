@@ -1,5 +1,4 @@
 ﻿using Catut.Application.Dtos;
-using Catut.Application.Errors;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Features.ConventionFeature;
@@ -29,7 +28,7 @@ namespace Conventions.Api.Controllers;
             {
                 ConventionCreateDto = conventionCreateDto
             };
-
+            
             await _mediator.Send(request);
 
             return Ok();

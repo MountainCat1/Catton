@@ -16,7 +16,7 @@
         "GET"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "account",
+      "SwaggerKey": "accounts",
 
       "DangerousAcceptAnyServerCertificateValidator": true
     }
@@ -29,7 +29,7 @@
   },
   "SwaggerEndPoints": [
     {
-      "Key": "account",
+      "Key": "accounts",
       "Config": [
         {
           "Name": "Account API",
