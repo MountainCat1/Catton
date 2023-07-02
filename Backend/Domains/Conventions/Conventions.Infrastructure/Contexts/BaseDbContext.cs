@@ -11,7 +11,6 @@ public class ConventionDomainDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
-        
         // CONVENTION
         var conventionEntity = mb.Entity<Convention>();
         conventionEntity.HasKey(e => e.Id);
@@ -19,14 +18,14 @@ public class ConventionDomainDbContext : DbContext
         conventionEntity.Property(x => x.Name).IsRequired();
         conventionEntity.Property(x => x.Description).IsRequired();
         conventionEntity.Property(x => x.CreatedDate).IsRequired();
-        
+
         // ORGANIZER
         var organizerEntity = mb.Entity<Organizer>();
 
-        organizerEntity.HasKey(x => x.Id);
-
-        organizerEntity.Property(x => x.AccountId).IsRequired();
+        organizerEntity.HasKey(x => new { x.ConventionId, x.AccountId, });
         
+        organizerEntity.Property(x => x.AccountId).IsRequired();
+
         organizerEntity
             .Property(e => e.Role)
             .HasConversion<string>();

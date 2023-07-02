@@ -20,12 +20,9 @@ public class ConventionAuthorizationHandler : OperationAuthorizationHandler<Conv
 
     protected override async Task<AuthorizationResult> HandleCreateRequirement()
     {
-        // TODO: only admins or something can do it!
+        var requirement = new IsOrganizerOfRequirement();
 
-        _logger.LogWarning("Creation of convetions doesnt have a authorization!");
-
-
-        return Succeed();
+        return await _authorizationService.AuthorizeAsync(User, Resource, requirement);
     }
 
 

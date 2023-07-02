@@ -22,8 +22,6 @@ public class Organizer : Entity
         get => OrganizerRole.Helper;
     }
     
-    public Guid Id { get; private set; }
-    
     public Guid AccountId { private set; get; }
     
     [ForeignKey(nameof(ConventionId))]
