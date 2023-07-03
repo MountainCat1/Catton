@@ -1,6 +1,7 @@
 ﻿using Catut.Application.Errors;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
 using Conventions.Domain.Repositories;
 using MediatR;
@@ -38,10 +39,7 @@ public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest,
         if (convention is null)
             throw new NotFoundError($"Convention with an id {id} does not exist");
 
-        var authorizationResult = await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadConvention);
-
-        if (!authorizationResult.Succeeded)
-            throw new UnauthorizedError();
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.ReadConvention);
 
         return convention.ToDto();
     }

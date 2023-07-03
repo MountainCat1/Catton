@@ -1,7 +1,11 @@
-﻿using ConventionDomain.Application.Dtos.Convention;
+﻿using ConventionDomain.Application.Authorization;
+using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Extensions;
+using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 
@@ -14,15 +18,24 @@ public class UpdateConventionRequest : IRequest
 public class UpdateConventionRequestHandler : IRequestHandler<UpdateConventionRequest>
 {
     private readonly IConventionRepository _conventionRepository;
+    private readonly IAuthorizationService _authorizationService;
+    private readonly IUserAccessor _userAccessor;
 
-    public UpdateConventionRequestHandler(IConventionRepository conventionRepository)
+    public UpdateConventionRequestHandler(
+        IConventionRepository conventionRepository,
+        IAuthorizationService authorizationService,
+        IUserAccessor userAccessor)
     {
         _conventionRepository = conventionRepository;
+        _authorizationService = authorizationService;
+        _userAccessor = userAccessor;
     }
 
     public async Task Handle(UpdateConventionRequest request, CancellationToken cancellationToken)
     {
-        var entity = await _conventionRepository.GetOneRequiredAsync(request.Id);
+        var convention = await _conventionRepository.GetOneRequiredAsync(request.Id);
+
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.UpdateConvention);
 
         var updateDto = request.UpdateDto;
 
@@ -32,8 +45,8 @@ public class UpdateConventionRequestHandler : IRequestHandler<UpdateConventionRe
             Description = updateDto.Description,
             Name = updateDto.Name
         };
-        
-        entity.Update(update);
+
+        convention.Update(update);
 
         await _conventionRepository.SaveChangesAsync();
     }

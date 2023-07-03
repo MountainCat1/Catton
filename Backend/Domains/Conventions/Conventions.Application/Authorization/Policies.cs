@@ -12,4 +12,5 @@ public static class Policies
     public const string CreateOrganizer = nameof(CreateOrganizer);
     public const string UpdateOrganizer = nameof(UpdateOrganizer);
     public const string DeleteOrganizer = nameof(DeleteOrganizer);
+    public const string UpdateConvention = nameof(UpdateConvention);
 }
