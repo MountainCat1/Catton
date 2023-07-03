@@ -73,7 +73,7 @@ public class OrganizerController : Controller
         return Ok(organizer);
     }
 
-    [HttpPut]
+    [HttpPut("{organizerId:guid}")]
     [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
@@ -94,7 +94,7 @@ public class OrganizerController : Controller
         return Ok(organizer);
     }
     
-    [HttpDelete]
+    [HttpDelete("{organizerId:guid}")]
     [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]

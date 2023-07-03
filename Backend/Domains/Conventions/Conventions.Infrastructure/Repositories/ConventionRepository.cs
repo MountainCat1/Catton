@@ -29,17 +29,16 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
 
     public async Task<(Convention convention, Organizer organizer)> GetOrganizerAsync(Guid conventionId, Guid organizerId)
     {
-        var conventionWithOrganizer = await DbContext.Conventions
-            .Where(c => c.Id == conventionId)
-            .SelectMany(c => c.Organizers)
-            .Where(o => o.AccountId == organizerId)
-            .Select(o => new { Convention = o.Convention, Organizer = o })
-            .FirstOrDefaultAsync();
+        var convention = await DbContext.Conventions
+            .Include(c => c.Organizers)
+            .FirstOrDefaultAsync(c => c.Id == conventionId);
 
-        if (conventionWithOrganizer is null)
+        if (convention is null)
             return (null, null);
 
-        return (conventionWithOrganizer.Convention, conventionWithOrganizer.Organizer);
+        var organizer = convention.Organizers.FirstOrDefault(o => o.AccountId == organizerId);
+
+        return (convention, organizer);
     }
 
     public ConventionRepository(
