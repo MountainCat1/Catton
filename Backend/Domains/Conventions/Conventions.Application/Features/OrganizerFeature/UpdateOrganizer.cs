@@ -1,5 +1,6 @@
 ﻿using Catut.Application.Errors;
 using ConventionDomain.Application.Authorization;
+using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
@@ -20,31 +21,31 @@ public class UpdateOrganizerRequest : IRequest<OrganizerDto>
 
 public class UpdateOrganizerRequestHandler : IRequestHandler<UpdateOrganizerRequest, OrganizerDto>
 {
-    private readonly IOrganizerRepository _repository;
+    private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authService;
     private readonly IUserAccessor _userAccessor;
 
     public UpdateOrganizerRequestHandler(
-        IOrganizerRepository repository,
+        IConventionRepository conventionRepository,
         IAuthorizationService authService,
         IUserAccessor userAccessor)
     {
-        _repository = repository;
+        _conventionRepository = conventionRepository;
         _authService = authService;
         _userAccessor = userAccessor;
     }
 
     public async Task<OrganizerDto> Handle(UpdateOrganizerRequest req, CancellationToken cancellationToken)
     {
-        var organizer = await _repository.GetOneWithConventionAsync(req.ConventionId, req.OrganizerId);
+        var (convention, organizer) = await _conventionRepository.GetOrganizerAsync(req.ConventionId, req.OrganizerId);
 
+        var authorizationResult = await _authService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadConvention);
+        authorizationResult.ThrowIfFailed();
+        
         if (organizer is null)
             throw new NotFoundError(
                 $"Organizer ({req.OrganizerId}) was not found for a convention ({req.ConventionId})");
-
-        var authorizationResult = await _authService.AuthorizeAsync(_userAccessor.User, organizer.Convention, Policies.ReadConvention);
-        authorizationResult.ThrowIfFailed();
-
+        
         var update = new OrganizerUpdate()
         {
             Role = req.UpdateDto.Role
@@ -52,7 +53,7 @@ public class UpdateOrganizerRequestHandler : IRequestHandler<UpdateOrganizerRequ
 
         organizer.Update(update);
 
-        await _repository.SaveChangesAsync();
+        await _conventionRepository.SaveChangesAsync();
 
         return organizer.ToDto();
     }

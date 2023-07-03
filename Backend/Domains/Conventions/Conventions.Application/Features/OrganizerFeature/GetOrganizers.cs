@@ -21,7 +21,6 @@ public class GetOrganizersRequestHandler : IRequestHandler<GetOrganizersRequest,
     private readonly IUserAccessor _userAccessor;
 
     public GetOrganizersRequestHandler(
-        IOrganizerRepository organizerRepository,
         IAuthorizationService authorizationService,
         IUserAccessor userAccessor,
         IConventionRepository conventionRepository)

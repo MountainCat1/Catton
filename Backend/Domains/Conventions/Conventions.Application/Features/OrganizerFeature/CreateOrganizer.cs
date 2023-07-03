@@ -19,18 +19,15 @@ public class CreateOrganizerRequest : IRequest<OrganizerDto>
 
 public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequest, OrganizerDto>
 {
-    private readonly IOrganizerRepository _organizerRepository;
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserAccessor _userAccessor;
 
     public CreateOrganizerRequestHandler(
-        IOrganizerRepository organizerRepository,
         IConventionRepository conventionRepository,
         IAuthorizationService authorizationService,
         IUserAccessor userAccessor)
     {
-        _organizerRepository = organizerRepository;
         _conventionRepository = conventionRepository;
         _authorizationService = authorizationService;
         _userAccessor = userAccessor;
@@ -40,7 +37,7 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
     {
         var dto = request.OrganizerCreateDto;
 
-        var convention = await _conventionRepository.GetOneAsync(request.ConventionId);
+        var convention = await _conventionRepository.GetOneWithOrganizersAsync(request.ConventionId);
 
         if (convention is null)
             throw new NotFoundError($"Convention with id {request.ConventionId} hasn't been found");
@@ -54,9 +51,9 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
             accountId: dto.AccountId,
             role: dto.Role
         );
-
-        await _organizerRepository.AddAsync(entity: organizer);
-        await _organizerRepository.SaveChangesAsync();
+        
+        convention.AddOrganizer(organizer);
+        await _conventionRepository.SaveChangesAsync();
 
         return organizer.ToDto();
     }

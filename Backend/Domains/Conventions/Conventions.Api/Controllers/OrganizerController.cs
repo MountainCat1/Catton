@@ -40,7 +40,7 @@ public class OrganizerController : Controller
         return Created(resourceUri, createdOrganizer);
     }
 
-    [HttpGet]
+    [HttpGet("{organizerId:guid}")]
     [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]

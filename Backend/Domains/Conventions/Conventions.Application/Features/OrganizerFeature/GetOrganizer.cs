@@ -18,18 +18,15 @@ public class GetOrganizerRequest : IRequest<OrganizerDto>
 
 public class GetOrganizerRequestHandler : IRequestHandler<GetOrganizerRequest, OrganizerDto>
 {
-    private readonly IOrganizerRepository _organizerRepository;
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserAccessor _userAccessor;
 
     public GetOrganizerRequestHandler(
-        IOrganizerRepository organizerRepository,
         IAuthorizationService authorizationService,
         IUserAccessor userAccessor,
         IConventionRepository conventionRepository)
     {
-        _organizerRepository = organizerRepository;
         _authorizationService = authorizationService;
         _userAccessor = userAccessor;
         _conventionRepository = conventionRepository;
@@ -37,13 +34,15 @@ public class GetOrganizerRequestHandler : IRequestHandler<GetOrganizerRequest, O
 
     public async Task<OrganizerDto> Handle(GetOrganizerRequest req, CancellationToken cancellationToken)
     {
-        var organizer = await _organizerRepository.GetOneWithConventionAsync(req.ConventionId, req.OrganizerId);
-        
-        if (organizer is null)
-            throw new NotFoundError($"Organizer ({req.OrganizerId}) was not found for a convention ({req.ConventionId})");
-        
-        var authorizationResult = await _authorizationService.AuthorizeAsync(_userAccessor.User, organizer.Convention, Policies.ReadConvention);
+        var (convention, organizer) = await _conventionRepository.GetOrganizerAsync(req.ConventionId, req.OrganizerId);
+
+        var authorizationResult =
+            await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadConvention);
         authorizationResult.ThrowIfFailed();
+
+        if (organizer is null)
+            throw new NotFoundError(
+                $"Organizer ({req.OrganizerId}) was not found for a convention ({req.ConventionId})");
 
         return organizer.ToDto();
     }

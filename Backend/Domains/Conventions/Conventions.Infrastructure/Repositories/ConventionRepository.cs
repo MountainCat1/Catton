@@ -27,6 +27,21 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
 
+    public async Task<(Convention convention, Organizer organizer)> GetOrganizerAsync(Guid conventionId, Guid organizerId)
+    {
+        var conventionWithOrganizer = await DbContext.Conventions
+            .Where(c => c.Id == conventionId)
+            .SelectMany(c => c.Organizers)
+            .Where(o => o.AccountId == organizerId)
+            .Select(o => new { Convention = o.Convention, Organizer = o })
+            .FirstOrDefaultAsync();
+
+        if (conventionWithOrganizer is null)
+            return (null, null);
+
+        return (conventionWithOrganizer.Convention, conventionWithOrganizer.Organizer);
+    }
+
     public ConventionRepository(
         ConventionDomainDbContext dbContext,
         IMediator mediator,

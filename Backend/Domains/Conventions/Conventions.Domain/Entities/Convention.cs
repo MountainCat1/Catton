@@ -60,5 +60,10 @@ public class Convention : Entity
     {
         new ConventionValidator().ValidateAndThrow(this);
     }
+
+    public void AddOrganizer(Organizer organizer)
+    {
+        Organizers.Add(organizer);
+    }
 }
 
