@@ -39,9 +39,7 @@ public class DeleteOrganizerRequestHandler : IRequestHandler<DeleteOrganizerRequ
         if (convention is null)
             throw new NotFoundError($"The convention ({req.ConventionId}) could not be found.");
         
-        var authorizationResult =
-            await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.DeleteOrganizer);
-        authorizationResult.ThrowIfFailed();
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.DeleteOrganizer);
         
         var organizer = convention.RemoveOrganizer(req.OrganizerId);
 

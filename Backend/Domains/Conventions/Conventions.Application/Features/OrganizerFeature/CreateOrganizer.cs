@@ -42,9 +42,7 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
         if (convention is null)
             throw new NotFoundError($"The convention ({request.ConventionId}) could not be found.");
 
-        var authorizationResult =
-            await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.CreateOrganizer);
-        authorizationResult.ThrowIfFailed();
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.CreateOrganizer);
 
         var organizer = Organizer.CreateInstance(
             convention: convention,
