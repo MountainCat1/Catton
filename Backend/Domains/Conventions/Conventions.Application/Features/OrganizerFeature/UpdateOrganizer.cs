@@ -39,7 +39,7 @@ public class UpdateOrganizerRequestHandler : IRequestHandler<UpdateOrganizerRequ
     {
         var (convention, organizer) = await _conventionRepository.GetOrganizerAsync(req.ConventionId, req.OrganizerId);
 
-        var authorizationResult = await _authService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadConvention);
+        var authorizationResult = await _authService.AuthorizeAsync(_userAccessor.User, convention, Policies.UpdateOrganizer);
         authorizationResult.ThrowIfFailed();
         
         if (organizer is null)

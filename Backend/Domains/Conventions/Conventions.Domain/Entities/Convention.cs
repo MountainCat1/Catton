@@ -65,5 +65,17 @@ public class Convention : Entity
     {
         Organizers.Add(organizer);
     }
+
+    public Organizer? RemoveOrganizer(Guid organizerId)
+    {
+        var organizerToRemove = Organizers.FirstOrDefault(x => x.AccountId == organizerId);
+
+        if (organizerToRemove is null)
+            return null;
+
+        Organizers.Remove(organizerToRemove);
+
+        return organizerToRemove;
+    }
 }
 

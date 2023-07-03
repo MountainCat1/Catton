@@ -37,7 +37,7 @@ public class GetOrganizersRequestHandler : IRequestHandler<GetOrganizersRequest,
         if (convention is null)
             throw new NotFoundError($"Organizer with an id {req.ConventionId} does not exist");
         
-        var authorizationResult = await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadConvention);
+        var authorizationResult = await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadOrganizer);
         authorizationResult.ThrowIfFailed();
         
         return convention.Organizers.Select(x => x.ToDto()).ToList();

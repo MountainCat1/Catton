@@ -18,12 +18,29 @@ public static class AuthorizationPoliciesDefiner
 
     private static void DefineAuthorizationPolicies(AuthorizationOptions options)
     {
+        // CONVENTION
         options.AddPolicyWithRequirements(Policies.ReadConvention, new IAuthorizationRequirement[]
         {
             new IsOrganizerOfRequirement()
         });
         
+        // ORGANIZER
+        options.AddPolicyWithRequirements(Policies.ReadOrganizer, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        
         options.AddPolicyWithRequirements(Policies.CreateOrganizer, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        
+        options.AddPolicyWithRequirements(Policies.UpdateOrganizer, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        
+        options.AddPolicyWithRequirements(Policies.DeleteOrganizer, new IAuthorizationRequirement[]
         {
             new IsOrganizerOfRequirement()
         });

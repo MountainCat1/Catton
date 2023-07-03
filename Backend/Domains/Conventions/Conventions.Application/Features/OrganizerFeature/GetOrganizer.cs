@@ -37,7 +37,7 @@ public class GetOrganizerRequestHandler : IRequestHandler<GetOrganizerRequest, O
         var (convention, organizer) = await _conventionRepository.GetOrganizerAsync(req.ConventionId, req.OrganizerId);
 
         var authorizationResult =
-            await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadConvention);
+            await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.ReadOrganizer);
         authorizationResult.ThrowIfFailed();
 
         if (organizer is null)

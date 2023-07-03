@@ -93,4 +93,23 @@ public class OrganizerController : Controller
 
         return Ok(organizer);
     }
+    
+    [HttpDelete]
+    [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteOrganizer(
+        [FromRoute] Guid conventionId,
+        [FromRoute] Guid organizerId)
+    {
+        var request = new DeleteOrganizerRequest()
+        {
+            ConventionId = conventionId,
+            OrganizerId = organizerId
+        };
+
+        var organizer = await _mediator.Send(request);
+
+        return Ok(organizer);
+    }
 }
