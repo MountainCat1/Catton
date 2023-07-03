@@ -27,7 +27,9 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
 
-    public async Task<(Convention convention, Organizer organizer)> GetOrganizerAsync(Guid conventionId, Guid organizerId)
+    public async Task<(Convention? convention, Organizer? organizer)> GetOrganizerAsync(
+        Guid conventionId,
+        Guid organizerId)
     {
         var convention = await DbContext.Conventions
             .Include(c => c.Organizers)
