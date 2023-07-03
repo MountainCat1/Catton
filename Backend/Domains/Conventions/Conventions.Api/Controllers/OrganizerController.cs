@@ -18,7 +18,7 @@ public class OrganizerController : Controller
         _mediator = mediator;
     }
 
-    [HttpGet]
+    [HttpPost]
     [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
@@ -57,5 +57,19 @@ public class OrganizerController : Controller
         return Ok(organizer);
     }
     
-    
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<OrganizerDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetOrganizers([FromRoute] Guid conventionId)
+    {
+        var request = new GetOrganizersRequest()
+        {
+            ConventionId = conventionId,
+        };
+
+        var organizer = await _mediator.Send(request);
+        
+        return Ok(organizer);
+    }
 }
