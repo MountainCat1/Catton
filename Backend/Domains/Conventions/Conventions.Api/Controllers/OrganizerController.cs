@@ -33,13 +33,13 @@ public class OrganizerController : Controller
         };
 
         var createdOrganizer = await _mediator.Send(request);
-        
+
         string resourceUri = Url.Action("GetOrganizer", "Organizer", new { ticketTemplateId = conventionId })
                              ?? throw new InvalidOperationException();
 
         return Created(resourceUri, createdOrganizer);
     }
-    
+
     [HttpGet]
     [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -53,10 +53,10 @@ public class OrganizerController : Controller
         };
 
         var organizer = await _mediator.Send(request);
-        
+
         return Ok(organizer);
     }
-    
+
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<OrganizerDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -69,7 +69,28 @@ public class OrganizerController : Controller
         };
 
         var organizer = await _mediator.Send(request);
-        
+
+        return Ok(organizer);
+    }
+
+    [HttpPut]
+    [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateOrganizer(
+        [FromRoute] Guid conventionId,
+        [FromRoute] Guid organizerId,
+        [FromBody] OrganizerUpdateDto updateDto)
+    {
+        var request = new UpdateOrganizerRequest()
+        {
+            ConventionId = conventionId,
+            OrganizerId = organizerId,
+            UpdateDto = updateDto
+        };
+
+        var organizer = await _mediator.Send(request);
+
         return Ok(organizer);
     }
 }
