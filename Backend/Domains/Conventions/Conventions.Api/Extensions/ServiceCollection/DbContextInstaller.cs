@@ -17,9 +17,6 @@ public static class DbContextInstaller
                     b.MigrationsAssembly(typeof(ApiAssemblyMarker).Assembly.FullName);
                     b.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5.0), null);
                 });
-            options.UseLoggerFactory(LoggerFactory.Create(lb => lb
-                .AddFilter((_, _) => false)
-                .AddConsole()));
         });
 
 

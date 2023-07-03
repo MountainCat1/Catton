@@ -1,38 +1,60 @@
-﻿using ConventionDomain.Application.Dtos.Organizer;
+﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Authorization;
+using ConventionDomain.Application.Dtos.Convention;
+using ConventionDomain.Application.Dtos.Organizer;
+using ConventionDomain.Application.Extensions;
+using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
+using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.OrganizerFeature;
 
-public class UpdateOrganizerRequest : IRequest
+public class UpdateOrganizerRequest : IRequest<OrganizerDto>
 {
-    public required Guid Id { get; init; }
+    public required Guid OrganizerId { get; init; }
+    public required Guid ConventionId { get; init; }
     public required OrganizerUpdateDto UpdateDto { get; init; }
 }
 
-public class UpdateOrganizerRequestHandler : IRequestHandler<UpdateOrganizerRequest>
+public class UpdateOrganizerRequestHandler : IRequestHandler<UpdateOrganizerRequest, OrganizerDto>
 {
-    private readonly IOrganizerRepository _repository;
+    private readonly IConventionRepository _conventionRepository;
+    private readonly IAuthorizationService _authService;
+    private readonly IUserAccessor _userAccessor;
 
-    public UpdateOrganizerRequestHandler(IOrganizerRepository repository)
+    public UpdateOrganizerRequestHandler(
+        IConventionRepository conventionRepository,
+        IAuthorizationService authService,
+        IUserAccessor userAccessor)
     {
-        _repository = repository;
+        _conventionRepository = conventionRepository;
+        _authService = authService;
+        _userAccessor = userAccessor;
     }
 
-    public async Task Handle(UpdateOrganizerRequest request, CancellationToken cancellationToken)
+    public async Task<OrganizerDto> Handle(UpdateOrganizerRequest req, CancellationToken cancellationToken)
     {
-        var entity = await _repository.GetOneRequiredAsync(request.Id);
+        var (convention, organizer) = await _conventionRepository.GetOrganizerAsync(req.ConventionId, req.OrganizerId);
 
-        var updateDto = request.UpdateDto;
-
+        var authorizationResult = await _authService.AuthorizeAsync(_userAccessor.User, convention, Policies.UpdateOrganizer);
+        authorizationResult.ThrowIfFailed();
+        
+        if (organizer is null)
+            throw new NotFoundError(
+                $"Organizer ({req.OrganizerId}) was not found for a convention ({req.ConventionId})");
+        
         var update = new OrganizerUpdate()
         {
-            Role = updateDto.Role
+            Role = req.UpdateDto.Role
         };
-        
-        entity.Update(update);
 
-        await _repository.SaveChangesAsync();
+        organizer.Update(update);
+
+        await _conventionRepository.SaveChangesAsync();
+
+        return organizer.ToDto();
     }
 }

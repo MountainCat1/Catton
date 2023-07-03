@@ -1,68 +1,115 @@
-﻿using ConventionDomain.Application.Dtos.Organizer;
+﻿using Catut.Application.Dtos;
+using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Features.OrganizerFeature;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Conventions.Api.Controllers;
 
 [ApiController]
-[Route("api/conventions/{conventionId:guid}/organizer")]
+[Route("api/conventions/{conventionId:guid}/organizers")]
 public class OrganizerController : Controller
 {
     private readonly IMediator _mediator;
 
-    public OrganizerController(IMediator mediator)
+    public OrganizerController(IMediator mediator, IAuthorizationService authorizationService)
     {
         _mediator = mediator;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromRoute] Guid conventionId, OrganizerCreateDto createDto)
+    [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> CreateOrganizer(
+        [FromRoute] Guid conventionId,
+        [FromBody] OrganizerCreateDto createDto)
     {
         var request = new CreateOrganizerRequest()
         {
-            CreateDto = createDto
+            OrganizerCreateDto = createDto,
+            ConventionId = conventionId
         };
 
-        await _mediator.Send(request);
+        var createdOrganizer = await _mediator.Send(request);
 
-        return Ok();
+        string resourceUri = Url.Action("GetOrganizer", "Organizer", new { ticketTemplateId = conventionId })
+                             ?? throw new InvalidOperationException();
+
+        return Created(resourceUri, createdOrganizer);
     }
-    
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> Get([FromRoute] Guid id)
+
+    [HttpGet("{organizerId:guid}")]
+    [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetOrganizer([FromRoute] Guid conventionId, [FromRoute] Guid organizerId)
     {
         var request = new GetOrganizerRequest()
         {
-            Id = id
+            ConventionId = conventionId,
+            OrganizerId = organizerId
         };
 
-        var result = await _mediator.Send(request);
+        var organizer = await _mediator.Send(request);
 
-        return Ok(result);
+        return Ok(organizer);
     }
-    
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update([FromRoute] Guid conventionId,[FromRoute] Guid id, [FromBody] OrganizerUpdateDto updateDto)
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<OrganizerDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetOrganizers([FromRoute] Guid conventionId)
+    {
+        var request = new GetOrganizersRequest()
+        {
+            ConventionId = conventionId,
+        };
+
+        var organizer = await _mediator.Send(request);
+
+        return Ok(organizer);
+    }
+
+    [HttpPut("{organizerId:guid}")]
+    [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateOrganizer(
+        [FromRoute] Guid conventionId,
+        [FromRoute] Guid organizerId,
+        [FromBody] OrganizerUpdateDto updateDto)
     {
         var request = new UpdateOrganizerRequest()
         {
-            Id = id,
+            ConventionId = conventionId,
+            OrganizerId = organizerId,
             UpdateDto = updateDto
         };
 
-        await _mediator.Send(request);
+        var organizer = await _mediator.Send(request);
 
-        return Ok();
+        return Ok(organizer);
     }
     
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid conventionId, [FromRoute] Guid id)
+    [HttpDelete("{organizerId:guid}")]
+    [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteOrganizer(
+        [FromRoute] Guid conventionId,
+        [FromRoute] Guid organizerId)
     {
-        var request = new DeleteOrganizerRequest();
+        var request = new DeleteOrganizerRequest()
+        {
+            ConventionId = conventionId,
+            OrganizerId = organizerId
+        };
 
-        await _mediator.Send(request);
+        var organizer = await _mediator.Send(request);
 
-        return Ok();
+        return Ok(organizer);
     }
 }

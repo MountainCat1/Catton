@@ -60,5 +60,22 @@ public class Convention : Entity
     {
         new ConventionValidator().ValidateAndThrow(this);
     }
+
+    public void AddOrganizer(Organizer organizer)
+    {
+        Organizers.Add(organizer);
+    }
+
+    public Organizer? RemoveOrganizer(Guid organizerId)
+    {
+        var organizerToRemove = Organizers.FirstOrDefault(x => x.AccountId == organizerId);
+
+        if (organizerToRemove is null)
+            return null;
+
+        Organizers.Remove(organizerToRemove);
+
+        return organizerToRemove;
+    }
 }
 

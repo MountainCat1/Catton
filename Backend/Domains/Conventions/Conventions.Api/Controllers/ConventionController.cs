@@ -22,6 +22,7 @@ namespace Conventions.Api.Controllers;
 
         [HttpPost]
         [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType( typeof(ConventionDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> Create(ConventionCreateDto conventionCreateDto)
         {
             var request = new CreateConventionRequest()
@@ -29,9 +30,9 @@ namespace Conventions.Api.Controllers;
                 ConventionCreateDto = conventionCreateDto
             };
             
-            await _mediator.Send(request);
+            var result = await _mediator.Send(request);
 
-            return Ok();
+            return Ok(result);
         }
         
         

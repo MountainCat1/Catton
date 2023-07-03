@@ -2,9 +2,8 @@
 
 namespace ConventionDomain.Application.Dtos.Organizer;
 
-public record OrganizerResponse
+public record OrganizerDto
 {
-    public Guid Id { get; init; }
     public Guid AccountId { get; init; }
     public Guid ConventionId { get; init; }
     public DateTime CreatedDate { get; init; }
@@ -13,11 +12,10 @@ public record OrganizerResponse
 
 public static class ConventionOrganizerExtensions
 {
-    public static OrganizerResponse ToDto(this Conventions.Domain.Entities.Organizer organizer)
+    public static OrganizerDto ToDto(this Conventions.Domain.Entities.Organizer organizer)
     {
-        return new OrganizerResponse
+        return new OrganizerDto
         {
-            Id = organizer.Id,
             AccountId = organizer.AccountId,
             ConventionId = organizer.ConventionId,
             CreatedDate = organizer.CreatedDate,

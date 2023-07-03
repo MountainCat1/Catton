@@ -14,9 +14,8 @@ public class IsOrganizerOfHandler : AuthorizationHandler<IsOrganizerOfRequiremen
     {
         var accountIdString = context.User.Claims.First(x => x.Type == ClaimTypes.PrimarySid).Value;
         var accountId = new Guid(accountIdString);
-
         
-        if (!resource.Organizers.Any(x => x.AccountId == accountId))
+        if (resource.Organizers.All(x => x.AccountId != accountId))
         {
             context.Fail();
             return;

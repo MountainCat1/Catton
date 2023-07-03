@@ -42,7 +42,7 @@ services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
     loggingBuilder.AddDebug();
-    loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+    // loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 });
 
 //  === INSTALLERS ===
@@ -50,6 +50,7 @@ services.InstallSwagger();
 services.InstallMassTransit(configuration);
 services.InstallCors();
 services.InstallDbContext(configuration);
+services.DefineAuthorizationPolicies();
 //  ===            ===
 
 services.AddAsymmetricAuthentication(jwtConfig);
@@ -57,7 +58,6 @@ services.AddAsymmetricAuthentication(jwtConfig);
 services.AddApiHttpClinet<IAccountsApi, AccountsApi>();
 
 services.AddScoped<IConventionRepository, ConventionRepository>();
-services.AddScoped<IOrganizerRepository, OrganizerRepository>();
 
 services.AddHttpContextAccessor();
 services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();

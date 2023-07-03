@@ -1,54 +1,60 @@
 ﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Organizer;
+using ConventionDomain.Application.Extensions;
+using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
-using OpenApi.Accounts;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace ConventionDomain.Application.Features.OrganizerFeature;
 
-public class CreateOrganizerRequest : IRequest
+public class CreateOrganizerRequest : IRequest<OrganizerDto>
 {
-    public required OrganizerCreateDto CreateDto { get; init; }
+    public required OrganizerCreateDto OrganizerCreateDto { get; init; }
+    public required Guid ConventionId { get; set; }
 }
 
-public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequest>
+public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequest, OrganizerDto>
 {
-    private readonly IOrganizerRepository _organizerRepository;
     private readonly IConventionRepository _conventionRepository;
-    private readonly IAccountsApi _accountApi;
+    private readonly IAuthorizationService _authorizationService;
+    private readonly IUserAccessor _userAccessor;
 
     public CreateOrganizerRequestHandler(
-        IOrganizerRepository organizerRepository,
         IConventionRepository conventionRepository,
-        IAccountsApi accountApi)
+        IAuthorizationService authorizationService,
+        IUserAccessor userAccessor)
     {
-        _organizerRepository = organizerRepository;
         _conventionRepository = conventionRepository;
-        _accountApi = accountApi;
+        _authorizationService = authorizationService;
+        _userAccessor = userAccessor;
     }
 
-    public async Task Handle(CreateOrganizerRequest request, CancellationToken ct)
+    public async Task<OrganizerDto> Handle(CreateOrganizerRequest request, CancellationToken cancellationToken)
     {
-        var dto = request.CreateDto;
+        var dto = request.OrganizerCreateDto;
 
-        var conventionTask = _conventionRepository.GetOneAsync(dto.ConventionId);
-        var accountTask = _accountApi.AccountsGETAsync(dto.AccountId, ct);
+        var convention = await _conventionRepository.GetOneWithOrganizersAsync(request.ConventionId);
 
-        await Task.WhenAll(conventionTask, accountTask);
+        if (convention is null)
+            throw new NotFoundError($"The convention ({request.ConventionId}) could not be found.");
 
-        var convention = conventionTask.Result ??
-            throw new BadRequestError($"Convention with id {dto.ConventionId} not found");
-        var account = accountTask.Result ??
-            throw new BadRequestError($"Account with id {dto.AccountId} not found");
+        var authorizationResult =
+            await _authorizationService.AuthorizeAsync(_userAccessor.User, convention, Policies.CreateOrganizer);
+        authorizationResult.ThrowIfFailed();
 
-        var entity = Organizer.CreateInstance(
+        var organizer = Organizer.CreateInstance(
             convention: convention,
-            accountId: account.Id,
+            accountId: dto.AccountId,
             role: dto.Role
         );
 
-        await _organizerRepository.AddAsync(entity);
-        await _organizerRepository.SaveChangesAsync();
+        convention.AddOrganizer(organizer);
+        await _conventionRepository.SaveChangesAsync();
+
+        return organizer.ToDto();
     }
 }
