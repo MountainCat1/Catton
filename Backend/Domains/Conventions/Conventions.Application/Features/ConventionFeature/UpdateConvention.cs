@@ -35,7 +35,7 @@ public class UpdateConventionRequestHandler : IRequestHandler<UpdateConventionRe
     {
         var convention = await _conventionRepository.GetOneRequiredAsync(request.Id);
 
-        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.ReadConvention);
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.UpdateConvention);
 
         var updateDto = request.UpdateDto;
 

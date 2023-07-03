@@ -24,6 +24,10 @@ public static class AuthorizationPoliciesDefiner
             new IsOrganizerOfRequirement()
         });
         
+        options.AddPolicyWithRequirements(Policies.UpdateConvention, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
         // ORGANIZER
         options.AddPolicyWithRequirements(Policies.ReadOrganizer, new IAuthorizationRequirement[]
         {
