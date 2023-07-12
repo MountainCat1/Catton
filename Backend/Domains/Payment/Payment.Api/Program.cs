@@ -1,5 +1,4 @@
 using Payment.Api.Extensions;
-using Payment.Api.Extensions.ServiceCollection;
 using Payment.Infrastructure.Contexts;
 using Catut.Application.Configuration;
 using Catut.Application.MediaRBehaviors;
@@ -8,6 +7,7 @@ using Catut.Infrastructure.Abstractions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Payment.Api.Installers;
 using Payment.Application;
 using Payment.Application.Services;
 
