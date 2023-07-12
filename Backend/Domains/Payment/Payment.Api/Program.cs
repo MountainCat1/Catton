@@ -1,7 +1,5 @@
 using Payment.Api.Extensions;
 using Payment.Api.Extensions.ServiceCollection;
-using Payment.Application;
-using Payment.Application.Services;
 using Payment.Infrastructure.Contexts;
 using Catut.Application.Configuration;
 using Catut.Application.MediaRBehaviors;
@@ -10,6 +8,8 @@ using Catut.Infrastructure.Abstractions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Payment.Application;
+using Payment.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

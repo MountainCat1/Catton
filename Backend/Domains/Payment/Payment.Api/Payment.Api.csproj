@@ -29,13 +29,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Payment.Application\Payment.Application.csproj" />
-      <ProjectReference Include="..\Payment.Infrastructure\Payment.Infrastructure.csproj" />
-      <ProjectReference Include="..\Catut.Application\Catut.Application.csproj" />
+      <Folder Include="Modules" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Modules" />
+      <ProjectReference Include="..\Payment.Application\Payment.Application.csproj" />
+      <ProjectReference Include="..\Payment.Infrastructure\Payment.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
