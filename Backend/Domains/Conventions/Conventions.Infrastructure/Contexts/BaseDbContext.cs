@@ -29,11 +29,17 @@ public class ConventionDomainDbContext : DbContext
         organizerEntity
             .Property(e => e.Role)
             .HasConversion<string>();
+        
+        // TICKET TEMPLATE
+        var ticketTemplateEntity = mb.Entity<TicketTemplate>();
 
+        ticketTemplateEntity.HasKey(x => x.Id);
+        
         base.OnModelCreating(mb);
     }
 
 
     public DbSet<Convention> Conventions { get; set; } = null!;
     public DbSet<Organizer> Organizers { get; set; } = null!;
+    public DbSet<TicketTemplate> TicketTemplates { get; set; } = null!;
 }

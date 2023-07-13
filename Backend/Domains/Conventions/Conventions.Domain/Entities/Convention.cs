@@ -22,6 +22,7 @@ public class Convention : Entity
     public bool Active { get; private set; }
     
     public virtual ICollection<Organizer> Organizers { get; set; }
+    public virtual ICollection<TicketTemplate> TicketTemplates { get; set; }
 
 
     private Convention()
@@ -76,6 +77,11 @@ public class Convention : Entity
         Organizers.Remove(organizerToRemove);
 
         return organizerToRemove;
+    }
+
+    public void AddTicketTemplate(TicketTemplate ticketTemplate)
+    {
+        TicketTemplates.Add(ticketTemplate);
     }
 }
 
