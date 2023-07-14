@@ -33,6 +33,8 @@ public class ConventionDomainDbContext : DbContext
         var ticketTemplateEntity = mb.Entity<TicketTemplate>();
         ticketTemplateEntity.HasKey(x => x.Id);
         
+        ticketTemplateEntity.Property(x=>x.Price).HasColumnType("money");
+        
         base.OnModelCreating(mb);
     }
 

@@ -12,10 +12,6 @@ public interface IConventionRepository : IRepository<Convention>
     Task<(Convention? convention, Organizer? organizer)> GetOrganizerAsync(Guid conventionId, Guid organizerId);
 
     Task<Convention?> GetOneWithAsync(
-        Expression<Func<Convention?, bool>> predicate, 
-        params Expression<Func<Convention, object>>[] includeProperties);
-    
-    Task<Convention?> GetOneWithAsync(
         Guid id, 
         params Expression<Func<Convention, object>>[] includeProperties);
 }

@@ -20,21 +20,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
 
         return await query.ToListAsync();
     }
-    
-    public async Task<Convention?> GetOneWithAsync(
-        Expression<Func<Convention?, bool>> predicate, 
-        params Expression<Func<Convention, object>>[] includeProperties)
-    {
-        IQueryable<Convention?> query = DbSet.AsQueryable();
-        
-        foreach (Expression<Func<Convention, object>> includeProperty in includeProperties)
-        {
-            query = query.Include(includeProperty);
-        }
-        
-        return await query.FirstOrDefaultAsync(predicate);
-    }
-    
+
     public async Task<Convention?> GetOneWithAsync(
         Guid id, 
         params Expression<Func<Convention, object>>[] includeProperties)
@@ -46,7 +32,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             query = query.Include(includeProperty);
         }
         
-        return await query.FirstOrDefaultAsync(x => x.Id == id);
+        return await query.AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
     }
 
     
