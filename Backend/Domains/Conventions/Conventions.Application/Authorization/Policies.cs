@@ -1,7 +1,4 @@
-﻿using ConventionDomain.Application.Features.OrganizerFeature;
-using Microsoft.AspNetCore.Authorization;
-
-namespace ConventionDomain.Application.Authorization;
+﻿namespace ConventionDomain.Application.Authorization;
 
 public static class Policies
 {
@@ -13,4 +10,7 @@ public static class Policies
     public const string UpdateOrganizer = nameof(UpdateOrganizer);
     public const string DeleteOrganizer = nameof(DeleteOrganizer);
     public const string UpdateConvention = nameof(UpdateConvention);
+    
+    public const string ReadTicketTemplates = nameof(ReadTicketTemplates);
+    public const string CreateTicketTemplates = nameof(CreateTicketTemplates);
 }

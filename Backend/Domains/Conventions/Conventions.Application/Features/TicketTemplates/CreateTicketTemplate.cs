@@ -1,4 +1,5 @@
-﻿using ConventionDomain.Application.Authorization;
+﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.TicketTemplate;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
@@ -6,7 +7,6 @@ using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace ConventionDomain.Application.Features.TicketTemplates;
 
@@ -34,18 +34,24 @@ public class CreateTicketRequestHandler : IRequestHandler<CreateTicketTemplateRe
 
     public async Task<TicketTemplateDto> Handle(CreateTicketTemplateRequest request, CancellationToken cancellationToken)
     {
-        var convention = await _conventionRepository.GetOneRequiredAsync(request.ConventionId);
+        var convention = await _conventionRepository.GetOneWithAsync(request.ConventionId, 
+            x => x.Organizers, 
+            x => x.TicketTemplates);
 
-        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.UpdateConvention);
+        if (convention is null)
+            throw new NotFoundError($"Convention with an id ({request.ConventionId}) was not found");
+
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.CreateTicketTemplates);
 
         var dto = request.TicketCreateDto;
-
+        var authoriId = _userAccessor.User.GetUserId();
+        
         var ticketTemplate = TicketTemplate.Create(
             name: dto.Name, 
             description: dto.Description, 
             price: dto.Price,
-            conventionId: default, 
-            authorId: default);
+            conventionId: convention.Id, 
+            authorId: authoriId);
 
         convention.AddTicketTemplate(ticketTemplate);
 

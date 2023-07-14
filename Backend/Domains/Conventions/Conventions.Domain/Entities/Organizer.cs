@@ -7,7 +7,7 @@ namespace Conventions.Domain.Entities;
 
 public enum OrganizerRole
 {
-    Owner, Administrator, Moderator, Announcer, Helper
+    Guest, Owner, Administrator, Moderator, Announcer, Helper
 }
 
 public record OrganizerUpdate

@@ -21,7 +21,6 @@ public class ConventionDomainDbContext : DbContext
 
         // ORGANIZER
         var organizerEntity = mb.Entity<Organizer>();
-
         organizerEntity.HasKey(x => new { x.ConventionId, x.AccountId, });
         
         organizerEntity.Property(x => x.AccountId).IsRequired();
@@ -32,7 +31,6 @@ public class ConventionDomainDbContext : DbContext
         
         // TICKET TEMPLATE
         var ticketTemplateEntity = mb.Entity<TicketTemplate>();
-
         ticketTemplateEntity.HasKey(x => x.Id);
         
         base.OnModelCreating(mb);

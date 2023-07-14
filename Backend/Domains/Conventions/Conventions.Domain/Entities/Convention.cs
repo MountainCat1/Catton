@@ -20,7 +20,7 @@ public class Convention : Entity
 
     public DateTime CreatedDate { private set; get; }
     public bool Active { get; private set; }
-    
+
     public virtual ICollection<Organizer> Organizers { get; set; }
     public virtual ICollection<TicketTemplate> TicketTemplates { get; set; }
 
@@ -37,6 +37,9 @@ public class Convention : Entity
             Description = description,
             CreatedDate = DateTime.Now
         };
+
+        entity.Organizers = new List<Organizer>();
+        entity.TicketTemplates = new List<TicketTemplate>();
 
         entity.ValidateAndThrow();
         

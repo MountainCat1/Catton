@@ -1,7 +1,6 @@
 ﻿using Catut.Application.Dtos;
 using ConventionDomain.Application.Dtos.TicketTemplate;
 using ConventionDomain.Application.Features.TicketTemplates;
-using Conventions.Domain.Validators;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

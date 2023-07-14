@@ -32,7 +32,7 @@ public class TicketTemplate : Entity
     {
         return new TicketTemplate()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Empty, // sets to empty so that EF won't think its an existing entity
             Name = name,
             Description = description,
             Price = price,

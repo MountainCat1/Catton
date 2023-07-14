@@ -7,7 +7,6 @@ using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace ConventionDomain.Application.Features.OrganizerFeature;
 
@@ -43,6 +42,11 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
             throw new NotFoundError($"The convention ({request.ConventionId}) could not be found.");
 
         await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.CreateOrganizer);
+
+
+        if (convention.Organizers.Any(x => x.AccountId == dto.AccountId))
+            throw new BadRequestError(
+                $"Account ({dto.AccountId}) is already an organizer of the convention ({request.ConventionId})");
 
         var organizer = Organizer.CreateInstance(
             convention: convention,

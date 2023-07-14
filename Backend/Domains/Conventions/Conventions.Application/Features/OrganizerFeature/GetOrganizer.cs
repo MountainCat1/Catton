@@ -1,6 +1,5 @@
 ﻿using Catut.Application.Errors;
 using ConventionDomain.Application.Authorization;
-using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
