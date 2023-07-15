@@ -10,7 +10,7 @@ namespace Conventions.Api.Controllers;
 [Route("api/{conventionId:guid}/ticket-templates")]
 public class TicketTemplateController : Controller
 {
-    private IMediator _mediator;
+    private readonly IMediator _mediator;
 
     public TicketTemplateController(IMediator mediator)
     {
@@ -75,7 +75,7 @@ public class TicketTemplateController : Controller
         return Ok(ticketTemplate);
     }
 
-    [HttpDelete("{ticketTemplateId:guid}")]
+    [HttpPut("{ticketTemplateId:guid}")]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
