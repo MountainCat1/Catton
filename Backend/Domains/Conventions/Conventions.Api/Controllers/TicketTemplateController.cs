@@ -49,6 +49,30 @@ public class TicketTemplateController : Controller
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTicketTemplate([FromRoute] Guid conventionId, [FromRoute] Guid ticketTemplateId)
     {
-        throw new NotImplementedException();
+        var request = new GetTicketTemplateRequest()
+        {
+            ConventionId = conventionId,
+            TicketTemplateId = ticketTemplateId
+        };
+
+        var ticketTemplate = await _mediator.Send(request);
+
+        return Ok(ticketTemplate);
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<TicketTemplateDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTicketsTemplate([FromRoute] Guid conventionId)
+    {
+        var request = new GetTicketTemplatesRequest()
+        {
+            ConventionId = conventionId
+        };
+
+        var ticketTemplate = await _mediator.Send(request);
+
+        return Ok(ticketTemplate);
     }
 }

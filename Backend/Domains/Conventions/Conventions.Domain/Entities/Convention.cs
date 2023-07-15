@@ -86,5 +86,12 @@ public class Convention : Entity
     {
         TicketTemplates.Add(ticketTemplate);
     }
+
+    public TicketTemplate RemoveTicketTemplate(TicketTemplate ticketTemplate)
+    {
+        TicketTemplates.Remove(ticketTemplate);
+
+        return ticketTemplate;
+    }
 }
 

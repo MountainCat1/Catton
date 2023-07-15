@@ -9,8 +9,8 @@ public class ErrorResponse
     public string? Message { get; set; }
     
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, string> Errors { get; set; }
+    public Dictionary<string, string>? Errors { get; set; }
     
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public ICollection<string> Failures { get; set; }
+    public ICollection<string>? Failures { get; set; }
 }

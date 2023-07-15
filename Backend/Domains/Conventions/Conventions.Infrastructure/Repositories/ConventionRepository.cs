@@ -25,7 +25,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
         Guid id, 
         params Expression<Func<Convention, object>>[] includeProperties)
     {
-        IQueryable<Convention?> query = DbSet.AsQueryable();
+        var query = DbSet.AsQueryable();
         
         foreach (Expression<Func<Convention, object>> includeProperty in includeProperties)
         {
@@ -43,12 +43,16 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
     
-    public async Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplatesAsync(Guid conventionId, Guid ticketTemplateId)
+    public async Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplateAsync(Guid conventionId, Guid ticketTemplateId)
     {
-        var result = await DbSet
+        var result = await DbContext.Conventions
             .Include(x => x.Organizers)
             .Where(c => c.Id == conventionId)
-            .Select(c => new { Convention = c, TicketTemplate = c.TicketTemplates.FirstOrDefault() })
+            .Select(c => new
+            {
+                Convention = c, 
+                TicketTemplate = c.TicketTemplates.FirstOrDefault(tt => tt.Id == ticketTemplateId)
+            })
             .FirstOrDefaultAsync();
 
         return (result?.Convention, result?.TicketTemplate);
@@ -58,16 +62,17 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
         Guid conventionId,
         Guid organizerId)
     {
-        var convention = await DbContext.Conventions
+        var result = await DbContext.Conventions
             .Include(c => c.Organizers)
-            .FirstOrDefaultAsync(c => c.Id == conventionId);
-
-        if (convention is null)
-            return (null, null);
-
-        var organizer = convention.Organizers.FirstOrDefault(o => o.AccountId == organizerId);
-
-        return (convention, organizer);
+            .Where(c => c.Id == conventionId)
+            .Select(c => new
+            {
+                Convention = c, 
+                Organizer = c.Organizers.FirstOrDefault(o => o.AccountId == organizerId)
+            })
+            .FirstOrDefaultAsync();
+        
+        return (result?.Convention, result?.Organizer);
     }
 
     public ConventionRepository(

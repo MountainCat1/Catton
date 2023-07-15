@@ -36,22 +36,22 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
         _accountsApi = accountsApi;
     }
 
-    public async Task<OrganizerDto> Handle(CreateOrganizerRequest request, CancellationToken cancellationToken)
+    public async Task<OrganizerDto> Handle(CreateOrganizerRequest req, CancellationToken cancellationToken)
     {
-        var dto = request.OrganizerCreateDto;
+        var dto = req.OrganizerCreateDto;
 
         await _accountsApi.AccountsGETAsync(dto.AccountId, cancellationToken);
         
-        var convention = await _conventionRepository.GetOneWithOrganizersAsync(request.ConventionId);
+        var convention = await _conventionRepository.GetOneWithAsync(req.ConventionId, c => c.Organizers);
 
         if (convention is null)
-            throw new NotFoundError($"The convention ({request.ConventionId}) could not be found.");
+            throw new NotFoundError($"The convention ({req.ConventionId}) could not be found.");
 
         await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.CreateOrganizer);
 
         if (convention.Organizers.Any(x => x.AccountId == dto.AccountId))
             throw new BadRequestError(
-                $"Account ({dto.AccountId}) is already an organizer of the convention ({request.ConventionId})");
+                $"Account ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
 
         var organizer = Organizer.CreateInstance(
             convention: convention,
