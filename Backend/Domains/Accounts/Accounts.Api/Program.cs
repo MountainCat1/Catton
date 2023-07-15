@@ -78,7 +78,7 @@ services.AddScoped<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+if (app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
     await app.MigrateDatabaseAsync<AccountDbContext>();
     
 // Configure the HTTP request pipeline.

@@ -28,6 +28,17 @@ public static class AuthorizationPoliciesDefiner
         {
             new IsOrganizerOfRequirement()
         });
+        
+        // TICKET TEMPLATES
+        options.AddPolicyWithRequirements(Policies.ReadTicketTemplates, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        options.AddPolicyWithRequirements(Policies.ManageTicketTemplates, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        
         // ORGANIZER
         options.AddPolicyWithRequirements(Policies.ReadOrganizer, new IAuthorizationRequirement[]
         {

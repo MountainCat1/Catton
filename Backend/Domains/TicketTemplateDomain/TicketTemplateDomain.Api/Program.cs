@@ -69,10 +69,10 @@ services.AddAuthorizationHandlers();
 // ========= RUN  =========
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
-    await app.MigrateDatabaseAsync<TicketTemplateDomainDbContext>();
+if (app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
+    await app.MigrateDatabaseAsync<BaseAppDbContext>();
 
-if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_SWAGGER"))
+if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>

@@ -11,7 +11,7 @@
         <Copyright>Developed and owned by Tomasz Przemysław Banaś</Copyright>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
         <PackageTags>cats are liquid</PackageTags>
-        <Version>1.0.21</Version>
+        <Version>1.0.22</Version>
     </PropertyGroup>
 
     <ItemGroup>

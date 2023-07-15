@@ -19,6 +19,25 @@
       "SwaggerKey": "accounts",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
+    {
+      "DownstreamPathTemplate": "/api/accounts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accounts_domain",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/accounts",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "accounts",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
     
     {
       "DownstreamPathTemplate": "/api/conventions/{everything}",

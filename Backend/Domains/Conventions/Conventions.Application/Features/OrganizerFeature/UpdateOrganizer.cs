@@ -1,12 +1,10 @@
 ﻿using Catut.Application.Errors;
 using ConventionDomain.Application.Authorization;
-using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
-using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 

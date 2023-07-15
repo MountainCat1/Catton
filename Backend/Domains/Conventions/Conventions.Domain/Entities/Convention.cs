@@ -20,8 +20,9 @@ public class Convention : Entity
 
     public DateTime CreatedDate { private set; get; }
     public bool Active { get; private set; }
-    
+
     public virtual ICollection<Organizer> Organizers { get; set; }
+    public virtual ICollection<TicketTemplate> TicketTemplates { get; set; }
 
 
     private Convention()
@@ -36,6 +37,9 @@ public class Convention : Entity
             Description = description,
             CreatedDate = DateTime.Now
         };
+
+        entity.Organizers = new List<Organizer>();
+        entity.TicketTemplates = new List<TicketTemplate>();
 
         entity.ValidateAndThrow();
         
@@ -76,6 +80,18 @@ public class Convention : Entity
         Organizers.Remove(organizerToRemove);
 
         return organizerToRemove;
+    }
+
+    public void AddTicketTemplate(TicketTemplate ticketTemplate)
+    {
+        TicketTemplates.Add(ticketTemplate);
+    }
+
+    public TicketTemplate RemoveTicketTemplate(TicketTemplate ticketTemplate)
+    {
+        TicketTemplates.Remove(ticketTemplate);
+
+        return ticketTemplate;
     }
 }
 

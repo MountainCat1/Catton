@@ -74,7 +74,7 @@ services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAs
 // ========= RUN  =========
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+if (app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
     await app.MigrateDatabaseAsync<ConventionDomainDbContext>();
 
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_SWAGGER"))

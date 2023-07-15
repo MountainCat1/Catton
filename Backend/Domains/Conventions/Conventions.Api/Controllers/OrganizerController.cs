@@ -34,7 +34,7 @@ public class OrganizerController : Controller
 
         var createdOrganizer = await _mediator.Send(request);
 
-        string resourceUri = Url.Action("GetOrganizer", "Organizer", new { ticketTemplateId = conventionId })
+        string resourceUri = Url.Action("GetOrganizer", "Organizer", new { conventionId = createdOrganizer.ConventionId, organizerId = conventionId })
                              ?? throw new InvalidOperationException();
 
         return Created(resourceUri, createdOrganizer);

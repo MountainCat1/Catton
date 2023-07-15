@@ -1,5 +1,5 @@
-﻿using System.Security.Claims;
-using ConventionDomain.Application.Authorization.Requirements;
+﻿using ConventionDomain.Application.Authorization.Requirements;
+using ConventionDomain.Application.Extensions;
 using Conventions.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 
@@ -12,8 +12,7 @@ public class IsOrganizerOfHandler : AuthorizationHandler<IsOrganizerOfRequiremen
         IsOrganizerOfRequirement requirement,
         Convention resource)
     {
-        var accountIdString = context.User.Claims.First(x => x.Type == ClaimTypes.PrimarySid).Value;
-        var accountId = new Guid(accountIdString);
+        var accountId = context.User.GetUserId();
         
         if (resource.Organizers.All(x => x.AccountId != accountId))
         {
