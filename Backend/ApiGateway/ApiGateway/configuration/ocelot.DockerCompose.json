@@ -76,25 +76,6 @@
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
       "SwaggerKey": "conventions",
       "DangerousAcceptAnyServerCertificateValidator": true
-    },
-    {
-      "DownstreamPathTemplate": "/api/tickets",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/tickets",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET"
-      ],
-      "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "tickets",
-      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
   
@@ -122,16 +103,6 @@
       "Config": [
         {
           "Name": "Conventions API",
-          "Version": "v1",
-          "Url": "https://host.docker.internal:5002/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "tickets",
-      "Config": [
-        {
-          "Name": "Tickets API",
           "Version": "v1",
           "Url": "https://host.docker.internal:5002/swagger/v1/swagger.json"
         }
