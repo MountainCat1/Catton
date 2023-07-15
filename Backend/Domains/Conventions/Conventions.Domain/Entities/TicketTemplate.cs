@@ -18,9 +18,9 @@ public class TicketTemplate : Entity
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public decimal Price { get; set; }
+    public string Name { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public decimal Price { get; set; } 
     public bool Avaliable { get; set; }
 
     public DateTime CreateDate { get; set; }
@@ -30,7 +30,7 @@ public class TicketTemplate : Entity
     
     
     [ForeignKey(nameof(ConventionId))]
-    public virtual Convention Convention { get; set; }
+    public virtual Convention Convention { get; set; } = null!;
 
 
     public Guid? LastEditAuthorId { get; set; }
@@ -38,6 +38,7 @@ public class TicketTemplate : Entity
 
     private TicketTemplate()
     {
+
     }
     
     public static TicketTemplate Create(string name, string description, decimal price, Guid conventionId, Guid authorId)
