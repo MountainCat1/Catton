@@ -16,13 +16,13 @@ public class CreateTicketTemplateRequest : IRequest<TicketTemplateDto>
     public required Guid ConventionId { get; init; }
 }
 
-public class CreateTicketRequestHandler : IRequestHandler<CreateTicketTemplateRequest, TicketTemplateDto>
+public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTemplateRequest, TicketTemplateDto>
 {
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserAccessor _userAccessor;
 
-    public CreateTicketRequestHandler(
+    public CreateTicketTemplateRequestHandler(
         IConventionRepository conventionRepository,
         IAuthorizationService authorizationService,
         IUserAccessor userAccessor)
@@ -41,7 +41,7 @@ public class CreateTicketRequestHandler : IRequestHandler<CreateTicketTemplateRe
         if (convention is null)
             throw new NotFoundError($"Convention with an id ({request.ConventionId}) was not found");
 
-        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.CreateTicketTemplates);
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.ManageTicketTemplates);
 
         var dto = request.TicketCreateDto;
         var authoriId = _userAccessor.User.GetUserId();

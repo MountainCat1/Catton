@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Conventions.Api.Controllers;
 
-
 [ApiController]
 [Route("api/{conventionId:guid}/ticket-templates")]
 public class TicketTemplateController : Controller
@@ -17,7 +16,7 @@ public class TicketTemplateController : Controller
     {
         _mediator = mediator;
     }
-    
+
     [HttpPost]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -42,7 +41,7 @@ public class TicketTemplateController : Controller
 
         return Created(resourceUri, createdTicketTemplate);
     }
-    
+
     [HttpGet("{ticketTemplateId:guid}")]
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -59,7 +58,7 @@ public class TicketTemplateController : Controller
 
         return Ok(ticketTemplate);
     }
-    
+
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<TicketTemplateDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -69,6 +68,46 @@ public class TicketTemplateController : Controller
         var request = new GetTicketTemplatesRequest()
         {
             ConventionId = conventionId
+        };
+
+        var ticketTemplate = await _mediator.Send(request);
+
+        return Ok(ticketTemplate);
+    }
+
+    [HttpDelete("{ticketTemplateId:guid}")]
+    [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateTicketsTemplate(
+        [FromRoute] Guid conventionId,
+        [FromRoute] Guid ticketTemplateId,
+        [FromBody] TicketTemplateUpdateDto updateDto)
+    {
+        var request = new UpdateTicketTemplateRequest()
+        {
+            ConventionId = conventionId,
+            TicketTemplateId = ticketTemplateId,
+            TicketUpdateDto = updateDto
+        };
+
+        var ticketTemplate = await _mediator.Send(request);
+
+        return Ok(ticketTemplate);
+    }
+
+    [HttpDelete("{ticketTemplateId:guid}")]
+    [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteTicketsTemplate(
+        [FromRoute] Guid conventionId,
+        [FromRoute] Guid ticketTemplateId)
+    {
+        var request = new DeleteTicketTemplateRequest()
+        {
+            ConventionId = conventionId,
+            TicketTemplateId = ticketTemplateId
         };
 
         var ticketTemplate = await _mediator.Send(request);

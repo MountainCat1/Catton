@@ -1,7 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata.Ecma335;
 using Catut.Domain.Abstractions;
+using Conventions.Domain.Validators;
+using FluentValidation;
 
 namespace Conventions.Domain.Entities;
+
+public record TicketTemplateUpdate
+{
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public decimal? Price { get; set; }
+    public bool? Avaliable { get; set; } 
+}
 
 public class TicketTemplate : Entity
 {
@@ -12,7 +23,8 @@ public class TicketTemplate : Entity
     public decimal Price { get; set; }
     public bool Avaliable { get; set; }
 
-    public DateTime DateCreated { get; set; }
+    public DateTime CreateDate { get; set; }
+    public DateTime LastUpdateDate { get; set; }
 
     public Guid ConventionId { get; set; }
     
@@ -30,16 +42,44 @@ public class TicketTemplate : Entity
     
     public static TicketTemplate Create(string name, string description, decimal price, Guid conventionId, Guid authorId)
     {
-        return new TicketTemplate()
+        var ticketTemplate = new TicketTemplate()
         {
             Id = Guid.Empty, // sets to empty so that EF won't think its an existing entity
             Name = name,
             Description = description,
             Price = price,
             Avaliable = false,
-            DateCreated = DateTime.UtcNow,
+            
+            CreateDate = DateTime.UtcNow,
+            LastUpdateDate = DateTime.UtcNow,
+            
             ConventionId = conventionId,
-            AuthorId = authorId
+            AuthorId = authorId,
+            LastEditAuthorId = authorId
         };
+        
+        ticketTemplate.ValidateAndThrow();
+
+        return ticketTemplate;
+    }
+
+    public TicketTemplate Update(TicketTemplateUpdate update, Guid authorId)
+    {
+        Name = update.Name ?? Name;
+        Description = update.Description ?? Description;
+        Avaliable = update.Avaliable ?? Avaliable;
+        Price = update.Price ?? Price;
+
+        LastEditAuthorId = authorId;
+        LastUpdateDate = DateTime.UtcNow;
+        
+        ValidateAndThrow();
+
+        return this;
+    }
+    
+    public void ValidateAndThrow()
+    {
+        new TicketTemplateValidator().ValidateAndThrow(this);
     }
 }

@@ -15,13 +15,13 @@ public class DeleteTicketTemplateRequest : IRequest<TicketTemplateDto>
     public required Guid ConventionId { get; init; }
 }
 
-public class DeleteTicketRequestHandler : IRequestHandler<DeleteTicketTemplateRequest, TicketTemplateDto>
+public class DeleteTicketTemplateRequestHandler : IRequestHandler<DeleteTicketTemplateRequest, TicketTemplateDto>
 {
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserAccessor _userAccessor;
 
-    public DeleteTicketRequestHandler(
+    public DeleteTicketTemplateRequestHandler(
         IConventionRepository conventionRepository,
         IAuthorizationService authorizationService,
         IUserAccessor userAccessor)

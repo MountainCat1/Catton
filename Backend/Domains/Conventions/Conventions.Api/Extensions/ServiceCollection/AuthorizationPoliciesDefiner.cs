@@ -34,7 +34,7 @@ public static class AuthorizationPoliciesDefiner
         {
             new IsOrganizerOfRequirement()
         });
-        options.AddPolicyWithRequirements(Policies.CreateTicketTemplates, new IAuthorizationRequirement[]
+        options.AddPolicyWithRequirements(Policies.ManageTicketTemplates, new IAuthorizationRequirement[]
         {
             new IsOrganizerOfRequirement()
         });

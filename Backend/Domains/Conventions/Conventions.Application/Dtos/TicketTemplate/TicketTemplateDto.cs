@@ -9,7 +9,7 @@ public class TicketTemplateDto
     public decimal Price { get; set; }
     public bool Avaliable { get; set; }
 
-    public DateTime DateCreated { get; set; }
+    public DateTime CreateDate { get; set; }
 
     public Guid ConvetionId { get; set; }
 
@@ -29,7 +29,7 @@ public static class TicketTemplateExtensions
             Description = ticketTemplate.Description,
             Price = ticketTemplate.Price,
             Avaliable = ticketTemplate.Avaliable,
-            DateCreated = ticketTemplate.DateCreated,
+            CreateDate = ticketTemplate.CreateDate,
             ConvetionId = ticketTemplate.ConventionId,
             LastEditAuthorId = ticketTemplate.LastEditAuthorId,
             AuthorId = ticketTemplate.AuthorId

@@ -12,5 +12,5 @@ public static class Policies
     public const string UpdateConvention = nameof(UpdateConvention);
     
     public const string ReadTicketTemplates = nameof(ReadTicketTemplates);
-    public const string CreateTicketTemplates = nameof(CreateTicketTemplates);
+    public const string ManageTicketTemplates = nameof(ManageTicketTemplates);
 }

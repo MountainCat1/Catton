@@ -14,13 +14,13 @@ public class GetTicketTemplatesRequest : IRequest<ICollection<TicketTemplateDto>
     public required Guid ConventionId { get; init; }
 }
 
-public class GetTicketsRequestHandler : IRequestHandler<GetTicketTemplatesRequest, ICollection<TicketTemplateDto>>
+public class GetTicketTemplatesRequestHandler : IRequestHandler<GetTicketTemplatesRequest, ICollection<TicketTemplateDto>>
 {
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserAccessor _userAccessor;
 
-    public GetTicketsRequestHandler(
+    public GetTicketTemplatesRequestHandler(
         IConventionRepository conventionRepository,
         IAuthorizationService authorizationService,
         IUserAccessor userAccessor)
