@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Conventions.Api.Controllers;
 
 [ApiController]
-[Route("api/{conventionId:guid}/ticket-templates")]
+[Route("api/conventions/{conventionId:guid}/ticket-templates")]
 public class TicketTemplateController : Controller
 {
     private readonly IMediator _mediator;
