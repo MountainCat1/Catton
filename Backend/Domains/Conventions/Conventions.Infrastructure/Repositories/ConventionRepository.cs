@@ -78,7 +78,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
     public ConventionRepository(
         ConventionDomainDbContext dbContext,
         IMediator mediator,
-        ILogger<Repository<Convention, ConventionDomainDbContext>> logger,
+        ILogger<ConventionRepository> logger,
         IDatabaseErrorMapper databaseErrorMapper) : base(dbContext, mediator, logger, databaseErrorMapper)
     {
     }
