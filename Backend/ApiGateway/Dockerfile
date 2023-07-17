@@ -10,7 +10,7 @@ RUN dotnet restore "ApiGateway/ApiGateway.csproj"
 COPY . .
 WORKDIR "/src/ApiGateway"
 RUN dotnet build "ApiGateway.csproj" -c Release -o /app/build
-RUN dotnet dev-certs https -ep aspnetapp.pfx -p PASSWORD # Generate certificate in current directory.
+RUN dotnet dev-certs https -ep aspnetapp.pfx -p PASSWORD
 
 FROM build AS publish
 RUN dotnet publish "ApiGateway.csproj" -c Release -o /app/publish
@@ -18,10 +18,10 @@ RUN dotnet publish "ApiGateway.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=build /src/ApiGateway/aspnetapp.pfx . # Correct path to certificate.
+COPY --from=build /src/ApiGateway/aspnetapp.pfx . 
 
 ENV ASPNETCORE_Kestrel__Certificates__Default__Password=PASSWORD
 ENV ASPNETCORE_URLS="https://+;http://+" 
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=aspnetapp.pfx # Certificate is now in /app directory.
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=aspnetapp.pfx
 
 ENTRYPOINT ["dotnet", "ApiGateway.dll"]
