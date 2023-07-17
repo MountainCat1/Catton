@@ -40,9 +40,9 @@ steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
-    repository: 'CattonRegistry/test'
+    repository: 'cattonregistry/test'
     command: build
-    Dockerfile: 'Backend/Apigateway/Dockerfile' # Replace with your Dockerfile path
+    Dockerfile: 'Backend/Apigateway/Dockerfile' 
     tags: '$(Build.BuildId)'
 
 # Login to Azure Container Registry
@@ -57,6 +57,6 @@ steps:
   displayName: Push image
   inputs:
     containerRegistry: 'CattonRegistryConnection'
-    repository: 'CattonRegistry/test'
+    repository: 'cattonregistry/test'
     command: push
     tags: '$(Build.BuildId)'
