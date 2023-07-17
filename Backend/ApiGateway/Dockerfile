@@ -10,7 +10,7 @@ RUN dotnet restore "ApiGateway/ApiGateway.csproj"
 COPY . .
 WORKDIR "/src/ApiGateway"
 RUN dotnet build "ApiGateway.csproj" -c Release -o /app/build
-RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p PASSWORD --trust
+RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p PASSWORD
 
 FROM build AS publish
 RUN dotnet publish "ApiGateway.csproj" -c Release -o /app/publish
