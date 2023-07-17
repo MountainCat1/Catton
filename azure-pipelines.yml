@@ -17,6 +17,14 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'echo Hello, world!'
+  displayName: 'Run a bash script'
+  
+
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
