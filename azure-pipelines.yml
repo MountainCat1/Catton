@@ -35,16 +35,6 @@ steps:
 
 
 
-
-# Build Docker image
-- task: Docker@2
-  displayName: Build an image
-  inputs:
-    repository: 'cattonregistry/test'
-    command: build
-    Dockerfile: 'Backend/Apigateway/Dockerfile' 
-    tags: '$(Build.BuildId)'
-
 # Login to Azure Container Registry
 - task: Docker@2
   displayName: Login to Azure Container Registry
@@ -52,11 +42,9 @@ steps:
     containerRegistry: 'CattonRegistryConnection'
     command: login
 
-# Push image to Azure Container Registry
 - task: Docker@2
-  displayName: Push image
   inputs:
     containerRegistry: 'CattonRegistryConnection'
-    repository: 'cattonregistry/test'
-    command: push
-    tags: '$(Build.BuildId)'
+    repository: 'test'
+    command: 'buildAndPush'
+    Dockerfile: 'Backend/Apigateway/Dockerfile'
