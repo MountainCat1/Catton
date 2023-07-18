@@ -40,4 +40,4 @@ steps:
     containerRegistry: 'CattonRegistryConnection'
     repository: 'test'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: '**ApiGateway/Dockerfile'
