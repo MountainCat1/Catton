@@ -63,26 +63,6 @@ stages:
               resourceGroupName: '$(resourceGroup)'
               appSettings: |
                 [
-                  # {
-                  #   "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-                  #   "value": "6iW/hr8jgVe0tp5Wrn0c+PyEMurxbTk82MpA0HkITk+ACRCYXZom",
-                  #   "slotSetting": false
-                  # },
-                  # {
-                  #   "name": "DOCKER_REGISTRY_SERVER_URL",
-                  #   "value": "$(registryUri)",
-                  #   "slotSetting": false
-                  # },
-                  # {
-                  #   "name": "DOCKER_REGISTRY_SERVER_USERNAME",
-                  #   "value": "CattonRegistry",
-                  #   "slotSetting": false
-                  # },
-                  # {
-                  #   "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
-                  #   "value": "false",
-                  #   "slotSetting": false
-                  # },
                   {
                     "name": "WEBSITES_PORT",
                     "value": "5000",
