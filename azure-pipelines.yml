@@ -14,30 +14,79 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-# Login to Azure Container Registry
-- task: Docker@2
-  displayName: Login to Azure Container Registry
-  inputs:
-    containerRegistry: 'CattonRegistryConnection'
-    command: login
+  imageName: 'testImage'
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'tree /home/vsts/work/1'
+  registryUri: 'cattonregistry.azurecr.io'
+  appName: 'catton-api-gateway'
+  resourceGroup: 'Catton'
 
+  registryConnection: 'CattonRegistryConnection'
+  resourceManagerConnection: 'CattonAzureResourceManagerConnection'
 
+stages:
+  - stage: BuildStage
+    displayName: 'Build and Publish'
+    jobs:
+      - job: BuildJob
+        displayName: 'Build and Publish Job'
+        steps:
+          - task: Docker@2
+            displayName: 'Login to Azure Container Registry'
+            inputs:
+              containerRegistry: '$(registryConnection)'
+              command: login
+          - task: Docker@2
+            displayName: 'Build and Push Docker Image'
+            inputs:
+              containerRegistry: '$(registryConnection)'
+              repository: '$(imageName)'
+              command: 'buildAndPush'
+              Dockerfile: '**/ApiGateway/Dockerfile'
 
-# - task: Docker@2
-#   inputs:
-#     containerRegistry: 'CattonRegistryConnection'
-#     repository: 'test'
-#     command: 'buildAndPush'
-#     Dockerfile: '$(buildConfiguration)/Backend/
-- task: Docker@2
-  inputs:
-    containerRegistry: 'CattonRegistryConnection'
-    repository: 'test'
-    command: 'buildAndPush'
-    Dockerfile: '**/ApiGateway/Dockerfile'
+  - stage: DeployStage
+    displayName: 'Deploy'
+    jobs:
+      - job: DeployJob
+        displayName: 'Deployment Job'
+        steps:
+          - task: AzureWebAppContainer@1
+            displayName: 'Azure Web App on Container Deploy: catton-api-gateway'
+            inputs:
+              azureSubscription: '$(resourceManagerConnection)'
+              appName: '$(appName)'
+              containers: '$(registryUri)/$(imageName):$(Build.BuildId)'
+          - task: AzureAppServiceSettings@1
+            displayName: 'Azure App Service Settings: catton-api-gateway'
+            inputs:
+              azureSubscription: '$(resourceManagerConnection)'
+              appName: '$(appName)'
+              resourceGroupName: '$(resourceGroup)'
+              appSettings: |
+                [
+                  # {
+                  #   "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                  #   "value": "6iW/hr8jgVe0tp5Wrn0c+PyEMurxbTk82MpA0HkITk+ACRCYXZom",
+                  #   "slotSetting": false
+                  # },
+                  # {
+                  #   "name": "DOCKER_REGISTRY_SERVER_URL",
+                  #   "value": "$(registryUri)",
+                  #   "slotSetting": false
+                  # },
+                  # {
+                  #   "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                  #   "value": "CattonRegistry",
+                  #   "slotSetting": false
+                  # },
+                  # {
+                  #   "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                  #   "value": "false",
+                  #   "slotSetting": false
+                  # },
+                  {
+                    "name": "WEBSITES_PORT",
+                    "value": "5000",
+                    "slotSetting": false
+                  }
+                ]
+
