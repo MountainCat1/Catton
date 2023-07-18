@@ -1,28 +1,25 @@
-# ASP.NET
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
-
-trigger:
-- main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  dockerFile: '**/ApiGateway/Dockerfile'
-
-  imageName: 'test-image'
-
-  registryUri: 'cattonregistry.azurecr.io'
-  appName: 'catton-api-gateway'
-  resourceGroup: 'Catton'
-
-  registryConnection: 'CattonRegistryConnection'
-  resourceManagerConnection: 'CattonAzureResourceManagerConnection'
+# File: template.yml
+parameters:
+  - name: solution
+    type: string
+  - name: buildPlatform
+    type: string
+  - name: buildConfiguration
+    type: string
+  - name: dockerFile
+    type: string
+  - name: imageName
+    type: string
+  - name: registryUri
+    type: string
+  - name: appName
+    type: string
+  - name: resourceGroup
+    type: string
+  - name: registryConnection
+    type: string
+  - name: resourceManagerConnection
+    type: string
 
 stages:
   - stage: BuildStage
@@ -34,15 +31,15 @@ stages:
           - task: Docker@2
             displayName: 'Login to Azure Container Registry'
             inputs:
-              containerRegistry: '$(registryConnection)'
+              containerRegistry: '${{ parameters.registryConnection }}'
               command: login
           - task: Docker@2
             displayName: 'Build and Push Docker Image'
             inputs:
-              containerRegistry: '$(registryConnection)'
-              repository: '$(imageName)'
+              containerRegistry: '${{ parameters.registryConnection }}'
+              repository: '${{ parameters.imageName }}'
               command: 'buildAndPush'
-              Dockerfile: '$(dockerFile)'
+              Dockerfile: '${{ parameters.dockerFile }}'
 
   - stage: DeployStage
     displayName: 'Deploy'
@@ -51,17 +48,17 @@ stages:
         displayName: 'Deployment Job'
         steps:
           - task: AzureWebAppContainer@1
-            displayName: 'Azure Web App on Container Deploy: catton-api-gateway'
+            displayName: 'Azure Web App on Container Deploy: ${{ parameters.appName }}'
             inputs:
-              azureSubscription: '$(resourceManagerConnection)'
-              appName: '$(appName)'
-              containers: '$(registryUri)/$(imageName):$(Build.BuildId)'
+              azureSubscription: '${{ parameters.resourceManagerConnection }}'
+              appName: '${{ parameters.appName }}'
+              containers: '${{ parameters.registryUri }}/${{ parameters.imageName }}:$(Build.BuildId)'
           - task: AzureAppServiceSettings@1
-            displayName: 'Azure App Service Settings: catton-api-gateway'
+            displayName: 'Azure App Service Settings: ${{ parameters.appName }}'
             inputs:
-              azureSubscription: '$(resourceManagerConnection)'
-              appName: '$(appName)'
-              resourceGroupName: '$(resourceGroup)'
+              azureSubscription: '${{ parameters.resourceManagerConnection }}'
+              appName: '${{ parameters.appName }}'
+              resourceGroupName: '${{ parameters.resourceGroup }}'
               appSettings: |
                 [
                   {
@@ -70,4 +67,3 @@ stages:
                     "slotSetting": false
                   }
                 ]
-
