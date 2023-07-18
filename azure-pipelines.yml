@@ -30,7 +30,7 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'tree'
+    script: 'tree //'
 
 - task: Docker@2
   inputs:
