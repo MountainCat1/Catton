@@ -13,6 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  dockerFile: '**/ApiGateway/Dockerfile'
 
   imageName: 'test-image'
 
@@ -41,7 +42,7 @@ stages:
               containerRegistry: '$(registryConnection)'
               repository: '$(imageName)'
               command: 'buildAndPush'
-              Dockerfile: '**/ApiGateway/Dockerfile'
+              Dockerfile: '$(dockerFile)'
 
   - stage: DeployStage
     displayName: 'Deploy'
