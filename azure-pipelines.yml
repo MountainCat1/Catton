@@ -27,9 +27,17 @@ steps:
     targetType: 'inline'
     script: 'tree /home/vsts/work/1'
 
+
+
+# - task: Docker@2
+#   inputs:
+#     containerRegistry: 'CattonRegistryConnection'
+#     repository: 'test'
+#     command: 'buildAndPush'
+#     Dockerfile: '$(buildConfiguration)/Backend/
 - task: Docker@2
   inputs:
     containerRegistry: 'CattonRegistryConnection'
     repository: 'test'
     command: 'buildAndPush'
-    Dockerfile: '$(buildConfiguration)/Backend/Apigateway/Dockerfile'
+    Dockerfile: '**/Apigateway/Dockerfile'/Dockerfile'
