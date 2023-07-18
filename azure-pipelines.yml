@@ -14,7 +14,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-  imageName: 'testImage'
+  imageName: 'test-image'
 
   registryUri: 'cattonregistry.azurecr.io'
   appName: 'catton-api-gateway'
