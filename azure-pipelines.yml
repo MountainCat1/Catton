@@ -25,16 +25,11 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'pwd'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'tree //'
+    script: 'tree /home/vsts/work/1'
 
 - task: Docker@2
   inputs:
     containerRegistry: 'CattonRegistryConnection'
     repository: 'test'
     command: 'buildAndPush'
-    Dockerfile: '*/Apigateway/Dockerfile'
+    Dockerfile: '$(buildConfiguration)/Backend/Apigateway/Dockerfile'
