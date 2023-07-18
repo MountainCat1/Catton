@@ -9,13 +9,16 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  dockerFile: '**/ApiGateway/Dockerfile'
-  imageName: 'test-image'
-  registryUri: 'cattonregistry.azurecr.io'
+
   appName: 'catton-api-gateway'
   resourceGroup: 'Catton'
   registryConnection: 'CattonRegistryConnection'
   resourceManagerConnection: 'CattonAzureResourceManagerConnection'
+
+  dockerFile: '**/ApiGateway/Dockerfile'
+  imageName: '$(appName)'
+  registryUri: 'cattonregistry.azurecr.io'
+
 
 stages:
 - template: Backend/ApiGateway/azure-pipelines.yml
