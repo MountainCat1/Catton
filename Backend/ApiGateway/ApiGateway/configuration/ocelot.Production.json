@@ -1,0 +1,112 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/accounts{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accounts_domain",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/accounts{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "accounts",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/accounts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accounts_domain",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/accounts",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "accounts",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    
+    {
+      "DownstreamPathTemplate": "/api/conventions/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/conventions/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "conventions",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/conventions",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/conventions",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "conventions",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    }
+  ],
+  
+  "GlobalConfiguration": {
+    "BaseUrl": "https://host.docker.internal:5000",
+    "LogLevel": {
+      "Default": "Debug"
+    },
+    "DangerousAcceptAnyServerCertificateValidator": true
+  },
+  
+  "SwaggerEndPoints": [
+    {
+      "Key": "accounts",
+      "Config": [
+        {
+          "Name": "Accounts API",
+          "Version": "v1",
+          "Url": "https://host.docker.internal:5001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "conventions",
+      "Config": [
+        {
+          "Name": "Conventions API",
+          "Version": "v1",
+          "Url": "https://host.docker.internal:5002/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}
