@@ -1,23 +1,32 @@
+# File: pipeline.yml
 trigger:
-  branches:
-    include:
-      - main
-  paths:
-    include:
-      - 'Backend/ApiGateway/*'
-      # Add additional project paths as needed
+- main
 
-pr:
-  branches:
-    include:
-      - '*'
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  dockerFile: '**/ApiGateway/Dockerfile'
+  imageName: 'test-image'
+  registryUri: 'cattonregistry.azurecr.io'
+  appName: 'catton-api-gateway'
+  resourceGroup: 'Catton'
+  registryConnection: 'CattonRegistryConnection'
+  resourceManagerConnection: 'CattonAzureResourceManagerConnection'
 
 stages:
-  - stage: RunProjectA
-    displayName: 'Run Project A'
-    condition: eq(variables['Build.Reason'], 'PullRequest')
-    dependsOn: projectA
-    jobs:
-      - template: Backend/ApiGateway/azure-pipelines.yml
-
-  # Add additional stages for other projects
+- template: Backend/ApiGateway/azure-pipelines.yml
+  parameters:
+    solution: $(solution)
+    buildPlatform: $(buildPlatform)
+    buildConfiguration: $(buildConfiguration)
+    dockerFile: $(dockerFile)
+    imageName: $(imageName)
+    registryUri: $(registryUri)
+    appName: $(appName)
+    resourceGroup: $(resourceGroup)
+    registryConnection: $(registryConnection)
+    resourceManagerConnection: $(resourceManagerConnection)
