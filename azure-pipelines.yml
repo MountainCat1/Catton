@@ -2,7 +2,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -12,7 +11,7 @@ variables:
   resourceManagerConnection: 'CattonAzureResourceManagerConnection'
 
   projectPath: '**/ApiGateway'
-  dockerFile: '*$(projectPath)/Dockerfile'
+  dockerFile: '$(projectPath)/Dockerfile'
   imageName: '$(appName)'
   registryUri: 'cattonregistry.azurecr.io'
 
@@ -27,13 +26,5 @@ trigger:
 stages:
 - template: Pipelines/domain-template.yml
   parameters:
-    solution: $(solution)
-    buildPlatform: $(buildPlatform)
-    buildConfiguration: $(buildConfiguration)
-    dockerFile: $(dockerFile)
-    imageName: $(imageName)
-    registryUri: $(registryUri)
     appName: $(appName)
-    resourceGroup: $(resourceGroup)
-    registryConnection: $(registryConnection)
-    resourceManagerConnection: $(resourceManagerConnection)
+    projectPath: $(projectPath)

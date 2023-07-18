@@ -1,0 +1,66 @@
+parameters:
+  - name: buildPlatform
+    type: string
+  - name: buildConfiguration
+    type: string
+  - name: dockerFile
+    type: string
+  - name: imageName
+    type: string
+  - name: registryUri
+    type: string
+  - name: appName
+    type: string
+  - name: resourceGroup
+    type: string
+  - name: registryConnection
+    type: string
+  - name: resourceManagerConnection
+    type: string
+
+stages:
+  - stage: BuildStage
+    displayName: 'Build and Publish'
+    jobs:
+      - job: BuildJob
+        displayName: 'Build and Publish Job'
+        steps:
+          - task: Docker@2
+            displayName: 'Login to Azure Container Registry'
+            inputs:
+              containerRegistry: '${{ parameters.registryConnection }}'
+              command: login
+          - task: Docker@2
+            displayName: 'Build and Push Docker Image'
+            inputs:
+              containerRegistry: '${{ parameters.registryConnection }}'
+              repository: '${{ parameters.imageName }}'
+              command: 'buildAndPush'
+              Dockerfile: '${{ parameters.dockerFile }}'
+
+  - stage: DeployStage
+    displayName: 'Deploy'
+    jobs:
+      - job: DeployJob
+        displayName: 'Deployment Job'
+        steps:
+          - task: AzureWebAppContainer@1
+            displayName: 'Azure Web App on Container Deploy: ${{ parameters.appName }}'
+            inputs:
+              azureSubscription: '${{ parameters.resourceManagerConnection }}'
+              appName: '${{ parameters.appName }}'
+              containers: '${{ parameters.registryUri }}/${{ parameters.imageName }}:$(Build.BuildId)'
+          - task: AzureAppServiceSettings@1
+            displayName: 'Azure App Service Settings: ${{ parameters.appName }}'
+            inputs:
+              azureSubscription: '${{ parameters.resourceManagerConnection }}'
+              appName: '${{ parameters.appName }}'
+              resourceGroupName: '${{ parameters.resourceGroup }}'
+              appSettings: |
+                [
+                  {
+                    "name": "WEBSITES_PORT",
+                    "value": "5000",
+                    "slotSetting": false
+                  }
+                ]
