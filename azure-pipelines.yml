@@ -24,7 +24,7 @@ trigger:
     - '$(projectPath)/*'
 
 stages:
-- template: Pipelines/domain-template.yml
+- template: Pipelines/domain-template.yaml
   parameters:
     appName: $(appName)
     projectPath: $(projectPath)
