@@ -37,4 +37,4 @@ steps:
     containerRegistry: 'CattonRegistryConnection'
     repository: 'test'
     command: 'buildAndPush'
-    Dockerfile: 'Backend/Apigateway/Dockerfile'
+    Dockerfile: '*/Apigateway/Dockerfile'
