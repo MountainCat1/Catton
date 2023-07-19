@@ -1,6 +1,7 @@
 parameters:
   - name: projectPath
     type: string
+    default: 'defaultValue' #optional
   - name: appName
     type: string
 
