@@ -1,0 +1,16 @@
+﻿pool:
+  vmImage: 'ubuntu-latest'
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - '**/ApiGateway/*'
+
+stages:
+  - template: Pipelines/Templates/domain-template.yaml
+    parameters:
+      appName: 'catton-api-gateway'
+      projectPath: '**/ApiGateway'
