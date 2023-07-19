@@ -2,29 +2,20 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-  appName: 'catton-api-gateway'
-  resourceGroup: 'Catton'
-  registryConnection: 'CattonRegistryConnection'
-  resourceManagerConnection: 'CattonAzureResourceManagerConnection'
-
-  projectPath: '**/ApiGateway'
-  dockerFile: '$(projectPath)/Dockerfile'
-  imageName: '$(appName)'
-  registryUri: 'cattonregistry.azurecr.io'
+#  buildPlatform: 'Any CPU'
+#  buildConfiguration: 'Release'
+#  resourceGroup: 'Catton'
+#  registryConnection: 'CattonRegistryConnection'
+#  resourceManagerConnection: 'CattonAzureResourceManagerConnection'
+#  registryUri: 'cattonregistry.azurecr.io'
 
 trigger:
   branches:
     include:
     - main
-  paths:
-    include:
-    - '$(projectPath)/*'
 
 stages:
 - template: Pipelines/domain-template.yaml
   parameters:
-    appName: $(appName)
-    projectPath: $(projectPath)
+    appName: 'catton-api-gateway'
+    projectPath: '**/ApiGateway'
