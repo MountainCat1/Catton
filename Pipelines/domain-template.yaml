@@ -11,12 +11,6 @@
   - name: buildConfiguration
     type: string
     default: 'Release'
-  - name: dockerFile
-    type: string
-    default: '${{ parameters.projectPath }}/Dockerfile'
-  - name: imageName
-    type: string
-    default: '${{ parameters.appName }}'
   - name: registryUri
     type: string
     default: 'cattonregistry.azurecr.io'
@@ -46,9 +40,9 @@ stages:
             displayName: 'Build and Push Docker Image'
             inputs:
               containerRegistry: '${{ parameters.registryConnection }}'
-              repository: '${{ parameters.imageName }}'
+              repository: '${{ parameters.appName }}'
               command: 'buildAndPush'
-              Dockerfile: '${{ parameters.dockerFile }}'
+              Dockerfile: '${{ parameters.projectPath }}/Dockerfile'
 
   - stage: DeployStage
     displayName: 'Deploy'
@@ -61,7 +55,7 @@ stages:
             inputs:
               azureSubscription: '${{ parameters.resourceManagerConnection }}'
               appName: '${{ parameters.appName }}'
-              containers: '${{ parameters.registryUri }}/${{ parameters.imageName }}:$(Build.BuildId)'
+              containers: '${{ parameters.registryUri }}/${{ parameters.appName }}:$(Build.BuildId)'
           - task: AzureAppServiceSettings@1
             displayName: 'Azure App Service Settings: ${{ parameters.appName }}'
             inputs:
