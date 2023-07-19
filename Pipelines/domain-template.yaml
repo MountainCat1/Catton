@@ -1,7 +1,6 @@
 parameters:
   - name: projectPath
     type: string
-    default: 'defaultValue' #optional
   - name: appName
     type: string
 
@@ -17,4 +16,3 @@ stages:
       resourceGroup: 'Catton'
       registryConnection: 'CattonRegistryConnection'
       resourceManagerConnection: 'CattonAzureResourceManagerConnection'
-      projectPath: '${{ parameters.projectPath }}'
