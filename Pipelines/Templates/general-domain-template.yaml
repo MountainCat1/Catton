@@ -27,6 +27,7 @@ stages:
       - job: TestJob
         steps:
           - task: DotNetCoreCLI@2
+            displayName: 'Test ASP.NET Core'
             inputs:
               command: 'test'
               projects: '${{ parameters.projectPath }}'
