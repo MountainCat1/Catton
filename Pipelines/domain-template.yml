@@ -1,6 +1,4 @@
 parameters:
-  - name: projectName
-    type: string
   - name: projectPath
     type: string
   - name: appName
@@ -12,9 +10,9 @@ stages:
       buildPlatform: 'Any CPU'
       buildConfiguration: 'Release'
       dockerFile: '${{ parameters.projectPath }}/Dockerfile'
-      imageName: '${{ parameters.projectName }}'
+      imageName: '${{ parameters.appName }}'
       registryUri: 'cattonregistry.azurecr.io'
-      appName: ${{ parameters.appName }}'
+      appName: '${{ parameters.appName }}'
       resourceGroup: 'Catton'
       registryConnection: 'CattonRegistryConnection'
       resourceManagerConnection: 'CattonAzureResourceManagerConnection'
