@@ -5,7 +5,7 @@ parameters:
     type: string
 
 stages:
-  - template: Pipelines/domain-template.yml
+  - template: Pipelines/general-domain-template.yml
     parameters:
       buildPlatform: 'Any CPU'
       buildConfiguration: 'Release'
