@@ -29,7 +29,7 @@ stages:
           - task: DotNetCoreCLI@2
             inputs:
               command: 'test'
-              projects: '${{ projectPath }}'
+              projects: '${{ parameters.projectPath }}'
   - stage: BuildStage
     displayName: 'Build and Publish'
     jobs:
