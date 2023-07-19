@@ -10,7 +10,7 @@ trigger:
       - '**/ApiGateway/*'
 
 stages:
-  - template: Pipelines/Templates/domain-template.yaml
+  - template: /Pipelines/Templates/domain-template.yaml
     parameters:
       appName: 'catton-api-gateway'
       projectPath: '**/ApiGateway'
