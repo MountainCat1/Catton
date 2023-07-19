@@ -7,8 +7,6 @@ parameters:
 stages:
   - template: /Pipelines/Templates/general-domain-template.yaml
     parameters:
-      buildPlatform: 'Any CPU'
-      buildConfiguration: 'Release'
       dockerFile: '${{ parameters.projectPath }}/Dockerfile'
       imageName: '${{ parameters.appName }}'
       registryUri: 'cattonregistry.azurecr.io'

@@ -1,0 +1,39 @@
+﻿parameters:
+  - name: appName
+    type: string
+  - name: imageName
+    type: string
+  - name: resourceManagerConnection
+    type: string
+  - name: resourceGroup
+    type: string  
+  - name: registryUri
+    type: string
+    
+stages:
+  - stage: DeployStage
+    displayName: 'Deploy'
+    jobs:
+      - job: DeployJob
+        displayName: 'Deployment Job'
+        steps:
+          - task: AzureWebAppContainer@1
+            displayName: 'Azure Web App on Container Deploy: ${{ parameters.appName }}'
+            inputs:
+              azureSubscription: '${{ parameters.resourceManagerConnection }}'
+              appName: '${{ parameters.appName }}'
+              containers: '${{ parameters.registryUri }}/${{ parameters.imageName }}:$(Build.BuildId)'
+          - task: AzureAppServiceSettings@1
+            displayName: 'Azure App Service Settings: ${{ parameters.appName }}'
+            inputs:
+              azureSubscription: '${{ parameters.resourceManagerConnection }}'
+              appName: '${{ parameters.appName }}'
+              resourceGroupName: '${{ parameters.resourceGroup }}'
+              appSettings: |
+                [
+                  {
+                    "name": "WEBSITES_PORT",
+                    "value": "5000",
+                    "slotSetting": false
+                  }
+                ]

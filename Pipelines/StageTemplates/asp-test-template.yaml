@@ -1,0 +1,15 @@
+﻿parameters:
+  - name: projectPath
+    type: string
+
+stages:
+  - stage: TestStage
+    displayName: 'Test'
+    jobs:
+      - job: TestJob
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'Test ASP.NET Core'
+            inputs:
+              command: 'test'
+              projects: '${{ parameters.projectPath }}'
