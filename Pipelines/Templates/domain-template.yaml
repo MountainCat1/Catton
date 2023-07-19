@@ -16,3 +16,4 @@ stages:
       resourceGroup: 'Catton'
       registryConnection: 'CattonRegistryConnection'
       resourceManagerConnection: 'CattonAzureResourceManagerConnection'
+      projectPath: '${{ parameters.projectPath }}'

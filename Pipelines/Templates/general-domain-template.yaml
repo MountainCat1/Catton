@@ -17,8 +17,19 @@ parameters:
     type: string
   - name: resourceManagerConnection
     type: string
+  - name: projectPath
+    type: string
 
 stages:
+  - stage: TestStage
+    displayName: 'Test'
+    jobs:
+      - job: TestJob
+        steps:
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'test'
+              projects: '${{ projectPath }}'
   - stage: BuildStage
     displayName: 'Build and Publish'
     jobs:
