@@ -1,13 +1,13 @@
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-#  buildPlatform: 'Any CPU'
-#  buildConfiguration: 'Release'
-#  resourceGroup: 'Catton'
-#  registryConnection: 'CattonRegistryConnection'
-#  resourceManagerConnection: 'CattonAzureResourceManagerConnection'
-#  registryUri: 'cattonregistry.azurecr.io'
+#variables:
+##  buildPlatform: 'Any CPU'
+##  buildConfiguration: 'Release'
+##  resourceGroup: 'Catton'
+##  registryConnection: 'CattonRegistryConnection'
+##  resourceManagerConnection: 'CattonAzureResourceManagerConnection'
+##  registryUri: 'cattonregistry.azurecr.io'
 
 trigger:
   branches:
