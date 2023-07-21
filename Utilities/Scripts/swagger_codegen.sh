@@ -3,8 +3,8 @@
 set -e
 
 # Array of service names
-serviceNames=('convention' 'account' 'ticket-template')
-targetFramework=dotnet 
+serviceNames=('conventions' 'accounts')
+targetFramework=typescript-angular 
 
 # Set variables
 TARGET_DIR="/openapi-${targetFramework}"

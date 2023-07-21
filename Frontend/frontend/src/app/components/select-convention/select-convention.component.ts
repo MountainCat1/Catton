@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ConventionResponse, ConventionService} from "../../services/generated-api/convention/openapi-generated";
 import {NgIf} from "@angular/common";
 import {Observable} from "rxjs";
 import {StaticChipType} from "../../generic-components/static-chip/static-chip.component";
 import {LocalCacheService} from "../../services/local-cache.service";
 import {Navigation, Router} from "@angular/router";
 import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
+import {ConventionDto, ConventionService} from "../../services/generated-api/conventions";
 
 @Component({
   selector: 'app-select-convention',
@@ -13,7 +13,7 @@ import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
   styleUrls: ['./select-convention.component.scss']
 })
 export class SelectConventionComponent implements OnInit {
-  conventions$!: Observable<Array<ConventionResponse>>;
+  conventions$!: Observable<Array<ConventionDto>>;
 
 
   constructor(
@@ -24,7 +24,7 @@ export class SelectConventionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.conventions$ = this.conventionService.apiConventionGet();
+    this.conventions$ = this.conventionService.apiConventionsGet();
 
     // If user has access to only one convention redirect them instantly to menu
     // if they have no choice why do we would pretend they have XD

@@ -1,9 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Ocelot.Logging;
-using Ocelot.Middleware;
-
-namespace ApiGateway.Middleware;
+﻿namespace ApiGateway.Middleware;
 
 public class ApiFallbackMiddleware : IMiddleware
 {

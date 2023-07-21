@@ -1,5 +1,4 @@
 ﻿export const environment = {
   production: false,
-  apiEndpoint: 'https://api_gateway:5000/api',
-  API_BASE_PATH: 'https://api_gateway:5000',
+  API_BASE_PATH: 'http://api_gateway:4000',
 };
