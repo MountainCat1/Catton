@@ -9,7 +9,7 @@ trigger:
     include:
       - '**/ApiGateway/*'
 
- stages:
+stages:
 #    - template: /Pipelines/Templates/domain-template.yaml
 #      parameters:
 #        appName: 'catton-api-gateway'
