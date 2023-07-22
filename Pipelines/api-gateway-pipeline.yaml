@@ -26,5 +26,6 @@ stages:
               azureContainerRegistry: '{"loginServer":"cattonregistry.azurecr.io", "id" : "/subscriptions/e0a01be8-bdd1-4e00-bd3f-ee558f97e070/resourceGroups/Catton/providers/Microsoft.ContainerRegistry/registries/CattonRegistry"}'
               dockerComposeFile: '**/docker-compose-azure.yaml'
               action: 'Run a Docker Compose command'
+              dockerComposeCommand: 'rm --all'
       
   
