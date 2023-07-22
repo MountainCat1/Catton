@@ -21,7 +21,8 @@ COPY --from=publish /app/publish .
 COPY --from=build /src/ApiGateway/aspnetapp.pfx . 
 
 ENV ASPNETCORE_Kestrel__Certificates__Default__Password=PASSWORD
-ENV ASPNETCORE_URLS="https://+;http://+" 
+#ENV ASPNETCORE_URLS="https://+;http://+" 
+ENV ASPNETCORE_URLS="https://localhost:443;http://localhost:5000"
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path=aspnetapp.pfx
 
 ENTRYPOINT ["dotnet", "ApiGateway.dll"]
