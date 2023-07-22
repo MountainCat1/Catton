@@ -9,8 +9,18 @@ trigger:
     include:
       - '**/ApiGateway/*'
 
-stages:
-   - template: /Pipelines/Templates/domain-template.yaml
-     parameters:
-       appName: 'catton-api-gateway'
-       projectPath: '**/ApiGateway'
+ stages:
+#    - template: /Pipelines/Templates/domain-template.yaml
+#      parameters:
+#        appName: 'catton-api-gateway'
+#        projectPath: '**/ApiGateway'
+   - stage: 
+     jobs:
+       - job: 
+         steps:
+           - task: AzureWebAppContainer@1
+             inputs:
+               azureSubscription: 'CattonAzureResourceManagerConnection'
+               appName: 'catton-api-gateway'
+               containers: 'catton-api-gateway:230'
+
