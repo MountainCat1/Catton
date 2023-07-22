@@ -26,5 +26,5 @@ stages:
              inputs:
                azureSubscription: 'CattonAzureResourceManagerConnection'
                appName: 'catton-api-gateway'
-               containers: 'catton-api-gateway:230'
+               containers: 'cattonregistry.azurecr.io/catton-api-gateway:230'
 
