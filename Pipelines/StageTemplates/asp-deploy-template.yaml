@@ -35,5 +35,10 @@ stages:
                     "name": "WEBSITES_PORT",
                     "value": "443",
                     "slotSetting": false
+                  },
+                  {
+                    "name": "BACKEND_URI_CONVENTIONS",
+                    "value": "https://catton-conventions.azurewebsites.net",
+                    "slotSetting": false
                   }
                 ]
