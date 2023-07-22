@@ -10,22 +10,7 @@ trigger:
       - '**/ApiGateway/*'
 
 stages:
-  # - template: /Pipelines/Templates/domain-template.yaml
-  #   parameters:
-  #     appName: 'catton-api-gateway'
-  #     projectPath: '**/ApiGateway'
-
-  - stage: 
-    jobs:
-      - job: 
-        steps:
-          - task: DockerCompose@0
-            inputs:
-              containerregistrytype: 'Azure Container Registry'
-              azureSubscription: 'CattonAzureResourceManagerConnection'
-              azureContainerRegistry: '{"loginServer":"cattonregistry.azurecr.io", "id" : "/subscriptions/e0a01be8-bdd1-4e00-bd3f-ee558f97e070/resourceGroups/Catton/providers/Microsoft.ContainerRegistry/registries/CattonRegistry"}'
-              dockerComposeFile: '**/docker-compose-azure.yaml'
-              action: 'Run a Docker Compose command'
-              dockerComposeCommand: 'up --build'
-      
-  
+   - template: /Pipelines/Templates/domain-template.yaml
+     parameters:
+       appName: 'catton-api-gateway'
+       projectPath: '**/ApiGateway'
