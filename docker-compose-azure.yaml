@@ -1,0 +1,63 @@
+version: '3.8'
+services:
+# === INFRASTRUCTURE === 
+  sql_database:
+    build:
+      context: ./Backend/SqlDatabase
+      dockerfile: Dockerfile
+    ports:
+       - "1433:1433"
+
+# === FRONTEND === 
+  frontend:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Frontend/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4269:80"
+    environment:
+      - API_BASE_PATH=https://host.docker.internal:5000
+
+# === DOMAINS === 
+  api_gateway:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Backend/ApiGateway
+      dockerfile: Dockerfile
+    ports:
+      - "4000:80"
+      - "5000:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
+      - ENABLE_SWAGGER=true
+      - MIGRATE_DATABASE=true
+
+  accounts_domain:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Backend/Domains/Accounts
+      dockerfile: Dockerfile
+    ports:
+      - "4001:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
+      - ENABLE_SWAGGER=true
+      - MIGRATE_DATABASE=true
+  conventions_domain:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Backend/Domains/Conventions
+      dockerfile: Dockerfile
+    ports:
+      - "4002:80"
+      - "5002:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
+      - ENABLE_SWAGGER=true
+      - MIGRATE_DATABASE=true

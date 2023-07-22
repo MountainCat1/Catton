@@ -3,10 +3,7 @@ import {Observable} from "rxjs";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
-import {
-  AuthTokenResponseContract, ClaimsService,
-  EmailPasswordAuthenticationService
-} from "../../services/generated-api/account/openapi-generated";
+import {AccountService, AuthTokenResponseContract, ClaimsService} from "../../services/generated-api/accounts";
 
 @Component({
   selector: 'app-sign-in',
@@ -21,7 +18,7 @@ export class SignInComponent implements OnInit {
   authenticate$! : Observable<AuthTokenResponseContract>
 
   constructor(
-    private authenticationService : EmailPasswordAuthenticationService,
+    private authenticationService : AccountService,
     private authService : AuthService,
     private claimsService : ClaimsService,
     private router : Router
@@ -39,7 +36,7 @@ export class SignInComponent implements OnInit {
   signIn() {
     console.log('Signing in...');
 
-    this.authenticate$ = this.authenticationService.apiAuthenticationAuthPost({
+    this.authenticate$ = this.authenticationService.apiAccountsLoginPost({
       email: this.email,
       password:this.password
     });

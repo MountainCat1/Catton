@@ -7,13 +7,12 @@ import {firstValueFrom} from "rxjs";
 import {AuthRequestModel} from "../models/authRequestModel";
 import 'url-join';
 import urlJoin from "url-join";
-import {Configuration as ConventionConfiguration} from "./generated-api/convention/openapi-generated";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUri = environment.apiEndpoint;
+  private apiUri = environment.API_BASE_PATH;
   private readonly authCookieName = 'auth_token'
 
   constructor(private _cookieService: CookieService, private http: HttpClient) {
@@ -32,7 +31,7 @@ export class AuthService {
         // 'Authorization': `Bearer ${authRequest.token}`
       };
 
-      let authToken = await firstValueFrom(this.http.post(urlJoin(this.apiUri, "auth/google"), authRequest, {responseType: 'text', headers: headers}));
+      let authToken = await firstValueFrom(this.http.post(urlJoin(this.apiUri, "api/auth/google"), authRequest, {responseType: 'text', headers: headers}));
 
       // Set token to cookies
       this._cookieService.set("auth_token", authToken);

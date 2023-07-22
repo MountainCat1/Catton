@@ -31,14 +31,15 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import {Configuration as AccountConfiguration} from "./services/generated-api/account/openapi-generated";
+import {Configuration as AccountConfiguration} from "./services/generated-api/accounts";
 import {
   Configuration as ConventionConfiguration,
   ConventionService
-} from "./services/generated-api/convention/openapi-generated";
+} from "./services/generated-api/conventions";
 import {MatCardModule} from "@angular/material/card";
 import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -66,6 +67,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     SelectConventionComponent,
     StaticChipComponent,
     MainMenuComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
