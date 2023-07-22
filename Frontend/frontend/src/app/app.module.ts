@@ -39,6 +39,7 @@ import {
 import {MatCardModule} from "@angular/material/card";
 import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -66,6 +67,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     SelectConventionComponent,
     StaticChipComponent,
     MainMenuComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
