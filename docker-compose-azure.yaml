@@ -9,16 +9,16 @@ services:
        - "1433:1433"
 
 # === FRONTEND === 
-  frontend:
-    env_file:
-      - dockerCompose.env
-    build:
-      context: ./Frontend/frontend
-      dockerfile: Dockerfile
-    ports:
-      - "4269:80"
-    environment:
-      - API_BASE_PATH=https://host.docker.internal:5000
+#  frontend:
+#    env_file:
+#      - dockerCompose.env
+#    build:
+#      context: ./Frontend/frontend
+#      dockerfile: Dockerfile
+#    ports:
+#      - "4269:80"
+#    environment:
+#      - API_BASE_PATH=https://host.docker.internal:5000
 
 # === DOMAINS === 
   api_gateway:
