@@ -15,9 +15,13 @@ stages:
 #        appName: 'catton-api-gateway'
 #        projectPath: '**/ApiGateway'
    - stage: 
-     jobs:
+     jobs:       
        - job: 
          steps:
+           - task: Docker@2
+             inputs:
+               containerRegistry: 'CattonRegistryConnection'
+               command: 'login'
            - task: AzureWebAppContainer@1
              inputs:
                azureSubscription: 'CattonAzureResourceManagerConnection'
