@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
   authenticate$! : Observable<AuthTokenResponseContract>
 
   constructor(
-    private authenticationService : AccountService,
+    private accountService : AccountService,
     private authService : AuthService,
     private claimsService : ClaimsService,
     private router : Router
@@ -36,7 +36,7 @@ export class SignInComponent implements OnInit {
   signIn() {
     console.log('Signing in...');
 
-    this.authenticate$ = this.authenticationService.apiAccountsLoginPost({
+    this.authenticate$ = this.accountService.apiAccountsLoginPost({
       email: this.email,
       password:this.password
     });

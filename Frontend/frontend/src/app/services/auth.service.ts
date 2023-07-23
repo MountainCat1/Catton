@@ -1,55 +1,74 @@
 import {Injectable} from '@angular/core';
-import {SocialUser} from "@abacritt/angularx-social-login";
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "src/environments/environment";
-import {firstValueFrom} from "rxjs";
-import {AuthRequestModel} from "../models/authRequestModel";
 import 'url-join';
+import {AccountDto, AccountService, GetClaimsResponseDto} from "./generated-api/accounts";
+import {AuthRequestModel} from "../models/authRequestModel";
+import {firstValueFrom} from "rxjs";
 import urlJoin from "url-join";
+import {environment} from "../../environments/environment";
+import {ConventionService} from "./generated-api/conventions";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUri = environment.API_BASE_PATH;
   private readonly authCookieName = 'auth_token'
+  private readonly accountCookieName = 'account'
 
-  constructor(private _cookieService: CookieService, private http: HttpClient) {
+  constructor(
+              private accountService: AccountService) {
   }
 
-  public getUser(): SocialUser | undefined {
-    // TODO
 
-    return undefined;
+  public getToken(): string | undefined {
+
+    return undefined
+    // return this._cookieService.get(this.authCookieName);
+  }
+
+  public setToken(token: string): void {
+
+    // this._cookieService.set(this.authCookieName, token)
+
+    // this.accountService.apiAccountsMeGet().subscribe(dto => {
+    //   this.setAccount(dto);
+    // })
+
+    return;
+  }
+
+  private setAccount(dto: AccountDto): void {
+    localStorage.setItem(this.accountCookieName, JSON.stringify(dto));
+  }
+
+  getAccount(): AccountDto {
+    const objectString = localStorage.getItem(this.accountCookieName);
+
+    if (objectString == null)
+      throw Error("No user info cached")
+
+    return JSON.parse(objectString) as AccountDto;
   }
 
   public async authUser(authRequest: AuthRequestModel): Promise<string | undefined> {
-    try {
-      // Fetch user token from backend
-      let headers : any = {
-        // 'Authorization': `Bearer ${authRequest.token}`
-      };
-
-      let authToken = await firstValueFrom(this.http.post(urlJoin(this.apiUri, "api/auth/google"), authRequest, {responseType: 'text', headers: headers}));
-
-      // Set token to cookies
-      this._cookieService.set("auth_token", authToken);
-
-      // Return token
-      return authToken
-
-    } catch (error) {
-      console.error(error);
+    // try {
+    //   // Fetch user token from backend
+    //   let headers : any = {
+    //     // 'Authorization': `Bearer ${authRequest.token}`
+    //   };
+    //
+    //   let authToken = await firstValueFrom(this.http.post(urlJoin(environment.API_BASE_PATH, "api/auth/google"), authRequest, {responseType: 'text', headers: headers}));
+    //
+    //   // Set token to cookies
+    //   this._cookieService.set("auth_token", authToken);
+    //
+    //   // Return token
+    //   return authToken
+    //
+    // } catch (error) {
+    //   console.error(error);
       return undefined;
-    }
-  }
-
-  public getToken() : string | undefined {
-    return this._cookieService.get(this.authCookieName);
-  }
-
-  public setToken(token : string) : void {
-    return this._cookieService.set(this.authCookieName, token);
+    // }
   }
 }

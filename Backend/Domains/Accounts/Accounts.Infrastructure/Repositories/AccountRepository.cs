@@ -18,4 +18,9 @@ public class AccountRepository : Repository<AccountEntity, AccountDbContext>, IA
     {
         return await GetOneAsync(x => x.Email == email);
     }
+
+    public async Task< AccountEntity?> GetOneByIdAsync(Guid userId)
+    {
+        return await GetOneAsync(x => x.Id == userId);
+    }
 }

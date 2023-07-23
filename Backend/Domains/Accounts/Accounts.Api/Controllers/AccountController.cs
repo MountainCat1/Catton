@@ -19,20 +19,20 @@ public class AccountController : Controller
     {
         _mediator = mediator;
     }
-    
+
     [HttpPost("login")]
     [AllowAnonymous]
-    [ProducesResponseType( typeof(AuthTokenResponseContract), StatusCodes.Status200OK)]
-    [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(AuthTokenResponseContract), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Authenticate([FromBody] AuthViaPasswordRequestContract requestContract)
     {
         var request = new AuthViaPasswordRequest(requestContract);
 
-        var result = await _mediator.Send(request); 
+        var result = await _mediator.Send(request);
 
         return Ok(result);
     }
-    
+
     [HttpPost]
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -45,19 +45,33 @@ public class AccountController : Controller
 
         return Ok();
     }
-    
+
     [HttpGet("{id:guid}")]
     [AllowAnonymous]
-    [ProducesResponseType( typeof(AccountDto), StatusCodes.Status200OK)]
-    [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(AccountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAccount([FromRoute] Guid id)
     {
         var request = new GetAccountRequest()
         {
             AccountId = id
         };
+
+        var result = await _mediator.Send(request);
+
+        return Ok(result);
+    }
+
+    [HttpGet("me")]
+    [Authorize]
+    [ProducesResponseType(typeof(AccountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetMyAccount()
+    {
+        var request = new GetMyAccountRequest();
         
-        var result =  await _mediator.Send(request);
+        var result = await _mediator.Send(request);
 
         return Ok(result);
     }

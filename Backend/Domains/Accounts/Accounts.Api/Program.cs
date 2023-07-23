@@ -67,6 +67,8 @@ services.AddScoped<IPasswordAccountService, PasswordAccountService>();
 services.AddScoped<IHashingService, HashingService>();
 services.AddScoped<IJwtService, JwtService>();
 services.AddScoped<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddHttpContextAccessor();
+services.AddScoped<IUserAccessor, UserAccessor>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
 
