@@ -110,13 +110,13 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     {
       provide: AccountConfiguration,
       useFactory: RegisterBackendConfiguration,
-      deps: [AuthService],
+      // deps: [AuthService],
       multi: false
     },
     {
       provide: ConventionConfiguration,
       useFactory: RegisterBackendConfiguration,
-      deps: [AuthService],
+      // deps: [AuthService],
       multi: false
     },
     {
