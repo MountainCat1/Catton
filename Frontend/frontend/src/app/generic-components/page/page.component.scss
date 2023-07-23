@@ -1,7 +1,5 @@
 @import "src/styles/styles";
 
-$top-padding: 5em;
-
 :host {
   display: block;
 
@@ -10,8 +8,5 @@ $top-padding: 5em;
 
   min-height: 100vh;
 
-  background: $background-color-1;
-}
-.top-page-padding {
-  padding-top: $top-padding;
+  //background: $background-color-1;
 }

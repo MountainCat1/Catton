@@ -64,3 +64,7 @@ $my-theme: mat.define-dark-theme((
 .mdc-text-field .mdc-text-field__input {
   caret-color: inherit;
 }
+.mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(10px);
+}

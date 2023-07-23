@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./public.component.scss']
 })
 export class PublicComponent {
-
+  showFiller: boolean = false;
 }

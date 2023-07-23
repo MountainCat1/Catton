@@ -1,3 +1,59 @@
-<app-page>
-<router-outlet></router-outlet>
-</app-page>
+<mat-toolbar style="min-height: 3rem;" autofocus>
+  <button type="button" mat-button (click)="toggleLeftSidenav()">
+    <mat-icon>menu</mat-icon>
+    <span>Catton Platform</span>
+  </button>
+
+  <span class="example-spacer"></span>
+
+  <button type="button" mat-button (click)="toggleRightSidenav()">
+    <mat-icon fontIcon="person"></mat-icon>
+    <app-user-info></app-user-info>
+  </button>
+</mat-toolbar>
+
+<div style="min-height: 3rem;"></div>
+
+<mat-sidenav-container >
+  <!-- Left sidenav -->
+  <mat-sidenav #leftSidenav mode="over" [autoFocus]="false">
+    <!-- Content for the left sidenav -->
+    <div class="side-nav-content">
+      <button mat-button (click)="navigateToFromSidebar('/')">
+        <mat-icon fontIcon="home"></mat-icon>
+        Home
+      </button>
+      <button mat-button (click)="navigateToFromSidebar('/conventions')">
+        <mat-icon fontIcon="group"></mat-icon>
+        Conventions
+      </button>
+      <button mat-button (click)="navigateToFromSidebar('/accounts')">
+        <mat-icon fontIcon="person"></mat-icon>
+        Accounts
+      </button>
+      <button mat-button (click)="navigateToFromSidebar('/tickets')">
+        <mat-icon fontIcon="attach_money"></mat-icon>
+        Tickets
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main content area -->
+  <mat-sidenav-content>
+    <app-page>
+      <router-outlet></router-outlet>
+    </app-page>
+    <!-- Content for the main area -->
+    <button mat-button (click)="toggleLeftSidenav()">Toggle Left Sidenav</button>
+    <button mat-button (click)="toggleRightSidenav()">Toggle Right Sidenav</button>
+  </mat-sidenav-content>
+
+  <!--  &lt;!&ndash; Right sidenav &ndash;&gt;-->
+  <!--  <mat-sidenav #rightSidenav mode="side" position="end" >-->
+  <!--    &lt;!&ndash; Content for the right sidenav &ndash;&gt;-->
+  <!--    <button mat-button (click)="toggleRightSidenav()">Toggle Right Sidenav</button>-->
+  <!--  </mat-sidenav>-->
+
+
+</mat-sidenav-container>
+

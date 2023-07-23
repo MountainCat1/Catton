@@ -1,0 +1,35 @@
+@import "src/styles/styles";
+
+$top-padding: 80px;
+
+.side-nav-content {
+  padding: 1.6em;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.side-nav-content > * {
+  padding: 1.4em;
+}
+
+
+
+
+.top-page-padding {
+  padding-top: $top-padding;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999; // Adjust the value as needed
+
+  min-height: 20px;
+  box-shadow: $shadow;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+

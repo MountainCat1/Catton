@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import 'url-join';
 import {AccountDto, AccountService} from "./generated-api/accounts";
 import {AuthRequestModel} from "../models/authRequestModel";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, Observable, of} from "rxjs";
 import urlJoin from "url-join";
 import {environment} from "../../environments/environment";
 
@@ -38,13 +38,13 @@ export class AuthService {
     localStorage.setItem(this.accountCookieName, JSON.stringify(dto));
   }
 
-  getAccount(): AccountDto {
+  getAccount(): Observable<AccountDto> {
     const objectString = localStorage.getItem(this.accountCookieName);
 
     if (objectString == null)
       throw Error("No user info cached")
 
-    return JSON.parse(objectString) as AccountDto;
+    return of(JSON.parse(objectString) as AccountDto);
   }
 
   public async authUser(authRequest: AuthRequestModel): Promise<string | undefined> {
