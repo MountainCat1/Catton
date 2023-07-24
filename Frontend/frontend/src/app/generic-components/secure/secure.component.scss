@@ -10,10 +10,17 @@ $top-padding: 80px;
 }
 
 .side-nav-content > * {
-  padding: 1.4em;
+  padding: 2em;
+  display: flex;
+  justify-content: left;
+  column-gap: 1em;
 }
 
 
+:host {
+  height: 100vh;
+  display: block;
+}
 
 
 .top-page-padding {

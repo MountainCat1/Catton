@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="secure.component.scss">
 <mat-toolbar style="min-height: 3rem;" autofocus>
   <button type="button" mat-button (click)="toggleLeftSidenav()">
     <mat-icon>menu</mat-icon>
@@ -12,11 +13,11 @@
   </button>
 </mat-toolbar>
 
-<div style="min-height: 3rem;"></div>
 
-<mat-sidenav-container >
+<mat-sidenav-container style="min-height: 100%; display: block">
   <!-- Left sidenav -->
   <mat-sidenav #leftSidenav mode="over" [autoFocus]="false">
+    <div style="margin-top: 3rem"></div>
     <!-- Content for the left sidenav -->
     <div class="side-nav-content">
       <button mat-button (click)="navigateToFromSidebar('/')">
@@ -25,7 +26,7 @@
       </button>
       <button mat-button (click)="navigateToFromSidebar('/conventions')">
         <mat-icon fontIcon="group"></mat-icon>
-        Conventions
+        <span>Conventions</span>
       </button>
       <button mat-button (click)="navigateToFromSidebar('/accounts')">
         <mat-icon fontIcon="person"></mat-icon>
@@ -43,9 +44,6 @@
     <app-page>
       <router-outlet></router-outlet>
     </app-page>
-    <!-- Content for the main area -->
-    <button mat-button (click)="toggleLeftSidenav()">Toggle Left Sidenav</button>
-    <button mat-button (click)="toggleRightSidenav()">Toggle Right Sidenav</button>
   </mat-sidenav-content>
 
   <!--  &lt;!&ndash; Right sidenav &ndash;&gt;-->
