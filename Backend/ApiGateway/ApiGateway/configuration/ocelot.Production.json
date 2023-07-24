@@ -18,25 +18,6 @@
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
       "SwaggerKey": "conventions",
       "DangerousAcceptAnyServerCertificateValidator": true
-    },
-    {
-      "DownstreamPathTemplate": "/api/conventions",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "catton-conventions.azurewebsites.net",
-          "Port": 443
-        }
-      ],
-      "UpstreamPathTemplate": "/api/conventions",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET"
-      ],
-      "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "conventions",
-      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
   
