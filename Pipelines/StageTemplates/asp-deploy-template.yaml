@@ -23,7 +23,7 @@ stages:
               azureSubscription: '${{ parameters.resourceManagerConnection }}'
               appName: '${{ parameters.appName }}'
               containers: '${{ parameters.registryUri }}/${{ parameters.imageName }}:$(Build.BuildId)'
-          - task: AzureAppServiceSettings@1
+#          - task: AzureAppServiceSettings@1
 #            displayName: 'Azure App Service Settings: ${{ parameters.appName }}'
 #            inputs:
 #              azureSubscription: '${{ parameters.resourceManagerConnection }}'
