@@ -1,7 +1,7 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/conventions/{everything}",
+      "DownstreamPathTemplate": "/api/conventions{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 443
         }
       ],
-      "UpstreamPathTemplate": "/api/conventions/{everything}",
+      "UpstreamPathTemplate": "/api/conventions{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",
