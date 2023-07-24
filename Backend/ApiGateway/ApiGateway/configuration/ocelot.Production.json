@@ -31,16 +31,6 @@
   
   "SwaggerEndPoints": [
     {
-      "Key": "accounts",
-      "Config": [
-        {
-          "Name": "Accounts API",
-          "Version": "v1",
-          "Url": "https://host.docker.internal:5001/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
       "Key": "conventions",
       "Config": [
         {
