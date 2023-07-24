@@ -21,7 +21,9 @@ foreach (string jsonFile in jsonFiles)
 
 // Add all JSON files in the current directory and its subdirectories
 // configuration.AddJsonFile("*.json", optional: true, reloadOnChange: true);
-configuration.AddJsonFile($"configuration/ocelot.{builder.Environment.EnvironmentName}.json");
+var ocelotConfigurationPath = $"configuration/ocelot.{builder.Environment.EnvironmentName}.json"; 
+Console.WriteLine($"Loading ocelot configuration from the path:\t{ocelotConfigurationPath}");
+configuration.AddJsonFile(ocelotConfigurationPath);
 
 // =======================================
 // ===== SERVICES =====
