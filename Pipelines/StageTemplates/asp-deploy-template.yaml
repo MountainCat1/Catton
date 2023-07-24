@@ -24,21 +24,21 @@ stages:
               appName: '${{ parameters.appName }}'
               containers: '${{ parameters.registryUri }}/${{ parameters.imageName }}:$(Build.BuildId)'
           - task: AzureAppServiceSettings@1
-            displayName: 'Azure App Service Settings: ${{ parameters.appName }}'
-            inputs:
-              azureSubscription: '${{ parameters.resourceManagerConnection }}'
-              appName: '${{ parameters.appName }}'
-              resourceGroupName: '${{ parameters.resourceGroup }}'
-              appSettings: |
-                [
-                  {
-                    "name": "WEBSITES_PORT",
-                    "value": "443",
-                    "slotSetting": false
-                  },
-                  {
-                    "name": "BACKEND_URI_CONVENTIONS",
-                    "value": "https://catton-conventions.azurewebsites.net",
-                    "slotSetting": false
-                  }
-                ]
+#            displayName: 'Azure App Service Settings: ${{ parameters.appName }}'
+#            inputs:
+#              azureSubscription: '${{ parameters.resourceManagerConnection }}'
+#              appName: '${{ parameters.appName }}'
+#              resourceGroupName: '${{ parameters.resourceGroup }}'
+#              appSettings: |
+#                [
+#                  {
+#                    "name": "WEBSITES_PORT",
+#                    "value": "443",
+#                    "slotSetting": false
+#                  },
+#                  {
+#                    "name": "BACKEND_URI_CONVENTIONS",
+#                    "value": "https://catton-conventions.azurewebsites.net",
+#                    "slotSetting": false
+#                  }
+#                ]
