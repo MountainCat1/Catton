@@ -19,6 +19,16 @@
         "ASPNETCORE_ENVIRONMENT": "Local"
       }
     },
+    "https PROD": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:6969;http://localhost:6943",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
     "https DockerCompose": {
       "commandName": "Project",
       "dotnetRunMessages": true,
