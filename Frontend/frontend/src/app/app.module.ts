@@ -40,6 +40,7 @@ import {MatCardModule} from "@angular/material/card";
 import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import {MatRippleModule} from "@angular/material/core";
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -69,26 +70,27 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     MainMenuComponent,
     UserInfoComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    GoogleSigninButtonModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-    MatChipsModule,
-    FormsModule,
-    MatProgressSpinnerModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCardModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        GoogleSigninButtonModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatIconModule,
+        MatChipsModule,
+        FormsModule,
+        MatProgressSpinnerModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatCardModule,
+        MatRippleModule
+    ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
