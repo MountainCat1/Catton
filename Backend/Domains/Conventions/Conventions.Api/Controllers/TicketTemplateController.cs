@@ -21,7 +21,7 @@ public class TicketTemplateController : Controller
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Create([FromRoute] Guid conventionId, [FromBody] TicketTemplateCreateDto createDto)
+    public async Task<IActionResult> Create([FromRoute] string conventionId, [FromBody] TicketTemplateCreateDto createDto)
     {
         var request = new CreateTicketTemplateRequest()
         {
@@ -46,7 +46,7 @@ public class TicketTemplateController : Controller
     [ProducesResponseType(typeof(TicketTemplateDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTicketTemplate([FromRoute] Guid conventionId, [FromRoute] Guid ticketTemplateId)
+    public async Task<IActionResult> GetTicketTemplate([FromRoute] string conventionId, [FromRoute] Guid ticketTemplateId)
     {
         var request = new GetTicketTemplateRequest()
         {
@@ -63,7 +63,7 @@ public class TicketTemplateController : Controller
     [ProducesResponseType(typeof(ICollection<TicketTemplateDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTicketsTemplate([FromRoute] Guid conventionId)
+    public async Task<IActionResult> GetTicketsTemplate([FromRoute] string conventionId)
     {
         var request = new GetTicketTemplatesRequest()
         {
@@ -80,7 +80,7 @@ public class TicketTemplateController : Controller
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateTicketsTemplate(
-        [FromRoute] Guid conventionId,
+        [FromRoute] string conventionId,
         [FromRoute] Guid ticketTemplateId,
         [FromBody] TicketTemplateUpdateDto updateDto)
     {
@@ -101,7 +101,7 @@ public class TicketTemplateController : Controller
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteTicketsTemplate(
-        [FromRoute] Guid conventionId,
+        [FromRoute] string conventionId,
         [FromRoute] Guid ticketTemplateId)
     {
         var request = new DeleteTicketTemplateRequest()

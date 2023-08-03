@@ -2,7 +2,7 @@
 
 public record ConventionDto
 {
-    public required Guid Id { get; set; }
+    public required string Id { get; set; }
     public required string Name { get; init; }
     public required string Description { get; init; }
     public required bool Active { get; init; }

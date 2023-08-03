@@ -13,7 +13,7 @@ namespace ConventionDomain.Application.Features.OrganizerFeature;
 public class UpdateOrganizerRequest : IRequest<OrganizerDto>
 {
     public required Guid OrganizerId { get; init; }
-    public required Guid ConventionId { get; init; }
+    public required string ConventionId { get; init; }
     public required OrganizerUpdateDto UpdateDto { get; init; }
 }
 

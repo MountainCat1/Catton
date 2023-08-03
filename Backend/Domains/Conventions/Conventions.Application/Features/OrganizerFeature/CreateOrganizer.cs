@@ -14,7 +14,7 @@ namespace ConventionDomain.Application.Features.OrganizerFeature;
 public class CreateOrganizerRequest : IRequest<OrganizerDto>
 {
     public required OrganizerCreateDto OrganizerCreateDto { get; init; }
-    public required Guid ConventionId { get; set; }
+    public required string ConventionId { get; set; }
 }
 
 public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequest, OrganizerDto>

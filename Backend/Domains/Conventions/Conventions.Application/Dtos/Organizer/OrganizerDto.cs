@@ -5,7 +5,7 @@ namespace ConventionDomain.Application.Dtos.Organizer;
 public record OrganizerDto
 {
     public Guid AccountId { get; init; }
-    public Guid ConventionId { get; init; }
+    public string ConventionId { get; init; }
     public DateTime CreatedDate { get; init; }
     public OrganizerRole Role { get; init; }
 }

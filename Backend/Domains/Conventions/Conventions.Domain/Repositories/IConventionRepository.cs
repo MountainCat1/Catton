@@ -7,11 +7,11 @@ namespace Conventions.Domain.Repositories;
 public interface IConventionRepository : IRepository<Convention>
 {
     Task<ICollection<Convention>> GetByOrganizatorId(Guid accountId);
-    Task<Convention?> GetOneWithOrganizersAsync(Guid conventionId);
-    Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplateAsync(Guid conventionId, Guid ticketTemplateId);
-    Task<(Convention? convention, Organizer? organizer)> GetOrganizerAsync(Guid conventionId, Guid organizerId);
+    Task<Convention?> GetOneWithOrganizersAsync(string conventionId);
+    Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplateAsync(string conventionId, Guid ticketTemplateId);
+    Task<(Convention? convention, Organizer? organizer)> GetOrganizerAsync(string conventionId, Guid organizerId);
 
     Task<Convention?> GetOneWithAsync(
-        Guid id, 
+        string id, 
         params Expression<Func<Convention, object>>[] includeProperties);
 }

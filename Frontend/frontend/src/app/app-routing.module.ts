@@ -15,6 +15,7 @@ import {PublicPopupComponent} from "./generic-components/public-popup/public-pop
 import {AuthService} from "./services/auth.service";
 import {SelectConventionComponent} from "./components/select-convention/select-convention.component";
 import {MainMenuComponent} from "./components/main-menu/main-menu.component";
+import {OrganizersComponent} from "./components/organizers/organizers.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -37,8 +38,10 @@ const PUBLIC_ROUTES: Routes = [
 const PUBLIC_POPUP_ROUTES: Routes = [
   {path: 'sign-in', component: SignInComponent}
 ]
+
 const SECURE_ROUTES: Routes = [
   {path: 'conventions', component: SelectConventionComponent},
+  {path: ':conventionId/organizers', component: OrganizersComponent},
   {path: '', component: MainMenuComponent},
 ]
 

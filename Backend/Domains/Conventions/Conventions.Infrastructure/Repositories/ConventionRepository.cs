@@ -22,7 +22,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
     }
 
     public async Task<Convention?> GetOneWithAsync(
-        Guid id, 
+        string id, 
         params Expression<Func<Convention, object>>[] includeProperties)
     {
         var query = DbSet.AsQueryable();
@@ -36,14 +36,14 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
     }
 
     
-    public async Task<Convention?> GetOneWithOrganizersAsync(Guid conventionId)
+    public async Task<Convention?> GetOneWithOrganizersAsync(string conventionId)
     {
         return await DbSet
             .Include(convention => convention.Organizers)
             .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
     
-    public async Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplateAsync(Guid conventionId, Guid ticketTemplateId)
+    public async Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplateAsync(string conventionId, Guid ticketTemplateId)
     {
         var result = await DbContext.Conventions
             .Include(x => x.Organizers)
@@ -59,7 +59,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
     }
 
     public async Task<(Convention? convention, Organizer? organizer)> GetOrganizerAsync(
-        Guid conventionId,
+        string conventionId,
         Guid organizerId)
     {
         var result = await DbContext.Conventions

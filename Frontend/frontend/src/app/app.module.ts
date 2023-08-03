@@ -41,6 +41,7 @@ import { StaticChipComponent } from './generic-components/static-chip/static-chi
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import {MatRippleModule} from "@angular/material/core";
+import { OrganizersComponent } from './components/organizers/organizers.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -69,6 +70,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     StaticChipComponent,
     MainMenuComponent,
     UserInfoComponent,
+    OrganizersComponent,
   ],
     imports: [
         BrowserModule,

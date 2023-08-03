@@ -39,7 +39,7 @@ namespace Conventions.Api.Controllers;
         [HttpGet("{id:guid}")]
         [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType( typeof(ConventionDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] string id)
         {
             var request = new GetConventionRequest()
             {

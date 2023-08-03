@@ -23,7 +23,7 @@ public class OrganizerController : Controller
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> CreateOrganizer(
-        [FromRoute] Guid conventionId,
+        [FromRoute] string conventionId,
         [FromBody] OrganizerCreateDto createDto)
     {
         var request = new CreateOrganizerRequest()
@@ -44,7 +44,7 @@ public class OrganizerController : Controller
     [ProducesResponseType(typeof(OrganizerDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetOrganizer([FromRoute] Guid conventionId, [FromRoute] Guid organizerId)
+    public async Task<IActionResult> GetOrganizer([FromRoute] string conventionId, [FromRoute] Guid organizerId)
     {
         var request = new GetOrganizerRequest()
         {
@@ -61,7 +61,7 @@ public class OrganizerController : Controller
     [ProducesResponseType(typeof(ICollection<OrganizerDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetOrganizers([FromRoute] Guid conventionId)
+    public async Task<IActionResult> GetOrganizers([FromRoute] string conventionId)
     {
         var request = new GetOrganizersRequest()
         {
@@ -78,7 +78,7 @@ public class OrganizerController : Controller
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateOrganizer(
-        [FromRoute] Guid conventionId,
+        [FromRoute] string conventionId,
         [FromRoute] Guid organizerId,
         [FromBody] OrganizerUpdateDto updateDto)
     {
@@ -99,7 +99,7 @@ public class OrganizerController : Controller
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteOrganizer(
-        [FromRoute] Guid conventionId,
+        [FromRoute] string conventionId,
         [FromRoute] Guid organizerId)
     {
         var request = new DeleteOrganizerRequest()

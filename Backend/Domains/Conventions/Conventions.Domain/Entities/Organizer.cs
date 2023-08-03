@@ -26,7 +26,7 @@ public class Organizer : Entity
     
     [ForeignKey(nameof(ConventionId))]
     public Convention Convention { private set; get; }
-    public Guid ConventionId { private set; get; }
+    public string ConventionId { private set; get; }
     
     
     public DateTime CreatedDate { get; set; }

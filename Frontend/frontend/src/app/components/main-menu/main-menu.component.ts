@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {LocalCacheService} from "../../services/local-cache.service";
 
 @Component({
   selector: 'app-main-menu',
@@ -8,12 +9,15 @@ import {Router} from "@angular/router";
 })
 export class MainMenuComponent {
 
-  constructor(private router : Router) {
+  constructor(
+    private router : Router,
+    private localCacheService : LocalCacheService) {
 
   }
 
 
   navigateTo(path: string) {
-    this.router.navigate([path])
+    const conventionId = this.localCacheService.selectedConvention;
+    this.router.navigate([`/${conventionId}`, path])
   }
 }

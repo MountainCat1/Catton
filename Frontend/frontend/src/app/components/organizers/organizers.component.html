@@ -1,0 +1,23 @@
+<ng-container *ngIf="(organizers$ | withHttpLoading | async) as result">
+
+  <ng-container *ngIf="result.loading">
+    <mat-spinner class="loading-spinner"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="result.error">
+    <div class="error-message-big">
+      <mat-error>Error: {{ getFriendlyErrorMessage(result.error) }}</mat-error>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="result.value">
+    <div class="convention-list">
+      <div *ngFor="let item of organizers$ | async">
+        <div>
+          {{item.role}}
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
