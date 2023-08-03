@@ -29,10 +29,11 @@ public class Convention : Entity
     {
     }
 
-    public static Convention CreateInstance(string name, string description, Guid creatorId)
+    public static Convention CreateInstance(string id, string name, string description, Guid creatorId)
     {
         var entity = new Convention
         {
+            Id = id,
             Name = name,
             Description = description,
             CreatedDate = DateTime.Now
