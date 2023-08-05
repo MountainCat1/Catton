@@ -11,7 +11,7 @@ namespace ConventionDomain.Application.Features.ConventionFeature;
 
 public class UpdateConventionRequest : IRequest
 {
-    public required Guid Id { get; init; }
+    public required string Id { get; init; }
     public required ConventionUpdateDto UpdateDto { get; init; }
 }
 

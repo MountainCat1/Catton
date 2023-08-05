@@ -19,7 +19,7 @@ export class SelectConventionComponent implements OnInit {
   constructor(
     private conventionService : ConventionService,
     private localCacheService : LocalCacheService,
-    private router : Router
+    private router : Router,
   ) {
   }
 
@@ -39,9 +39,8 @@ export class SelectConventionComponent implements OnInit {
 
   selectConvention(conventionId : string){
     this.localCacheService.selectedConvention = conventionId;
-    this.router.navigate(['/']).then()
+    this.router.navigate([`/${conventionId}`]).then()
   }
 
-  protected readonly String = String;
   protected readonly getFriendlyErrorMessage = getFriendlyErrorMessage;
 }

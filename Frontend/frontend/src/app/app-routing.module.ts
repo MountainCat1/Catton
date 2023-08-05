@@ -1,7 +1,7 @@
 import {inject, NgModule} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivateFn,
+  CanActivateFn, ExtraOptions,
   Router,
   RouterModule,
   RouterStateSnapshot,
@@ -33,18 +33,21 @@ const guard: CanActivateFn = (
   }
 };
 
-const PUBLIC_ROUTES: Routes = [
-]
+const PUBLIC_ROUTES: Routes = []
 const PUBLIC_POPUP_ROUTES: Routes = [
   {path: 'sign-in', component: SignInComponent}
 ]
 
-const SECURE_ROUTES: Routes = [
-  {path: 'conventions', component: SelectConventionComponent},
-  {path: ':conventionId/organizers', component: OrganizersComponent},
+const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: '', component: MainMenuComponent},
+  {path: 'organizers', component: OrganizersComponent},
 ]
 
+const SECURE_ROUTES: Routes = [
+  {path: '', pathMatch: "full", redirectTo: '/select-convention'},
+  {path: 'select-convention', component: SelectConventionComponent},
+  {path: ':conventionId', children: SECURE_ROUTES_CONVENTION_SELECTED},
+]
 
 const APP_ROUTES: Routes = [
   {path: '', component: SecureComponent, canActivate: [guard], data: {title: 'Secure Views'}, children: SECURE_ROUTES},
@@ -52,8 +55,13 @@ const APP_ROUTES: Routes = [
   {path: '', component: PublicComponent, data: {title: 'Public Views'}, children: PUBLIC_ROUTES},
 ];
 
+export const routingConfiguration: ExtraOptions = {
+  paramsInheritanceStrategy: 'always',
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(APP_ROUTES)],
+  imports: [RouterModule.forRoot(APP_ROUTES, routingConfiguration)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

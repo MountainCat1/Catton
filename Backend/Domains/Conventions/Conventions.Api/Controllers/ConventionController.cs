@@ -36,7 +36,7 @@ namespace Conventions.Api.Controllers;
         }
         
         
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id}")]
         [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType( typeof(ConventionDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get([FromRoute] string id)
@@ -66,9 +66,9 @@ namespace Conventions.Api.Controllers;
             return Ok(result);
         }
         
-        [HttpPut("{id:guid}")]
+        [HttpPut("{id}")]
         [ProducesResponseType( typeof(ErrorResponse),StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ConventionUpdateDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] ConventionUpdateDto updateDto)
         {
             var request = new UpdateConventionRequest()
             {

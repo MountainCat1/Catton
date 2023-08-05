@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Conventions.Api.Controllers;
 
+[Authorize]
 [ApiController]
-[Route("api/conventions/{conventionId:guid}/organizers")]
+[Route("api/conventions/{conventionId}/organizers")]
 public class OrganizerController : Controller
 {
     private readonly IMediator _mediator;

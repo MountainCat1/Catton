@@ -20,22 +20,29 @@
     <div style="margin-top: 3rem"></div>
     <!-- Content for the left sidenav -->
     <div class="side-nav-content">
-      <button mat-button (click)="navigateToFromSidebar('/')">
+      <button mat-button (click)="navigationService.toMenu()">
         <mat-icon fontIcon="home"></mat-icon>
         Home
       </button>
-      <button mat-button (click)="navigateToFromSidebar('/conventions')">
+      <button mat-button (click)="hideSidebars(); navigationService.toSelectConvention()">
         <mat-icon fontIcon="group"></mat-icon>
         <span>Conventions</span>
       </button>
-      <button mat-button (click)="navigateToFromSidebar('/accounts')">
+      <button mat-button (click)="hideSidebars(); navigationService.toOrganizers()">
         <mat-icon fontIcon="person"></mat-icon>
-        Accounts
+        Organizers
       </button>
-      <button mat-button (click)="navigateToFromSidebar('/tickets')">
+      <button mat-button (click)="hideSidebars(); navigationService.toTickets()">
         <mat-icon fontIcon="attach_money"></mat-icon>
         Tickets
       </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav #rightSidenav mode="over" [autoFocus]="false" position="end">
+    <div style="margin-top: 3rem"></div>
+    <!-- Content for the left sidenav -->
+    <div class="side-nav-content">
     </div>
   </mat-sidenav>
 
@@ -45,13 +52,5 @@
       <router-outlet></router-outlet>
     </app-page>
   </mat-sidenav-content>
-
-  <!--  &lt;!&ndash; Right sidenav &ndash;&gt;-->
-  <!--  <mat-sidenav #rightSidenav mode="side" position="end" >-->
-  <!--    &lt;!&ndash; Content for the right sidenav &ndash;&gt;-->
-  <!--    <button mat-button (click)="toggleRightSidenav()">Toggle Right Sidenav</button>-->
-  <!--  </mat-sidenav>-->
-
-
 </mat-sidenav-container>
 
