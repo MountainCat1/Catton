@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRoute, ActivationEnd, Params, Router} from "@angular/router";
-import {filter, firstValueFrom, lastValueFrom} from "rxjs";
-import {map} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -13,49 +11,45 @@ export class NavigationService {
     private activeRoute: ActivatedRoute) {
   }
 
-  public toMenu = async () => {
-    this.activeRoute.params.subscribe(params => {
-      const conventionId = params["conventionId"];
-      this.router.navigate([`/${conventionId}`]);
-    })
+  public async toConvention(conventionId: string) {
+    await this.router.navigate([`c/${conventionId}`]);
+  }
+
+  public async toMenu() {
+    const conventionId = this.getParam('conventionId')
+    await this.router.navigate([`c/${conventionId}`]);
   }
 
   public toOrganizers = async () => {
-
-    this.activeRoute.params.subscribe(params => {
-      const conventionId = params["conventionId"];
-      this.router.navigate([`/${conventionId}/organizers`]);
-    })
+    console.log('Xd')
+    const conventionId = this.getParam('conventionId')
+    await this.router.navigate([`c/${conventionId}/organizers`]);
   }
 
-  public async toTickets(): Promise<boolean> {
-    const params = await this.getParams();
-    const conventionId = params['conventionId'];
+  public async toTickets() {
+    const conventionId = this.getParam('conventionId')
+    return await this.router.navigate([`c/${conventionId}/tickets`]);
+  }
 
-    if (conventionId == undefined) {
-      this.warnAboutEmptyParams()
-    }
-
-    return await this.router.navigate([`/${conventionId}/tickets`]);
+  async toSignIn() {
+    return await this.router.navigate([`/sign-in`]);
   }
 
   public async toSelectConvention() {
     return await this.router.navigate([`/select-convention`]);
   }
+  private getParam(key: string) {
+    let child = this.activeRoute.snapshot;
 
-  private async getParams(): Promise<Params> {
+    while (child.firstChild) {
+      child = child.firstChild;
+    }
 
-    return await lastValueFrom(this.activeRoute.params);
+    return child.params[key];
   }
 
   private warnAboutEmptyParams = () => {
     console.warn("Route param is undefined. Please check this: " +
       "https://stackoverflow.com/questions/39977962/angular-2-0-2-activatedroute-is-empty-in-a-service")
-  }
-
-  params()  {
-    this.activeRoute.params.subscribe(x => {
-      console.log(x)
-    })
   }
 }

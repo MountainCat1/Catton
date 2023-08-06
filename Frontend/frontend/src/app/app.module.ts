@@ -42,6 +42,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import {MatRippleModule} from "@angular/material/core";
 import { OrganizersComponent } from './components/organizers/organizers.component';
+import { InitialRedirectComponent } from './components/initial-redirect/initial-redirect.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -71,6 +72,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     MainMenuComponent,
     UserInfoComponent,
     OrganizersComponent,
+    InitialRedirectComponent,
   ],
     imports: [
         BrowserModule,

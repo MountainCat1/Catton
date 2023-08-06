@@ -21,15 +21,11 @@ export class OrganizersComponent {
     private organizerService : OrganizerService,
     private navigationService : NavigationService
     ) {
-    navigationService.params()
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.conventionId = params['conventionId'];
-      console.log(params )
-
-
       this.organizers$ = this.organizerService.apiConventionsConventionIdOrganizersGet(this.conventionId);
     });
 

@@ -47,6 +47,15 @@ export class AuthService {
     return of(JSON.parse(objectString) as AccountDto);
   }
 
+  tryGetAccount(): Observable<AccountDto | undefined> {
+    const objectString = localStorage.getItem(this.accountCookieName);
+
+    if(objectString == undefined)
+      return of(undefined);
+
+    return of(JSON.parse(objectString) as AccountDto);
+  }
+
   public async authUser(authRequest: AuthRequestModel): Promise<string | undefined> {
     try {
       // Fetch user token from backend

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="secure.component.scss">
+<link rel="stylesheet" href="secure.component.scss" xmlns="http://www.w3.org/1999/html">
 <mat-toolbar style="min-height: 3rem;" autofocus>
   <button type="button" mat-button (click)="toggleLeftSidenav()">
     <mat-icon>menu</mat-icon>
@@ -20,14 +20,11 @@
     <div style="margin-top: 3rem"></div>
     <!-- Content for the left sidenav -->
     <div class="side-nav-content">
-      <button mat-button (click)="navigationService.toMenu()">
+      <button mat-button (click)="hideSidebars(); navigationService.toMenu()">
         <mat-icon fontIcon="home"></mat-icon>
         Home
       </button>
-      <button mat-button (click)="hideSidebars(); navigationService.toSelectConvention()">
-        <mat-icon fontIcon="group"></mat-icon>
-        <span>Conventions</span>
-      </button>
+
       <button mat-button (click)="hideSidebars(); navigationService.toOrganizers()">
         <mat-icon fontIcon="person"></mat-icon>
         Organizers
@@ -35,6 +32,12 @@
       <button mat-button (click)="hideSidebars(); navigationService.toTickets()">
         <mat-icon fontIcon="attach_money"></mat-icon>
         Tickets
+      </button>
+
+      <div style="margin-top: 1.5em; padding: 0"></div>
+      <button mat-button (click)="hideSidebars(); navigationService.toSelectConvention()">
+        <mat-icon fontIcon="group"></mat-icon>
+        <span>Conventions</span>
       </button>
     </div>
   </mat-sidenav>
