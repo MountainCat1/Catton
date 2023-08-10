@@ -140,8 +140,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -198,8 +197,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -257,8 +255,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -354,8 +351,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -443,8 +439,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -530,8 +525,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -638,8 +632,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -735,8 +728,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -824,8 +816,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -911,8 +902,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -1014,6 +1004,10 @@
       "ConventionCreateDto": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
           "name": {
             "type": "string",
             "nullable": true
@@ -1030,7 +1024,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -1118,7 +1112,7 @@
           },
           "conventionId": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           },
           "createdDate": {
             "type": "string",
@@ -1126,6 +1120,15 @@
           },
           "role": {
             "$ref": "#/components/schemas/OrganizerRole"
+          },
+          "accountUsername": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountAvatarUri": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1196,7 +1199,7 @@
           },
           "convetionId": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           },
           "lastEditAuthorId": {
             "type": "string",

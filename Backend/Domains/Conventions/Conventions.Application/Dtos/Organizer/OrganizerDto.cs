@@ -8,6 +8,8 @@ public record OrganizerDto
     public string ConventionId { get; init; }
     public DateTime CreatedDate { get; init; }
     public OrganizerRole Role { get; init; }
+    public string AccountUsername { get; set; }
+    public Uri? AccountAvatarUri { get; set; }
 }
 
 public static class ConventionOrganizerExtensions
@@ -19,7 +21,11 @@ public static class ConventionOrganizerExtensions
             AccountId = organizer.AccountId,
             ConventionId = organizer.ConventionId,
             CreatedDate = organizer.CreatedDate,
-            Role = organizer.Role
+            
+            Role = organizer.Role,
+            
+            AccountUsername = organizer.AccountUsername,
+            AccountAvatarUri = organizer.AccountAvatarUri
         };
     }
 }

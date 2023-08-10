@@ -14,9 +14,11 @@ import { OrganizerRole } from './organizerRole';
 
 export interface OrganizerDto { 
     accountId?: string;
-    conventionId?: string;
+    conventionId?: string | null;
     createdDate?: string;
     role?: OrganizerRole;
+    accountUsername?: string | null;
+    accountAvatarUri?: string | null;
 }
 export namespace OrganizerDto {
 }

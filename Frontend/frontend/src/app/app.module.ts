@@ -43,6 +43,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import {MatRippleModule} from "@angular/material/core";
 import { OrganizersComponent } from './components/organizers/organizers.component';
 import { InitialRedirectComponent } from './components/initial-redirect/initial-redirect.component';
+import {NgOptimizedImage} from "@angular/common";
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -93,7 +94,8 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
         MatSidenavModule,
         MatListModule,
         MatCardModule,
-        MatRippleModule
+        MatRippleModule,
+        NgOptimizedImage
     ],
   providers: [
     {

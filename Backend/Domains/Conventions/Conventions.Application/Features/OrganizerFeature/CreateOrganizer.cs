@@ -36,11 +36,11 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
         _accountsApi = accountsApi;
     }
 
-    public async Task<OrganizerDto> Handle(CreateOrganizerRequest req, CancellationToken cancellationToken)
+    public async Task<OrganizerDto> Handle(CreateOrganizerRequest req, CancellationToken ct)
     {
         var dto = req.OrganizerCreateDto;
 
-        await _accountsApi.AccountsGETAsync(dto.AccountId, cancellationToken);
+        await _accountsApi.AccountsGETAsync(dto.AccountId, ct);
         
         var convention = await _conventionRepository.GetOneWithAsync(req.ConventionId, c => c.Organizers);
 
@@ -53,9 +53,12 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
             throw new BadRequestError(
                 $"Account ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
 
+        var account = await _accountsApi.AccountsGETAsync(req.OrganizerCreateDto.AccountId, ct);
+
         var organizer = Organizer.CreateInstance(
             convention: convention,
             accountId: dto.AccountId,
+            accountUsername: account.Username,
             role: dto.Role
         );
 

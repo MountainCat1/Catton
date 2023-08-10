@@ -12,9 +12,15 @@
 
   <ng-container *ngIf="result.value">
     <div class="convention-list">
-      <div *ngFor="let item of organizers$ | async">
+      <div *ngFor="let item of organizers$ | async" style="border: solid red">
         <div>
           {{item.role}}
+        </div>
+        <div>
+          {{item.accountUsername}}
+        </div>
+        <div>
+          <img ngSrc="{{item.accountAvatarUri}}" alt="{{item.accountUsername}}'s avatar" width="50" height="50">
         </div>
       </div>
     </div>
