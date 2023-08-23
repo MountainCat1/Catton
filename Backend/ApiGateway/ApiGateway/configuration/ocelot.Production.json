@@ -1,84 +1,26 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/accounts{everything}",
+      "DownstreamPathTemplate": "/api/conventions{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "accounts_domain",
+          "Host": "catton-conventions.azurewebsites.net",
           "Port": 443
         }
       ],
-      "UpstreamPathTemplate": "/api/accounts{everything}",
+      "UpstreamPathTemplate": "/api/conventions{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",
         "GET"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "accounts",
-      "DangerousAcceptAnyServerCertificateValidator": true
-    },
-    {
-      "DownstreamPathTemplate": "/api/accounts",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "accounts_domain",
-          "Port": 443
-        }
-      ],
-      "UpstreamPathTemplate": "/api/accounts",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET"
-      ],
-      "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "accounts",
-      "DangerousAcceptAnyServerCertificateValidator": true
-    },
-    
-    {
-      "DownstreamPathTemplate": "/api/conventions/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/conventions/{everything}",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET"
-      ],
-      "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "conventions",
-      "DangerousAcceptAnyServerCertificateValidator": true
-    },
-    {
-      "DownstreamPathTemplate": "/api/conventions",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/conventions",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET"
-      ],
-      "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "conventions",
+      "SwaggerKey": "conventionsKey",
       "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
-  
+
   "GlobalConfiguration": {
     "BaseUrl": "https://host.docker.internal:5000",
     "LogLevel": {
@@ -86,25 +28,15 @@
     },
     "DangerousAcceptAnyServerCertificateValidator": true
   },
-  
+
   "SwaggerEndPoints": [
     {
-      "Key": "accounts",
-      "Config": [
-        {
-          "Name": "Accounts API",
-          "Version": "v1",
-          "Url": "https://host.docker.internal:5001/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "conventions",
+      "Key": "conventionsKey",
       "Config": [
         {
           "Name": "Conventions API",
           "Version": "v1",
-          "Url": "https://host.docker.internal:5002/swagger/v1/swagger.json"
+          "Url": "https://catton-conventions.azurewebsites.net:443/swagger/v1/swagger.json"
         }
       ]
     }

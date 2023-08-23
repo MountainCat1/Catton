@@ -7,10 +7,10 @@ trigger:
       - main
   paths:
     include:
-      - '**/ApiGateway/*'
+      - '**/Domains/Conventions/*'
 
 stages:
     - template: /Pipelines/Templates/domain-template.yaml
       parameters:
-        appName: 'catton-api-gateway'
-        projectPath: '**/ApiGateway'
+        appName: 'catton-conventions'
+        projectPath: '**/Domains/Conventions'
