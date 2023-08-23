@@ -11,7 +11,7 @@ namespace ConventionDomain.Application.Features.OrganizerFeature;
 
 public class DeleteOrganizerRequest : IRequest<OrganizerDto>
 {
-    public required Guid ConventionId { get; init; }
+    public required string ConventionId { get; init; }
     public required Guid OrganizerId { get; init; }
 }
 

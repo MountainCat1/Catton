@@ -1,27 +1,59 @@
 import {Injectable} from '@angular/core';
-import {SocialUser} from "@abacritt/angularx-social-login";
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "src/environments/environment";
-import {firstValueFrom} from "rxjs";
-import {AuthRequestModel} from "../models/authRequestModel";
 import 'url-join';
+import {AccountDto, AccountService} from "./generated-api/accounts";
+import {AuthRequestModel} from "../models/authRequestModel";
+import {firstValueFrom, Observable, of} from "rxjs";
 import urlJoin from "url-join";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUri = environment.API_BASE_PATH;
   private readonly authCookieName = 'auth_token'
+  private readonly accountCookieName = 'account'
 
-  constructor(private _cookieService: CookieService, private http: HttpClient) {
+  constructor(private _cookieService: CookieService,
+              private http: HttpClient,
+              private accountService: AccountService) {
   }
 
-  public getUser(): SocialUser | undefined {
-    // TODO
 
-    return undefined;
+  public getToken(): string | undefined {
+    return this._cookieService.get(this.authCookieName);
+  }
+
+  public setToken(token: string): void {
+
+    this._cookieService.set(this.authCookieName, token)
+
+    this.accountService.apiAccountsMeGet().subscribe(dto => {
+      this.setAccount(dto);
+    })
+  }
+
+  private setAccount(dto: AccountDto): void {
+    localStorage.setItem(this.accountCookieName, JSON.stringify(dto));
+  }
+
+  getAccount(): Observable<AccountDto> {
+    const objectString = localStorage.getItem(this.accountCookieName);
+
+    if (objectString == null)
+      throw Error("No user info cached")
+
+    return of(JSON.parse(objectString) as AccountDto);
+  }
+
+  tryGetAccount(): Observable<AccountDto | undefined> {
+    const objectString = localStorage.getItem(this.accountCookieName);
+
+    if(objectString == undefined)
+      return of(undefined);
+
+    return of(JSON.parse(objectString) as AccountDto);
   }
 
   public async authUser(authRequest: AuthRequestModel): Promise<string | undefined> {
@@ -31,7 +63,7 @@ export class AuthService {
         // 'Authorization': `Bearer ${authRequest.token}`
       };
 
-      let authToken = await firstValueFrom(this.http.post(urlJoin(this.apiUri, "api/auth/google"), authRequest, {responseType: 'text', headers: headers}));
+      let authToken = await firstValueFrom(this.http.post(urlJoin(environment.API_BASE_PATH, "api/auth/google"), authRequest, {responseType: 'text', headers: headers}));
 
       // Set token to cookies
       this._cookieService.set("auth_token", authToken);
@@ -43,13 +75,5 @@ export class AuthService {
       console.error(error);
       return undefined;
     }
-  }
-
-  public getToken() : string | undefined {
-    return this._cookieService.get(this.authCookieName);
-  }
-
-  public setToken(token : string) : void {
-    return this._cookieService.set(this.authCookieName, token);
   }
 }

@@ -150,7 +150,7 @@ export class OrganizerService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/organizers`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/organizers`;
         return this.httpClient.request<Array<OrganizerDto>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -220,7 +220,7 @@ export class OrganizerService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/organizers/${this.configuration.encodeParam({name: "organizerId", value: organizerId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/organizers/${this.configuration.encodeParam({name: "organizerId", value: organizerId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
         return this.httpClient.request<OrganizerDto>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -302,7 +302,7 @@ export class OrganizerService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/organizers/${this.configuration.encodeParam({name: "organizerId", value: organizerId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/organizers/${this.configuration.encodeParam({name: "organizerId", value: organizerId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
         return this.httpClient.request<OrganizerDto>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -381,7 +381,7 @@ export class OrganizerService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/organizers`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/organizers`;
         return this.httpClient.request<OrganizerDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

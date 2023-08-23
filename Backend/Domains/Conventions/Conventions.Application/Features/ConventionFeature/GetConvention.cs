@@ -11,7 +11,7 @@ namespace ConventionDomain.Application.Features.ConventionFeature;
 
 public class GetConventionRequest : IRequest<ConventionDto>
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 }
 
 public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest, ConventionDto>

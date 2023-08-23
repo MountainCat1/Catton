@@ -11,7 +11,7 @@ namespace ConventionDomain.Application.Features.TicketTemplates;
 
 public class GetTicketTemplatesRequest : IRequest<ICollection<TicketTemplateDto>>
 {
-    public required Guid ConventionId { get; init; }
+    public required string ConventionId { get; init; }
 }
 
 public class GetTicketTemplatesRequestHandler : IRequestHandler<GetTicketTemplatesRequest, ICollection<TicketTemplateDto>>

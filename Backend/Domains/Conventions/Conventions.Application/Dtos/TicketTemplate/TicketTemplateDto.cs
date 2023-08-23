@@ -11,7 +11,7 @@ public class TicketTemplateDto
 
     public DateTime CreateDate { get; set; }
 
-    public Guid ConvetionId { get; set; }
+    public string ConvetionId { get; set; } = "";
 
     public Guid? LastEditAuthorId { get; set; }
     public Guid AuthorId { get; set; }

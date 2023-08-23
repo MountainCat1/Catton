@@ -1,14 +1,2 @@
 @import "src/styles/variables";
 
-mat-toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999; // Adjust the value as needed
-
-  height: 2.5em;
-  box-shadow: $shadow;
-}
-.example-spacer {
-  flex: 1 1 auto;
-}

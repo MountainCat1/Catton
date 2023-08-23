@@ -11,7 +11,7 @@ namespace ConventionDomain.Application.Features.OrganizerFeature;
 
 public class GetOrganizersRequest : IRequest<ICollection<OrganizerDto>>
 {
-    public required Guid ConventionId { get; set; }
+    public required string ConventionId { get; set; }
 }
 
 public class GetOrganizersRequestHandler : IRequestHandler<GetOrganizersRequest, ICollection<OrganizerDto>>

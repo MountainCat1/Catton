@@ -1,3 +1,59 @@
-<app-page>
-<router-outlet></router-outlet>
-</app-page>
+<link rel="stylesheet" href="secure.component.scss" xmlns="http://www.w3.org/1999/html">
+<mat-toolbar style="min-height: 3rem;" autofocus>
+  <button type="button" mat-button (click)="toggleLeftSidenav()">
+    <mat-icon>menu</mat-icon>
+    <span>Catton Platform</span>
+  </button>
+
+  <span class="example-spacer"></span>
+
+  <button type="button" mat-button (click)="toggleRightSidenav()">
+    <mat-icon fontIcon="person"></mat-icon>
+    <app-user-info></app-user-info>
+  </button>
+</mat-toolbar>
+
+
+<mat-sidenav-container style="min-height: 100%; display: block">
+  <!-- Left sidenav -->
+  <mat-sidenav #leftSidenav mode="over" [autoFocus]="false">
+    <div style="margin-top: 3rem"></div>
+    <!-- Content for the left sidenav -->
+    <div class="side-nav-content">
+      <button mat-button (click)="hideSidebars(); navigationService.toMenu()">
+        <mat-icon fontIcon="home"></mat-icon>
+        Home
+      </button>
+
+      <button mat-button (click)="hideSidebars(); navigationService.toOrganizers()">
+        <mat-icon fontIcon="person"></mat-icon>
+        Organizers
+      </button>
+      <button mat-button (click)="hideSidebars(); navigationService.toTickets()">
+        <mat-icon fontIcon="attach_money"></mat-icon>
+        Tickets
+      </button>
+
+      <div style="margin-top: 1.5em; padding: 0"></div>
+      <button mat-button (click)="hideSidebars(); navigationService.toSelectConvention()">
+        <mat-icon fontIcon="group"></mat-icon>
+        <span>Conventions</span>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav #rightSidenav mode="over" [autoFocus]="false" position="end">
+    <div style="margin-top: 3rem"></div>
+    <!-- Content for the left sidenav -->
+    <div class="side-nav-content">
+    </div>
+  </mat-sidenav>
+
+  <!-- Main content area -->
+  <mat-sidenav-content>
+    <app-page>
+      <router-outlet></router-outlet>
+    </app-page>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

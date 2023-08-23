@@ -39,7 +39,11 @@ import {
 import {MatCardModule} from "@angular/material/card";
 import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
+import {MatRippleModule} from "@angular/material/core";
+import { OrganizersComponent } from './components/organizers/organizers.component';
+import { InitialRedirectComponent } from './components/initial-redirect/initial-redirect.component';
+import {NgOptimizedImage} from "@angular/common";
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -67,28 +71,32 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     SelectConventionComponent,
     StaticChipComponent,
     MainMenuComponent,
-    SignUpComponent,
+    UserInfoComponent,
+    OrganizersComponent,
+    InitialRedirectComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    GoogleSigninButtonModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-    MatChipsModule,
-    FormsModule,
-    MatProgressSpinnerModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCardModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        GoogleSigninButtonModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatIconModule,
+        MatChipsModule,
+        FormsModule,
+        MatProgressSpinnerModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatCardModule,
+        MatRippleModule,
+        NgOptimizedImage
+    ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
@@ -110,13 +118,13 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     {
       provide: AccountConfiguration,
       useFactory: RegisterBackendConfiguration,
-      deps: [AuthService],
+      // deps: [AuthService],
       multi: false
     },
     {
       provide: ConventionConfiguration,
       useFactory: RegisterBackendConfiguration,
-      deps: [AuthService],
+      // deps: [AuthService],
       multi: false
     },
     {

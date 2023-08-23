@@ -12,7 +12,7 @@
 
 
 export interface ConventionDto { 
-    id?: string;
+    id?: string | null;
     name?: string | null;
     description?: string | null;
     active?: boolean;

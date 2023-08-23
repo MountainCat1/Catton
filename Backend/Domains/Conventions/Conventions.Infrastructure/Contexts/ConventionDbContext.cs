@@ -15,6 +15,7 @@ public class ConventionDomainDbContext : DbContext
         var conventionEntity = mb.Entity<Convention>();
         conventionEntity.HasKey(e => e.Id);
 
+        conventionEntity.Property(e => e.Id).HasMaxLength(32);
         conventionEntity.Property(x => x.Name).IsRequired();
         conventionEntity.Property(x => x.Description).IsRequired();
         conventionEntity.Property(x => x.CreatedDate).IsRequired();

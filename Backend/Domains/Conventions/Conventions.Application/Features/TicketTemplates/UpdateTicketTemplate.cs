@@ -13,7 +13,7 @@ namespace ConventionDomain.Application.Features.TicketTemplates;
 public class UpdateTicketTemplateRequest : IRequest<TicketTemplateDto>
 {
     public required TicketTemplateUpdateDto TicketUpdateDto { get; init; }
-    public required Guid ConventionId { get; init; }
+    public required string ConventionId { get; init; }
     public required Guid TicketTemplateId { get; init; }
 }
 

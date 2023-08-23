@@ -12,7 +12,7 @@ namespace ConventionDomain.Application.Features.TicketTemplates;
 public class DeleteTicketTemplateRequest : IRequest<TicketTemplateDto>
 {
     public required Guid TicketTemplateId { get; init; }
-    public required Guid ConventionId { get; init; }
+    public required string ConventionId { get; init; }
 }
 
 public class DeleteTicketTemplateRequestHandler : IRequestHandler<DeleteTicketTemplateRequest, TicketTemplateDto>

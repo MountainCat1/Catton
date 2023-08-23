@@ -26,18 +26,26 @@ public class Organizer : Entity
     
     [ForeignKey(nameof(ConventionId))]
     public Convention Convention { private set; get; }
-    public Guid ConventionId { private set; get; }
-    
+    public string ConventionId { private set; get; }
     
     public DateTime CreatedDate { get; set; }
     
     public virtual OrganizerRole Role { get; set; }
+    
+    // Data from account entity
+    public string AccountUsername { get; set; }
+    public Uri? AccountAvatarUri { get; set; }
 
     private Organizer()
     {
     }
     
-    public static Organizer CreateInstance(Convention convention, Guid accountId, OrganizerRole? role = null)
+    public static Organizer CreateInstance(
+        Convention convention, 
+        Guid accountId, 
+        string accountUsername,
+        Uri? accountProfilePicture = null,
+        OrganizerRole? role = null)
     {
         var entity = new Organizer()
         {
@@ -45,7 +53,9 @@ public class Organizer : Entity
             ConventionId = convention.Id,
             AccountId = accountId,
             CreatedDate = DateTime.Now,
-            Role = role ?? DefaultRole
+            Role = role ?? DefaultRole,
+            AccountUsername = accountUsername,
+            AccountAvatarUri = accountProfilePicture
         };
 
         entity.ValidateAndThrow();

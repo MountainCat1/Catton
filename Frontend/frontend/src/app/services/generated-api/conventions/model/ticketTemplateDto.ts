@@ -18,7 +18,7 @@ export interface TicketTemplateDto {
     price?: number;
     avaliable?: boolean;
     createDate?: string;
-    convetionId?: string;
+    convetionId?: string | null;
     lastEditAuthorId?: string | null;
     authorId?: string;
 }

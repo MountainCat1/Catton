@@ -26,7 +26,7 @@ public class TicketTemplate : Entity
     public DateTime CreateDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
 
-    public Guid ConventionId { get; set; }
+    public string ConventionId { get; set; }
     
     
     [ForeignKey(nameof(ConventionId))]
@@ -41,7 +41,7 @@ public class TicketTemplate : Entity
 
     }
     
-    public static TicketTemplate Create(string name, string description, decimal price, Guid conventionId, Guid authorId)
+    public static TicketTemplate Create(string name, string description, decimal price, string conventionId, Guid authorId)
     {
         var ticketTemplate = new TicketTemplate()
         {

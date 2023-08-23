@@ -1,4 +1,48 @@
 @import "src/styles/styles";
 @import "src/styles/page";
 
+.main-menu-grid {
+  margin: 1rem;
 
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 1rem;
+}
+
+.main-menu-grid > * {
+  width: 8rem;
+  height: 8rem;
+}
+
+.main-menu-ripple {
+  cursor: pointer;
+  text-align: center;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.7rem;
+
+  font-size: 1rem;
+}
+
+$icon-size: 2rem;
+.main-menu-ripple > mat-icon {
+  font-size: $icon-size;
+  width: $icon-size;
+  height: $icon-size;
+}

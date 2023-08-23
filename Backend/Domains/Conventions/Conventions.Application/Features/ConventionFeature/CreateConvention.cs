@@ -27,7 +27,7 @@ public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRe
     {
         var dto = request.ConventionCreateDto;
 
-        var entity = Convention.CreateInstance(dto.Name, dto.Description, _userAccessor.User.GetUserId());
+        var entity = Convention.CreateInstance(dto.Id, dto.Name, dto.Description, _userAccessor.User.GetUserId());
 
         await _conventionRepository.AddAsync(entity);
         await _conventionRepository.SaveChangesAsync();

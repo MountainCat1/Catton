@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {NgIf} from "@angular/common";
 import {Observable} from "rxjs";
-import {StaticChipType} from "../../generic-components/static-chip/static-chip.component";
 import {LocalCacheService} from "../../services/local-cache.service";
 import {Navigation, Router} from "@angular/router";
 import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
 import {ConventionDto, ConventionService} from "../../services/generated-api/conventions";
+import {NavigationService} from "../../services/navigation.service";
 
 @Component({
   selector: 'app-select-convention',
@@ -19,7 +18,8 @@ export class SelectConventionComponent implements OnInit {
   constructor(
     private conventionService : ConventionService,
     private localCacheService : LocalCacheService,
-    private router : Router
+    private router : Router,
+    private navigationService : NavigationService
   ) {
   }
 
@@ -27,7 +27,7 @@ export class SelectConventionComponent implements OnInit {
     this.conventions$ = this.conventionService.apiConventionsGet();
 
     // If user has access to only one convention redirect them instantly to menu
-    // if they have no choice why do we would pretend they have XD
+    // if they have no choice why do would we pretend they have XD
     this.conventions$.subscribe(x => {
       if(x.length === 1){
         this.router.navigate(['/']).then();
@@ -37,11 +37,10 @@ export class SelectConventionComponent implements OnInit {
     this.conventions$.subscribe(x => console.log(x))
   }
 
-  selectConvention(conventionId : string){
+  async selectConvention(conventionId : string){
     this.localCacheService.selectedConvention = conventionId;
-    this.router.navigate(['/']).then()
+    await this.navigationService.toConvention(conventionId)
   }
 
-  protected readonly String = String;
   protected readonly getFriendlyErrorMessage = getFriendlyErrorMessage;
 }

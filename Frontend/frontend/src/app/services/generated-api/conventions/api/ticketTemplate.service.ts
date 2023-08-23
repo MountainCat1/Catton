@@ -150,7 +150,7 @@ export class TicketTemplateService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/ticket-templates`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/ticket-templates`;
         return this.httpClient.request<Array<TicketTemplateDto>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -228,7 +228,7 @@ export class TicketTemplateService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/ticket-templates`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/ticket-templates`;
         return this.httpClient.request<TicketTemplateDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -299,7 +299,7 @@ export class TicketTemplateService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/ticket-templates/${this.configuration.encodeParam({name: "ticketTemplateId", value: ticketTemplateId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/ticket-templates/${this.configuration.encodeParam({name: "ticketTemplateId", value: ticketTemplateId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
         return this.httpClient.request<TicketTemplateDto>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -381,7 +381,7 @@ export class TicketTemplateService {
             }
         }
 
-        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}/ticket-templates/${this.configuration.encodeParam({name: "ticketTemplateId", value: ticketTemplateId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
+        let localVarPath = `/api/conventions/${this.configuration.encodeParam({name: "conventionId", value: conventionId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/ticket-templates/${this.configuration.encodeParam({name: "ticketTemplateId", value: ticketTemplateId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
         return this.httpClient.request<TicketTemplateDto>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
