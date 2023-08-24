@@ -71,7 +71,7 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
-// ========= RUN  =========
+// ========= BUILD =========
 var app = builder.Build();
 
 if (app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
