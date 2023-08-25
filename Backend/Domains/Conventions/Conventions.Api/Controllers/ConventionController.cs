@@ -2,6 +2,7 @@
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Features.ConventionFeature;
+using ConventionDomain.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,12 @@ namespace Conventions.Api.Controllers;
     public class ConventionController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly ICommandMediator _commandMediator;
 
-        public ConventionController(IMediator mediator)
+        public ConventionController(IMediator mediator, ICommandMediator commandMediator)
         {
             _mediator = mediator;
+            _commandMediator = commandMediator;
         }
 
         [HttpPost]
@@ -30,7 +33,7 @@ namespace Conventions.Api.Controllers;
                 ConventionCreateDto = conventionCreateDto
             };
             
-            var result = await _mediator.Send(request);
+            var result = await _commandMediator.Send(request);
 
             return Ok(result);
         }

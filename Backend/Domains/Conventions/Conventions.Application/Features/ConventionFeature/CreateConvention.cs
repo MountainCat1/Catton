@@ -1,5 +1,6 @@
 ﻿using Catut.Application.Errors;
 using Catut.Infrastructure.Errors.Database;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
@@ -10,7 +11,7 @@ using OpenApi.Accounts;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 
-public class CreateConventionRequest : IRequest<ConventionDto>
+public class CreateConventionRequest : ICommand<ConventionDto>
 {
     public required ConventionCreateDto ConventionCreateDto { get; init; }
 }

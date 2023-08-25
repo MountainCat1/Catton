@@ -79,6 +79,9 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
+services.AddScoped<IConvenitonUnitOfWork, ConventionDomainUnitOfWork>();
+services.AddScoped<ICommandMediator, ConventionCommandMediator>();
+
 #endregion
 
 // ========= BUILD =========

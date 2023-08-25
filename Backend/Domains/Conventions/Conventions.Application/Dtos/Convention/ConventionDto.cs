@@ -1,6 +1,8 @@
-﻿namespace ConventionDomain.Application.Dtos.Convention;
+﻿using MediatR;
 
-public record ConventionDto
+namespace ConventionDomain.Application.Dtos.Convention;
+
+public record ConventionDto : IRequest<ConventionDto>
 {
     public required string Id { get; set; }
     public required string Name { get; init; }
