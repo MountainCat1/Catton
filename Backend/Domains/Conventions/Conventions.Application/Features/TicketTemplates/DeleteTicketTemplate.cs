@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.TicketTemplate;
 using ConventionDomain.Application.Extensions;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.TicketTemplates;
 
-public class DeleteTicketTemplateRequest : IRequest<TicketTemplateDto>
+public class DeleteTicketTemplateRequest : ICommand<TicketTemplateDto>
 {
     public required Guid TicketTemplateId { get; init; }
     public required string ConventionId { get; init; }

@@ -1,9 +1,11 @@
 ﻿using Catut.Application.Dtos;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Features.OrganizerFeature;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Azure;
 
 namespace Conventions.Api.Controllers;
 
@@ -12,11 +14,13 @@ namespace Conventions.Api.Controllers;
 [Route("api/conventions/{conventionId}/organizers")]
 public class OrganizerController : Controller
 {
-    private readonly IMediator _mediator;
-
-    public OrganizerController(IMediator mediator, IAuthorizationService authorizationService)
+    private readonly ICommandMediator _commandMediator;
+    private readonly IQueryMediator _queryMediator;
+    
+    public OrganizerController(ICommandMediator commandMediator, IQueryMediator queryMediator)
     {
-        _mediator = mediator;
+        _commandMediator = commandMediator;
+        _queryMediator = queryMediator;
     }
 
     [HttpPost]
@@ -33,7 +37,7 @@ public class OrganizerController : Controller
             ConventionId = conventionId
         };
 
-        var createdOrganizer = await _mediator.Send(request);
+        var createdOrganizer = await _commandMediator.SendAsync(request);
 
         string resourceUri = Url.Action("GetOrganizer", "Organizer", new { conventionId = createdOrganizer.ConventionId, organizerId = conventionId })
                              ?? throw new InvalidOperationException();
@@ -53,7 +57,7 @@ public class OrganizerController : Controller
             OrganizerId = organizerId
         };
 
-        var organizer = await _mediator.Send(request);
+        var organizer = await _queryMediator.SendAsync(request);
 
         return Ok(organizer);
     }
@@ -69,7 +73,7 @@ public class OrganizerController : Controller
             ConventionId = conventionId,
         };
 
-        var organizer = await _mediator.Send(request);
+        var organizer = await _queryMediator.SendAsync(request);
 
         return Ok(organizer);
     }
@@ -90,7 +94,7 @@ public class OrganizerController : Controller
             UpdateDto = updateDto
         };
 
-        var organizer = await _mediator.Send(request);
+        var organizer = await _commandMediator.SendAsync(request);
 
         return Ok(organizer);
     }
@@ -109,7 +113,7 @@ public class OrganizerController : Controller
             OrganizerId = organizerId
         };
 
-        var organizer = await _mediator.Send(request);
+        var organizer = await _commandMediator.SendAsync(request);
 
         return Ok(organizer);
     }

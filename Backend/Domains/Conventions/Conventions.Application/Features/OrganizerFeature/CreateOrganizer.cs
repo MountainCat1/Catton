@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Extensions;
@@ -11,7 +12,7 @@ using OpenApi.Accounts;
 
 namespace ConventionDomain.Application.Features.OrganizerFeature;
 
-public class CreateOrganizerRequest : IRequest<OrganizerDto>
+public class CreateOrganizerRequest : ICommand<OrganizerDto>
 {
     public required OrganizerCreateDto OrganizerCreateDto { get; init; }
     public required string ConventionId { get; set; }

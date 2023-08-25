@@ -7,6 +7,7 @@ using Catut.Application.Middlewares;
 using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Application;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Services;
 using Conventions.Api.Extensions;
 using Conventions.Api.Extensions.ServiceCollection;
@@ -78,6 +79,10 @@ services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
+
+services.AddScoped<IConvenitonUnitOfWork, ConventionDomainUnitOfWork>();
+services.AddScoped<ICommandMediator, ConventionCommandMediator>();
+services.AddScoped<IQueryMediator, QueryMediator>();
 
 #endregion
 
