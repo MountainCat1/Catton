@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using ConventionDomain.Application.Abstractions;
+using MediatR;
 
 namespace ConventionDomain.Application.Services;
 

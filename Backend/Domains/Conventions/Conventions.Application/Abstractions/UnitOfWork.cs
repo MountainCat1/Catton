@@ -1,7 +1,6 @@
-﻿using Conventions.Infrastructure.Contexts;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace ConventionDomain.Application.Services;
+namespace ConventionDomain.Application.Abstractions;
 
 public interface IUnitOfWork
 {

@@ -7,6 +7,7 @@ using Catut.Application.Middlewares;
 using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Application;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Services;
 using Conventions.Api.Extensions;
 using Conventions.Api.Extensions.ServiceCollection;

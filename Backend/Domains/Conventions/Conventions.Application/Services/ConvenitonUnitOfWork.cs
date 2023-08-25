@@ -1,4 +1,5 @@
-﻿using Conventions.Infrastructure.Contexts;
+﻿using ConventionDomain.Application.Abstractions;
+using Conventions.Infrastructure.Contexts;
 
 namespace ConventionDomain.Application.Services;
 

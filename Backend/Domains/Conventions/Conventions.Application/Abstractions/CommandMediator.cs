@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ConventionDomain.Application.Services;
+namespace ConventionDomain.Application.Abstractions;
 
 public interface ICommandMediator
 {
