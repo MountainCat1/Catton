@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 
-public class GetConventionRequest : IRequest<ConventionDto>
+public class GetConventionRequest : IQuery<ConventionDto>
 {
     public string Id { get; set; }
 }

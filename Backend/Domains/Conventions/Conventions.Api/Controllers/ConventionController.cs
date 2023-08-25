@@ -3,8 +3,6 @@ using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Features.ConventionFeature;
-using ConventionDomain.Application.Services;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +13,13 @@ namespace Conventions.Api.Controllers;
     [Route("api/conventions")]
     public class ConventionController : Controller
     {
-        private readonly IMediator _mediator;
         private readonly ICommandMediator _commandMediator;
+        private readonly IQueryMediator _queryMediator;
 
-        public ConventionController(IMediator mediator, ICommandMediator commandMediator)
+        public ConventionController(ICommandMediator commandMediator, IQueryMediator queryMediator)
         {
-            _mediator = mediator;
             _commandMediator = commandMediator;
+            _queryMediator = queryMediator;
         }
 
         [HttpPost]
@@ -34,7 +32,7 @@ namespace Conventions.Api.Controllers;
                 ConventionCreateDto = conventionCreateDto
             };
             
-            var result = await _commandMediator.Send(request);
+            var result = await _commandMediator.SendAsync(request);
 
             return Ok(result);
         }
@@ -50,7 +48,7 @@ namespace Conventions.Api.Controllers;
                 Id = id
             };
             
-            var result = await _mediator.Send(request);
+            var result = await _queryMediator.SendAsync(request);
 
             return Ok(result);
         }
@@ -65,7 +63,7 @@ namespace Conventions.Api.Controllers;
                 AccountId = User.GetUserId()
             };
             
-            var result = await _mediator.Send(request);
+            var result = await _queryMediator.SendAsync(request);
 
             return Ok(result);
         }
@@ -80,7 +78,7 @@ namespace Conventions.Api.Controllers;
                 UpdateDto = updateDto
             };
 
-            await _mediator.Send(request);
+            await _commandMediator.SendAsync(request);
 
             return Ok();
         }

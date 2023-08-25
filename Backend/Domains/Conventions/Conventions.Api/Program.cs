@@ -82,6 +82,7 @@ services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAs
 
 services.AddScoped<IConvenitonUnitOfWork, ConventionDomainUnitOfWork>();
 services.AddScoped<ICommandMediator, ConventionCommandMediator>();
+services.AddScoped<IQueryMediator, QueryMediator>();
 
 #endregion
 

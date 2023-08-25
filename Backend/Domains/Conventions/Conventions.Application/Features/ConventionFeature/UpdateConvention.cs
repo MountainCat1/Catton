@@ -1,4 +1,5 @@
-﻿using ConventionDomain.Application.Authorization;
+﻿using ConventionDomain.Application.Abstractions;
+using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 
-public class UpdateConventionRequest : IRequest
+public class UpdateConventionRequest : ICommand
 {
     public required string Id { get; init; }
     public required ConventionUpdateDto UpdateDto { get; init; }

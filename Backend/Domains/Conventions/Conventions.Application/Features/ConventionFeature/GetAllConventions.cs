@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Services;
 using Conventions.Domain.Repositories;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.ConventionFeature;
 
-public class GetAllConventionsRequest : IRequest<ICollection<ConventionDto>>
+public class GetAllConventionsRequest : IQuery<ICollection<ConventionDto>>
 {
     public Guid AccountId { get; set; }
 }

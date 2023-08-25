@@ -3,9 +3,8 @@ using MediatR;
 
 namespace ConventionDomain.Application.Services;
 
-public interface IConventionCommandMediator
+public interface IConventionCommandMediator : ICommandMediator<ConventionDomainUnitOfWork>
 {
-    Task<T> Send<T>(IRequest<T> t) where T : IRequest<T>;
 }
 
 public class ConventionCommandMediator : CommandMediator<IConvenitonUnitOfWork>, IConventionCommandMediator
