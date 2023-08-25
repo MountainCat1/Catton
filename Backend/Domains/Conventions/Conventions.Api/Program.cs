@@ -21,13 +21,21 @@ using OpenApi.Accounts;
 var builder = WebApplication.CreateBuilder(args);
 
 // ========= CONFIGURATION  =========
+
+#region Configuration
+
 var configuration = builder.Configuration;
 
 configuration.AddJsonFile("Secrets/jwt.json");
 
 var jwtConfig = configuration.GetConfiguration<JwtConfig>();
 
+#endregion
+
 // ========= SERVICES  =========
+
+#region Services
+
 var services = builder.Services;
 
 services.Configure<ApiConfiguration>(configuration.GetSection(nameof(ApiConfiguration)));
@@ -71,7 +79,12 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 
 services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
-// ========= RUN  =========
+#endregion
+
+// ========= BUILD =========
+
+#region Build
+
 var app = builder.Build();
 
 if (app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
@@ -102,3 +115,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+#endregion
