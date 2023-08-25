@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Extensions;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Features.OrganizerFeature;
 
-public class UpdateOrganizerRequest : IRequest<OrganizerDto>
+public class UpdateOrganizerRequest : ICommand<OrganizerDto>
 {
     public required Guid OrganizerId { get; init; }
     public required string ConventionId { get; init; }

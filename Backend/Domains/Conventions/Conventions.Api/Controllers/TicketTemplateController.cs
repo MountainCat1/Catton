@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Dtos;
+using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.TicketTemplate;
 using ConventionDomain.Application.Features.TicketTemplates;
 using MediatR;
@@ -10,11 +11,13 @@ namespace Conventions.Api.Controllers;
 [Route("api/conventions/{conventionId:guid}/ticket-templates")]
 public class TicketTemplateController : Controller
 {
-    private readonly IMediator _mediator;
-
-    public TicketTemplateController(IMediator mediator)
+    private readonly IQueryMediator _queryMediator;
+    private readonly ICommandMediator _commandMediator;
+    
+    public TicketTemplateController(IMediator mediator, IQueryMediator queryMediator, ICommandMediator commandMediator)
     {
-        _mediator = mediator;
+        _queryMediator = queryMediator;
+        _commandMediator = commandMediator;
     }
 
     [HttpPost]
@@ -30,7 +33,7 @@ public class TicketTemplateController : Controller
         };
 
 
-        var createdTicketTemplate = await _mediator.Send(request);
+        var createdTicketTemplate = await _commandMediator.SendAsync(request);
 
         string resourceUri = Url.Action("GetTicketTemplate", "TicketTemplate", new
                              {
@@ -54,7 +57,7 @@ public class TicketTemplateController : Controller
             TicketTemplateId = ticketTemplateId
         };
 
-        var ticketTemplate = await _mediator.Send(request);
+        var ticketTemplate = await _queryMediator.SendAsync(request);
 
         return Ok(ticketTemplate);
     }
@@ -70,7 +73,7 @@ public class TicketTemplateController : Controller
             ConventionId = conventionId
         };
 
-        var ticketTemplate = await _mediator.Send(request);
+        var ticketTemplate = await _queryMediator.SendAsync(request);
 
         return Ok(ticketTemplate);
     }
@@ -91,7 +94,7 @@ public class TicketTemplateController : Controller
             TicketUpdateDto = updateDto
         };
 
-        var ticketTemplate = await _mediator.Send(request);
+        var ticketTemplate = await _commandMediator.SendAsync(request);
 
         return Ok(ticketTemplate);
     }
@@ -110,7 +113,7 @@ public class TicketTemplateController : Controller
             TicketTemplateId = ticketTemplateId
         };
 
-        var ticketTemplate = await _mediator.Send(request);
+        var ticketTemplate = await _commandMediator.SendAsync(request);
 
         return Ok(ticketTemplate);
     }
