@@ -1,4 +1,5 @@
 ﻿using Catut.Domain.Abstractions;
+using Conventions.Domain.Validators;
 using FluentValidation;
 
 namespace Conventions.Domain.Entities;
