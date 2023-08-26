@@ -23,6 +23,7 @@ public class Convention : Entity
 
     public virtual ICollection<Organizer> Organizers { get; set; }
     public virtual ICollection<TicketTemplate> TicketTemplates { get; set; }
+    public virtual ICollection<Ticket> Tickets { get; set; }
 
 
     private Convention()
