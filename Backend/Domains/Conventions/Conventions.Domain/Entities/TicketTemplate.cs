@@ -28,7 +28,6 @@ public class TicketTemplate : Entity
     public string ConventionId { get; set; }
     
     
-    [ForeignKey(nameof(ConventionId))]
     public virtual Convention Convention { get; set; } = null!;
 
 

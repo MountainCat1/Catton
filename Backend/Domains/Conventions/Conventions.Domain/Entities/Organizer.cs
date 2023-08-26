@@ -24,7 +24,6 @@ public class Organizer : Entity
     
     public Guid AccountId { private set; get; }
     
-    [ForeignKey(nameof(ConventionId))]
     public Convention Convention { private set; get; }
     public string ConventionId { private set; get; }
     
