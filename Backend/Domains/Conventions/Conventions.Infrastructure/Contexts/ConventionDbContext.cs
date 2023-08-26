@@ -26,15 +26,30 @@ public class ConventionDomainDbContext : DbContext
         
         organizerEntity.Property(x => x.AccountId).IsRequired();
 
-        organizerEntity
-            .Property(e => e.Role)
+        organizerEntity.Property(e => e.Role)
             .HasConversion<string>();
+
+        organizerEntity.HasOne<Convention>(x => x.Convention)
+            .WithMany(x => x.Organizers)
+            .HasForeignKey(x => x.ConventionId);
         
         // TICKET TEMPLATE
         var ticketTemplateEntity = mb.Entity<TicketTemplate>();
         ticketTemplateEntity.HasKey(x => x.Id);
         
         ticketTemplateEntity.Property(x=>x.Price).HasColumnType("money");
+
+        ticketTemplateEntity.HasOne<Convention>(x => x.Convention)
+            .WithMany(x => x.TicketTemplates)
+            .HasForeignKey(x => x.ConventionId);
+        
+        // TICKET
+        var ticketEntity = mb.Entity<Ticket>();
+        ticketEntity.HasKey(x => x.Id);
+
+        ticketEntity.HasOne<Convention>(x => x.Convention)
+            .WithMany(x => x.Tickets)
+            .HasForeignKey(x => x.ConventionId);
         
         base.OnModelCreating(mb);
     }
@@ -43,4 +58,5 @@ public class ConventionDomainDbContext : DbContext
     public DbSet<Convention> Conventions { get; set; } = null!;
     public DbSet<Organizer> Organizers { get; set; } = null!;
     public DbSet<TicketTemplate> TicketTemplates { get; set; } = null!;
+    public DbSet<Ticket> Tickets { get; set; } = null!;
 }
