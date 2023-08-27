@@ -15,7 +15,7 @@ public class Ticket : Entity
     public Guid PaymentId { get; set; }
     
     public Guid TicketTemplateId { get; set; }
-    public Guid ConventionId { get; set; }
+    public string ConventionId { get; set; }
 
     public virtual TicketTemplate TicketTemplate { get; set; } = null!;
     public virtual Convention Convention { get; set; } = null!;
@@ -24,12 +24,21 @@ public class Ticket : Entity
     {
     }
 
-    public static Ticket Create()
+    public static Ticket Create(Guid atendeeId, Guid ticketTemplateId, string conventionId)
     {
         var entity = new Ticket()
         {
-            CreatedDate = DateTime.Now
+            AtendeeId = atendeeId,
+            TicketTemplateId = ticketTemplateId,
+            ConventionId = conventionId,
+            
+            CreatedDate = DateTime.Now,
         };
+        
+        //! TODO
+        // Add payment creation
+        // entity.PaymentId = Payment.Create().Id; 
+        
 
         entity.ValidateAndThrow();
 

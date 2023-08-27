@@ -2,10 +2,8 @@
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Features.OrganizerFeature;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Azure;
 
 namespace Conventions.Api.Controllers;
 

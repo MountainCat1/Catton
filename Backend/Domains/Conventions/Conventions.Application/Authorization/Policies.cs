@@ -13,4 +13,6 @@ public static class Policies
     
     public const string ReadTicketTemplates = nameof(ReadTicketTemplates);
     public const string ManageTicketTemplates = nameof(ManageTicketTemplates);
+    
+    public const string CreateOwnTicket = nameof(CreateOwnTicket);
 }

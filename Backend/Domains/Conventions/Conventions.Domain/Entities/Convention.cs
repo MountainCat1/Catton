@@ -95,5 +95,17 @@ public class Convention : Entity
 
         return ticketTemplate;
     }
+
+    public void AddTicket(Ticket ticket)
+    {
+        Tickets.Add(ticket);
+    }
+    
+    public Ticket RemoveTicket(Ticket ticket)
+    {
+        Tickets.Remove(ticket);
+        
+        return ticket;
+    }
 }
 

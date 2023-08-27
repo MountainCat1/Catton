@@ -59,6 +59,12 @@ public static class AuthorizationPoliciesDefiner
         {
             new IsOrganizerOfRequirement()
         });
+        
+        // TICKETS
+        options.AddPolicyWithRequirements(Policies.CreateOwnTicket, new IAuthorizationRequirement[]
+        {
+            new IsAtendeeOfRequirement()
+        });
     }
 
     private static void AddPolicyWithRequirements(
