@@ -14,22 +14,17 @@ public class Ticket : Entity
     public Guid AtendeeId { get; set; }
     public Guid PaymentId { get; set; }
     
-    public Guid TicketTemplateId { get; set; }
-    public string ConventionId { get; set; }
-
-    public virtual TicketTemplate TicketTemplate { get; set; } = null!;
+    public TicketTemplate TicketTemplate { get; set; } = null!;
 
     private Ticket()
     {
     }
 
-    public static Ticket Create(Guid atendeeId, Guid ticketTemplateId, string conventionId)
+    internal static Ticket Create(TicketTemplate ticketTemplate)
     {
         var entity = new Ticket()
         {
-            AtendeeId = atendeeId,
-            TicketTemplateId = ticketTemplateId,
-            ConventionId = conventionId,
+            TicketTemplate = ticketTemplate,
             
             CreatedDate = DateTime.Now,
         };

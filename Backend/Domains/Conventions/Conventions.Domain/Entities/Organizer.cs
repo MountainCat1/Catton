@@ -23,8 +23,6 @@ public class Organizer : Entity
     
     public Guid AccountId { private set; get; }
     
-    public string ConventionId { private set; get; }
-    
     public DateTime CreatedDate { get; set; }
     
     public virtual OrganizerRole Role { get; set; }
@@ -37,8 +35,7 @@ public class Organizer : Entity
     {
     }
     
-    public static Organizer CreateInstance(
-        Convention convention, 
+    internal static Organizer CreateInstance(
         Guid accountId, 
         string accountUsername,
         Uri? accountProfilePicture = null,
@@ -46,7 +43,6 @@ public class Organizer : Entity
     {
         var entity = new Organizer()
         {
-            ConventionId = convention.Id,
             AccountId = accountId,
             CreatedDate = DateTime.Now,
             Role = role ?? DefaultRole,

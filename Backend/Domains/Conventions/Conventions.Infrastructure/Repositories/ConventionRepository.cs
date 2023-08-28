@@ -22,17 +22,26 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
     }
 
     public async Task<Convention?> GetOneWithAsync(
-        string id, 
+        string id,
         params Expression<Func<Convention, object>>[] includeProperties)
     {
         var query = DbSet.AsQueryable();
-        
+
         foreach (Expression<Func<Convention, object>> includeProperty in includeProperties)
         {
             query = query.Include(includeProperty);
         }
-        
+
         return await query.AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<Convention?> GET_BIG_BOY(string conventionId)
+    {
+        return await DbSet
+            .Include(x => x.Attendees).ThenInclude(x => x.Tickets)
+            .Include(x => x.Organizers)
+            .Include(x => x.TicketTemplates)
+            .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
 
     public async Task<(Convention?, Attendee?)> GetConventionWithAttendeeAsync(string conventionId, Guid attendeeId)
@@ -42,7 +51,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .Where(c => c.Id == conventionId)
             .Select(convention => new
             {
-                Convention = convention, 
+                Convention = convention,
                 Attendee = convention.Attendees.FirstOrDefault(attendee => attendee.AccountId == attendeeId)
             })
             .FirstOrDefaultAsync();
@@ -57,15 +66,17 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .Include(convention => convention.Organizers)
             .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
-    
-    public async Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplateAsync(string conventionId, Guid ticketTemplateId)
+
+    public async Task<(Convention? convention, TicketTemplate? ticketTemplate)> GetOneWithTicketTemplateAsync(
+        string conventionId,
+        Guid ticketTemplateId)
     {
         var result = await DbContext.Conventions
             .Include(x => x.Organizers)
             .Where(c => c.Id == conventionId)
             .Select(c => new
             {
-                Convention = c, 
+                Convention = c,
                 TicketTemplate = c.TicketTemplates.FirstOrDefault(tt => tt.Id == ticketTemplateId)
             })
             .FirstOrDefaultAsync();
@@ -82,11 +93,11 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .Where(c => c.Id == conventionId)
             .Select(c => new
             {
-                Convention = c, 
+                Convention = c,
                 Organizer = c.Organizers.FirstOrDefault(o => o.AccountId == organizerId)
             })
             .FirstOrDefaultAsync();
-        
+
         return (result?.Convention, result?.Organizer);
     }
 

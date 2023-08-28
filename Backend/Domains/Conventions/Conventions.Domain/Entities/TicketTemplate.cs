@@ -24,8 +24,6 @@ public class TicketTemplate : Entity
     public DateTime CreateDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
 
-    public string ConventionId { get; set; }
-    
     
 
     public Guid? LastEditAuthorId { get; set; }
@@ -36,7 +34,7 @@ public class TicketTemplate : Entity
 
     }
     
-    public static TicketTemplate Create(string name, string description, decimal price, string conventionId, Guid authorId)
+    public static TicketTemplate Create(string name, string description, decimal price, Guid authorId)
     {
         var ticketTemplate = new TicketTemplate()
         {
@@ -49,7 +47,6 @@ public class TicketTemplate : Entity
             CreateDate = DateTime.UtcNow,
             LastUpdateDate = DateTime.UtcNow,
             
-            ConventionId = conventionId,
             AuthorId = authorId,
             LastEditAuthorId = authorId
         };
@@ -78,27 +75,4 @@ public class TicketTemplate : Entity
     {
         new TicketTemplateValidator().ValidateAndThrow(this);
     }
-}
-
-class Project
-{
-    public Guid Id { get; set; }
-    public virtual ICollection<ProjectMember> Members { get; set; }
-}
-
-
-class ProjectMember
-{
-    public Guid ProjectId { get; set; }
-    public Guid UserId { get; set; }
-    
-    public virtual Project Project { get; set; }
-    public virtual User User { get; set; }
-}
-
-class User
-{
-    public Guid Id { get; set; }
-
-    public ICollection<ProjectMember> Projects { get; set; }
 }

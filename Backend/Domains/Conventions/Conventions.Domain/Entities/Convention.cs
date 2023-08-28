@@ -21,10 +21,9 @@ public class Convention : Entity
     public DateTime CreatedDate { private set; get; }
     public bool Active { get; private set; }
 
-    public virtual ICollection<Organizer> Organizers { get; set; }
-    public virtual ICollection<TicketTemplate> TicketTemplates { get; set; }
-    public virtual ICollection<Ticket> Tickets { get; set; }
-    public virtual ICollection<Attendee> Attendees { get; set; }
+    public ICollection<Organizer> Organizers { get; private set; }
+    public ICollection<TicketTemplate> TicketTemplates { get; private set; }
+    public ICollection<Attendee> Attendees { get; private set; }
 
 
     private Convention()
@@ -97,21 +96,13 @@ public class Convention : Entity
         return ticketTemplate;
     }
 
-    public void AddTicket(Ticket ticket)
+    public Attendee AddAttendee(Guid attendeeId, string username, Uri? accountProfilePicture)
     {
-        Tickets.Add(ticket);
-    }
-    
-    public Ticket RemoveTicket(Ticket ticket)
-    {
-        Tickets.Remove(ticket);
+        var attendee = Attendee.CreateInstance(attendeeId, username, accountProfilePicture);
         
-        return ticket;
-    }
-
-    public void AddAttendee(Attendee attendee)
-    {
         Attendees.Add(attendee);
+        
+        return attendee;
     }
     
     public Attendee RemoveAttendee(Attendee attendee)
