@@ -18,7 +18,6 @@ public class Ticket : Entity
     public string ConventionId { get; set; }
 
     public virtual TicketTemplate TicketTemplate { get; set; } = null!;
-    public virtual Convention Convention { get; set; } = null!;
 
     private Ticket()
     {

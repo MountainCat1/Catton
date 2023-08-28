@@ -27,8 +27,6 @@ public class TicketTemplate : Entity
     public string ConventionId { get; set; }
     
     
-    public virtual Convention Convention { get; set; } = null!;
-
 
     public Guid? LastEditAuthorId { get; set; }
     public Guid AuthorId { get; set; }

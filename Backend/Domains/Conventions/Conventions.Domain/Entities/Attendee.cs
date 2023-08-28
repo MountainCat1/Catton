@@ -7,7 +7,6 @@ public class Attendee
 {
     public Guid AccountId { private set; get; }
     
-    public Convention Convention { private set; get; }
     public string ConventionId { private set; get; }
     
     public DateTime CreatedDate { get; set; }
@@ -31,7 +30,6 @@ public class Attendee
     {
         var entity = new Attendee()
         {
-            Convention = convention,
             ConventionId = convention.Id,
             AccountId = accountId,
             CreatedDate = DateTime.Now,

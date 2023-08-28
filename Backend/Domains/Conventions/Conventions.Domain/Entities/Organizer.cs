@@ -23,7 +23,6 @@ public class Organizer : Entity
     
     public Guid AccountId { private set; get; }
     
-    public Convention Convention { private set; get; }
     public string ConventionId { private set; get; }
     
     public DateTime CreatedDate { get; set; }
@@ -47,7 +46,6 @@ public class Organizer : Entity
     {
         var entity = new Organizer()
         {
-            Convention = convention,
             ConventionId = convention.Id,
             AccountId = accountId,
             CreatedDate = DateTime.Now,
