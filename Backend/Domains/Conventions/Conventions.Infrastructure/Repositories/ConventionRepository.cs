@@ -35,7 +35,22 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
         return await query.AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    
+    public async Task<(Convention?, Attendee?)> GetConventionWithAttendeeAsync(string conventionId, Guid attendeeId)
+    {
+        var result = await DbContext.Conventions
+            .Include(x => x.Organizers)
+            .Where(c => c.Id == conventionId)
+            .Select(convention => new
+            {
+                Convention = convention, 
+                Attendee = convention.Attendees.FirstOrDefault(attendee => attendee.AccountId == attendeeId)
+            })
+            .FirstOrDefaultAsync();
+
+        return (result?.Convention, result?.Attendee);
+    }
+
+
     public async Task<Convention?> GetOneWithOrganizersAsync(string conventionId)
     {
         return await DbSet

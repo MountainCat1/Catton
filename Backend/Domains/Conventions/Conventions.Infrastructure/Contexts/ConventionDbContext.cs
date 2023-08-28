@@ -41,7 +41,8 @@ public class ConventionDomainDbContext : DbContext
 
         ticketTemplateEntity.HasOne<Convention>(x => x.Convention)
             .WithMany(x => x.TicketTemplates)
-            .HasForeignKey(x => x.ConventionId);
+            .HasForeignKey(x => x.ConventionId)
+            .OnDelete(DeleteBehavior.NoAction);
         
         // TICKET
         var ticketEntity = mb.Entity<Ticket>();
@@ -51,6 +52,17 @@ public class ConventionDomainDbContext : DbContext
             .WithMany(x => x.Tickets)
             .HasForeignKey(x => x.ConventionId);
         
+        // ATTENDEE
+        var attendeeEntity = mb.Entity<Attendee>();
+        attendeeEntity.HasKey(x => new { x.ConventionId, x.AccountId, });
+        
+        attendeeEntity.Property(x => x.AccountId).IsRequired();
+
+        attendeeEntity.HasOne<Convention>(x => x.Convention)
+            .WithMany(x => x.Attendees)
+            .HasForeignKey(x => x.ConventionId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
         base.OnModelCreating(mb);
     }
 
@@ -59,4 +71,5 @@ public class ConventionDomainDbContext : DbContext
     public DbSet<Organizer> Organizers { get; set; } = null!;
     public DbSet<TicketTemplate> TicketTemplates { get; set; } = null!;
     public DbSet<Ticket> Tickets { get; set; } = null!;
+    public DbSet<Attendee> Attendees { get; set; } = null!;
 }

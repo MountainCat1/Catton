@@ -1,15 +1,17 @@
-﻿using ConventionDomain.Application.Authorization;
-using ConventionDomain.Application.Authorization.Handlers;
+﻿using ConventionDomain.Application.Authorization.Handlers;
 using ConventionDomain.Application.Authorization.Requirements;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Conventions.Api.Extensions.ServiceCollection;
+namespace ConventionDomain.Application.Authorization.Extensions;
 
 public static class AuthorizationPoliciesDefiner
 {
     public static IServiceCollection DefineAuthorizationPolicies(this IServiceCollection services)
     {
         services.AddSingleton<IAuthorizationHandler, IsOrganizerOfHandler>();
+        services.AddSingleton<IAuthorizationHandler, IsAtendeeOfHandler>();
+        services.AddSingleton<IAuthorizationHandler, AlwaysPassHandler>();
         
         services.AddAuthorization(DefineAuthorizationPolicies);
 
@@ -56,6 +58,21 @@ public static class AuthorizationPoliciesDefiner
         });
         
         options.AddPolicyWithRequirements(Policies.DeleteOrganizer, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        
+        // ATTENDEES
+        options.AddPolicyWithRequirements(Policies.AddAttendees, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        options.AddPolicyWithRequirements(Policies.SignUpAsAttendee, new IAuthorizationRequirement[]
+        {
+            // always allowed :3
+            new AlwaysPassRequirement()
+        });
+        options.AddPolicyWithRequirements(Policies.ReadAttendee, new IAuthorizationRequirement[]
         {
             new IsOrganizerOfRequirement()
         });

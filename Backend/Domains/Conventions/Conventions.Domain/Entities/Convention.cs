@@ -24,6 +24,7 @@ public class Convention : Entity
     public virtual ICollection<Organizer> Organizers { get; set; }
     public virtual ICollection<TicketTemplate> TicketTemplates { get; set; }
     public virtual ICollection<Ticket> Tickets { get; set; }
+    public virtual ICollection<Attendee> Attendees { get; set; }
 
 
     private Convention()
@@ -106,6 +107,18 @@ public class Convention : Entity
         Tickets.Remove(ticket);
         
         return ticket;
+    }
+
+    public void AddAttendee(Attendee attendee)
+    {
+        Attendees.Add(attendee);
+    }
+    
+    public Attendee RemoveAttendee(Attendee attendee)
+    {
+        Attendees.Remove(attendee);
+        
+        return attendee;
     }
 }
 

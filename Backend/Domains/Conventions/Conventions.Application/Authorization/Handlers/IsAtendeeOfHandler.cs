@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionDomain.Application.Authorization.Handlers;
 
-public class IsAtendeeOfRequirementHandler : AuthorizationHandler<IsOrganizerOfRequirement, Convention>
+public class IsAtendeeOfHandler : AuthorizationHandler<IsOrganizerOfRequirement, Convention>
 {
     protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,

@@ -11,9 +11,9 @@ public class TicketDto
 }
 public static class TicketExtensions
 {
-    public static Dtos.Ticket.TicketDto ToDto(this Conventions.Domain.Entities.Ticket ticket)
+    public static TicketDto ToDto(this Conventions.Domain.Entities.Ticket ticket)
     {
-        return new Dtos.Ticket.TicketDto
+        return new TicketDto
         {
             Id = ticket.Id,
             CreatedDate = ticket.CreatedDate,

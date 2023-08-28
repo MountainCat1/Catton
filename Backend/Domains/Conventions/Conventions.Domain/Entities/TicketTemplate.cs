@@ -81,3 +81,26 @@ public class TicketTemplate : Entity
         new TicketTemplateValidator().ValidateAndThrow(this);
     }
 }
+
+class Project
+{
+    public Guid Id { get; set; }
+    public virtual ICollection<ProjectMember> Members { get; set; }
+}
+
+
+class ProjectMember
+{
+    public Guid ProjectId { get; set; }
+    public Guid UserId { get; set; }
+    
+    public virtual Project Project { get; set; }
+    public virtual User User { get; set; }
+}
+
+class User
+{
+    public Guid Id { get; set; }
+
+    public ICollection<ProjectMember> Projects { get; set; }
+}
