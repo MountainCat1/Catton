@@ -34,7 +34,7 @@ public class TicketTemplate : Entity
 
     }
     
-    public static TicketTemplate Create(string name, string description, decimal price, Guid authorId)
+    internal static TicketTemplate Create(string name, string description, decimal price, Guid authorId)
     {
         var ticketTemplate = new TicketTemplate()
         {

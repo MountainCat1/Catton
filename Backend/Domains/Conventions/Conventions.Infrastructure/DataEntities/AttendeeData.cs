@@ -1,25 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Conventions.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Conventions.Infrastructure.DataEntities;
 
-public class AttendeeData
+public class AttendeeEntityConfiguration : IEntityTypeConfiguration<Attendee>
 {
-    public Guid AccountId { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public string AccountUsername { get; set; }
-    public Uri? AccountAvatarUri { get; set; }
-
-    public ICollection<TicketData> Tickets { get; set; }
-}
-
-public class AttendeeEntityConfiguration : IEntityTypeConfiguration<AttendeeData>
-{
-    public void Configure(EntityTypeBuilder<AttendeeData> builder)
+    public void Configure(EntityTypeBuilder<Attendee> builder)
     {
         builder.ToTable("Attendees");
 
-        builder.HasKey(a => a.AccountId);
+        builder.HasKey(a => new {a.AccountId, a.ConventionId});
 
         builder.Property(a => a.CreatedDate)
             .IsRequired();

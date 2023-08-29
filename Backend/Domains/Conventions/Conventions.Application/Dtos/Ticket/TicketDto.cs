@@ -19,8 +19,6 @@ public static class TicketExtensions
             CreatedDate = ticket.CreatedDate,
             AtendeeId = ticket.AtendeeId,
             PaymentId = ticket.PaymentId,
-            TicketTemplateId = ticket.TicketTemplateId,
-            ConventionId = ticket.ConventionId
         };
     }
 }

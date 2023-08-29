@@ -1,24 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Conventions.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Conventions.Infrastructure.DataEntities;
 
-public class ConventionData
+public class ConventionEntityConfiguration : IEntityTypeConfiguration<Convention>
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public bool Active { get; set; }
-
-    public ICollection<OrganizerData> Organizers { get; set; }
-    public ICollection<TicketTemplateData> TicketTemplates { get; set; }
-    public ICollection<AttendeeData> Attendees { get; set; }
-}
-
-public class ConventionEntityConfiguration : IEntityTypeConfiguration<ConventionData>
-{
-    public void Configure(EntityTypeBuilder<ConventionData> builder)
+    public void Configure(EntityTypeBuilder<Convention> builder)
     {
         builder.ToTable("Conventions");
 

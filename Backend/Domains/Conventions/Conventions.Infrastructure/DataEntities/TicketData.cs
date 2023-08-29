@@ -1,20 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Conventions.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Conventions.Infrastructure.DataEntities;
 
-public class TicketData
+public class TicketEntityConfiguration : IEntityTypeConfiguration<Ticket>
 {
-    public Guid Id { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public Guid AttendeeId { get; set; }
-    public Guid PaymentId { get; set; }
-    public Guid TicketTemplateId { get; set; }
-}
-
-public class TicketEntityConfiguration : IEntityTypeConfiguration<TicketData>
-{
-    public void Configure(EntityTypeBuilder<TicketData> builder)
+    public void Configure(EntityTypeBuilder<Ticket> builder)
     {
         builder.ToTable("Tickets");
 

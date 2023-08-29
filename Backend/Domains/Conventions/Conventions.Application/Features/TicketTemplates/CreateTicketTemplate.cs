@@ -46,15 +46,12 @@ public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTe
 
         var dto = request.TicketCreateDto;
         var authoriId = _userAccessor.User.GetUserId();
-        
-        var ticketTemplate = TicketTemplate.Create(
+
+        var ticketTemplate = convention.AddTicketTemplate(
             name: dto.Name, 
             description: dto.Description, 
-            price: dto.Price,
-            conventionId: convention.Id, 
-            authorId: authoriId);
-
-        convention.AddTicketTemplate(ticketTemplate);
+            price: dto.Price, 
+            authoriId: authoriId);
 
         await _conventionRepository.SaveChangesAsync();
 

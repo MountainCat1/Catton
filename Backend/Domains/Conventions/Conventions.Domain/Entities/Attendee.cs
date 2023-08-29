@@ -16,6 +16,7 @@ public class Attendee : Entity
     public string AccountUsername { get; set; }
     public Uri? AccountAvatarUri { get; set; }
 
+    public string ConventionId { get; set; }
 
     private Attendee()
     {
@@ -24,6 +25,7 @@ public class Attendee : Entity
     internal static Attendee CreateInstance(
         Guid accountId, 
         string accountUsername,
+        Convention convention,
         Uri? accountProfilePicture = null)
     {
         var entity = new Attendee()
@@ -31,7 +33,8 @@ public class Attendee : Entity
             AccountId = accountId,
             CreatedDate = DateTime.Now,
             AccountUsername = accountUsername,
-            AccountAvatarUri = accountProfilePicture
+            AccountAvatarUri = accountProfilePicture,
+            ConventionId = convention.Id
         };
 
         entity.ValidateAndThrow();
@@ -41,7 +44,7 @@ public class Attendee : Entity
 
     public Ticket AddTicket(TicketTemplate ticketTemplate)
     {
-        var ticket = Ticket.Create(ticketTemplate);
+        var ticket = Ticket.Create(ticketTemplate, this);
         
         Tickets.Add(ticket);
 

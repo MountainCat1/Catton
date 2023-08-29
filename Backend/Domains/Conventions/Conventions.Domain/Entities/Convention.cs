@@ -8,8 +8,8 @@ namespace Conventions.Domain.Entities;
 public record ConventionUpdate
 {
     public string? Name { get; init; }
-    public string? Description { get; init; }  
-    public bool? Active { get; init; }  
+    public string? Description { get; init; }
+    public bool? Active { get; init; }
 }
 
 public class Convention : Entity
@@ -21,9 +21,9 @@ public class Convention : Entity
     public DateTime CreatedDate { private set; get; }
     public bool Active { get; private set; }
 
-    public ICollection<Organizer> Organizers { get; private set; }
-    public ICollection<TicketTemplate> TicketTemplates { get; private set; }
-    public ICollection<Attendee> Attendees { get; private set; }
+    public virtual ICollection<Organizer> Organizers { get; private set; }
+    public virtual ICollection<TicketTemplate> TicketTemplates { get; private set; }
+    public virtual ICollection<Attendee> Attendees { get; private set; }
 
 
     private Convention()
@@ -44,7 +44,7 @@ public class Convention : Entity
         entity.TicketTemplates = new List<TicketTemplate>();
 
         entity.ValidateAndThrow();
-        
+
         entity.AddDomainEvent(new ConventionCreatedDomainEvent()
         {
             AccountId = creatorId
@@ -58,18 +58,31 @@ public class Convention : Entity
         Name = update.Name ?? Name;
         Description = update.Description ?? Description;
         Active = update.Active ?? Active;
-        
+
         ValidateAndThrow();
     }
-    
+
     public void ValidateAndThrow()
     {
         new ConventionValidator().ValidateAndThrow(this);
     }
 
-    public void AddOrganizer(Organizer organizer)
+    public Organizer AddOrganizer(
+        Guid accountId,
+        string accountUsername,
+        OrganizerRole role = OrganizerRole.Helper,
+        Uri? accountProfilePicture = null)
     {
+        var organizer = Organizer.CreateInstance(
+            accountId: accountId,
+            accountUsername: accountUsername,
+            convention: this,
+            accountProfilePicture: accountProfilePicture,
+            role: role);
+
         Organizers.Add(organizer);
+
+        return organizer;
     }
 
     public Organizer? RemoveOrganizer(Guid organizerId)
@@ -84,9 +97,21 @@ public class Convention : Entity
         return organizerToRemove;
     }
 
-    public void AddTicketTemplate(TicketTemplate ticketTemplate)
+    public TicketTemplate AddTicketTemplate(
+        string name,
+        string description,
+        decimal price,
+        Guid authoriId)
     {
+        var ticketTemplate = TicketTemplate.Create(
+            name: name,
+            description: description,
+            price: price,
+            authorId: authoriId);
+
         TicketTemplates.Add(ticketTemplate);
+
+        return ticketTemplate;
     }
 
     public TicketTemplate RemoveTicketTemplate(TicketTemplate ticketTemplate)
@@ -98,18 +123,17 @@ public class Convention : Entity
 
     public Attendee AddAttendee(Guid attendeeId, string username, Uri? accountProfilePicture)
     {
-        var attendee = Attendee.CreateInstance(attendeeId, username, accountProfilePicture);
-        
+        var attendee = Attendee.CreateInstance(attendeeId, username, this, accountProfilePicture);
+
         Attendees.Add(attendee);
-        
+
         return attendee;
     }
-    
+
     public Attendee RemoveAttendee(Attendee attendee)
     {
         Attendees.Remove(attendee);
-        
+
         return attendee;
     }
 }
-

@@ -31,6 +31,8 @@ public class Organizer : Entity
     public string AccountUsername { get; set; }
     public Uri? AccountAvatarUri { get; set; }
 
+    public string ConventionId { get; set; }
+
     private Organizer()
     {
     }
@@ -38,6 +40,7 @@ public class Organizer : Entity
     internal static Organizer CreateInstance(
         Guid accountId, 
         string accountUsername,
+        Convention convention,
         Uri? accountProfilePicture = null,
         OrganizerRole? role = null)
     {
@@ -47,7 +50,8 @@ public class Organizer : Entity
             CreatedDate = DateTime.Now,
             Role = role ?? DefaultRole,
             AccountUsername = accountUsername,
-            AccountAvatarUri = accountProfilePicture
+            AccountAvatarUri = accountProfilePicture,
+            ConventionId = convention.Id
         };
 
         entity.ValidateAndThrow();

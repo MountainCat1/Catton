@@ -55,15 +55,11 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
                 $"Account ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
 
         var account = await accountTask;
-
-        var organizer = Organizer.CreateInstance(
-            convention: convention,
-            accountId: dto.AccountId,
+        var organizer = convention.AddOrganizer(
+            accountId: dto.AccountId, 
             accountUsername: account.Username,
-            role: dto.Role
-        );
+            accountProfilePicture: null);
 
-        convention.AddOrganizer(organizer);
         await _conventionRepository.SaveChangesAsync();
 
         return organizer.ToDto();

@@ -60,10 +60,7 @@ public class UpdateTicketTemplateRequestHandler : IRequestHandler<UpdateTicketTe
             Avaliable = dto.Avaliable,
         };
 
-
         ticketTemplate.Update(update, authoriId);
-
-        convention.AddTicketTemplate(ticketTemplate);
 
         await _conventionRepository.SaveChangesAsync();
 

@@ -16,7 +16,6 @@ public static class AttendeeExtensions
         return new AttendeeDto
         {
             AccountId = attendee.AccountId,
-            ConventionId = attendee.ConventionId,
             CreatedDate = attendee.CreatedDate,
             AccountUsername = attendee.AccountUsername,
             AccountAvatarUri = attendee.AccountAvatarUri

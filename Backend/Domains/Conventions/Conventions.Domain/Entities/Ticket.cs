@@ -16,15 +16,20 @@ public class Ticket : Entity
     
     public TicketTemplate TicketTemplate { get; set; } = null!;
 
+    public Guid AttendeeId { get; set; }
+    public Guid TicketTemplateId { get; set; }
+
     private Ticket()
     {
     }
 
-    internal static Ticket Create(TicketTemplate ticketTemplate)
+    internal static Ticket Create(TicketTemplate ticketTemplate, Attendee attendee)
     {
         var entity = new Ticket()
         {
             TicketTemplate = ticketTemplate,
+            TicketTemplateId = ticketTemplate.Id,
+            AtendeeId = attendee.AccountId,
             
             CreatedDate = DateTime.Now,
         };

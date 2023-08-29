@@ -66,16 +66,17 @@ public class AttendeeController : ControllerBase
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> SignUp([FromRoute] string conventionId)
     {
-        ICommand<AttendeeDto> command = new SignUpAsAttendeeRequest()
-        {
-            ConventionId = conventionId,
-        };
-
-        var result = await _commandMediator.SendAsync(command);
-
-        return CreatedAtAction(
-            actionName: nameof(GetAttendee),
-            value: result,
-            routeValues: new { conventionId = conventionId, accountId = result.AccountId });
+        throw new NotImplementedException();
+        // ICommand<AttendeeDto> command = new SignUpAsAttendeeRequest()
+        // {
+        //     ConventionId = conventionId,
+        // };
+        //
+        // var result = await _commandMediator.SendAsync(command);
+        //
+        // return CreatedAtAction(
+        //     actionName: nameof(GetAttendee),
+        //     value: result,
+        //     routeValues: new { conventionId = conventionId, accountId = result.AccountId });
     }
 }

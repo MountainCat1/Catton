@@ -30,7 +30,6 @@ public static class TicketTemplateExtensions
             Price = ticketTemplate.Price,
             Avaliable = ticketTemplate.Avaliable,
             CreateDate = ticketTemplate.CreateDate,
-            ConvetionId = ticketTemplate.ConventionId,
             LastEditAuthorId = ticketTemplate.LastEditAuthorId,
             AuthorId = ticketTemplate.AuthorId
         };
