@@ -43,7 +43,7 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
 
         var accountTask = _accountsApi.AccountsGETAsync(dto.AccountId, ct);
         
-        var convention = await _conventionRepository.GetOneWithAsync(req.ConventionId, c => c.Organizers);
+        var convention = await _conventionRepository.GetConvention(req.ConventionId);
 
         if (convention is null)
             throw new NotFoundError($"The convention ({req.ConventionId}) could not be found.");

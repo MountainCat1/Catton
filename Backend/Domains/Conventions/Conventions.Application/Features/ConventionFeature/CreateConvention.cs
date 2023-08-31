@@ -46,14 +46,6 @@ public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRe
             accountProfilePicture: null);
 
         await _conventionRepository.AddAsync(convention);
-        try
-        {
-            await _conventionRepository.SaveChangesAsync();
-        }
-        catch (DuplicateEntryException e)
-        {
-            throw new BadRequestError($"Convention with id ({req.ConventionCreateDto.Id}) already exists");
-        }
 
         return convention.ToDto();
     }

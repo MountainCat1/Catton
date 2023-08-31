@@ -23,7 +23,6 @@ public class Convention : Entity
 
     public virtual ICollection<Organizer> Organizers { get; private set; }
     public virtual ICollection<TicketTemplate> TicketTemplates { get; private set; }
-    public virtual ICollection<Attendee> Attendees { get; private set; }
 
 
     private Convention()
@@ -119,21 +118,5 @@ public class Convention : Entity
         TicketTemplates.Remove(ticketTemplate);
 
         return ticketTemplate;
-    }
-
-    public Attendee AddAttendee(Guid attendeeId, string username, Uri? accountProfilePicture)
-    {
-        var attendee = Attendee.CreateInstance(attendeeId, username, this, accountProfilePicture);
-
-        Attendees.Add(attendee);
-
-        return attendee;
-    }
-
-    public Attendee RemoveAttendee(Attendee attendee)
-    {
-        Attendees.Remove(attendee);
-
-        return attendee;
     }
 }

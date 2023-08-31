@@ -34,7 +34,7 @@ public class DeleteOrganizerRequestHandler : IRequestHandler<DeleteOrganizerRequ
 
     public async Task<OrganizerDto> Handle(DeleteOrganizerRequest req, CancellationToken cancellationToken)
     {
-        var convention = await _conventionRepository.GetOneWithOrganizersAsync(req.ConventionId);
+        var convention = await _conventionRepository.GetConvention(req.ConventionId);
 
         if (convention is null)
             throw new NotFoundError($"The convention ({req.ConventionId}) could not be found.");

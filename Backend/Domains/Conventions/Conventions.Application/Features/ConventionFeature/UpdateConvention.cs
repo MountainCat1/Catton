@@ -48,7 +48,5 @@ public class UpdateConventionRequestHandler : IRequestHandler<UpdateConventionRe
         };
 
         convention.Update(update);
-
-        await _conventionRepository.SaveChangesAsync();
     }
 }

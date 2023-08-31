@@ -4,6 +4,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Conventions.Infrastructure.DataEntities;
 
+public class TicketTemplateData
+{
+    public Guid Id { get; set; }
+
+    public string Name { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public decimal Price { get; set; } 
+    public bool Avaliable { get; set; }
+
+    public DateTime CreateDate { get; set; }
+    public DateTime LastUpdateDate { get; set; }
+
+    public Guid? LastEditAuthorId { get; set; }
+    public Guid AuthorId { get; set; }
+}
+
 public class TicketTemplateEntityConfiguration : IEntityTypeConfiguration<TicketTemplate>
 {
     public void Configure(EntityTypeBuilder<TicketTemplate> builder)

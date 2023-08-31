@@ -14,17 +14,18 @@ public class ConventionDomainDbContext : DbContext
     {
         mb.ApplyConfiguration(new ConventionEntityConfiguration());        
         mb.ApplyConfiguration(new OrganizerEntityConfiguration());        
-        mb.ApplyConfiguration(new AttendeeEntityConfiguration());        
-        mb.ApplyConfiguration(new TicketEntityConfiguration());        
+        // mb.ApplyConfiguration(new AttendeeEntityConfiguration());
+        //! TODO to change later!!! 
+        // mb.ApplyConfiguration(new TicketEntityConfiguration());        
         mb.ApplyConfiguration(new TicketTemplateEntityConfiguration());        
         
         base.OnModelCreating(mb);
     }
 
 
-    public DbSet<Convention> Conventions { get; set; } = null!;
-    public DbSet<Organizer> Organizers { get; set; } = null!;
-    public DbSet<TicketTemplate> TicketTemplates { get; set; } = null!;
-    public DbSet<Ticket> Tickets { get; set; } = null!;
-    public DbSet<Attendee> Attendees { get; set; } = null!;
+    public DbSet<ConventionData> Conventions { get; set; } = null!;
+    public DbSet<OrganizerData> Organizers { get; set; } = null!;
+    public DbSet<TicketTemplateData> TicketTemplates { get; set; } = null!;
+    // public DbSet<Ticket> Tickets { get; set; } = null!;
+    // public DbSet<Attendee> Attendees { get; set; } = null!;
 }

@@ -4,6 +4,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Conventions.Infrastructure.DataEntities;
 
+public class OrganizerData
+{
+    public Guid AccountId { private set; get; }
+    
+    public DateTime CreatedDate { get; set; }
+    
+    public virtual OrganizerRole Role { get; set; }
+    
+    // Data from account entity
+    public string AccountUsername { get; set; }
+    public Uri? AccountAvatarUri { get; set; }
+
+    public string ConventionId { get; set; }
+}
+
 public class OrganizerEntityConfiguration : IEntityTypeConfiguration<Organizer>
 {
     public void Configure(EntityTypeBuilder<Organizer> builder)

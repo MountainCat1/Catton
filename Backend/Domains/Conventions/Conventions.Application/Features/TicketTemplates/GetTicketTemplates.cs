@@ -33,9 +33,7 @@ public class GetTicketTemplatesRequestHandler : IRequestHandler<GetTicketTemplat
 
     public async Task<ICollection<TicketTemplateDto>> Handle(GetTicketTemplatesRequest req, CancellationToken cancellationToken)
     {
-        var convention = await _conventionRepository.GetOneWithAsync(req.ConventionId,
-            c => c.TicketTemplates,
-            c => c.Organizers);
+        var convention = await _conventionRepository.GetConvention(req.ConventionId);
 
         if (convention is null)
             throw new UnauthorizedError();

@@ -36,7 +36,9 @@ public class UpdateOrganizerRequestHandler : IRequestHandler<UpdateOrganizerRequ
 
     public async Task<OrganizerDto> Handle(UpdateOrganizerRequest req, CancellationToken cancellationToken)
     {
-        var (convention, organizer) = await _conventionRepository.GetOrganizerAsync(req.ConventionId, req.OrganizerId);
+        var convention = await _conventionRepository.GetConvention(req.ConventionId);
+
+        var organizer = convention?.Organizers.FirstOrDefault(x => x.AccountId == req.OrganizerId);
 
         await _authService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.UpdateOrganizer);
         

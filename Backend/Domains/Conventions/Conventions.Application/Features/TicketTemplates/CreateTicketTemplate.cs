@@ -35,9 +35,7 @@ public class CreateTicketTemplateRequestHandler : IRequestHandler<CreateTicketTe
 
     public async Task<TicketTemplateDto> Handle(CreateTicketTemplateRequest request, CancellationToken cancellationToken)
     {
-        var convention = await _conventionRepository.GetOneWithAsync(request.ConventionId, 
-            x => x.Organizers, 
-            x => x.TicketTemplates);
+        var convention = await _conventionRepository.GetConvention(request.ConventionId);
 
         if (convention is null)
             throw new NotFoundError($"Convention with an id ({request.ConventionId}) was not found");

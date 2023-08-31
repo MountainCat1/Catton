@@ -24,8 +24,6 @@ public class TicketTemplate : Entity
     public DateTime CreateDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
 
-    
-
     public Guid? LastEditAuthorId { get; set; }
     public Guid AuthorId { get; set; }
 
