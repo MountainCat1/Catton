@@ -52,7 +52,7 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
 
         if (convention.Organizers.Any(x => x.AccountId == dto.AccountId))
             throw new BadRequestError(
-                $"Account ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
+                $"AccountId ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
 
         var account = await accountTask;
         var organizer = convention.AddOrganizer(
