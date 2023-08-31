@@ -25,7 +25,7 @@ public class OrganizerEntityConfiguration : IEntityTypeConfiguration<Organizer>
     {
         builder.ToTable("Organizers");
 
-        builder.HasKey(o => new {o.AccountId, o.ConventionId});
+        builder.HasKey(o => new {o.Id});
 
         builder.Property(o => o.CreatedDate)
             .IsRequired();

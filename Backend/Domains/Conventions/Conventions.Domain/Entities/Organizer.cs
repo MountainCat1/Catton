@@ -16,6 +16,8 @@ public record OrganizerUpdate
 
 public class Organizer : Entity
 {
+    public Guid Id { get; set; }
+    
     public static OrganizerRole DefaultRole
     {
         get => OrganizerRole.Helper;

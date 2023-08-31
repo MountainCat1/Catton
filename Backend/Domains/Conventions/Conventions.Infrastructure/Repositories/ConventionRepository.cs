@@ -4,7 +4,6 @@ using Catut.Infrastructure.Generics;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using Conventions.Infrastructure.Contexts;
-using Conventions.Infrastructure.Mappings;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
