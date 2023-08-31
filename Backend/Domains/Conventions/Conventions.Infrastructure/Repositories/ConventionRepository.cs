@@ -35,7 +35,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
         return await query.AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<Convention?> GET_BIG_BOY(string conventionId)
+    public async Task<Convention?> GetConvention(string conventionId)
     {
         return await DbSet
             .Include(x => x.Attendees).ThenInclude(x => x.Tickets)

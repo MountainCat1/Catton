@@ -57,7 +57,7 @@ public class AddAttendeeRequestHandler : IRequestHandler<AddAttendeeRequest, Att
     private async Task<(AccountDto Account, Convention Convention)> GetDataAsync(string conventionId, Guid accountId, CancellationToken cancellationToken)
     {
         var accountTask = _accountsApi.AccountsGETAsync(accountId, cancellationToken);
-        var conventionTask = _conventionRepository.GET_BIG_BOY(conventionId);
+        var conventionTask = _conventionRepository.GetConvention(conventionId);
 
         await Task.WhenAll(accountTask, conventionTask);
             

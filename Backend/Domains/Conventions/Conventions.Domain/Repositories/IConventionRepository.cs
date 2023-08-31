@@ -15,5 +15,5 @@ public interface IConventionRepository : IRepository<Convention>
         string id, 
         params Expression<Func<Convention, object>>[] includeProperties);
     
-    Task<Convention?> GET_BIG_BOY(string conventionId);
+    Task<Convention?> GetConvention(string conventionId);
 }
