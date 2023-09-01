@@ -12,6 +12,8 @@ public class OrganizerEntityConfiguration : IEntityTypeConfiguration<Organizer>
 
         builder.HasKey(o => new {o.Id});
 
+        builder.HasIndex(o => o.AccountId);
+
         builder.Property(o => o.CreatedDate)
             .IsRequired();
 
