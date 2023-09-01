@@ -21,9 +21,13 @@ public class Convention : Entity
     public DateTime CreatedDate { private set; get; }
     public bool Active { get; private set; }
 
-    public virtual ICollection<Organizer> Organizers { get; private set; }
-    public virtual ICollection<TicketTemplate> TicketTemplates { get; private set; }
-    public virtual ICollection<Attendee> Attendees { get; private set; }
+    private readonly List<Organizer> _organizers = new();
+    private readonly List<TicketTemplate> _ticketTemplates = new();
+    private readonly List<Attendee> _attendees = new();
+
+    public IReadOnlyCollection<Organizer> Organizers => _organizers.AsReadOnly();
+    public IReadOnlyCollection<TicketTemplate> TicketTemplates => _ticketTemplates.AsReadOnly();
+    public IReadOnlyCollection<Attendee> Attendees => _attendees.AsReadOnly();
 
 
     private Convention()
@@ -39,9 +43,6 @@ public class Convention : Entity
             Description = description,
             CreatedDate = DateTime.Now
         };
-
-        entity.Organizers = new List<Organizer>();
-        entity.TicketTemplates = new List<TicketTemplate>();
 
         entity.ValidateAndThrow();
 
@@ -80,7 +81,7 @@ public class Convention : Entity
             accountProfilePicture: accountProfilePicture,
             role: role);
 
-        Organizers.Add(organizer);
+        _organizers.Add(organizer);
 
         return organizer;
     }
@@ -92,7 +93,7 @@ public class Convention : Entity
         if (organizerToRemove is null)
             return null;
 
-        Organizers.Remove(organizerToRemove);
+        _organizers.Remove(organizerToRemove);
 
         return organizerToRemove;
     }
@@ -109,14 +110,14 @@ public class Convention : Entity
             price: price,
             authorId: authoriId);
 
-        TicketTemplates.Add(ticketTemplate);
+        _ticketTemplates.Add(ticketTemplate);
 
         return ticketTemplate;
     }
 
     public TicketTemplate RemoveTicketTemplate(TicketTemplate ticketTemplate)
     {
-        TicketTemplates.Remove(ticketTemplate);
+        _ticketTemplates.Remove(ticketTemplate);
 
         return ticketTemplate;
     }
@@ -128,14 +129,14 @@ public class Convention : Entity
             accountUsername: accountUsername,
             accountProfilePicture: accountProfilePicture);
         
-        Attendees.Add(attendee);
+        _attendees.Add(attendee);
 
         return attendee;
     }
 
     public Attendee RemoveAttendee(Attendee attendee)
     {
-        Attendees.Remove(attendee);
+        _attendees.Remove(attendee);
 
         return attendee;
     }
