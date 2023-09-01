@@ -2,19 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Conventions.Infrastructure.DataEntities;
-
-public class ConventionData
-{
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public bool Active { get; set; }
-
-    public ICollection<OrganizerData> Organizers { get; set; }
-    public ICollection<TicketTemplateData> TicketTemplates { get; set; }
-}
+namespace Conventions.Infrastructure.EntityConfigurations;
 
 
 public class ConventionEntityConfiguration : IEntityTypeConfiguration<Convention>
