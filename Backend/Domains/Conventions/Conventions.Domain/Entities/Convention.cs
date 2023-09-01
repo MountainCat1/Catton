@@ -132,4 +132,11 @@ public class Convention : Entity
 
         return attendee;
     }
+
+    public Attendee RemoveAttendee(Attendee attendee)
+    {
+        Attendees.Remove(attendee);
+
+        return attendee;
+    }
 }
