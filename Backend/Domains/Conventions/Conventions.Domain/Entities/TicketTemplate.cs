@@ -21,7 +21,7 @@ public class TicketTemplate : Entity
     public decimal Price { get; set; } 
     public bool Avaliable { get; set; }
 
-    public DateTime CreateDate { get; set; }
+    public DateTime CreatedDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
 
     public Guid? LastEditAuthorId { get; set; }
@@ -42,7 +42,7 @@ public class TicketTemplate : Entity
             Price = price,
             Avaliable = false,
             
-            CreateDate = DateTime.UtcNow,
+            CreatedDate = DateTime.UtcNow,
             LastUpdateDate = DateTime.UtcNow,
             
             AuthorId = authorId,

@@ -25,7 +25,7 @@ public class TicketTemplateEntityConfiguration : IEntityTypeConfiguration<Ticket
         builder.Property(t => t.Avaliable)
             .IsRequired();
 
-        builder.Property(t => t.CreateDate)
+        builder.Property(t => t.CreatedDate)
             .IsRequired();
 
         builder.Property(t => t.LastUpdateDate)

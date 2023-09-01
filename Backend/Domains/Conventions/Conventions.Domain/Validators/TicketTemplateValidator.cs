@@ -11,6 +11,6 @@ public class TicketTemplateValidator : AbstractValidator<TicketTemplate>
         RuleFor(x => x.Price).NotEmpty().GreaterThanOrEqualTo(0);
         
         RuleFor(x => x.LastUpdateDate).GreaterThanOrEqualTo(DateTime.UtcNow);
-        RuleFor(x => x.CreateDate).GreaterThanOrEqualTo(DateTime.UtcNow);
+        RuleFor(x => x.CreatedDate).GreaterThanOrEqualTo(DateTime.UtcNow);
     }
 }
