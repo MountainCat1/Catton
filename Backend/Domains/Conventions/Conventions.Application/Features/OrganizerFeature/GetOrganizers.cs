@@ -33,7 +33,7 @@ public class GetOrganizersRequestHandler : IRequestHandler<GetOrganizersRequest,
 
     public async Task<ICollection<OrganizerDto>> Handle(GetOrganizersRequest req, CancellationToken cancellationToken)
     {
-        var convention = await _conventionRepository.GetOneWithOrganizersAsync(req.ConventionId);
+        var convention = await _conventionRepository.GetConvention(req.ConventionId);
         
         if (convention is null)
             throw new NotFoundError($"Organizer with an id {req.ConventionId} does not exist");

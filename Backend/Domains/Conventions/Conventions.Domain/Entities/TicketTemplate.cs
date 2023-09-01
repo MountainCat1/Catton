@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Catut.Domain.Abstractions;
+﻿using Catut.Domain.Abstractions;
 using Conventions.Domain.Validators;
 using FluentValidation;
 
@@ -22,15 +21,8 @@ public class TicketTemplate : Entity
     public decimal Price { get; set; } 
     public bool Avaliable { get; set; }
 
-    public DateTime CreateDate { get; set; }
+    public DateTime CreatedDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
-
-    public string ConventionId { get; set; }
-    
-    
-    [ForeignKey(nameof(ConventionId))]
-    public virtual Convention Convention { get; set; } = null!;
-
 
     public Guid? LastEditAuthorId { get; set; }
     public Guid AuthorId { get; set; }
@@ -40,7 +32,7 @@ public class TicketTemplate : Entity
 
     }
     
-    public static TicketTemplate Create(string name, string description, decimal price, string conventionId, Guid authorId)
+    internal static TicketTemplate Create(string name, string description, decimal price, Guid authorId)
     {
         var ticketTemplate = new TicketTemplate()
         {
@@ -50,10 +42,9 @@ public class TicketTemplate : Entity
             Price = price,
             Avaliable = false,
             
-            CreateDate = DateTime.UtcNow,
+            CreatedDate = DateTime.UtcNow,
             LastUpdateDate = DateTime.UtcNow,
             
-            ConventionId = conventionId,
             AuthorId = authorId,
             LastEditAuthorId = authorId
         };

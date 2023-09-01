@@ -19,7 +19,6 @@ public static class ConventionOrganizerExtensions
         return new OrganizerDto
         {
             AccountId = organizer.AccountId,
-            ConventionId = organizer.ConventionId,
             CreatedDate = organizer.CreatedDate,
             
             Role = organizer.Role,

@@ -41,9 +41,9 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
     {
         var dto = req.OrganizerCreateDto;
 
-        await _accountsApi.AccountsGETAsync(dto.AccountId, ct);
+        var accountTask = _accountsApi.AccountsGETAsync(dto.AccountId, ct);
         
-        var convention = await _conventionRepository.GetOneWithAsync(req.ConventionId, c => c.Organizers);
+        var convention = await _conventionRepository.GetConvention(req.ConventionId);
 
         if (convention is null)
             throw new NotFoundError($"The convention ({req.ConventionId}) could not be found.");
@@ -52,18 +52,14 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
 
         if (convention.Organizers.Any(x => x.AccountId == dto.AccountId))
             throw new BadRequestError(
-                $"Account ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
+                $"AccountId ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
 
-        var account = await _accountsApi.AccountsGETAsync(req.OrganizerCreateDto.AccountId, ct);
-
-        var organizer = Organizer.CreateInstance(
-            convention: convention,
-            accountId: dto.AccountId,
+        var account = await accountTask;
+        var organizer = convention.AddOrganizer(
+            accountId: dto.AccountId, 
             accountUsername: account.Username,
-            role: dto.Role
-        );
+            accountProfilePicture: null);
 
-        convention.AddOrganizer(organizer);
         await _conventionRepository.SaveChangesAsync();
 
         return organizer.ToDto();

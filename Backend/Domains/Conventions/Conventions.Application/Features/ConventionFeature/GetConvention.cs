@@ -35,7 +35,7 @@ public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest,
     {
         var id = request.Id;
 
-        var convention = await _conventionRepository.GetOneWithOrganizersAsync(id);
+        var convention = await _conventionRepository.GetConvention(request.Id);
 
         if (convention is null)
             throw new NotFoundError($"Convention with an id {id} does not exist");

@@ -26,7 +26,7 @@
 //             ConventionId = notification.Entity.Id,
 //             OrganizerCreateDto = new OrganizerCreateDto()
 //             {
-//                 AccountId = notification.AccountId,
+//                 AtendeeId = notification.AtendeeId,
 //                 Role = OrganizerRole.Administrator
 //             }
 //         };

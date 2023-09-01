@@ -40,23 +40,12 @@ public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRe
         var account = await _accountsApi.AccountsGETAsync(accountId, ct);
 
         var convention = Convention.CreateInstance(dto.Id, dto.Name, dto.Description, accountId);
-        var organizer = Organizer.CreateInstance(
-            convention: convention,
-            accountId: account.Id,
-            accountUsername: account.Username,
-            role: OrganizerRole.Owner);
-
-        convention.AddOrganizer(organizer);
+        convention.AddOrganizer(
+            accountId: accountId, 
+            accountUsername: account.Username, 
+            accountProfilePicture: null);
 
         await _conventionRepository.AddAsync(convention);
-        try
-        {
-            await _conventionRepository.SaveChangesAsync();
-        }
-        catch (DuplicateEntryException e)
-        {
-            throw new BadRequestError($"Convention with id ({req.ConventionCreateDto.Id}) already exists");
-        }
 
         return convention.ToDto();
     }
