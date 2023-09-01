@@ -86,4 +86,21 @@ public class AttendeeController : ControllerBase
             value: result,
             routeValues: new { conventionId = conventionId, accountId = result.AccountId });
     }
+    
+    [HttpPost("{accountId:guid}")]
+    [ProducesResponseType(typeof(AttendeeDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> SignUp([FromRoute] string conventionId, [FromRoute] Guid accountId)
+    {
+        var command = new RemoveAttendeeRequest()
+        {
+            ConventionId = conventionId,
+            AccountId = accountId
+        };
+        
+        var result = await _commandMediator.SendAsync(command);
+        
+        return Ok(result);
+    }
 }
