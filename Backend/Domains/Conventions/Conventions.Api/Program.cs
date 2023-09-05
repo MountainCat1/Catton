@@ -9,6 +9,7 @@ using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Application;
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization.Extensions;
+using ConventionDomain.Application.Configuration;
 using ConventionDomain.Application.Services;
 using Conventions.Api.Extensions;
 using Conventions.Api.Extensions.ServiceCollection;
@@ -17,6 +18,7 @@ using Conventions.Infrastructure.Contexts;
 using Conventions.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HashidsNet;
 using MediatR;
 using OpenApi.Accounts;
 
@@ -29,8 +31,10 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 configuration.AddJsonFile("Secrets/jwt.json");
+configuration.AddJsonFile("Secrets/hash_ids.json");
 
 var jwtConfig = configuration.GetConfiguration<JwtConfig>();
+var hashIdsConfig = configuration.GetConfiguration<HashIdsConfig>();
 
 #endregion
 
@@ -64,6 +68,7 @@ services.DefineAuthorizationPolicies();
 //  ===            ===
 
 services.AddAsymmetricAuthentication(jwtConfig);
+services.AddSingleton<Hashids>(x => new Hashids(hashIdsConfig.Salt, hashIdsConfig.MinHashLenght));
 
 services.AddApiHttpClinet<IAccountsApi, AccountsApi>();
 

@@ -40,16 +40,12 @@ public class SignUpAsAttendeeHandler : IRequestHandler<SignUpAsAttendeeCommand, 
     {
         var currentUserAccountId = _userAccessor.User.GetUserId();
 
-        // Retrieve data asynchronously and in parallel
         var (account, convention) = await GetDataAsync(req.ConventionId, currentUserAccountId, ct);
             
-        // Authorize the action based on policy
         await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.SignUpAsAttendee);
 
-        // Add the attendee to the convention
         var attendeeEntity = convention.AddAttendee(currentUserAccountId, account.Username, null);
 
-        // Return dto as a successful result
         return attendeeEntity.ToDto();
     }
     
