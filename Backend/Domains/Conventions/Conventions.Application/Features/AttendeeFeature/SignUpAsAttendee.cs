@@ -41,12 +41,19 @@ public class SignUpAsAttendeeHandler : IRequestHandler<SignUpAsAttendeeCommand, 
         var currentUserAccountId = _userAccessor.User.GetUserId();
 
         var (account, convention) = await GetDataAsync(req.ConventionId, currentUserAccountId, ct);
-            
-        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.SignUpAsAttendee);
+        
+        try
+        {
+            await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.SignUpAsAttendee);
 
-        var attendeeEntity = convention.AddAttendee(currentUserAccountId, account.Username, null);
+            var attendeeEntity = convention.AddAttendee(currentUserAccountId, account.Username, null);
 
-        return attendeeEntity.ToDto();
+            return attendeeEntity.ToDto();
+        }
+        catch (InvalidOperationException invalidOperationException)
+        {
+            throw new BadRequestError(invalidOperationException.Message);
+        }
     }
     
     private async Task<(AccountDto Account, Convention Convention)> GetDataAsync(string conventionId, Guid accountId, CancellationToken cancellationToken)

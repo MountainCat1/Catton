@@ -40,6 +40,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
         return await DbSet
             .Include(x => x.Organizers)
             .Include(x => x.TicketTemplates)
+            .Include(x => x.Attendees)
             .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
 

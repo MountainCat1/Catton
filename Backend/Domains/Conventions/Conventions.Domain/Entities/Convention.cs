@@ -124,6 +124,9 @@ public class Convention : Entity
 
     public Attendee AddAttendee(Guid accountId, string accountUsername, Uri? accountProfilePicture)
     {
+        if (Attendees.Any(x => x.AccountId == accountId))
+            throw new InvalidOperationException($"Cannot add new attendee with specified account ID, account already assigned");
+        
         var attendee = Attendee.CreateInstance(
             accountId: accountId,
             accountUsername: accountUsername,
