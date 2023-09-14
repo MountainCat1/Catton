@@ -27,7 +27,7 @@ public class AttendeeController : ControllerBase
         _userAccessor = userAccessor;
     }
 
-    [HttpGet]
+    [HttpGet("{accountId:guid}")]
     [ProducesResponseType(typeof(AttendeeDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
@@ -38,6 +38,22 @@ public class AttendeeController : ControllerBase
         var query = new GetAttendeeRequest()
         {
             AccountId = accountId,
+            ConventionId = conventionId
+        };
+
+        var result = await _queryMediator.SendAsync(query);
+
+        return Ok(result);
+    }
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<AttendeeDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAttendees(
+        [FromRoute] string conventionId)
+    {
+        var query = new GetAttendeesRequest()
+        {
             ConventionId = conventionId
         };
 

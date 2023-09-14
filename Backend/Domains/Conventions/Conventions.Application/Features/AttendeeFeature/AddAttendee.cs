@@ -47,11 +47,17 @@ public class AddAttendeeRequestHandler : IRequestHandler<AddAttendeeRequest, Att
         // Authorize the action based on policy
         await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.AddAttendees);
 
-        // Add the attendee to the convention
-        var attendeeEntity = convention.AddAttendee(req.AttendeeCreateDto.AccountId, account.Username, null);
-
-        // Return dto as a successful result
-        return attendeeEntity.ToDto();
+        try
+        {
+            // Add the attendee to the convention
+            var attendeeEntity = convention.AddAttendee(req.AttendeeCreateDto.AccountId, account.Username, null);
+            // Return dto as a successful result
+            return attendeeEntity.ToDto();
+        }
+        catch (InvalidOperationException invalidOperationException)
+        {
+            throw new BadRequestError(invalidOperationException.Message);
+        }
     }
 
     private async Task<(AccountDto Account, Convention Convention)> GetDataAsync(string conventionId, Guid accountId, CancellationToken cancellationToken)
@@ -64,7 +70,7 @@ public class AddAttendeeRequestHandler : IRequestHandler<AddAttendeeRequest, Att
         // Check if the account exists
         if (conventionTask.Result is null)
         {
-            throw new Exception($"The account ({accountId}) could not be found.");
+            throw new NotFoundError($"The account ({accountId}) could not be found.");
         }
             
         // Check if the convention exists
