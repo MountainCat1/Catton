@@ -7,7 +7,7 @@ parameters:
 stages:
   - template: /Pipelines/Templates/general-domain-template.yaml
     parameters:
-      dockerFile: '${{ parameters.projectPath }}/Dockerfile'
+      dockerFile: '${{ parameters.projectPath }}/Azure.Dockerfile'
       imageName: '${{ parameters.appName }}'
       registryUri: 'cattonregistry.azurecr.io'
       appName: '${{ parameters.appName }}'
