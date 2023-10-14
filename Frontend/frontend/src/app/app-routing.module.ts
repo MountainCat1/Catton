@@ -8,10 +8,8 @@ import {
   Routes
 } from '@angular/router';
 import {SignInComponent} from "./components/sign-in/sign-in.component";
-import {PublicComponent} from "./generic-components/public/public.component";
 import {SecureComponent} from "./generic-components/secure/secure.component";
 import {of} from "rxjs";
-import {PublicPopupComponent} from "./generic-components/public-popup/public-popup.component";
 import {AuthService} from "./services/auth.service";
 import {SelectConventionComponent} from "./components/select-convention/select-convention.component";
 import {MainMenuComponent} from "./components/main-menu/main-menu.component";
@@ -49,8 +47,8 @@ const SECURE_ROUTES: Routes = [
 
 const APP_ROUTES: Routes = [
   {path: 'sign-in', component: SignInComponent},
-  {path: '', component: InitialRedirectComponent },
   {path: '', component: SecureComponent, canActivate: [guard], data: {title: 'Secure Views'}, children: SECURE_ROUTES},
+  {path: '', component: InitialRedirectComponent },
 ];
 
 export const routingConfiguration: ExtraOptions = {
