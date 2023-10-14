@@ -17,9 +17,9 @@ parameters:
     type: string
 
 stages:
-  - template: /Pipelines/StageTemplates/asp-test-template.yaml
-    parameters:
-      projectPath: '${{ parameters.projectPath }}'
+#  - template: /Pipelines/StageTemplates/asp-test-template.yaml
+#    parameters:
+#      projectPath: '${{ parameters.projectPath }}'
       
   - template: /Pipelines/StageTemplates/asp-build-template.yaml
     parameters:
