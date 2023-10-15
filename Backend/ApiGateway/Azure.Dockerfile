@@ -30,7 +30,7 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 ENV entrypoint="$ProjectName.dll"
-ENTRYPOINT ["dotnet", "(echo $entrypoint)"]
+ENTRYPOINT "dotnet $entrypoint"
 
 
 
