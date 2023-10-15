@@ -27,4 +27,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 ENV entrypoint="$ProjectName.Api.dll"
-ENTRYPOINT ["dotnet", "$entrypoint"]
+ENTRYPOINT ["dotnet", "echo $my_env_var"]
