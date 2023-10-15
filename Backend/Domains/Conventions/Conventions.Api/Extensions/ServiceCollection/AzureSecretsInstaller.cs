@@ -12,7 +12,7 @@ public static class AzureSecretsInstaller
         string kvUri = configuration["KeyVault:Uri"]!;
         string kvClientId = configuration["KeyVault:ClientId"]!;
         string kvTenantId = configuration["KeyVault:TenantId"]!;
-        string kvClientSecret = configuration["KeyVault:ClientSecret"]!;
+        string kvClientSecret = configuration.GetValue<string>("AZURE_KEY_VAULT_SECRET")!;
         
         var credential = new ClientSecretCredential(kvTenantId, kvClientId, kvClientSecret);
         var client = new SecretClient(new Uri(kvUri), credential);
