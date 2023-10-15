@@ -10,6 +10,9 @@
   - name: registryUri
     type: string
     
+variables:
+  - group: MyVariableGroup
+
 stages:
   - stage: DeployStage
     displayName: 'Deploy'
@@ -40,5 +43,9 @@ stages:
                     "name": "BACKEND_URI_CONVENTIONS",
                     "value": "https://catton-conventions.azurewebsites.net",
                     "slotSetting": false
+                  }
+                  {
+                    "name": "AZURE_KEY_VAULT_SECRET",
+                    "value": "$(AzureKeyVaultSecret)",
                   }
                 ]

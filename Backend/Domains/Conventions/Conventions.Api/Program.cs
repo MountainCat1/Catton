@@ -1,4 +1,7 @@
 using System.Text.Json.Serialization;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Catut.Application.Abstractions;
 using Catut.Application.Configuration;
 using Catut.Application.Extensions;
@@ -35,6 +38,8 @@ configuration.AddJsonFile("Secrets/hash_ids.json");
 
 var jwtConfig = configuration.GetConfiguration<JwtConfig>();
 var hashIdsConfig = configuration.GetConfiguration<HashIdsConfig>();
+
+Console.WriteLine(configuration["test"]);
 
 #endregion
 
