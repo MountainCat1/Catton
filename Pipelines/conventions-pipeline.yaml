@@ -1,6 +1,9 @@
 ﻿pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  - group: 'Domain Secrets'
+
 trigger:
   branches:
     include:
