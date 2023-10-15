@@ -15,6 +15,9 @@ WORKDIR "/src/$ProjectName"
 RUN dotnet build "$ProjectName.csproj" -c Release -o /app/build
 
 FROM build AS publish
+
+ARG ProjectName
+
 RUN dotnet publish "$ProjectName.csproj" -c Release -o /app/publish
 
 FROM base AS final
@@ -26,5 +29,9 @@ EXPOSE 80
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV entrypoint="$ProjectName.Api.dll"
-ENTRYPOINT ["dotnet", "$entrypoint"]
+ENV entrypoint="$ProjectName.dll"
+ENTRYPOINT ["dotnet", "(echo $entrypoint)"]
+
+
+
+
