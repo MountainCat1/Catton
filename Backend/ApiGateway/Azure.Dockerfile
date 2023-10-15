@@ -4,6 +4,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
+ARG ProjectName
+
 WORKDIR /src
 COPY ["$ProjectName/$ProjectName.csproj", "$ProjectName/"]
 RUN dotnet restore "$ProjectName/$ProjectName.csproj"
@@ -15,6 +18,8 @@ FROM build AS publish
 RUN dotnet publish "$ProjectName.csproj" -c Release -o /app/publish
 
 FROM base AS final
+
+ARG ProjectName
 
 EXPOSE 80
 
