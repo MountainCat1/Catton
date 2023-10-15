@@ -16,10 +16,10 @@ RUN dotnet publish "ApiGateway.csproj" -c Release -o /app/publish
 FROM base AS final
 
 EXPOSE 80
-EXPOSE 443
+#EXPOSE 443
 
-ENV ASPNETCORE_URLS=http://+:80;https://+:443
-ENV ASPNETCORE_HTTPS_PORT=443
+#ENV ASPNETCORE_URLS=http://+:80;https://+:443
+#ENV ASPNETCORE_HTTPS_PORT=443
 
 WORKDIR /app
 COPY --from=publish /app/publish .

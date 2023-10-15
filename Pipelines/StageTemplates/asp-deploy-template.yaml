@@ -33,7 +33,7 @@ stages:
                 [
                   {
                     "name": "WEBSITES_PORT",
-                    "value": "443",
+                    "value": "80",
                     "slotSetting": false
                   },
                   {
