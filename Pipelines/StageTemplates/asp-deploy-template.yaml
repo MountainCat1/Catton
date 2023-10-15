@@ -44,6 +44,6 @@ stages:
                   },
                   {
                     "name": "AZURE_KEY_VAULT_SECRET",
-                    "value": "${{ variables.AzureKeyVaultSecret }}"
+                    "value": "${{ variables.DomainKeyVaultSecret }}"
                   }
                 ]
