@@ -26,4 +26,5 @@ EXPOSE 80
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["dotnet", "$ProjectName.dll"]
+ENV entrypoint="$ProjectName.Api.dll"
+ENTRYPOINT ["dotnet", "$entrypoint"]
