@@ -18,7 +18,6 @@ RUN dotnet publish "Accounts.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
 COPY --from=build /https/* /https/
 
 ENV ASPNETCORE_Kestrel__Certificates__Default__Password=PASSWORD
