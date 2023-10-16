@@ -39,7 +39,7 @@ stages:
                   },
                   {
                     "name": "BACKEND_URI_CONVENTIONS",
-                    "value": "https://catton-conventions.azurewebsites.net",
+                    "value": "https://catton-conventions.azurewebsites.net"
                   },
                   {
                     "name": "AZURE_KEY_VAULT_SECRET",
