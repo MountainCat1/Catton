@@ -34,10 +34,12 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 if (configuration.GetEnvironmentVariable<bool>("USE_AZURE_KEY_VAULT"))
 {
+    Console.WriteLine("Loading secrets from Azure Key Vault...");
     configuration.InstallAzureSecrets();
 }
 else
 {
+    Console.WriteLine("Loading secrets from local files...");
     configuration.AddJsonFile("Secrets/jwt.json");
     configuration.AddJsonFile("Secrets/hash_ids.json");
 }
