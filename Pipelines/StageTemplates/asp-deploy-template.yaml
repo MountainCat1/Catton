@@ -50,6 +50,10 @@ stages:
                     "value": "$(DomainKeyVaultSecret)"
                   },
                   {
+                    "name": "AZURE_BLOB_CONNECTION_STRING",
+                    "value": "$(AzureBlobConnectionString)"
+                  },
+                  {
                     "name": "USE_AZURE_KEY_VAULT",
                     "value": "true"
                   }

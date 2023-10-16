@@ -14,6 +14,7 @@ using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization.Extensions;
 using ConventionDomain.Application.Configuration;
 using ConventionDomain.Application.Services;
+using Conventions.Api.Configuration;
 using Conventions.Api.Extensions;
 using Conventions.Api.Extensions.ServiceCollection;
 using Conventions.Domain.Repositories;
@@ -32,6 +33,17 @@ var builder = WebApplication.CreateBuilder(args);
 #region Configuration
 
 var configuration = builder.Configuration;
+
+if (configuration.GetEnvironmentVariable<bool>("USE_BLOB_CONFIGURATION"))
+{
+    Console.WriteLine("Loading configuration from Azure Blob Storage...");
+    configuration.AddAzureBlobJson(new BlobStorageConfig()
+    {
+        ConnectionString = configuration.GetEnvironmentVariable<string>("AZURE_BLOB_CONNECTION_STRING"),
+        ContainerName = "domain-config"
+    }, "appsettings.json");
+}
+
 if (configuration.GetEnvironmentVariable<bool>("USE_AZURE_KEY_VAULT"))
 {
     Console.WriteLine("Loading secrets from Azure Key Vault...");
