@@ -32,14 +32,19 @@ var builder = WebApplication.CreateBuilder(args);
 #region Configuration
 
 var configuration = builder.Configuration;
+if (configuration.GetEnvironmentVariable<bool>("USE_AZURE_KEY_VAULT"))
+{
+    configuration.InstallAzureSecrets();
+}
+else
+{
+    configuration.AddJsonFile("Secrets/jwt.json");
+    configuration.AddJsonFile("Secrets/hash_ids.json");
+}
 
-configuration.AddJsonFile("Secrets/jwt.json");
-configuration.AddJsonFile("Secrets/hash_ids.json");
 
-var jwtConfig = configuration.GetConfiguration<JwtConfig>();
-var hashIdsConfig = configuration.GetConfiguration<HashIdsConfig>();
-
-Console.WriteLine(configuration["test"]);
+var jwtConfig = configuration.GetSecret<JwtConfig>();
+var hashIdsConfig = configuration.GetSecret<HashIdsConfig>();
 
 #endregion
 
@@ -89,7 +94,7 @@ services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
-services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
+services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
 services.AddScoped<IConvenitonUnitOfWork, ConventionDomainUnitOfWork>();
 services.AddScoped<ICommandMediator, ConventionCommandMediator>();
