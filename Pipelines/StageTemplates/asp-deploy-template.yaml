@@ -56,5 +56,13 @@ stages:
                   {
                     "name": "USE_AZURE_KEY_VAULT",
                     "value": "true"
+                  },
+                  {
+                    "name": "USE_BLOB_CONFIGURATION",
+                    "value": "true"
+                  },
+                  {
+                    "name": "ENABLE_SWAGGER",
+                    "value": "true"
                   }
                 ]
