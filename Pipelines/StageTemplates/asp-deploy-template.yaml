@@ -38,6 +38,10 @@ stages:
                     "slotSetting": false
                   },
                   {
+                    "name": "ASPNETCORE_ENVIRONMENT",
+                    "value": "AzureDevelopment"
+                  },
+                  {
                     "name": "BACKEND_URI_CONVENTIONS",
                     "value": "https://catton-conventions.azurewebsites.net"
                   },
