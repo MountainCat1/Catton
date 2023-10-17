@@ -34,8 +34,7 @@ stages:
                 [
                   {
                     "name": "AzureBlobStorage",
-                    "value": "$(AzureBlobConnectionString)",
-                    "type": "Custom"
+                    "value": "$(AzureBlobConnectionString)"
                   }
                 ]
               appSettings: |
