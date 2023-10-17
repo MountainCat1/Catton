@@ -30,6 +30,14 @@ stages:
               azureSubscription: '${{ parameters.resourceManagerConnection }}'
               appName: '${{ parameters.appName }}'
               resourceGroupName: '${{ parameters.resourceGroup }}'
+              connectionStrings: |
+                [
+                  {
+                    "name": "AzureBlobStorage",
+                    "value": "$(AzureBlobConnectionString)",
+                    "type": "AzureBlobStorage",
+                  }
+                ]
               appSettings: |
                 [
                   {
@@ -50,10 +58,6 @@ stages:
                     "value": "$(DomainKeyVaultSecret)"
                   },
                   {
-                    "name": "AZURE_BLOB_CONNECTION_STRING",
-                    "value": "$(AzureBlobConnectionString)"
-                  },
-                  {
                     "name": "USE_AZURE_KEY_VAULT",
                     "value": "true"
                   },
@@ -64,5 +68,9 @@ stages:
                   {
                     "name": "ENABLE_SWAGGER",
                     "value": "true"
+                  },
+                  {
+                    "name": "AZURE_BLOB_STORAGE_CONTAINER_NAME",
+                    "value": "domain-config"
                   }
                 ]

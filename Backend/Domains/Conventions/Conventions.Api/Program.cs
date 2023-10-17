@@ -34,17 +34,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-if (configuration.GetEnvironmentVariable<bool>("USE_BLOB_CONFIGURATION"))
+if (configuration.GetRequiredEnvironmentVariable<bool>("USE_BLOB_CONFIGURATION"))
 {
     Console.WriteLine("Loading configuration from Azure Blob Storage...");
-    configuration.AddAzureBlobJson(new BlobStorageConfig()
+    configuration.AddAzureBlobJsonConfiguration(new BlobStorageConfig()
     {
-        ConnectionString = configuration.GetEnvironmentVariable<string>("AZURE_BLOB_CONNECTION_STRING"),
-        ContainerName = "domain-config"
+        ConnectionString = configuration.GetRequiredConnectionString("AzureBlobStorage"),
+        ContainerName = configuration.GetRequiredEnvironmentVariable<string>("AZURE_BLOB_STORAGE_CONTAINER_NAME")
     }, "appsettings.json");
 }
 
-if (configuration.GetEnvironmentVariable<bool>("USE_AZURE_KEY_VAULT"))
+if (configuration.GetRequiredEnvironmentVariable<bool>("USE_AZURE_KEY_VAULT"))
 {
     Console.WriteLine("Loading secrets from Azure Key Vault...");
     configuration.InstallAzureSecrets();
