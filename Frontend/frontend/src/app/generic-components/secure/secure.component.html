@@ -33,12 +33,18 @@
         <mat-icon fontIcon="attach_money"></mat-icon>
         Tickets
       </button>
+      <button mat-button (click)="hideSidebars(); navigationService.toAttendees()">
+        <mat-icon fontIcon="group"></mat-icon>
+        <span>Attendees</span>
+      </button>
 
       <div style="margin-top: 1.5em; padding: 0"></div>
       <button mat-button (click)="hideSidebars(); navigationService.toSelectConvention()">
         <mat-icon fontIcon="group"></mat-icon>
         <span>Conventions</span>
       </button>
+
+
     </div>
   </mat-sidenav>
 

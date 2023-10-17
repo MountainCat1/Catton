@@ -32,5 +32,4 @@ export class OrganizersComponent {
   }
 
   protected readonly getFriendlyErrorMessage = getFriendlyErrorMessage;
-  protected readonly Image = Image;
 }

@@ -44,6 +44,7 @@ import {MatRippleModule} from "@angular/material/core";
 import { OrganizersComponent } from './components/organizers/organizers.component';
 import { InitialRedirectComponent } from './components/initial-redirect/initial-redirect.component';
 import {NgOptimizedImage} from "@angular/common";
+import { AttendeesComponent } from './components/attendees/attendees.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -74,6 +75,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     UserInfoComponent,
     OrganizersComponent,
     InitialRedirectComponent,
+    AttendeesComponent,
   ],
     imports: [
         BrowserModule,

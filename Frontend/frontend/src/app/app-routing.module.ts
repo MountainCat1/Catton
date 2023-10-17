@@ -16,6 +16,7 @@ import {MainMenuComponent} from "./components/main-menu/main-menu.component";
 import {OrganizersComponent} from "./components/organizers/organizers.component";
 import {InitialRedirectComponent} from "./components/initial-redirect/initial-redirect.component";
 import {PublicPopupComponent} from "./generic-components/public-popup/public-popup.component";
+import {AttendeesComponent} from "./components/attendees/attendees.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -37,6 +38,7 @@ const guard: CanActivateFn = (
 const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: '', component: MainMenuComponent},
   {path: 'organizers', component: OrganizersComponent},
+  {path: 'attendees', component: AttendeesComponent},
 ]
 
 const SECURE_ROUTES: Routes = [
