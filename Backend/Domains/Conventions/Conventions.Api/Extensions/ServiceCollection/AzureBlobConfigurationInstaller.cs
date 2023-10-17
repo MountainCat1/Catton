@@ -5,7 +5,7 @@ namespace Conventions.Api.Extensions.ServiceCollection;
 
 public static class AzureBlobConfigurationInstaller
 {
-    public static IConfigurationBuilder AddAzureBlobJson(this IConfigurationBuilder builder, BlobStorageConfig storageConfig, string fileName)
+    public static IConfigurationBuilder AddAzureBlobJsonConfiguration(this IConfigurationBuilder builder, BlobStorageConfig storageConfig, string fileName)
     {
         var blobServiceClient = new BlobServiceClient(storageConfig.ConnectionString);
         var blobClient = blobServiceClient.GetBlobContainerClient(storageConfig.ContainerName).GetBlobClient(fileName);
