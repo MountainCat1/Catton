@@ -52,8 +52,23 @@ public static class ConfigurationBuilderExtensions
         return config;
     }
 
-    public static T? GetEnvironmentVariable<T>(this ConfigurationManager configuration, string variableName)
+    public static T GetRequiredEnvironmentVariable<T>(this ConfigurationManager configuration, string variableName)
     {
-        return configuration.GetValue<T>(variableName);
+        var value = configuration.GetValue<T>(variableName);
+        
+        if(value is null)
+            throw new InvalidOperationException($"Required environment variable {variableName} is not set");
+        
+        return value;
+    }
+    
+    public static string GetRequiredConnectionString(this ConfigurationManager configuration, string connectionStringName)
+    {
+        var connectionString = configuration.GetConnectionString(connectionStringName);
+        
+        if(string.IsNullOrEmpty(connectionString))
+            throw new InvalidOperationException($"Required connection string {connectionStringName} is not set");
+        
+        return connectionString;
     }
 }
