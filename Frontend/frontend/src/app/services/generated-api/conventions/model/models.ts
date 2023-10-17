@@ -1,3 +1,5 @@
+export * from './attendeeCreateDto';
+export * from './attendeeDto';
 export * from './conventionCreateDto';
 export * from './conventionDto';
 export * from './conventionUpdateDto';

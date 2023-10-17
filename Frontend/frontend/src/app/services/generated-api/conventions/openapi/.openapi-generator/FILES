@@ -3,6 +3,7 @@
 README.md
 api.module.ts
 api/api.ts
+api/attendee.service.ts
 api/convention.service.ts
 api/organizer.service.ts
 api/ticketTemplate.service.ts
@@ -10,6 +11,8 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/attendeeCreateDto.ts
+model/attendeeDto.ts
 model/conventionCreateDto.ts
 model/conventionDto.ts
 model/conventionUpdateDto.ts

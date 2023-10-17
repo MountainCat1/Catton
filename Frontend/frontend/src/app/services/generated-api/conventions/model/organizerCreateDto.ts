@@ -9,14 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OrganizerRole } from './organizerRole';
 
 
 export interface OrganizerCreateDto { 
     accountId?: string;
-    role?: OrganizerRole;
 }
-export namespace OrganizerCreateDto {
-}
-
 
