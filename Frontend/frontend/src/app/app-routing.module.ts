@@ -15,6 +15,7 @@ import {SelectConventionComponent} from "./components/select-convention/select-c
 import {MainMenuComponent} from "./components/main-menu/main-menu.component";
 import {OrganizersComponent} from "./components/organizers/organizers.component";
 import {InitialRedirectComponent} from "./components/initial-redirect/initial-redirect.component";
+import {PublicPopupComponent} from "./generic-components/public-popup/public-popup.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -46,9 +47,9 @@ const SECURE_ROUTES: Routes = [
 ]
 
 const APP_ROUTES: Routes = [
-  {path: 'sign-in', component: SignInComponent},
+  {path: 'sign-in', component: PublicPopupComponent, children: [ { path: '', component: SignInComponent }]},
   {path: '', component: SecureComponent, canActivate: [guard], data: {title: 'Secure Views'}, children: SECURE_ROUTES},
-  {path: '', component: InitialRedirectComponent },
+  {path: '**', component: InitialRedirectComponent },
 ];
 
 export const routingConfiguration: ExtraOptions = {
