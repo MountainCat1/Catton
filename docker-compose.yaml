@@ -1,4 +1,25 @@
 version: '3.8'
+
+volumes: 
+    data:
+      driver: local
+      driver_opts:
+        type: none
+        device: /mnt/data
+        o: bind
+    data_log:
+        driver: local
+        driver_opts:
+            type: none
+            device: /mnt/data_log/log
+            o: bind
+    secrets:
+        driver: local
+        driver_opts:
+            type: none
+            device: /mnt/secrets
+            o: bind
+
 services:
 # === INFRASTRUCTURE === 
   sql_database:
@@ -7,6 +28,11 @@ services:
       dockerfile: Dockerfile
     ports:
        - "1433:1433"
+    volumes:
+      - data:/var/opt/mssql/data
+      - data_log:/var/opt/mssql/log
+      - secrets:/var/opt/mssql/secrets
+      
 
 # === FRONTEND === 
   frontend:
