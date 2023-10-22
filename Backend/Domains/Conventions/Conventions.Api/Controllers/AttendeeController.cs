@@ -103,7 +103,7 @@ public class AttendeeController : ControllerBase
             routeValues: new { conventionId = conventionId, accountId = result.AccountId });
     }
     
-    [HttpPost("{accountId:guid}")]
+    [HttpDelete("{accountId:guid}")]
     [ProducesResponseType(typeof(AttendeeDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]

@@ -50,7 +50,7 @@ public class AddAttendeeRequestHandler : IRequestHandler<AddAttendeeRequest, Att
         try
         {
             // Add the attendee to the convention
-            var attendeeEntity = convention.AddAttendee(req.AttendeeCreateDto.AccountId, account.Username, null);
+            var attendeeEntity = convention.AddAttendee(account.Id, account.Username, null);
             // Return dto as a successful result
             return attendeeEntity.ToDto();
         }
