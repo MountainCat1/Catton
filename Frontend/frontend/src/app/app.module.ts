@@ -45,6 +45,8 @@ import { OrganizersComponent } from './components/organizers/organizers.componen
 import { InitialRedirectComponent } from './components/initial-redirect/initial-redirect.component';
 import {NgOptimizedImage} from "@angular/common";
 import { AttendeesComponent } from './components/attendees/attendees.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -77,28 +79,30 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     InitialRedirectComponent,
     AttendeesComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        GoogleSigninButtonModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatSlideToggleModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        FormsModule,
-        MatProgressSpinnerModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatCardModule,
-        MatRippleModule,
-        NgOptimizedImage
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    GoogleSigninButtonModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatRippleModule,
+    NgOptimizedImage,
+    MatTableModule,
+    MatPaginatorModule
+  ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
