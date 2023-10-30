@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {OrganizerDto, OrganizerService} from "../../services/generated-api/conventions";
+import {AttendeeDto, OrganizerDto, OrganizerService} from "../../services/generated-api/conventions";
 import {Observable} from "rxjs";
 import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
 import {NavigationService} from "../../services/navigation.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-organizers',
@@ -11,11 +14,14 @@ import {NavigationService} from "../../services/navigation.service";
   styleUrls: ['./organizers.component.scss'],
   providers: [NavigationService]
 })
-export class OrganizersComponent {
+export class OrganizersComponent implements OnInit, AfterViewInit {
   private conventionId! : string;
   organizers$!: Observable<Array<OrganizerDto>>;
 
+  displayedColumns: string[] = ['username', 'id', 'createdDate', 'accountId', 'avatarUri'];
+  dataSource = new MatTableDataSource<AttendeeDto>();
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(
     private route: ActivatedRoute,
     private organizerService : OrganizerService,
@@ -27,8 +33,14 @@ export class OrganizersComponent {
     this.route.params.subscribe(params => {
       this.conventionId = params['conventionId'];
       this.organizers$ = this.organizerService.apiConventionsConventionIdOrganizersGet(this.conventionId);
+      this.organizers$.subscribe(organizers => {
+        this.dataSource.data = organizers;
+      })
     });
+  }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
   protected readonly getFriendlyErrorMessage = getFriendlyErrorMessage;

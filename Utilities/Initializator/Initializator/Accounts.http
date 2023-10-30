@@ -1,0 +1,43 @@
+﻿### Send request with dynamic variables in request's body
+POST {{baseUrl}}/api/accounts
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "email": "admin@admin.admin",
+  "password": "foo",
+  "username": "admin"
+}
+
+###
+POST {{baseUrl}}/api/accounts
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "email": "tomek@cocos.su",
+  "password": "Tomasz",
+  "username": "Andrzejowski"
+}
+
+###
+POST {{baseUrl}}/api/accounts
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "email": "michal@cocos.su",
+  "password": "Michał",
+  "username": "Kurka"
+}
+
+###
+POST {{baseUrl}}/api/accounts
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "email": "wlodzimiesz@cocos.su",
+  "password": "Włodzimierz",
+  "username": "Farmer"
+}
