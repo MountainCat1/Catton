@@ -47,6 +47,7 @@ import {NgOptimizedImage} from "@angular/common";
 import { AttendeesComponent } from './components/attendees/attendees.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -101,7 +102,8 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     MatRippleModule,
     NgOptimizedImage,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     {

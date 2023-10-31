@@ -11,24 +11,27 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="result.value">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 data-table">
+  <ng-container>
+    <table
+      mat-table [dataSource]="dataSource"
+      matSort
+      class="mat-elevation-z8 data-table">
 
       <!-- Username Column -->
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef> Username</th>
+      <ng-container matColumnDef="accountUsername">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Username</th>
         <td mat-cell *matCellDef="let element"> {{element.accountUsername}} </td>
       </ng-container>
 
       <!-- Account ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> Account ID</th>
+      <ng-container matColumnDef="accountId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Account ID</th>
         <td mat-cell *matCellDef="let element"> {{element.accountId}} </td>
       </ng-container>
 
       <!-- Created Date Column -->
       <ng-container matColumnDef="createdDate">
-        <th mat-header-cell *matHeaderCellDef> Joined</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Joined</th>
         <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
       </ng-container>
 

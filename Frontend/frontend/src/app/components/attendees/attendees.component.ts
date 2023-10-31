@@ -10,6 +10,7 @@ import {NavigationService} from "../../services/navigation.service";
 import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-attendees',
@@ -21,10 +22,11 @@ export class AttendeesComponent implements OnInit, AfterViewInit  {
 
   attendees$!: Observable<Array<AttendeeDto>>;
 
-  displayedColumns: string[] = ['username', 'id', 'createdDate', 'avatarUri'];
+  displayedColumns: string[] = ['accountUsername', 'accountId', 'createdDate', 'avatarUri'];
   dataSource = new MatTableDataSource<AttendeeDto>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort?: MatSort;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,5 +50,9 @@ export class AttendeesComponent implements OnInit, AfterViewInit  {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+
+    if(this.sort == undefined)
+      console.error("Sort is undefined!")
+    this.dataSource.sort = this.sort!;
   }
 }
