@@ -19,7 +19,7 @@ export class OrganizersComponent implements OnInit, AfterViewInit {
   organizers$!: Observable<Array<OrganizerDto>>;
 
   displayedColumns: string[] = ['username', 'id', 'createdDate', 'accountId', 'avatarUri'];
-  dataSource = new MatTableDataSource<AttendeeDto>();
+  dataSource = new MatTableDataSource<OrganizerDto>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(
