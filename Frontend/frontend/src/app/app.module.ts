@@ -48,6 +48,7 @@ import { AttendeesComponent } from './components/attendees/attendees.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import { AttendeeDetailsComponent } from './components/attendee-details/attendee-details.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -79,6 +80,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     OrganizersComponent,
     InitialRedirectComponent,
     AttendeesComponent,
+    AttendeeDetailsComponent,
   ],
   imports: [
     BrowserModule,

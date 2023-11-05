@@ -1,0 +1,40 @@
+@import "src/styles/styles";
+
+
+
+:host {
+  display: block;
+  @include details-page-mix;
+  @include page-mix; // makes page fill the view correctly
+}
+
+.details-content {
+  padding: 1.5em;
+}
+
+.avatar-image-container {
+
+  border-radius: 20px;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+}
+
+.avatar-image-container > img {
+  min-height: 200px;
+}
+
+.details-page-align-right {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.mat-drawer-container {
+  background-color: red;
+  color: white;
+}
+

@@ -11,6 +11,7 @@ import {getFriendlyErrorMessage} from "../../utilities/errorUtilities";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {SubdomainService} from "../../services/subdomain.service";
 
 @Component({
   selector: 'app-attendees',
@@ -31,6 +32,8 @@ export class AttendeesComponent implements OnInit, AfterViewInit  {
   constructor(
     private route: ActivatedRoute,
     private attendeeService : AttendeeService,
+    private subdomainService : SubdomainService,
+    private navigationService : NavigationService
   ) {
   }
 
@@ -40,7 +43,7 @@ export class AttendeesComponent implements OnInit, AfterViewInit  {
       this.attendees$ = this.attendeeService.apiConventionsConventionIdAttendeesGet(this.conventionId);
       this.attendees$.subscribe(attendees => {
         this.dataSource.data = attendees
-
+        console.log(this.subdomainService.getSubdomain())
       })
     });
 
@@ -54,5 +57,13 @@ export class AttendeesComponent implements OnInit, AfterViewInit  {
     if(this.sort == undefined)
       console.error("Sort is undefined!")
     this.dataSource.sort = this.sort!;
+  }
+
+  onTableClick(row: any) {
+
+  }
+
+  async onRowClicked(row : any) {
+     await this.navigationService.toAttendeeDetails(row.accountId);
   }
 }
