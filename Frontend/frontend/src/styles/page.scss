@@ -25,6 +25,16 @@
   }
 }
 
+.details-action-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+.details-action-button {
+  margin: 1em;
+  width: 22em;
+}
+
+
 //app-page > router-outlet + * {
 //  @include page-mix;
 //  border: blue solid  ;

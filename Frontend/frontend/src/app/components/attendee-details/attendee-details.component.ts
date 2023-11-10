@@ -4,7 +4,13 @@ import {AttendeeDto, AttendeeService} from "../../services/generated-api/convent
 import {SubdomainService} from "../../services/subdomain.service";
 import {NavigationService} from "../../services/navigation.service";
 import {Observable} from "rxjs";
-import { Location } from '@angular/common'
+import {Location} from '@angular/common'
+import {MatDialog} from "@angular/material/dialog";
+import {
+  AttendeeDeleteConfirmDialog,
+  AttendeeDeleteConfirmDialogComponent
+} from "./attendee-delete-confirm/attendee-delete-confirm-dialog.component";
+
 @Component({
   selector: 'app-attendee-details',
   templateUrl: './attendee-details.component.html',
@@ -17,6 +23,7 @@ export class AttendeeDetailsComponent implements OnInit {
   public attendee$!: Observable<AttendeeDto>;
 
   constructor(
+    public dialog: MatDialog,
     private route: ActivatedRoute,
     private attendeeService: AttendeeService,
     private subdomainService: SubdomainService,
@@ -35,6 +42,20 @@ export class AttendeeDetailsComponent implements OnInit {
       this.attendeeId = params['accountId'];
       this.attendee$ = this.attendeeService.apiConventionsConventionIdAttendeesAccountIdGet(this.conventionId, this.attendeeId);
     });
+  }
 
+  openDeleteDialog(attendee : AttendeeDto, enterAnimationDuration: string, exitAnimationDuration: string): void {
+
+    let data : AttendeeDeleteConfirmDialog = {
+      attendeeUsername: attendee.accountUsername!,
+      attendeeId: attendee.accountId!,
+    }
+
+    this.dialog.open(AttendeeDeleteConfirmDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: data
+    });
   }
 }

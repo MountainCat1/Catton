@@ -49,6 +49,8 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import { AttendeeDetailsComponent } from './components/attendee-details/attendee-details.component';
+import { AttendeeDeleteConfirmDialogComponent } from './components/attendee-details/attendee-delete-confirm/attendee-delete-confirm-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -81,6 +83,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     InitialRedirectComponent,
     AttendeesComponent,
     AttendeeDetailsComponent,
+    AttendeeDeleteConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,7 +108,8 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     NgOptimizedImage,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
   ],
   providers: [
     {
