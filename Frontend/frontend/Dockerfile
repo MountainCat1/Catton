@@ -25,5 +25,7 @@ COPY --from=builder /app/dist/frontend /usr/share/nginx/html
 # Expose port 80 to the outside world
 EXPOSE 80
 
+RUN touch "/sex.txt"
+
 # Start NGINX when the container starts
 CMD ["nginx", "-g", "daemon off;"]

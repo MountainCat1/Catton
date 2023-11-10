@@ -1,3 +1,5 @@
+@import "src/styles/variables";
+
 .page-header {
   text-align: center;
 
@@ -7,3 +9,33 @@
 .loading-spinner {
   margin: auto auto;
 }
+@mixin page-mix {
+  // the page should fill entire view, but we also need to shorten it for the height of the top bar to not make it overflow
+  min-height: calc(100vh - var(--top-spacer-padding));
+}
+
+// mix for all pages that are to display details
+@mixin details-page-mix {
+  background-color: $background-color-1;
+
+  @media (max-width: $breakpoint-lg) {
+    border-radius: 0;
+    padding: 0;
+    margin-top: 0;
+  }
+}
+
+.details-action-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+.details-action-button {
+  margin: 1em;
+  width: 22em;
+}
+
+
+//app-page > router-outlet + * {
+//  @include page-mix;
+//  border: blue solid  ;
+//}

@@ -45,6 +45,12 @@ import { OrganizersComponent } from './components/organizers/organizers.componen
 import { InitialRedirectComponent } from './components/initial-redirect/initial-redirect.component';
 import {NgOptimizedImage} from "@angular/common";
 import { AttendeesComponent } from './components/attendees/attendees.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import { AttendeeDetailsComponent } from './components/attendee-details/attendee-details.component';
+import { AttendeeDeleteConfirmDialogComponent } from './components/attendee-details/attendee-delete-confirm/attendee-delete-confirm-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -76,29 +82,35 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     OrganizersComponent,
     InitialRedirectComponent,
     AttendeesComponent,
+    AttendeeDetailsComponent,
+    AttendeeDeleteConfirmDialogComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        GoogleSigninButtonModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatSlideToggleModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        FormsModule,
-        MatProgressSpinnerModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatCardModule,
-        MatRippleModule,
-        NgOptimizedImage
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    GoogleSigninButtonModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatRippleModule,
+    NgOptimizedImage,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatDialogModule
+  ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

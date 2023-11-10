@@ -15,3 +15,10 @@ $button-gradient: linear-gradient(180deg, rgba(255, 47, 47, 0.5) 0%, rgba(255, 2
 $button-background: $button-gradient, $color-3;
 
 $shadow: rgba(0, 0, 0, 0.13) 0px 5px 10px 5px;
+
+$breakpoint-xs: 0px;      // Extra small screens (phones)
+$breakpoint-sm: 576px;    // Small screens (tablets)
+$breakpoint-md: 768px;    // Medium screens (small laptops)
+$breakpoint-lg: 992px;    // Large screens (desktops)
+$breakpoint-xl: 1200px;
+

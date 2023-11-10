@@ -39,10 +39,8 @@ public class AddAttendeeRequestHandler : IRequestHandler<AddAttendeeRequest, Att
 
     public async Task<AttendeeDto> Handle(AddAttendeeRequest req, CancellationToken ct)
     {
-        var currentUserAccountId = _userAccessor.User.GetUserId();
-
         // Retrieve data asynchronously and in parallel
-        var (account, convention) = await GetDataAsync(req.ConventionId, currentUserAccountId, ct);
+        var (account, convention) = await GetDataAsync(req.ConventionId, req.AttendeeCreateDto.AccountId, ct);
             
         // Authorize the action based on policy
         await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.AddAttendees);
@@ -50,7 +48,7 @@ public class AddAttendeeRequestHandler : IRequestHandler<AddAttendeeRequest, Att
         try
         {
             // Add the attendee to the convention
-            var attendeeEntity = convention.AddAttendee(req.AttendeeCreateDto.AccountId, account.Username, null);
+            var attendeeEntity = convention.AddAttendee(account.Id, account.Username, null);
             // Return dto as a successful result
             return attendeeEntity.ToDto();
         }
