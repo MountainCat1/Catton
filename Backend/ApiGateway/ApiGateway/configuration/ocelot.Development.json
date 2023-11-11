@@ -13,7 +13,8 @@
       "UpstreamHttpMethod": [
         "POST",
         "PUT",
-        "GET"
+        "GET",
+        "DELETE"
       ],
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
       "SwaggerKey": "accounts",
