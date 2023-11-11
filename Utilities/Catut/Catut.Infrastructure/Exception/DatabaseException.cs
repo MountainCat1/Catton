@@ -1,6 +1,6 @@
-﻿namespace Catut.Infrastructure.Abstractions;
+﻿namespace Catut.Infrastructure.Exception;
 
-public class DatabaseException : Exception
+public class DatabaseException : System.Exception
 {
     public DatabaseException()
     {
@@ -10,7 +10,7 @@ public class DatabaseException : Exception
     {
     }
 
-    public DatabaseException(string? message, Exception? innerException) : base(message, innerException)
+    public DatabaseException(string? message, System.Exception? innerException) : base(message, innerException)
     {
     }
 }

@@ -15,15 +15,18 @@ public class ErrorHandlingMiddleware : IMiddleware
 
     private readonly IDatabaseErrorMapper _databaseErrorMapper;
     private readonly IApiExceptionMapper _apiExceptionMapper;
+    private readonly IApplicationErrorMapper _applicationErrorMapper;
 
     public ErrorHandlingMiddleware(
         ILogger<ErrorHandlingMiddleware> logger,
         IDatabaseErrorMapper databaseErrorMapper,
-        IApiExceptionMapper apiExceptionMapper)
+        IApiExceptionMapper apiExceptionMapper,
+        IApplicationErrorMapper applicationErrorMapper)
     {
         _logger = logger;
         _databaseErrorMapper = databaseErrorMapper;
         _apiExceptionMapper = apiExceptionMapper;
+        _applicationErrorMapper = applicationErrorMapper;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -44,7 +47,8 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
         catch (Exception ex)
         {
-            await HandleExceptionAsync(context, ex);
+            var mappedException = _applicationErrorMapper.Map(ex);
+            await HandleExceptionAsync(context, mappedException);
         }
     }
 

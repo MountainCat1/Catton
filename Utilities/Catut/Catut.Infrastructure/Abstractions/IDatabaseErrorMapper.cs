@@ -1,6 +1,8 @@
-﻿namespace Catut.Infrastructure.Abstractions;
+﻿using Catut.Infrastructure.Exception;
+
+namespace Catut.Infrastructure.Abstractions;
 
 public interface IDatabaseErrorMapper
 {
-    public Exception Map(DatabaseException exception);
+    public System.Exception Map(DatabaseException exception);
 }

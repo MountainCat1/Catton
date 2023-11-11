@@ -1,4 +1,5 @@
 ﻿using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Exception;
 
 namespace Catut.Infrastructure.Errors.Database;
 

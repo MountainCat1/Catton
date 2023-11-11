@@ -57,6 +57,7 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 
 services.AddSingleton<IApiExceptionMapper, ApiExceptionMapper>();
 services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddSingleton<IApplicationErrorMapper, ApplicationErrorMapper>();
 
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
