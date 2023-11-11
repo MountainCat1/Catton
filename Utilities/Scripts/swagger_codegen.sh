@@ -3,7 +3,7 @@
 set -e
 
 # Array of service names
-serviceNames=('conventions' 'accounts', '')
+serviceNames=('conventions' 'accounts')
 targetFramework=typescript-angular 
 
 # Set variables

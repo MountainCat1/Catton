@@ -3,13 +3,14 @@ import {ActivatedRoute} from "@angular/router";
 import {AttendeeDto, AttendeeService} from "../../services/generated-api/conventions";
 import {SubdomainService} from "../../services/subdomain.service";
 import {NavigationService} from "../../services/navigation.service";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {Location} from '@angular/common'
 import {MatDialog} from "@angular/material/dialog";
 import {
   AttendeeDeleteConfirmDialog,
   AttendeeDeleteConfirmDialogComponent
 } from "./attendee-delete-confirm/attendee-delete-confirm-dialog.component";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-attendee-details',
@@ -21,6 +22,8 @@ export class AttendeeDetailsComponent implements OnInit {
   private attendeeId!: string;
 
   public attendee$!: Observable<AttendeeDto>;
+
+  private attendee! : AttendeeDto;
 
   constructor(
     public dialog: MatDialog,
@@ -42,20 +45,27 @@ export class AttendeeDetailsComponent implements OnInit {
       this.attendeeId = params['accountId'];
       this.attendee$ = this.attendeeService.apiConventionsConventionIdAttendeesAccountIdGet(this.conventionId, this.attendeeId);
     });
+
+
   }
 
-  openDeleteDialog(attendee : AttendeeDto, enterAnimationDuration: string, exitAnimationDuration: string): void {
-
-    let data : AttendeeDeleteConfirmDialog = {
-      attendeeUsername: attendee.accountUsername!,
-      attendeeId: attendee.accountId!,
-    }
-
-    this.dialog.open(AttendeeDeleteConfirmDialogComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-      data: data
-    });
+  openDeleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.attendee$
+      .pipe(
+        map(attendee => ({
+          attendeeUsername: attendee.accountUsername!,
+          attendeeId: attendee.accountId!,
+          conventionId: this.conventionId
+        })),
+        tap(data => this.dialog.open(AttendeeDeleteConfirmDialogComponent, {
+          width: '250px',
+          enterAnimationDuration,
+          exitAnimationDuration,
+          data: data
+        }))
+      )
+      .subscribe();
   }
+
+  protected readonly console = console;
 }
