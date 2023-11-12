@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using Catut.Domain.Errors;
 using Catut.Infrastructure.Errors.Database;
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Convention;
@@ -39,10 +40,21 @@ public class CreateConventionRequestHandler : IRequestHandler<CreateConventionRe
         var accountId = _userAccessor.User.GetUserId();
         var account = await _accountsApi.AccountsGETAsync(accountId, ct);
 
-        var convention = Convention.CreateInstance(dto.Id, dto.Name, dto.Description, accountId);
+        Convention convention;
+
+        try
+        {
+            convention = Convention.CreateInstance(dto.Id, dto.Name, dto.Description, accountId, _conventionRepository);
+        }
+        catch (ConflictDomainError e)
+        {
+            // Convention already exists
+            throw new BadRequestError(e.Message);
+        }
+        
         convention.AddOrganizer(
-            accountId: accountId, 
-            accountUsername: account.Username, 
+            accountId: accountId,
+            accountUsername: account.Username,
             accountProfilePicture: null);
 
         await _conventionRepository.AddAsync(convention);

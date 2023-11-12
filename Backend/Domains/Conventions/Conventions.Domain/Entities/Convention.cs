@@ -1,5 +1,7 @@
 ﻿using Catut.Domain.Abstractions;
+using Catut.Domain.Errors;
 using Conventions.Domain.Events;
+using Conventions.Domain.Repositories;
 using Conventions.Domain.Validators;
 using FluentValidation;
 
@@ -34,8 +36,11 @@ public class Convention : Entity
     {
     }
 
-    public static Convention CreateInstance(string id, string name, string description, Guid creatorId)
+    public static Convention CreateInstance(string id, string name, string description, Guid creatorId, IConventionRepository repository)
     {
+        if(repository.GetConvention(id).Result is not null)
+            throw new ConflictDomainError($"Convention with id {id} already exists");
+        
         var entity = new Convention
         {
             Id = id,
@@ -74,6 +79,9 @@ public class Convention : Entity
         OrganizerRole role = OrganizerRole.Helper,
         Uri? accountProfilePicture = null)
     {
+        if (_organizers.Any(x => x.AccountId == accountId))
+            throw new ConflictDomainError($"Cannot add new organizer with specified account ID, account already assigned");
+        
         var organizer = Organizer.CreateInstance(
             accountId: accountId,
             accountUsername: accountUsername,
@@ -125,7 +133,7 @@ public class Convention : Entity
     public Attendee AddAttendee(Guid accountId, string accountUsername, Uri? accountProfilePicture)
     {
         if (Attendees.Any(x => x.AccountId == accountId))
-            throw new InvalidOperationException($"Cannot add new attendee with specified account ID, account already assigned");
+            throw new ConflictDomainError($"Cannot add new attendee with specified account ID, account already assigned");
         
         var attendee = Attendee.CreateInstance(
             accountId: accountId,

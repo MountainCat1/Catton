@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using Catut.Domain.Errors;
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Organizer;
@@ -50,18 +51,23 @@ public class CreateOrganizerRequestHandler : IRequestHandler<CreateOrganizerRequ
 
         await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.CreateOrganizer);
 
-        if (convention.Organizers.Any(x => x.AccountId == dto.AccountId))
-            throw new BadRequestError(
-                $"AccountId ({dto.AccountId}) is already an organizer of the convention ({req.ConventionId})");
-
         var account = await accountTask;
-        var organizer = convention.AddOrganizer(
-            accountId: dto.AccountId, 
-            accountUsername: account.Username,
-            accountProfilePicture: null);
 
-        await _conventionRepository.SaveChangesAsync();
+        try
+        {
+            var organizer = convention.AddOrganizer(
+                accountId: dto.AccountId, 
+                accountUsername: account.Username,
+                accountProfilePicture: null);
+            
+            await _conventionRepository.SaveChangesAsync();
 
-        return organizer.ToDto();
+            return organizer.ToDto();
+
+        }
+        catch (ConflictDomainError domainError)
+        {
+            throw new BadRequestError(domainError.Message);
+        }
     }
 }

@@ -11,6 +11,7 @@ public class ApplicationErrorMapper : IApplicationErrorMapper
         return ex switch
         {
             ValidationException validationException => new BadRequestError(validationException.Errors),
+            InvalidOperationException invalidOperationException => new BadRequestError(invalidOperationException.Message),
             _ => ex
         };
     }

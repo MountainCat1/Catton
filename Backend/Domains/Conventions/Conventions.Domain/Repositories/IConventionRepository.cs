@@ -9,4 +9,6 @@ public interface IConventionRepository : IRepository<Convention>
     Task<ICollection<Convention>> GetByOrganizatorId(Guid accountId);
 
     Task<Convention?> GetConvention(string conventionId);
+    
+    
 }

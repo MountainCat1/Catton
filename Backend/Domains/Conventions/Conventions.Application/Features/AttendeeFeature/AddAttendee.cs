@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using Catut.Domain.Errors;
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Attendee;
@@ -49,12 +50,12 @@ public class AddAttendeeRequestHandler : IRequestHandler<AddAttendeeRequest, Att
         {
             // Add the attendee to the convention
             var attendeeEntity = convention.AddAttendee(account.Id, account.Username, null);
-            // Return dto as a successful result
+            
             return attendeeEntity.ToDto();
         }
-        catch (InvalidOperationException invalidOperationException)
+        catch (ConflictDomainError domainError)
         {
-            throw new BadRequestError(invalidOperationException.Message);
+            throw new BadRequestError(domainError.Message);
         }
     }
 
