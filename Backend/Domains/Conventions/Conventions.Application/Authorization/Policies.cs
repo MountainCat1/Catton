@@ -15,6 +15,7 @@ public static class Policies
     public const string ManageTicketTemplates = nameof(ManageTicketTemplates);
     
     public const string CreateOwnTicket = nameof(CreateOwnTicket);
+    public const string CreateTicket = nameof(CreateTicket);
     
     public const string AddAttendees = nameof(AddAttendees);
     public const string SignUpAsAttendee = nameof(SignUpAsAttendee);
