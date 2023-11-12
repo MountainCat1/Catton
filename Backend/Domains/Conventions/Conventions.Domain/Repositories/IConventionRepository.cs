@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Catut.Domain.Abstractions;
+﻿using Catut.Domain.Abstractions;
 using Conventions.Domain.Entities;
 
 namespace Conventions.Domain.Repositories;

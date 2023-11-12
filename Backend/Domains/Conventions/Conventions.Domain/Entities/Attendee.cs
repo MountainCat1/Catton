@@ -11,8 +11,10 @@ public class Attendee : Entity
     public Guid AccountId { private set; get; }
     
     public DateTime CreatedDate { get; set; }
-    
-    // public ICollection<Ticket> Tickets { get; set; }
+
+    private readonly List<Ticket> _tickets = new();
+    public IReadOnlyCollection<Ticket> Tickets => _tickets;
+
 
     // Data from account entity
     public string AccountUsername { get; set; }
@@ -41,14 +43,21 @@ public class Attendee : Entity
         return entity;
     }
 
-    // public Ticket AddTicket(TicketTemplate ticketTemplate)
-    // {
-    //     var ticket = Ticket.Create(ticketTemplate, this);
-    //     
-    //     Tickets.Add(ticket);
-    //
-    //     return ticket;
-    // }
+    public Ticket AddTicket(TicketTemplate ticketTemplate)
+    {
+        var ticket = Ticket.CreateInstance(ticketTemplate);
+            
+        _tickets.Add(ticket);
+
+        return ticket;
+    }
+    
+    public Ticket RemoveTicket(Ticket ticket)
+    {
+        _tickets.Remove(ticket);
+
+        return ticket;
+    }
     
     public void ValidateAndThrow()
     {

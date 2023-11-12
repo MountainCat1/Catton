@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Conventions.Api.Controllers;
 
 [ApiController]
-[Route("api/conventions/{conventionId:guid}/ticket-templates")]
+[Route("api/conventions/{conventionId}/ticket-templates")]
 public class TicketTemplateController : Controller
 {
     private readonly IQueryMediator _queryMediator;
@@ -38,7 +38,7 @@ public class TicketTemplateController : Controller
         string resourceUri = Url.Action("GetTicketTemplate", "TicketTemplate", new
                              {
                                  ticketTemplateId = createdTicketTemplate.Id,
-                                 conventionId = createdTicketTemplate.ConvetionId
+                                 conventionId = conventionId
                              })
                              ?? throw new InvalidOperationException();
 

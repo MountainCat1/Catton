@@ -1,6 +1,5 @@
 ﻿using Catut.Application.Errors;
 using Catut.Domain.Errors;
-using Catut.Infrastructure.Errors.Database;
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;

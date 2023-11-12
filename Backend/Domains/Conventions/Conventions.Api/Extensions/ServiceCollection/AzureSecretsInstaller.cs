@@ -1,7 +1,6 @@
 ﻿using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using Microsoft.IdentityModel.Protocols;
 
 namespace Conventions.Api.Extensions.ServiceCollection;
 

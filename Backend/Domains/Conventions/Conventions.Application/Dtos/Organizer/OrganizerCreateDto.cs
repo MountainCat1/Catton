@@ -1,6 +1,4 @@
-﻿using Conventions.Domain.Entities;
-
-namespace ConventionDomain.Application.Dtos.Organizer;
+﻿namespace ConventionDomain.Application.Dtos.Organizer;
 
 public class OrganizerCreateDto
 {

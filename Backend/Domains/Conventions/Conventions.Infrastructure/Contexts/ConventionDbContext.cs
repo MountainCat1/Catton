@@ -17,7 +17,7 @@ public class ConventionDomainDbContext : DbContext
         mb.ApplyConfiguration(new TicketTemplateEntityConfiguration());        
         mb.ApplyConfiguration(new AttendeeEntityConfiguration());
         //! TODO to change later!!! 
-        // mb.ApplyConfiguration(new TicketEntityConfiguration());        
+        mb.ApplyConfiguration(new TicketEntityConfiguration());        
         
         base.OnModelCreating(mb);
     }
@@ -27,5 +27,5 @@ public class ConventionDomainDbContext : DbContext
     public DbSet<Organizer> Organizers { get; set; } = null!;
     public DbSet<TicketTemplate> TicketTemplates { get; set; } = null!;
     public DbSet<Attendee> Attendees { get; set; } = null!;
-    // public DbSet<Ticket> Tickets { get; set; } = null!;
+    public DbSet<Ticket> Tickets { get; set; } = null!;
 }

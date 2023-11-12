@@ -5,7 +5,6 @@ using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Services;
-using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
