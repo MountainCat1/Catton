@@ -1,4 +1,6 @@
-﻿using Accounts.Domain.Validators;
+﻿using Accounts.Domain.Repositories;
+using Accounts.Domain.Validators;
+using Catut.Domain.Errors;
 using FluentValidation;
 
 
@@ -14,8 +16,11 @@ public class PasswordAccountEntity : AccountEntity
         PasswordHash = passwordHash;
     }
 
-    internal static async Task<PasswordAccountEntity> CreateAsync(string email, string username, string passwordHash)
+    public static async Task<PasswordAccountEntity> CreateAsync(string email, string username, string passwordHash, IPasswordAccountRepository repository)
     {
+        if (await repository.GetAccountByEmailAsync(email) is not null)
+            throw new ConflictDomainError("Email has already been taken");
+        
         var newAccount = new PasswordAccountEntity(email, username, passwordHash);
 
         await newAccount.ValidateAndThrow();

@@ -1,6 +1,8 @@
-﻿using Accounts.Domain.Repositories;
-using Accounts.Domain.Services;
+﻿using Accounts.Domain.Entities;
+using Accounts.Domain.Repositories;
 using Accounts.Service.Services;
+using Catut.Application.Errors;
+using Catut.Domain.Errors;
 using MediatR;
 
 namespace Accounts.Service.Features.EmailPasswordAuthentication;
@@ -46,31 +48,37 @@ public class CreatePasswordAccountRequest : IRequest
 public class CreatePasswordAccountRequestHandler : IRequestHandler<CreatePasswordAccountRequest>
 {
     private readonly IPasswordAccountRepository _passwordAccountRepository;
-    private readonly IPasswordAccountService _passwordAccountService;
     private readonly IHashingService _hashingService;
     private readonly IMediator _mediator;
 
     public CreatePasswordAccountRequestHandler(
         IPasswordAccountRepository passwordAccountRepository,
         IHashingService hashingService,
-        IMediator mediator,
-        IPasswordAccountService passwordAccountService) 
+        IMediator mediator) 
     {
         _passwordAccountRepository = passwordAccountRepository;
         _hashingService = hashingService;
         _mediator = mediator;
-        _passwordAccountService = passwordAccountService;
     }
 
     public async Task Handle(CreatePasswordAccountRequest request, CancellationToken cancellationToken)
     {
-        var entity = await _passwordAccountService.CreateAsync(
-            email: request.Email,
-            username: request.Username,
-            passwordHash: _hashingService.HashPassword(request.Password)
-        );
+        PasswordAccountEntity account;
+        try
+        {
+            account = await PasswordAccountEntity.CreateAsync(
+                email: request.Email,
+                username: request.Username,
+                passwordHash: _hashingService.HashPassword(request.Password),
+                _passwordAccountRepository
+            );
+        }
+        catch (ConflictDomainError domainError)
+        {
+            throw new BadRequestError(domainError.Message);
+        }
 
-        await _passwordAccountRepository.AddAsync(entity);
+        await _passwordAccountRepository.AddAsync(account);
 
         await _passwordAccountRepository.SaveChangesAsync();
     }

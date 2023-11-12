@@ -1,7 +1,6 @@
 using Accounts.Application.Extensions;
 using Accounts.Application.Extensions.ServiceCollection;
 using Accounts.Domain.Repositories;
-using Accounts.Domain.Services;
 using Accounts.Infrastructure.Contexts;
 using Accounts.Infrastructure.Repositories;
 using Accounts.Service;
@@ -9,7 +8,6 @@ using Accounts.Service.Features.GoogleAuthentication;
 using Accounts.Service.Services;
 using Catut.Application.Abstractions;
 using Catut.Application.Configuration;
-using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
 using Catut.Application.Services;
@@ -62,8 +60,6 @@ services.AddSingleton<IApplicationErrorMapper, ApplicationErrorMapper>();
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
 services.AddScoped<IPasswordAccountRepository, PasswordAccountRepository>();
-
-services.AddScoped<IPasswordAccountService, PasswordAccountService>();
 
 services.AddScoped<IHashingService, HashingService>();
 services.AddScoped<IJwtService, JwtService>();
