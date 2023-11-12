@@ -3,7 +3,6 @@ using Catut.Domain.Errors;
 using Conventions.Domain.Events;
 using Conventions.Domain.Repositories;
 using Conventions.Domain.Validators;
-using FluentValidation;
 
 namespace Conventions.Domain.Entities;
 
@@ -70,7 +69,12 @@ public class Convention : Entity
 
     public void ValidateAndThrow()
     {
-        new ConventionValidator().ValidateAndThrow(this);
+        var result = new ConventionValidator().Validate(this);
+        
+        if (result.IsValid)
+            return;
+
+        throw new ValidationDomainError("Validation failed", result.Errors);
     }
 
     public Organizer AddOrganizer(

@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Conventions.Domain.Validators;
 
-public class ConventionOrganizerValidator : AbstractValidator<Organizer>
+public class OrganizerValidator : AbstractValidator<Organizer>
 {
-    public ConventionOrganizerValidator()
+    public OrganizerValidator()
     {
     }
 }

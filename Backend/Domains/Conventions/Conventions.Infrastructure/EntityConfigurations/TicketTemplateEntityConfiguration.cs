@@ -12,6 +12,9 @@ public class TicketTemplateEntityConfiguration : IEntityTypeConfiguration<Ticket
 
         builder.HasKey(t => t.Id);
 
+        builder.Property(o => o.Id)
+            .ValueGeneratedNever();
+        
         builder.Property(t => t.Name)
             .IsRequired()
             .HasMaxLength(200);

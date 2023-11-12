@@ -18,7 +18,7 @@ public class Ticket : Entity
     {
         var instance = new Ticket()
         {
-            Id = Guid.Empty, // sets to empty so that EF won't think its an existing entity
+            Id = Guid.NewGuid(),
             TicketTemplate = ticketTemplate,
             CreatedDate = DateTime.Now,
         };

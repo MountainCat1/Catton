@@ -11,10 +11,11 @@
         <Copyright>Developed and owned by Tomasz Banaś</Copyright>
         <PackageTags>cats are liquid</PackageTags>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-        <Version>1.0.3</Version>
+        <Version>1.0.5</Version>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.5.2" />
       <PackageReference Include="MediatR" Version="12.0.1" />
     </ItemGroup>
 

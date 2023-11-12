@@ -97,7 +97,9 @@ services.AddScoped<IConventionRepository, ConventionRepository>();
 
 services.AddHttpContextAccessor();
 services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddSingleton<IApplicationErrorMapper, ApplicationErrorMapper>();
 services.AddSingleton<IApiExceptionMapper, ApiExceptionMapper>();
+services.AddSingleton<IDomainErrorMapper, DomainErrorMapper>();
 services.AddTransient<IUserAccessor, UserAccessor>();
 services.AddTransient<IAuthTokenAccessor, AuthTokenAccessor>();
 services.AddSingleton<ErrorHandlingMiddleware>();

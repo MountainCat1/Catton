@@ -1,6 +1,6 @@
 ﻿using Catut.Domain.Abstractions;
+using Catut.Domain.Errors;
 using Conventions.Domain.Validators;
-using FluentValidation;
 
 namespace Conventions.Domain.Entities;
 
@@ -63,7 +63,12 @@ public class Organizer : Entity
 
     public void ValidateAndThrow()
     {
-        new ConventionOrganizerValidator().ValidateAndThrow(this);
+        var result = new OrganizerValidator().Validate(this);
+        
+        if (result.IsValid)
+            return;
+
+        throw new ValidationDomainError("Validation failed", result.Errors);
     }
 
     public void Update(OrganizerUpdate update)

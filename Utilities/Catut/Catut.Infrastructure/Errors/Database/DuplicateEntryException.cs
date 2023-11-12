@@ -1,5 +1,4 @@
 ﻿using Catut.Infrastructure.Exception;
-using System;
 
 namespace Catut.Infrastructure.Errors.Database;
 

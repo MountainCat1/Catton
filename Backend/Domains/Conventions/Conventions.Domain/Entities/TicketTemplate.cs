@@ -1,6 +1,6 @@
 ﻿using Catut.Domain.Abstractions;
+using Catut.Domain.Errors;
 using Conventions.Domain.Validators;
-using FluentValidation;
 
 namespace Conventions.Domain.Entities;
 
@@ -36,7 +36,7 @@ public class TicketTemplate : Entity
     {
         var ticketTemplate = new TicketTemplate()
         {
-            Id = Guid.Empty, // sets to empty so that EF won't think its an existing entity
+            Id = Guid.NewGuid(),
             Name = name,
             Description = description,
             Price = price,
@@ -71,6 +71,11 @@ public class TicketTemplate : Entity
     
     public void ValidateAndThrow()
     {
-        new TicketTemplateValidator().ValidateAndThrow(this);
+        var result = new TicketTemplateValidator().Validate(this);
+
+        if (result.IsValid)
+            return;
+
+        throw new ValidationDomainError("Validation failed", result.Errors);
     }
 }

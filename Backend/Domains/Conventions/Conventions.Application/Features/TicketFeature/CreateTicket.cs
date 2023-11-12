@@ -44,8 +44,6 @@ public class CreateTicketRequestHandler : IRequestHandler<CreateTicketRequest, T
 
         var ticket = attendee.AddTicket(ticketTemplate);
 
-        await _conventionRepository.SaveChangesAsync(); // save changes to retreive guid from the database
-
         return ticket.ToDto();
     }
 }

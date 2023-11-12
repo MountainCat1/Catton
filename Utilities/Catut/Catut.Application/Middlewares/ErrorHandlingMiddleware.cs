@@ -3,6 +3,7 @@ using Catut.Application.Abstractions;
 using Catut.Application.Dtos;
 using Catut.Application.Errors;
 using Catut.Application.Exceptions;
+using Catut.Domain.Abstractions;
 using Catut.Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -16,17 +17,20 @@ public class ErrorHandlingMiddleware : IMiddleware
     private readonly IDatabaseErrorMapper _databaseErrorMapper;
     private readonly IApiExceptionMapper _apiExceptionMapper;
     private readonly IApplicationErrorMapper _applicationErrorMapper;
+    private readonly IDomainErrorMapper _domainErrorMapper;
 
     public ErrorHandlingMiddleware(
         ILogger<ErrorHandlingMiddleware> logger,
         IDatabaseErrorMapper databaseErrorMapper,
         IApiExceptionMapper apiExceptionMapper,
-        IApplicationErrorMapper applicationErrorMapper)
+        IApplicationErrorMapper applicationErrorMapper,
+        IDomainErrorMapper domainErrorMapper)
     {
         _logger = logger;
         _databaseErrorMapper = databaseErrorMapper;
         _apiExceptionMapper = apiExceptionMapper;
         _applicationErrorMapper = applicationErrorMapper;
+        _domainErrorMapper = domainErrorMapper;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -38,6 +42,11 @@ public class ErrorHandlingMiddleware : IMiddleware
         catch (DatabaseException databaseException)
         {
             var error = _databaseErrorMapper.Map(databaseException);
+            await HandleExceptionAsync(context, error);
+        }
+        catch (DomainError domainError)
+        {
+            var error = _domainErrorMapper.Map(domainError);
             await HandleExceptionAsync(context, error);
         }
         catch (ApiException apiException)

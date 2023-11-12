@@ -12,6 +12,9 @@ public class TicketEntityConfiguration : IEntityTypeConfiguration<Ticket>
 
         builder.HasKey(o => new {o.Id});
 
+        builder.Property(o => o.Id)
+            .ValueGeneratedNever();
+        
         builder.Property(o => o.CreatedDate)
             .IsRequired();
     }
