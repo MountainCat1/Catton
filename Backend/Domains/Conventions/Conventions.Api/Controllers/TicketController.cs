@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Conventions.Api.Controllers;
 
 [ApiController]
-[Route("api/conventions/{conventionId}/attendees/{attendeeId:guid}/tickets")]
+[Route("api/conventions/{conventionId}")]
 public class TicketController : Controller
 {
     private readonly ICommandMediator _commandMediator;
@@ -24,7 +24,7 @@ public class TicketController : Controller
     }
 
 
-    [HttpPost]
+    [HttpPost("attendees/{attendeeId:guid}/tickets")]
     [ProducesResponseType(typeof(TicketDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
@@ -49,7 +49,7 @@ public class TicketController : Controller
     }
     
     
-    [HttpGet]
+    [HttpGet("attendees/{attendeeId:guid}/tickets")]
     [ProducesResponseType(typeof(TicketDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
@@ -57,8 +57,6 @@ public class TicketController : Controller
         [FromRoute] string conventionId,
         [FromRoute] Guid attendeeId)
     {
-        var userId = _userAccessor.User.GetUserId();
-
         var request = new GetAttendeeTicketsRequest()
         {
             ConventionId = conventionId,
@@ -67,6 +65,22 @@ public class TicketController : Controller
             
         var tickets = await _queryMediator.SendAsync(request);
             
+        return Ok(tickets);
+    }
+    
+    [HttpGet("tickets")]
+    [ProducesResponseType(typeof(ICollection<TicketDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAllTickets(string conventionId)
+    {
+        var request = new GetAllTicketsInConventionRequest()
+        {
+            ConventionId = conventionId
+        };
+
+        var tickets = await _queryMediator.SendAsync(request);
+
         return Ok(tickets);
     }
 }
