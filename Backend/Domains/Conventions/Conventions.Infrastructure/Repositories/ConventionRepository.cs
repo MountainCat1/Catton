@@ -41,6 +41,7 @@ public class ConventionRepository : Repository<Convention, ConventionDomainDbCon
             .Include(x => x.Organizers)
             .Include(x => x.TicketTemplates)
             .Include(x => x.Attendees)
+            .ThenInclude(x => x.Tickets)
             .FirstOrDefaultAsync(x => x.Id == conventionId);
     }
 

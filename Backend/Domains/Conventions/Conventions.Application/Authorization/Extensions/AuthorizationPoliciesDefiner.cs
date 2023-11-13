@@ -90,6 +90,15 @@ public static class AuthorizationPoliciesDefiner
         {
             new IsOrganizerOfRequirement()
         });
+        options.AddPolicyWithRequirements(Policies.ReadOwnTickets, new IAuthorizationRequirement[]
+        {
+            new IsAtendeeOfRequirement()
+        });
+        options.AddPolicyWithRequirements(Policies.ReadTickets, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
+        
     }
 
     private static void AddPolicyWithRequirements(
