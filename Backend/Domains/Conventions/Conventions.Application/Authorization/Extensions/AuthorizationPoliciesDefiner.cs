@@ -70,7 +70,7 @@ public static class AuthorizationPoliciesDefiner
         options.AddPolicyWithRequirements(Policies.SignUpAsAttendee, new IAuthorizationRequirement[]
         {
             // always allowed :3
-            new AlwaysPassRequirement()
+            new AlwaysPassRequirement(),
         });
         options.AddPolicyWithRequirements(Policies.ReadAttendee, new IAuthorizationRequirement[]
         {

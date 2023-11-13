@@ -1,4 +1,5 @@
 ﻿using Catut.Application.Errors;
+using Catut.Domain.Errors;
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Attendee;
@@ -50,7 +51,7 @@ public class SignUpAsAttendeeHandler : IRequestHandler<SignUpAsAttendeeCommand, 
 
             return attendeeEntity.ToDto();
         }
-        catch (InvalidOperationException invalidOperationException)
+        catch (ConflictDomainError invalidOperationException)
         {
             throw new BadRequestError(invalidOperationException.Message);
         }

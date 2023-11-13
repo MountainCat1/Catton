@@ -21,6 +21,6 @@ public static class Policies
     
     public const string AddAttendees = nameof(AddAttendees);
     public const string SignUpAsAttendee = nameof(SignUpAsAttendee);
-    public const string ReadAttendee = nameof(SignUpAsAttendee);
+    public const string ReadAttendee = nameof(ReadAttendee);
     public const string RemoveAttendee = nameof(RemoveAttendee);
 }
