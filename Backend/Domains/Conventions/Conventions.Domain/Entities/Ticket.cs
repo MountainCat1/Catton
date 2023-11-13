@@ -1,4 +1,6 @@
 ﻿using Catut.Domain.Abstractions;
+using Catut.Domain.Errors;
+using Conventions.Domain.Validators;
 
 namespace Conventions.Domain.Entities;
 
@@ -24,5 +26,22 @@ public class Ticket : Entity
         };
 
         return instance;
+    }
+
+    public void Update()
+    {
+        // There is nothing to update for now so this method does nothing for now, it's more like a placeholder
+        
+        ValidateAndThrow();
+    }
+
+    public void ValidateAndThrow()
+    {
+        var result = new TicketValidator().Validate(this);
+        
+        if (result.IsValid)
+            return;
+
+        throw new ValidationDomainError("Validation failed", result.Errors);
     }
 }

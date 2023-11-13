@@ -1,7 +1,6 @@
 ﻿using Catut.Application.Dtos;
 using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Dtos.Ticket;
-using ConventionDomain.Application.Extensions;
 using ConventionDomain.Application.Features.TicketFeature;
 using ConventionDomain.Application.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -42,13 +41,14 @@ public class TicketController : Controller
 
         var ticket = await _commandMediator.SendAsync(request);
 
-        string resourceUri = Url.Action("GetTicket", "Ticket", new { conventionId = conventionId, attendeeId = attendeeId, ticketId = ticket.Id })
+        string resourceUri = Url.Action("GetTicket", "Ticket",
+                                 new { conventionId = conventionId, attendeeId = attendeeId, ticketId = ticket.Id })
                              ?? throw new InvalidOperationException();
 
         return Created(resourceUri, ticket);
     }
-    
-    
+
+
     [HttpGet("attendees/{attendeeId:guid}/tickets")]
     [ProducesResponseType(typeof(TicketDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -62,17 +62,17 @@ public class TicketController : Controller
             ConventionId = conventionId,
             AtendeeId = attendeeId,
         };
-            
+
         var tickets = await _queryMediator.SendAsync(request);
-            
+
         return Ok(tickets);
     }
-    
+
     [HttpGet("tickets")]
     [ProducesResponseType(typeof(ICollection<TicketDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAllTickets([FromRoute]string conventionId)
+    public async Task<IActionResult> GetAllTickets([FromRoute] string conventionId)
     {
         var request = new GetAllTicketsInConventionRequest()
         {
@@ -83,7 +83,7 @@ public class TicketController : Controller
 
         return Ok(tickets);
     }
-    
+
     [HttpGet("tickets/{ticketId:guid}")]
     [ProducesResponseType(typeof(TicketDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -99,5 +99,51 @@ public class TicketController : Controller
         var tickets = await _queryMediator.SendAsync(request);
 
         return Ok(tickets);
+    }
+
+    [HttpPut("attendees/{attendeeId:guid}/tickets/{ticketId:guid}")]
+    [ProducesResponseType(typeof(TicketDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateTicket(
+        string conventionId,
+        [FromRoute] Guid ticketId,
+        [FromRoute] Guid attendeeId,
+        [FromBody] TicketUpdateDto updateDto
+    )
+    {
+        var request = new UpdateTicketRequest()
+        {
+            ConventionId = conventionId,
+            TicketId = ticketId,
+            AttendeeId = attendeeId,
+            UpdateDto = updateDto
+        };
+
+        var ticket = await _commandMediator.SendAsync(request);
+
+        return Ok(ticket);
+    }
+    
+    [HttpDelete("attendees/{attendeeId:guid}/tickets/{ticketId:guid}")]
+    [ProducesResponseType(typeof(TicketDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteTicket(
+        string conventionId,
+        [FromRoute] Guid ticketId,
+        [FromRoute] Guid attendeeId
+    )
+    {
+        var request = new DeleteTicketRequest()
+        {
+            ConventionId = conventionId,
+            TicketId = ticketId,
+            AttendeeId = attendeeId,
+        };
+
+        var ticket = await _commandMediator.SendAsync(request);
+
+        return Ok(ticket);
     }
 }
