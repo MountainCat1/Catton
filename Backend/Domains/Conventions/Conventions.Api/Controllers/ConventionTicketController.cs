@@ -9,7 +9,7 @@ namespace Conventions.Api.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("api/conventions/{conventionId}/tickets}")]
+[Route("api/conventions/{conventionId}/tickets")]
 public class ConventionTicketController : ControllerBase
 {
     private readonly ICommandMediator _commandMediator;
