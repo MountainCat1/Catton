@@ -45,22 +45,6 @@ public class AttendeeController : ControllerBase
 
         return Ok(result);
     }
-    [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttendeeDto>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAttendees(
-        [FromRoute] string conventionId)
-    {
-        var query = new GetAttendeesRequest()
-        {
-            ConventionId = conventionId
-        };
-
-        var result = await _queryMediator.SendAsync(query);
-
-        return Ok(result);
-    }
 
     [HttpPost]
     [ProducesResponseType(typeof(AttendeeDto), StatusCodes.Status201Created)]
@@ -78,10 +62,27 @@ public class AttendeeController : ControllerBase
 
         var result = await _commandMediator.SendAsync(command);
 
-        return CreatedAtAction( 
+        return CreatedAtAction(
             actionName: nameof(GetAttendee),
-            value: result, 
+            value: result,
             routeValues: new { conventionId = conventionId, accountId = result.AccountId });
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<AttendeeDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAttendees(
+        [FromRoute] string conventionId)
+    {
+        var query = new GetAttendeesRequest()
+        {
+            ConventionId = conventionId
+        };
+
+        var result = await _queryMediator.SendAsync(query);
+
+        return Ok(result);
     }
 
     [HttpPost("me")]
@@ -94,15 +95,15 @@ public class AttendeeController : ControllerBase
         {
             ConventionId = conventionId,
         };
-        
+
         var result = await _commandMediator.SendAsync(command);
-        
+
         return CreatedAtAction(
             actionName: nameof(GetAttendee),
             value: result,
             routeValues: new { conventionId = conventionId, accountId = result.AccountId });
     }
-    
+
     [HttpDelete("{accountId:guid}")]
     [ProducesResponseType(typeof(AttendeeDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
@@ -114,9 +115,9 @@ public class AttendeeController : ControllerBase
             ConventionId = conventionId,
             AccountId = accountId
         };
-        
+
         var result = await _commandMediator.SendAsync(command);
-        
+
         return Ok(result);
     }
 }

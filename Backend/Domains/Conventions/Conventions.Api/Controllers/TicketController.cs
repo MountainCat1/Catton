@@ -59,20 +59,14 @@ public class TicketController : Controller
     {
         var userId = _userAccessor.User.GetUserId();
 
-        if (userId == attendeeId)
+        var request = new GetAttendeeTicketsRequest()
         {
-            var request = new GetOwnTicketsRequest()
-            {
-                ConventionId = conventionId
-            };
-
-            var tickets = await _queryMediator.SendAsync(request);
-
-            return Ok(tickets);
-        }
-        else
-        {
-            throw new NotImplementedException();
-        }
+            ConventionId = conventionId,
+            AtendeeId = attendeeId,
+        };
+            
+        var tickets = await _queryMediator.SendAsync(request);
+            
+        return Ok(tickets);
     }
 }
