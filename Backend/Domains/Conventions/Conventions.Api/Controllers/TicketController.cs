@@ -53,7 +53,7 @@ public class TicketController : Controller
     [ProducesResponseType(typeof(TicketDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTicket(
+    public async Task<IActionResult> GetAteendeeTicket(
         [FromRoute] string conventionId,
         [FromRoute] Guid attendeeId)
     {
@@ -72,11 +72,28 @@ public class TicketController : Controller
     [ProducesResponseType(typeof(ICollection<TicketDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAllTickets(string conventionId)
+    public async Task<IActionResult> GetAllTickets([FromRoute]string conventionId)
     {
         var request = new GetAllTicketsInConventionRequest()
         {
             ConventionId = conventionId
+        };
+
+        var tickets = await _queryMediator.SendAsync(request);
+
+        return Ok(tickets);
+    }
+    
+    [HttpGet("tickets/{ticketId:guid}")]
+    [ProducesResponseType(typeof(TicketDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTicket(string conventionId, Guid ticketId)
+    {
+        var request = new GetTicketRequest()
+        {
+            ConventionId = conventionId,
+            TicketId = ticketId
         };
 
         var tickets = await _queryMediator.SendAsync(request);
