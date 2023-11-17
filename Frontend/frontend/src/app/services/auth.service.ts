@@ -66,7 +66,10 @@ export class AuthService {
       let authToken = await firstValueFrom(this.http.post(urlJoin(environment.API_BASE_PATH, "api/auth/google"), authRequest, {responseType: 'text', headers: headers}));
 
       // Set token to cookies
-      this._cookieService.set("auth_token", authToken);
+      this._cookieService.set("auth_token", authToken, {
+        domain: '.localhost', // Replace with your top-level domain
+        sameSite: 'Lax', // You can adjust this as needed
+      });
 
       // Return token
       return authToken
