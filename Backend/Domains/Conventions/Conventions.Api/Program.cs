@@ -89,7 +89,7 @@ services.DefineAuthorizationPolicies();
 //  ===            ===
 
 services.AddAsymmetricAuthentication(jwtConfig);
-services.AddSingleton<Hashids>(x => new Hashids(hashIdsConfig.Salt, hashIdsConfig.MinHashLenght));
+services.AddSingleton<IHashids, Hashids>(x => new Hashids(hashIdsConfig.Salt, hashIdsConfig.MinHashLenght));
 
 services.AddApiHttpClinet<IAccountsApi, AccountsApi>();
 
