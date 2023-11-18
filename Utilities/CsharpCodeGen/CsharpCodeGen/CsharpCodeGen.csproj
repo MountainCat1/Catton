@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Catton.ApiClient" Version="1.0.15" />
+      <PackageReference Include="Catut.Application" Version="1.0.21" />
+      <PackageReference Include="NSwag.AspNetCore" Version="13.19.0" />
+      <PackageReference Include="NSwag.CodeGeneration.CSharp" Version="13.19.0" />
+      <PackageReference Include="NSwag.Core" Version="13.19.0" />
+      <PackageReference Include="NSwag.Generation.AspNetCore" Version="13.19.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="source.md">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="generated" />
+    </ItemGroup>
+
+</Project>
