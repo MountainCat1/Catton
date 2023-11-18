@@ -1,0 +1,1675 @@
+openapi: 3.0.1
+info:
+  title: Conventions.Api
+  version: "1.0"
+servers:
+- url: /
+security:
+- Bearer: []
+paths:
+  /api/conventions/{conventionId}/attendees/{accountId}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Attendee
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Attendee
+  /api/conventions/{conventionId}/attendees:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AttendeeDto'
+                type: array
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AttendeeDto'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AttendeeDto'
+                type: array
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Attendee
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttendeeCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AttendeeCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AttendeeCreateDto'
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+          description: Created
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Attendee
+  /api/conventions/{conventionId}/attendees/me:
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AttendeeDto'
+          description: Created
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Attendee
+  /api/conventions:
+    get:
+      responses:
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "200":
+          content:
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConventionDto'
+                type: array
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConventionDto'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConventionDto'
+                type: array
+          description: Success
+      tags:
+      - Convention
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConventionCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ConventionCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ConventionCreateDto'
+      responses:
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ConventionDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConventionDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ConventionDto'
+          description: Success
+      tags:
+      - Convention
+  /api/conventions/{id}:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ConventionDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConventionDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ConventionDto'
+          description: Success
+      tags:
+      - Convention
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConventionUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ConventionUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ConventionUpdateDto'
+      responses:
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+      tags:
+      - Convention
+  /api/conventions/{conventionId}/organizers:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizerDto'
+                type: array
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizerDto'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizerDto'
+                type: array
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Organizer
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizerCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OrganizerCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OrganizerCreateDto'
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+          description: Created
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Organizer
+  /api/conventions/{conventionId}/organizers/{organizerId}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: organizerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Organizer
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: organizerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Organizer
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: organizerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizerUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OrganizerUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OrganizerUpdateDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Organizer
+  /api/conventions/{conventionId}/attendees/{attendeeId}/tickets:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: attendeeId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Ticket
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: attendeeId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TicketCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TicketCreateDto'
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+          description: Created
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Ticket
+  /api/conventions/{conventionId}/tickets:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TicketDto'
+                type: array
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TicketDto'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TicketDto'
+                type: array
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Ticket
+  /api/conventions/{conventionId}/tickets/{ticketId}:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Ticket
+  /api/conventions/{conventionId}/attendees/{attendeeId}/tickets/{ticketId}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: attendeeId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Ticket
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: attendeeId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TicketUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TicketUpdateDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Ticket
+  /api/conventions/{conventionId}/ticket-templates:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TicketTemplateDto'
+                type: array
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TicketTemplateDto'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TicketTemplateDto'
+                type: array
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - TicketTemplate
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketTemplateCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TicketTemplateCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TicketTemplateCreateDto'
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+          description: Created
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - TicketTemplate
+  /api/conventions/{conventionId}/ticket-templates/{ticketTemplateId}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: ticketTemplateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - TicketTemplate
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: ticketTemplateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - TicketTemplate
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: conventionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: ticketTemplateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketTemplateUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TicketTemplateUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TicketTemplateUpdateDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TicketTemplateDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - TicketTemplate
+components:
+  schemas:
+    AttendeeCreateDto:
+      additionalProperties: false
+      example:
+        accountId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        accountId:
+          format: uuid
+          type: string
+      type: object
+    AttendeeDto:
+      additionalProperties: false
+      example:
+        accountAvatarUri: https://openapi-generator.tech
+        accountId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdDate: 2000-01-23T04:56:07.000+00:00
+        conventionId: conventionId
+        accountUsername: accountUsername
+      properties:
+        accountId:
+          format: uuid
+          type: string
+        conventionId:
+          nullable: true
+          type: string
+        createdDate:
+          format: date-time
+          type: string
+        accountUsername:
+          nullable: true
+          type: string
+        accountAvatarUri:
+          format: uri
+          nullable: true
+          type: string
+      type: object
+    ConventionCreateDto:
+      additionalProperties: false
+      example:
+        name: name
+        description: description
+        id: id
+      properties:
+        id:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+      type: object
+    ConventionDto:
+      additionalProperties: false
+      example:
+        name: name
+        description: description
+        active: true
+        id: id
+      properties:
+        id:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConventionUpdateDto:
+      additionalProperties: false
+      example:
+        name: name
+        description: description
+        active: true
+      properties:
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        active:
+          nullable: true
+          type: boolean
+      type: object
+    ErrorResponse:
+      additionalProperties: false
+      properties:
+        statusCode:
+          format: int32
+          type: integer
+        error:
+          nullable: true
+          type: string
+        message:
+          nullable: true
+          type: string
+        errors:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        failures:
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    OrganizerCreateDto:
+      additionalProperties: false
+      example:
+        accountId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        accountId:
+          format: uuid
+          type: string
+      type: object
+    OrganizerDto:
+      additionalProperties: false
+      example:
+        accountAvatarUri: https://openapi-generator.tech
+        accountId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdDate: 2000-01-23T04:56:07.000+00:00
+        role: null
+        conventionId: conventionId
+        accountUsername: accountUsername
+      properties:
+        accountId:
+          format: uuid
+          type: string
+        conventionId:
+          nullable: true
+          type: string
+        createdDate:
+          format: date-time
+          type: string
+        role:
+          $ref: '#/components/schemas/OrganizerRole'
+        accountUsername:
+          nullable: true
+          type: string
+        accountAvatarUri:
+          format: uri
+          nullable: true
+          type: string
+      type: object
+    OrganizerRole:
+      enum:
+      - Guest
+      - Owner
+      - Administrator
+      - Moderator
+      - Announcer
+      - Helper
+      type: string
+    OrganizerUpdateDto:
+      additionalProperties: false
+      example:
+        role: null
+      properties:
+        role:
+          $ref: '#/components/schemas/OrganizerRole'
+      type: object
+    TicketCreateDto:
+      additionalProperties: false
+      example:
+        ticketTemplateId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        ticketTemplateId:
+          format: uuid
+          type: string
+      type: object
+    TicketDto:
+      additionalProperties: false
+      example:
+        createdDate: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          format: uuid
+          type: string
+        createdDate:
+          format: date-time
+          type: string
+      type: object
+    TicketTemplateCreateDto:
+      additionalProperties: false
+      example:
+        price: 0.8008281904610115
+        name: name
+        description: description
+      properties:
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        price:
+          format: double
+          type: number
+      type: object
+    TicketTemplateDto:
+      additionalProperties: false
+      example:
+        price: 0.8008281904610115
+        avaliable: true
+        name: name
+        description: description
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        authorId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        lastEditAuthorId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        convetionId: convetionId
+        createDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          format: uuid
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        price:
+          format: double
+          type: number
+        avaliable:
+          type: boolean
+        createDate:
+          format: date-time
+          type: string
+        convetionId:
+          nullable: true
+          type: string
+        lastEditAuthorId:
+          format: uuid
+          nullable: true
+          type: string
+        authorId:
+          format: uuid
+          type: string
+      type: object
+    TicketTemplateUpdateDto:
+      additionalProperties: false
+      example:
+        price: 0.8008281904610115
+        avaliable: true
+        name: name
+        description: description
+      properties:
+        description:
+          nullable: true
+          type: string
+        price:
+          format: double
+          nullable: true
+          type: number
+        name:
+          nullable: true
+          type: string
+        avaliable:
+          nullable: true
+          type: boolean
+      type: object
+    TicketUpdateDto:
+      additionalProperties: false
+      type: object
+  securitySchemes:
+    Bearer:
+      description: "Enter 'Bearer {token}'"
+      in: header
+      name: Authorization
+      type: apiKey

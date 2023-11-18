@@ -1,0 +1,302 @@
+openapi: 3.0.1
+info:
+  title: Accounts.Api
+  version: "1.0"
+servers:
+- url: /
+security:
+- Bearer: []
+paths:
+  /api/accounts/login:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthViaPasswordRequestContract'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AuthViaPasswordRequestContract'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AuthViaPasswordRequestContract'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResponseContract'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResponseContract'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResponseContract'
+          description: Success
+        "403":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Forbidden
+      tags:
+      - Account
+  /api/accounts:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePasswordAccountRequestContract'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreatePasswordAccountRequestContract'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreatePasswordAccountRequestContract'
+      responses:
+        "200":
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: Bad Request
+      tags:
+      - Account
+  /api/accounts/{id}:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+          description: Success
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Account
+  /api/accounts/me:
+    get:
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      tags:
+      - Account
+  /api/accounts/claims:
+    get:
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GetClaimsResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetClaimsResponseDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetClaimsResponseDto'
+          description: Success
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unauthorized
+      tags:
+      - Claims
+components:
+  schemas:
+    AccountDto:
+      additionalProperties: false
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        email: email
+        username: username
+      properties:
+        id:
+          format: uuid
+          type: string
+        email:
+          nullable: true
+          type: string
+        username:
+          nullable: true
+          type: string
+      type: object
+    AuthTokenResponseContract:
+      additionalProperties: false
+      example:
+        authToken: authToken
+      properties:
+        authToken:
+          nullable: true
+          type: string
+      type: object
+    AuthViaPasswordRequestContract:
+      additionalProperties: false
+      example:
+        password: password
+        email: email
+      properties:
+        email:
+          nullable: true
+          type: string
+        password:
+          nullable: true
+          type: string
+      type: object
+    ClaimDto:
+      additionalProperties: false
+      example:
+        type: type
+        value: value
+      properties:
+        type:
+          nullable: true
+          type: string
+        value:
+          nullable: true
+          type: string
+      type: object
+    CreatePasswordAccountRequestContract:
+      additionalProperties: false
+      example:
+        password: password
+        email: email
+        username: username
+      properties:
+        email:
+          nullable: true
+          type: string
+        password:
+          nullable: true
+          type: string
+        username:
+          nullable: true
+          type: string
+      type: object
+    ErrorResponse:
+      additionalProperties: false
+      properties:
+        statusCode:
+          format: int32
+          type: integer
+        error:
+          nullable: true
+          type: string
+        message:
+          nullable: true
+          type: string
+        errors:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        failures:
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    GetClaimsResponseDto:
+      additionalProperties: false
+      example:
+        claims:
+        - type: type
+          value: value
+        - type: type
+          value: value
+      properties:
+        claims:
+          items:
+            $ref: '#/components/schemas/ClaimDto'
+          nullable: true
+          type: array
+      type: object
+  securitySchemes:
+    Bearer:
+      description: "Enter 'Bearer {token}'"
+      in: header
+      name: Authorization
+      type: apiKey
