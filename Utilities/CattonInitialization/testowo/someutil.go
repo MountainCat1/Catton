@@ -1,0 +1,5 @@
+package testowo
+
+func Testowosex() {
+
+}

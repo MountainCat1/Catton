@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CattonInitialization.iml" filepath="$PROJECT_DIR$/.idea/CattonInitialization.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../main/.idea/environmentInitialization.iml" filepath="$PROJECT_DIR$/../main/.idea/environmentInitialization.iml" />
     </modules>
   </component>
 </project>
