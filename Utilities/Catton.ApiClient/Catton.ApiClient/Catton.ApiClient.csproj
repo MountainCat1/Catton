@@ -10,16 +10,12 @@
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
         <PackageTags>cats are liquid</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.18</Version>
+        <Version>1.0.20</Version>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Catut.Application" Version="1.0.21" />
+      <PackageReference Include="Catut.Application" Version="1.0.27" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="HttpClients" />
     </ItemGroup>
 
 </Project>
