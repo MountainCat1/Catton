@@ -6,6 +6,7 @@ api/api.ts
 api/attendee.service.ts
 api/convention.service.ts
 api/organizer.service.ts
+api/ticket.service.ts
 api/ticketTemplate.service.ts
 configuration.ts
 encoder.ts
@@ -22,6 +23,8 @@ model/organizerCreateDto.ts
 model/organizerDto.ts
 model/organizerRole.ts
 model/organizerUpdateDto.ts
+model/ticketCreateDto.ts
+model/ticketDto.ts
 model/ticketTemplateCreateDto.ts
 model/ticketTemplateDto.ts
 model/ticketTemplateUpdateDto.ts
