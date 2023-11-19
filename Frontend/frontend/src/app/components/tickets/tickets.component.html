@@ -17,10 +17,16 @@
       matSort
       class="mat-elevation-z8 data-table">
 
-      <!-- Username Column -->
-      <ng-container matColumnDef="ticketId">
+      <!-- Ticket ID Column -->
+      <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> TicketID</th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Ticket Template ID Column -->
+      <ng-container matColumnDef="ticketTemplateName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Template</th>
+        <td mat-cell *matCellDef="let element"> {{element.ticketTemplateName}} </td>
       </ng-container>
 
       <!-- Created Date Column -->

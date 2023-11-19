@@ -19,7 +19,7 @@ export class TicketsComponent implements OnInit, AfterViewInit {
 
   tickets$!: Observable<Array<TicketDto>>;
 
-  displayedColumns: string[] = ['ticketId', 'createdDate'];
+  displayedColumns: string[] = ['id', 'ticketTemplateName', 'createdDate'];
   dataSource = new MatTableDataSource<TicketDto>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,6 +39,7 @@ export class TicketsComponent implements OnInit, AfterViewInit {
       this.tickets$ = this.ticketService.apiConventionsConventionIdTicketsGet(this.conventionId);
       this.tickets$.subscribe(tickets => {
         this.dataSource.data = tickets
+        console.log(tickets)
       })
     });
   }

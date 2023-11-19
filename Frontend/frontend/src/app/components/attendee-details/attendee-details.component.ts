@@ -45,8 +45,6 @@ export class AttendeeDetailsComponent implements OnInit {
       this.attendeeId = params['accountId'];
       this.attendee$ = this.attendeeService.apiConventionsConventionIdAttendeesAccountIdGet(this.conventionId, this.attendeeId);
     });
-
-
   }
 
   openDeleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
