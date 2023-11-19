@@ -34,16 +34,21 @@ export class NavigationService {
     const conventionId = this.getParam('conventionId')
     return await this.router.navigate([`c/${conventionId}/attendees`]);
   }
-
+  public async toAttendeeDetails(accountId : string) {
+    const conventionId = this.getParam('conventionId')
+    return await this.router.navigate([`c/${conventionId}/attendees/${accountId}`]);
+  }
   public async navigateToTickets() {
     const conventionId = this.getParam('conventionId')
     return await this.router.navigate([`c/${conventionId}/tickets`]);
   }
 
-  public async toAttendeeDetails(accountId : string) {
+  async toTicketDetails(ticketId : string) {
     const conventionId = this.getParam('conventionId')
-    return await this.router.navigate([`c/${conventionId}/attendees/${accountId}`]);
+    return await this.router.navigate([`c/${conventionId}/tickets/${ticketId}`]);
   }
+
+
 
   async toSignIn() {
     return await this.router.navigate([`/sign-in`]);
@@ -66,7 +71,5 @@ export class NavigationService {
     console.warn("Route param is undefined. Please check this: " +
       "https://stackoverflow.com/questions/39977962/angular-2-0-2-activatedroute-is-empty-in-a-service")
   }
-
-
 
 }

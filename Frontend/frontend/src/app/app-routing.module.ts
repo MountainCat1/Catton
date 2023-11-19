@@ -19,6 +19,7 @@ import {PublicPopupComponent} from "./generic-components/public-popup/public-pop
 import {AttendeesComponent} from "./components/attendees/attendees.component";
 import {AttendeeDetailsComponent} from "./components/attendee-details/attendee-details.component";
 import {TicketsComponent} from "./components/tickets/tickets.component";
+import {TicketDetailsComponent} from "./components/ticket-details/ticket-details.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -43,6 +44,7 @@ const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: 'attendees', component: AttendeesComponent},
   {path: 'attendees/:accountId', component: AttendeeDetailsComponent},
   {path: 'tickets', component: TicketsComponent},
+  {path: 'tickets/:ticketId', component: TicketDetailsComponent},
 ]
 
 const SECURE_ROUTES: Routes = [

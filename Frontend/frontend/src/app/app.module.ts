@@ -52,6 +52,7 @@ import { AttendeeDetailsComponent } from './components/attendee-details/attendee
 import { AttendeeDeleteConfirmDialogComponent } from './components/attendee-details/attendee-delete-confirm/attendee-delete-confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { TicketsComponent } from './components/tickets/tickets.component';
+import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -86,6 +87,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     AttendeeDetailsComponent,
     AttendeeDeleteConfirmDialogComponent,
     TicketsComponent,
+    TicketDetailsComponent,
   ],
   imports: [
     BrowserModule,

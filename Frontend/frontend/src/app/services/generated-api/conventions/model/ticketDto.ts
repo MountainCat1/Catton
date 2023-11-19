@@ -14,5 +14,7 @@
 export interface TicketDto { 
     id?: string;
     createdDate?: string;
+    ticketTemplateName?: string | null;
+    ticketTemplateId?: string;
 }
 

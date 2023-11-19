@@ -39,7 +39,6 @@ export class TicketsComponent implements OnInit, AfterViewInit {
       this.tickets$ = this.ticketService.apiConventionsConventionIdTicketsGet(this.conventionId);
       this.tickets$.subscribe(tickets => {
         this.dataSource.data = tickets
-        console.log(tickets)
       })
     });
   }
@@ -55,8 +54,6 @@ export class TicketsComponent implements OnInit, AfterViewInit {
   }
 
   async onRowClicked(row: any) {
-
-    // TODO: change this to tickets details
-    await this.navigationService.toAttendeeDetails(row.accountId);
+    await this.navigationService.toTicketDetails(row.id);
   }
 }

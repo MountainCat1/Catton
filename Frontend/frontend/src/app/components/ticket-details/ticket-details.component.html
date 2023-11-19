@@ -1,0 +1,29 @@
+<div class="details-content">
+  <ng-container *ngIf="(attendee$ | withHttpLoading | async) as result">
+    <ng-container *ngIf="result.loading">
+      <mat-spinner class="loading-spinner"></mat-spinner>
+    </ng-container>
+    <ng-container *ngIf="result.value as value">
+      <h1>Ticket</h1>
+      <h2>Account ID</h2>
+      <p>{{value.createdDate}}</p>
+      <h2>Joined Date</h2>
+      <p>{{value.createdDate | date:'dd MMMM yyyy hh:mm'}}</p>
+      <h2>Ticket template name</h2>
+      <p>{{value.ticketTemplateName}}</p>
+      <h2>Ticket template ID</h2>
+      <p>{{value.ticketTemplateId}}</p>
+
+      <br/>
+      <hr>
+      <br/>
+
+      <div class="details-page-align-right">
+        <button mat-raised-button (click)="back()" class="details-page-element-right">Go back</button>
+
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+</div>

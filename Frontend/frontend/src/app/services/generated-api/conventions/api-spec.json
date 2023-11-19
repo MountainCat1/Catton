@@ -2396,6 +2396,14 @@
           "createdDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "ticketTemplateName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ticketTemplateId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false

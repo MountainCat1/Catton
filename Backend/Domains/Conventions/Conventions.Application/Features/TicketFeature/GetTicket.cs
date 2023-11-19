@@ -56,13 +56,16 @@ public class GetTicketsHandler : IRequestHandler<GetTicketRequest, TicketDto>
 
     private async Task PerformAuthorizationAsync(Convention convention, Ticket? ticket)
     {
-        var attendee = convention.Attendees.FirstOrDefault(x => x.AccountId == _userAccessor.User.GetUserId());
+        var userId = _userAccessor.User.GetUserId();
+        var attendee = convention.Attendees.FirstOrDefault(x => x.AccountId == userId);
 
-        if (attendee is null)
-            throw new UnauthorizedError();
-        
+        if (attendee == null)
+        {
+            await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.ReadTickets);
+            return;
+        }
+
         var policy = attendee.Tickets.Contains(ticket) ? Policies.ReadOwnTickets : Policies.ReadTickets;
-
         await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, policy);
     }
 }
