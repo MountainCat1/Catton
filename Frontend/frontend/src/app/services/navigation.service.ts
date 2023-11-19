@@ -21,7 +21,6 @@ export class NavigationService {
   }
 
   public toOrganizers = async () => {
-    console.log('Xd')
     const conventionId = this.getParam('conventionId')
     await this.router.navigate([`c/${conventionId}/organizers`]);
   }
