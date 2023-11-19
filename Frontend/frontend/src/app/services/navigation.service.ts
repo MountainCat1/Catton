@@ -36,6 +36,11 @@ export class NavigationService {
     return await this.router.navigate([`c/${conventionId}/attendees`]);
   }
 
+  public async navigateToTickets() {
+    const conventionId = this.getParam('conventionId')
+    return await this.router.navigate([`c/${conventionId}/tickets`]);
+  }
+
   public async toAttendeeDetails(accountId : string) {
     const conventionId = this.getParam('conventionId')
     return await this.router.navigate([`c/${conventionId}/attendees/${accountId}`]);
