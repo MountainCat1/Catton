@@ -1,0 +1,19 @@
+﻿pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: 'Domain Secrets'
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - '**/Domains/Accounts/*'
+
+stages:
+    - template: /Pipelines/Templates/domain-template.yaml
+      parameters:
+        appName: 'catton-accounts'
+        projectPath: '**/Domains/Accounts'

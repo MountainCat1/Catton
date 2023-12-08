@@ -1,0 +1,19 @@
+﻿pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: 'Domain Secrets'
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - '**/Domains/Payments/*'
+
+stages:
+    - template: /Pipelines/Templates/domain-template.yaml
+      parameters:
+        appName: 'catton-payments'
+        projectPath: '**/Domains/Payments'
