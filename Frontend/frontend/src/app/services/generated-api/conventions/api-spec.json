@@ -2445,14 +2445,14 @@
             "type": "number",
             "format": "double"
           },
-          "avaliable": {
+          "available": {
             "type": "boolean"
           },
           "createDate": {
             "type": "string",
             "format": "date-time"
           },
-          "convetionId": {
+          "conventionId": {
             "type": "string",
             "nullable": true
           },

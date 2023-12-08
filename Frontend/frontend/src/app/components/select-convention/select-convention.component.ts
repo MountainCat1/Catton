@@ -33,8 +33,6 @@ export class SelectConventionComponent implements OnInit {
         this.router.navigate(['/']).then();
       }
     });
-
-    this.conventions$.subscribe(x => console.log(x))
   }
 
   async selectConvention(conventionId : string){

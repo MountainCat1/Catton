@@ -38,6 +38,17 @@ export class NavigationService {
     const conventionId = this.getParam('conventionId')
     return await this.router.navigate([`c/${conventionId}/attendees/${accountId}`]);
   }
+
+  public async toTicketTemplates() {
+    const conventionId = this.getParam('conventionId')
+    return await this.router.navigate([`c/${conventionId}/ticket-templates`]);
+  }
+
+  async toTicketTemplateDetails(id : string) {
+    const conventionId = this.getParam('conventionId')
+    return await this.router.navigate([`c/${conventionId}/ticket-templates/${id}`]);
+  }
+
   public async navigateToTickets() {
     const conventionId = this.getParam('conventionId')
     return await this.router.navigate([`c/${conventionId}/tickets`]);

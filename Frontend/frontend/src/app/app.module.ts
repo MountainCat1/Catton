@@ -53,6 +53,7 @@ import { AttendeeDeleteConfirmDialogComponent } from './components/attendee-deta
 import {MatDialogModule} from "@angular/material/dialog";
 import { TicketsComponent } from './components/tickets/tickets.component';
 import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
+import { TicketTemplatesComponent } from './components/ticket-templates/ticket-templates.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -88,6 +89,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     AttendeeDeleteConfirmDialogComponent,
     TicketsComponent,
     TicketDetailsComponent,
+    TicketTemplatesComponent,
   ],
   imports: [
     BrowserModule,

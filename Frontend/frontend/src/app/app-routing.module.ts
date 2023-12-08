@@ -20,6 +20,7 @@ import {AttendeesComponent} from "./components/attendees/attendees.component";
 import {AttendeeDetailsComponent} from "./components/attendee-details/attendee-details.component";
 import {TicketsComponent} from "./components/tickets/tickets.component";
 import {TicketDetailsComponent} from "./components/ticket-details/ticket-details.component";
+import {TicketTemplatesComponent} from "./components/ticket-templates/ticket-templates.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -45,6 +46,7 @@ const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: 'attendees/:accountId', component: AttendeeDetailsComponent},
   {path: 'tickets', component: TicketsComponent},
   {path: 'tickets/:ticketId', component: TicketDetailsComponent},
+  {path: 'ticket-templates', component: TicketTemplatesComponent},
 ]
 
 const SECURE_ROUTES: Routes = [

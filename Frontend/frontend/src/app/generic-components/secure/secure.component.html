@@ -33,6 +33,10 @@
         <mat-icon fontIcon="attach_money"></mat-icon>
         Tickets
       </button>
+      <button mat-button (click)="hideSidebars(); navigationService.toTicketTemplates()">
+        <mat-icon> monetization_on</mat-icon>
+        Ticket Templates
+      </button>
       <button mat-button (click)="hideSidebars(); navigationService.toAttendees()">
         <mat-icon fontIcon="group"></mat-icon>
         <span>Attendees</span>
