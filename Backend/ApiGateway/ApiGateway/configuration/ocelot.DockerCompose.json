@@ -80,6 +80,48 @@
       "SwaggerEndpoint": "/swagger/v1/swagger.json",
       "SwaggerKey": "conventions",
       "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+
+    {
+      "DownstreamPathTemplate": "/api/payments{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "payments_domain",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/payments{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET",
+        "DELETE"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "payments",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/payments",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "payments_domain",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/payments",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET",
+        "DELETE"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "payments",
+      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
   
@@ -109,6 +151,16 @@
           "Name": "Conventions API",
           "Version": "v1",
           "Url": "https://host.docker.internal:5002/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "payments",
+      "Config": [
+        {
+          "Name": "Payments API",
+          "Version": "v1",
+          "Url": "https://host.docker.internal:5003/swagger/v1/swagger.json"
         }
       ]
     }

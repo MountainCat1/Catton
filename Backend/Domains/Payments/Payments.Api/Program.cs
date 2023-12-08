@@ -1,27 +1,20 @@
 using System.Text.Json.Serialization;
+using Payments.Api.Extensions;
+using Payments.Api.Installers;
+using Payments.Application;
+using Payments.Application.Authorization.Extensions;
+using Payments.Application.Services;
+using Payments.Infrastructure.Contexts;
 using Catut.Application.Abstractions;
 using Catut.Application.Configuration;
-using Catut.Application.Extensions;
 using Catut.Application.MediaRBehaviors;
 using Catut.Application.Middlewares;
 using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
-using ConventionDomain.Application;
-using ConventionDomain.Application.Abstractions;
-using ConventionDomain.Application.Authorization.Extensions;
-using ConventionDomain.Application.Configuration;
-using ConventionDomain.Application.Services;
-using Conventions.Api.Configuration;
-using Conventions.Api.Extensions;
-using Conventions.Api.Extensions.ServiceCollection;
-using Conventions.Domain.Repositories;
-using Conventions.Infrastructure.Contexts;
-using Conventions.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using HashidsNet;
 using MediatR;
-using OpenApi.Accounts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +58,16 @@ var hashIdsConfig = configuration.GetSecret<HashIdsConfig>();
 
 var services = builder.Services;
 
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddDebug();
+    loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+});
+
+
 services.Configure<ApiConfiguration>(configuration.GetSection(nameof(ApiConfiguration)));
 
 services.AddControllers().AddJsonOptions(opts =>
@@ -90,10 +93,6 @@ services.DefineAuthorizationPolicies();
 services.AddAsymmetricAuthentication(jwtConfig);
 services.AddSingleton<IHashids, Hashids>(x => new Hashids(hashIdsConfig.Salt, hashIdsConfig.MinHashLenght));
 
-services.AddApiHttpClinet<IAccountsApi, AccountsApi>();
-
-services.AddScoped<IConventionRepository, ConventionRepository>();
-
 services.AddHttpContextAccessor();
 services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
 services.AddSingleton<IApplicationErrorMapper, ApplicationErrorMapper>();
@@ -108,20 +107,18 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
-services.AddScoped<IConvenitonUnitOfWork, ConventionDomainUnitOfWork>();
-services.AddScoped<ICommandMediator, ConventionCommandMediator>();
+// TODO: Replace placeholder
+services.AddScoped<ISomeEntityUnitOfWork, SomeEntityUnitOfWork>();
+services.AddScoped<ICommandMediator, SomeEntityCommandMediator>();
 services.AddScoped<IQueryMediator, QueryMediator>();
 
 #endregion
 
-// ========= BUILD =========
-
-#region Build
-
+// ========= RUN  =========
 var app = builder.Build();
 
-if (app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
-    await app.MigrateDatabaseAsync<ConventionDomainDbContext>();
+if (app.Configuration.GetValue<bool>("MIGRATE"))
+    await app.MigrateDatabaseAsync<PaymentsDbContext>();
 
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_SWAGGER"))
 {
@@ -136,7 +133,6 @@ if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_
     });
 }
 
-
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("AllowOrigins");
@@ -148,5 +144,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-#endregion
