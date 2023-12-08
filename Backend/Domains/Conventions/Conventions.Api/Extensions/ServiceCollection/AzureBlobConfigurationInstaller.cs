@@ -1,5 +1,5 @@
 ﻿using Azure.Storage.Blobs;
-using Conventions.Api.Configuration;
+using Catut.Application.Configuration;
 
 namespace Conventions.Api.Extensions.ServiceCollection;
 

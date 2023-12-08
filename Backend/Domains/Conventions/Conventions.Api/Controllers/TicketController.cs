@@ -1,8 +1,8 @@
-﻿using Catut.Application.Dtos;
-using ConventionDomain.Application.Abstractions;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Dtos;
+using Catut.Application.Services;
 using ConventionDomain.Application.Dtos.Ticket;
 using ConventionDomain.Application.Features.TicketFeature;
-using ConventionDomain.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Conventions.Api.Controllers;

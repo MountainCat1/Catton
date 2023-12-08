@@ -1,4 +1,4 @@
-﻿using ConventionDomain.Application.Abstractions;
+﻿using Catut.Application.Abstractions;
 using Conventions.Infrastructure.Contexts;
 
 namespace ConventionDomain.Application.Services;

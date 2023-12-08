@@ -1,8 +1,8 @@
-﻿using Catut.Application.Dtos;
-using ConventionDomain.Application.Abstractions;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Dtos;
+using Catut.Application.Services;
 using ConventionDomain.Application.Dtos.Attendee;
 using ConventionDomain.Application.Features.AttendeeFeature;
-using ConventionDomain.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
