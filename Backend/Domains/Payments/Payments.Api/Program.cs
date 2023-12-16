@@ -15,6 +15,9 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using HashidsNet;
 using MediatR;
+using Payments.Application.Configuration;
+using Payments.Domain.Repositories;
+using Payments.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +47,7 @@ else
     Console.WriteLine("Loading secrets from local files...");
     configuration.AddJsonFile("Secrets/jwt.json");
     configuration.AddJsonFile("Secrets/hash_ids.json");
+    configuration.AddJsonFile("Secrets/stripe.json");
 }
 
 
@@ -69,6 +73,7 @@ services.AddLogging(loggingBuilder =>
 
 
 services.Configure<ApiConfiguration>(configuration.GetSection(nameof(ApiConfiguration)));
+services.Configure<StripeSettings>(configuration.GetSection(nameof(StripeSettings)));
 
 services.AddControllers().AddJsonOptions(opts =>
 {
@@ -107,9 +112,14 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ApplicationAssemblyMarker).Assembly));
 
-// TODO: Replace placeholder
-services.AddScoped<ISomeEntityUnitOfWork, SomeEntityUnitOfWork>();
-services.AddScoped<ICommandMediator, SomeEntityCommandMediator>();
+
+services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+services.AddScoped<IPaymentService, PaymentService>();
+services.AddScoped<IPaymentCommandMediator, PaymentCommandMediator>();
+
+services.AddScoped<IPaymentUnitOfWork, PaymentUnitOfWork>();
+services.AddScoped<ICommandMediator, PaymentCommandMediator>();
 services.AddScoped<IQueryMediator, QueryMediator>();
 
 #endregion
@@ -137,7 +147,8 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("AllowOrigins");
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+    app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -29,6 +29,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.1" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+        <PackageReference Include="Stripe.net" Version="43.6.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
@@ -39,6 +40,7 @@
 
     <ItemGroup>
       <Folder Include="Configuration\" />
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
     <ItemGroup>

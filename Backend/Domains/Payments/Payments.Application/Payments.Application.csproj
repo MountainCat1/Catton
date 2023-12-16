@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <Folder Include="Authorization\Requirements" />
-      <Folder Include="Features" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,6 +21,7 @@
       <PackageReference Include="Hashids.net" Version="1.7.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.0" />
+      <PackageReference Include="Stripe.net" Version="43.6.0" />
     </ItemGroup>
 
 </Project>

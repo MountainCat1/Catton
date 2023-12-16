@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 namespace Payments.Application.Authorization.Handlers
 {
     // TODO: Replace placeholder
-    public class ExampleAuthorizationHandler : OperationAuthorizationHandler<SomeEntity> // instead of string use your Agregat
+    public class ExampleAuthorizationHandler : OperationAuthorizationHandler<Payment> // instead of string use your Agregat
     {
         private ILogger<ExampleAuthorizationHandler> _logger;
         private IAuthorizationService _authorizationService;
