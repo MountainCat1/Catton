@@ -9,6 +9,13 @@ namespace Payments.Infrastructure.Contexts
 
         public PaymentsDbContext(DbContextOptions<PaymentsDbContext> options) : base(options)
         {
+            
+        }
+        
+        protected override void OnModelCreating(ModelBuilder mb)
+        {
+            mb.ApplyConfigurationsFromAssembly(typeof(PaymentsDbContext).Assembly);
+            base.OnModelCreating(mb);
         }
     }
 }

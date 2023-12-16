@@ -16,7 +16,9 @@ using FluentValidation.AspNetCore;
 using HashidsNet;
 using MediatR;
 using Payments.Application.Configuration;
+using Payments.Application.Services.Domain;
 using Payments.Domain.Repositories;
+using Payments.Domain.Services;
 using Payments.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -117,6 +119,7 @@ services.AddScoped<IPaymentRepository, PaymentRepository>();
 
 services.AddScoped<IPaymentService, PaymentService>();
 services.AddScoped<IPaymentCommandMediator, PaymentCommandMediator>();
+services.AddScoped<ISessionDomainService, SessionDomainService>();
 
 services.AddScoped<IPaymentUnitOfWork, PaymentUnitOfWork>();
 services.AddScoped<ICommandMediator, PaymentCommandMediator>();

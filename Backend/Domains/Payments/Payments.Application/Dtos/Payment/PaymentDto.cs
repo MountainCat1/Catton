@@ -1,4 +1,5 @@
-﻿using Payments.Domain.Entities;
+﻿using Payments.Application.Dtos.SessionDetails;
+using Payments.Domain.Entities;
 
 namespace Payments.Application.Dtos.Payment;
 
@@ -6,8 +7,9 @@ public class PaymentDto
 {
     public Guid Id { get; set; }
     public decimal Amount { get; set; }
-    public string StripeSessionId { get; set; }
-    public string SessionUrl { get; set; }
+    
+    public SessionDetailsDto PaymentSession { get; set; }
+    
     public PaymentStatus PaymentStatus { get; set; }
     public string Currency { get; set; }
     public DateTime CreatedAt { get; set; }
@@ -23,8 +25,7 @@ public static class PaymentDtoExtensions
         {
             Id = payment.Id,
             Amount = payment.Amount,
-            StripeSessionId = payment.StripeSessionId,
-            SessionUrl = payment.SessionUrl,
+            PaymentSession = payment.SessionDetails.ToDto(),
             PaymentStatus = payment.PaymentStatus,
             Currency = payment.Currency,
             CreatedAt = payment.CreatedAt,

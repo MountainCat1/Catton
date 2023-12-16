@@ -3,9 +3,11 @@ using Catut.Application.Errors;
 using Catut.Domain.Errors;
 using MediatR;
 using Payments.Application.Dtos.Payment;
+using Payments.Application.Extensions;
 using Payments.Application.Services;
 using Payments.Domain.Entities;
 using Payments.Domain.Repositories;
+using Stripe.Checkout;
 
 namespace Payments.Application.Features.Payments;
 
@@ -31,21 +33,23 @@ public class CreatePaymentRequestHandler : IRequestHandler<CreatePaymentCommand,
 
         Payment payment;
 
-        var (sessionUrl, sessionId) = await _paymentService.CreateSessionAsync(command.PaymentCreateDto.Amount);
-
         try
         {
             payment = Payment.CreateInstance(
-                stripeSessionId: sessionId,
                 amount: dto.Amount,
-                currency: dto.Currency,
-                sessiopUrl: sessionUrl);
+                currency: dto.Currency);
         }
         catch (ConflictDomainError e)
         {
             // Convention already exists
             throw new BadRequestError(e.Message);
         }
+        
+        Session session = await _paymentService.CreateSessionAsync(command.PaymentCreateDto.Amount, payment.Id.ToString());
+
+        var sessionDetails = session.ToSessionDetails();
+        
+        payment.SetSession(sessionDetails);
         
         await _paymentRepository.AddAsync(payment);
 

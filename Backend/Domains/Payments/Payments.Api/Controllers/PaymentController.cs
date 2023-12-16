@@ -1,4 +1,5 @@
-﻿using Catut.Application.Dtos;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Payments.Application.Configuration;
@@ -7,6 +8,7 @@ using Payments.Application.Features.Payments;
 using Payments.Application.Services;
 using Stripe;
 using Stripe.Checkout;
+using GetPaymentQuery = Payments.Application.Features.Payments.GetPaymentQuery;
 
 namespace Payments.Api.Controllers;
 
@@ -17,10 +19,12 @@ public class PaymentController : ControllerBase
     private readonly StripeSettings _stripeSettings;
 
     private readonly IPaymentCommandMediator _commandMediator;
+    private readonly IQueryMediator _queryMediator;
 
-    public PaymentController(IOptions<StripeSettings> stripeSettings, IPaymentCommandMediator commandMediator)
+    public PaymentController(IOptions<StripeSettings> stripeSettings, IPaymentCommandMediator commandMediator, IQueryMediator queryMediator)
     {
         _commandMediator = commandMediator;
+        _queryMediator = queryMediator;
         _stripeSettings = stripeSettings.Value;
     }
 
@@ -42,46 +46,20 @@ public class PaymentController : ControllerBase
 
         return Ok(result);
     }
+    
+    [HttpGet("{paymentId}")]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(PaymentDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetPayment([FromRoute] Guid paymentId)
+    {
+        var query = new GetPaymentQuery()
+        {
+            PaymentId = paymentId
+        };
 
-    // [HttpPost]
-    // public async Task<IActionResult> CreateCheckoutSession(string amount)
-    // {
-    //     var currency = "pln";
-    //     var successUrl = "http://localhost:4242/Home/Success";
-    //     var cancelUrl = "http://localhost:4242/Home/Cancel";
-    //     StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
-    //
-    //     var options = new SessionCreateOptions()
-    //     {
-    //         PaymentMethodTypes = new List<string>()
-    //         {
-    //             "card"
-    //         },
-    //         LineItems = new List<SessionLineItemOptions>()
-    //         {
-    //             new SessionLineItemOptions()
-    //             {
-    //                 PriceData = new SessionLineItemPriceDataOptions()
-    //                 {
-    //                     Currency = currency,
-    //                     UnitAmount = Convert.ToInt32(amount) * 100,
-    //                     ProductData = new SessionLineItemPriceDataProductDataOptions()
-    //                     {
-    //                         Name = "Test product",
-    //                         Description = "Test product description"
-    //                     }
-    //                 },
-    //                 Quantity = 1
-    //             }
-    //         },
-    //         Mode = "payment",
-    //         SuccessUrl = successUrl,
-    //         CancelUrl = cancelUrl
-    //     };
-    //
-    //     var service = new SessionService();
-    //     var session = await service.CreateAsync(options);
-    //     SessionId = session.Id;
-    //     return Ok(session.Url);
-    // }
+        var result = await _queryMediator.SendAsync(query);
+
+        return Ok(result);
+    }
 }
