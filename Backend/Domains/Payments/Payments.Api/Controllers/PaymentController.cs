@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Payments.Application.Configuration;
 using Payments.Application.Dtos.Payment;
+using Payments.Application.Dtos.SessionDetails;
 using Payments.Application.Features.Payments;
 using Payments.Application.Services;
 using Stripe;
@@ -59,6 +60,22 @@ public class PaymentController : ControllerBase
         };
 
         var result = await _queryMediator.SendAsync(query);
+
+        return Ok(result);
+    }
+    
+    [HttpPost("{paymentId}/checkout-session")]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(PaymentDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> CreateCheckoutSession([FromRoute] Guid paymentId)
+    {
+        var query = new RenewPaymentStatusCommand()
+        {
+            PaymentId = paymentId
+        };
+
+        var result = await _commandMediator.SendAsync(query);
 
         return Ok(result);
     }

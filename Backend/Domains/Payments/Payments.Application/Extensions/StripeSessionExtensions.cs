@@ -5,9 +5,9 @@ namespace Payments.Application.Extensions;
 
 public static class StripeSessionExtensions
 {
-    public static SessionDetails ToSessionDetails(this Session stripeSession)
+    public static CheckoutSessionDetails ToSessionDetails(this Session stripeSession)
     {
-        return new SessionDetails()
+        return new CheckoutSessionDetails()
         {
             Id = stripeSession.Id,
             Url = stripeSession.Url,

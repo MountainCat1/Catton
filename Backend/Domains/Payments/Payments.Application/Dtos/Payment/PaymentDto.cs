@@ -8,7 +8,7 @@ public class PaymentDto
     public Guid Id { get; set; }
     public decimal Amount { get; set; }
     
-    public SessionDetailsDto PaymentSession { get; set; }
+    public CheckoutSessionDetailsDto CheckoutSession { get; set; }
     
     public PaymentStatus PaymentStatus { get; set; }
     public string Currency { get; set; }
@@ -25,7 +25,7 @@ public static class PaymentDtoExtensions
         {
             Id = payment.Id,
             Amount = payment.Amount,
-            PaymentSession = payment.SessionDetails.ToDto(),
+            CheckoutSession = payment.CheckoutSession.ToDto(),
             PaymentStatus = payment.PaymentStatus,
             Currency = payment.Currency,
             CreatedAt = payment.CreatedAt,

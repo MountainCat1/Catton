@@ -28,7 +28,7 @@ public class PaymentSuccesfulHandler : INotificationHandler<CheckoutSessionCompl
     {
         var session = notification.Session;
         
-        var payment = await _paymentRepository.GetOneRequiredAsync(x => x.SessionDetails.Id == session.Id);
+        var payment = await _paymentRepository.GetOneRequiredAsync(x => x.CheckoutSession.Id == session.Id);
         
         var command = new UpdatePaymentStatusCommand()
         {

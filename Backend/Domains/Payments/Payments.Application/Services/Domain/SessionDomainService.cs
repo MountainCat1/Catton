@@ -13,22 +13,22 @@ public class SessionDomainService : ISessionDomainService
         _paymentService = paymentService;
     }
 
-    public async Task<SessionDetails> ExpireSessionAsync(string sessionId)
+    public async Task<CheckoutSessionDetails> ExpireSessionAsync(string sessionId)
     {
         var session = await _paymentService.ExpireSessionAsync(sessionId);
         return ToSessionDetails(session);
     }
 
-    public async Task<SessionDetails> CreateSessionAsync(decimal amount, string currency)
+    public async Task<CheckoutSessionDetails> CreateSessionAsync(decimal amount, string currency)
     {
         var session = await _paymentService.CreateSessionAsync(amount, currency);
 
         return ToSessionDetails(session);
     }
 
-    private static SessionDetails ToSessionDetails(Session session)
+    private static CheckoutSessionDetails ToSessionDetails(Session session)
     {
-        return new SessionDetails()
+        return new CheckoutSessionDetails()
         {
             Id = session.Id,
             Url = session.Url,

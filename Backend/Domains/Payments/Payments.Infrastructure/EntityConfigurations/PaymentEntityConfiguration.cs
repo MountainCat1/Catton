@@ -23,7 +23,7 @@ public class PaymentEntityConfiguration : IEntityTypeConfiguration<Payment>
 
         builder.Property(x => x.Amount).IsRequired().HasPrecision(10, 2);
 
-        builder.OwnsOne(x => x.SessionDetails, sa =>
+        builder.OwnsOne(x => x.CheckoutSession, sa =>
         {
             sa.Property(p => p.Id).IsRequired();
             sa.Property(p => p.ExpiresAt).IsRequired();

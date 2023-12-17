@@ -18,7 +18,7 @@ public class Payment : Entity
 {
     public Guid Id { get; set; }
     
-    public SessionDetails SessionDetails { get; set; } = null!;
+    public CheckoutSessionDetails CheckoutSession { get; set; } = null!;
 
     public PaymentStatus PaymentStatus { get; set; }
     public decimal Amount { get; set; }
@@ -55,9 +55,9 @@ public class Payment : Entity
         return newInstance;
     }
 
-    public void SetSession(SessionDetails sessionDetails)
+    public void SetSession(CheckoutSessionDetails checkoutSessionDetails)
     {
-        SessionDetails = sessionDetails;
+        CheckoutSession = checkoutSessionDetails;
         
         ValidateAndThrow();
     }
@@ -72,7 +72,7 @@ public class Payment : Entity
     
     public async Task RenewPaymentSessionAsync(ISessionDomainService sessionDomainService)
     {
-        if(SessionDetails == null)
+        if(CheckoutSession == null)
             throw new InvalidOperationException("Session details must be set before renewing session.");
         
         if (PaymentStatus != PaymentStatus.Failed && PaymentStatus != PaymentStatus.Pending)
@@ -80,7 +80,7 @@ public class Payment : Entity
             throw new InvalidOperationException("Can only renew sessions for failed or pending payments.");
         }
         
-        await sessionDomainService.ExpireSessionAsync(SessionDetails.Id); 
+        await sessionDomainService.ExpireSessionAsync(CheckoutSession.Id); 
         
         var newSessionDetails = await sessionDomainService.CreateSessionAsync(Amount, Currency);
         SetSession(newSessionDetails);
