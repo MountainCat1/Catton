@@ -13,7 +13,7 @@ using GetPaymentQuery = Payments.Application.Features.Payments.GetPaymentQuery;
 
 namespace Payments.Api.Controllers;
 
-[Route("payments")]
+[Route("api/payments")]
 [ApiController]
 public class PaymentController : ControllerBase
 {

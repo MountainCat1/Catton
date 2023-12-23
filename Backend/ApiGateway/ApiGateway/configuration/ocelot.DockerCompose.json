@@ -88,8 +88,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "payments_domain",
-          "Port": 443
+          "Host": "host.docker.internal",
+          "Port": 5003
         }
       ],
       "UpstreamPathTemplate": "/api/payments{everything}",
@@ -108,8 +108,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "payments_domain",
-          "Port": 443
+          "Host": "host.docker.internal",
+          "Port": 5003
         }
       ],
       "UpstreamPathTemplate": "/api/payments",
