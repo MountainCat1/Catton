@@ -8,6 +8,7 @@ using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using OpenApi.Payments;
 
 namespace ConventionDomain.Application.Features.TicketFeature;
 
@@ -22,15 +23,18 @@ public class GetTicketsHandler : IRequestHandler<GetTicketRequest, TicketDto>
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserAccessor _userAccessor;
+    private readonly IPaymentsApi _paymentsApi;
 
     public GetTicketsHandler(
         IConventionRepository conventionRepository,
         IAuthorizationService authorizationService,
-        IUserAccessor userAccessor)
+        IUserAccessor userAccessor,
+        IPaymentsApi paymentsApi)
     {
         _conventionRepository = conventionRepository;
         _authorizationService = authorizationService;
         _userAccessor = userAccessor;
+        _paymentsApi = paymentsApi;
     }
 
     public async Task<TicketDto> Handle(GetTicketRequest req, CancellationToken cancellationToken)
@@ -51,7 +55,9 @@ public class GetTicketsHandler : IRequestHandler<GetTicketRequest, TicketDto>
             throw new NotFoundError();
         }
 
-        return ticket.ToDto();
+        var paymentDto = await _paymentsApi.PaymentsGETAsync(ticket.PaymentId, cancellationToken);
+
+        return ticket.ToDto(paymentDto);
     }
 
     private async Task PerformAuthorizationAsync(Convention convention, Ticket? ticket)

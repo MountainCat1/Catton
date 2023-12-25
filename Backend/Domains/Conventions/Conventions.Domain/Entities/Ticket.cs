@@ -9,6 +9,7 @@ public class Ticket : Entity
     public Guid Id { get; set; }
 
     public TicketTemplate TicketTemplate { get; set; }
+    public Guid PaymentId { private set; get; }
 
     public DateTime CreatedDate { get; set; }
 
@@ -16,14 +17,17 @@ public class Ticket : Entity
     {
     }
 
-    internal static Ticket CreateInstance(TicketTemplate ticketTemplate)
+    internal static Ticket CreateInstance(TicketTemplate ticketTemplate, Guid paymentId)
     {
         var instance = new Ticket()
         {
             Id = Guid.NewGuid(),
             TicketTemplate = ticketTemplate,
             CreatedDate = DateTime.Now,
+            PaymentId = paymentId
         };
+        
+        instance.ValidateAndThrow();
 
         return instance;
     }

@@ -8,10 +8,12 @@ using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Application;
 using ConventionDomain.Application.Authorization.Extensions;
+using ConventionDomain.Application.DomainServices;
 using ConventionDomain.Application.Services;
 using Conventions.Api.Extensions;
 using Conventions.Api.Extensions.ServiceCollection;
 using Conventions.Domain.Repositories;
+using Conventions.Domain.Services;
 using Conventions.Infrastructure.Contexts;
 using Conventions.Infrastructure.Repositories;
 using FluentValidation;
@@ -19,6 +21,7 @@ using FluentValidation.AspNetCore;
 using HashidsNet;
 using MediatR;
 using OpenApi.Accounts;
+using OpenApi.Payments;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,6 +91,7 @@ services.AddAsymmetricAuthentication(jwtConfig);
 services.AddSingleton<IHashids, Hashids>(x => new Hashids(hashIdsConfig.Salt, hashIdsConfig.MinHashLenght));
 
 services.AddApiHttpClinet<IAccountsApi, AccountsApi>();
+services.AddApiHttpClinet<IPaymentsApi, PaymentsApi>();
 
 services.AddScoped<IConventionRepository, ConventionRepository>();
 
@@ -108,6 +112,8 @@ services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Application
 services.AddScoped<IConvenitonUnitOfWork, ConventionDomainUnitOfWork>();
 services.AddScoped<ICommandMediator, ConventionCommandMediator>();
 services.AddScoped<IQueryMediator, QueryMediator>();
+
+services.AddScoped<IPaymentDomainService, PaymentDomainService>();
 
 #endregion
 
