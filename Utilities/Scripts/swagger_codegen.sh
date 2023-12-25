@@ -2,9 +2,22 @@
 
 set -e
 
-# Array of service names
-serviceNames=('conventions' 'accounts')
-targetFramework=typescript-angular 
+# Load service names from a file
+serviceNamesFile="services.txt"
+if [ ! -f "$serviceNamesFile" ]; then
+    echo "Service names file not found: $serviceNamesFile"
+    exit 1
+fi
+
+
+mapfile -t serviceNames < $serviceNamesFile
+targetFramework=typescript-angular
+
+# Loop through the array and use sed to remove \r from each element
+for i in "${!serviceNames[@]}"; do
+  serviceNames[$i]=$(echo "${serviceNames[$i]}" | sed 's/\r//')
+done
+
 
 # Set variables
 TARGET_DIR="/openapi-${targetFramework}"
