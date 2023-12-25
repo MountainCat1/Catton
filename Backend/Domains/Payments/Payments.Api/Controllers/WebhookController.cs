@@ -8,7 +8,7 @@ using Stripe.Checkout;
 
 namespace Payments.Api.Controllers;
 
-[Route("webhook")]
+[Route("api/webhooks/stripe")]
 [ApiController]
 public class WebhookController : Controller
 {

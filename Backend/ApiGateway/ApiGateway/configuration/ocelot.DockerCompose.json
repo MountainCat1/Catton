@@ -81,10 +81,8 @@
       "SwaggerKey": "conventions",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
-
-
     {
-      "DownstreamPathTemplate": "/api/payments{everything}",
+      "DownstreamPathTemplate": "/api/webhooks/stripe",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -92,27 +90,7 @@
           "Port": 5003
         }
       ],
-      "UpstreamPathTemplate": "/api/payments{everything}",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET",
-        "DELETE"
-      ],
-      "SwaggerEndpoint": "/swagger/v1/swagger.json",
-      "SwaggerKey": "payments",
-      "DangerousAcceptAnyServerCertificateValidator": true
-    },
-    {
-      "DownstreamPathTemplate": "/api/payments",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/payments",
+      "UpstreamPathTemplate": "/api/webhooks/stripe",
       "UpstreamHttpMethod": [
         "POST",
         "PUT",

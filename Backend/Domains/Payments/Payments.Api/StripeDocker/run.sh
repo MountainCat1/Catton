@@ -1,12 +1,16 @@
-#!/bin/bash -x
+#!/bin/bash
 
-port="4021"
+port="4000"
+container_name="stripe"
 
-docker stop stripe
+#docker stop stripe
 #docker rm stripe
 
 echo "Starting stripe-cli container..."
 
-#docker run --name stripe -it stripe/stripe-cli:latest listen --forward-to http://host.docker.internal:$port/api/webhook
+image="stripe/stripe-cli:latest"
+webhook_url="http://host.docker.internal:$port/api/webhooks/stripe"
 
-docker start stripe
+docker run --name $container_name -it $image listen --forward-to $webhook_url
+
+docker start $container_name
