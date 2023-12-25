@@ -9,14 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PaymentDto } from './paymentDto';
 
 
-export interface TicketDto { 
-    id?: string;
-    createdDate?: string;
-    ticketTemplateName?: string | null;
-    ticketTemplateId?: string;
-    paymentDto?: PaymentDto;
-}
+export type PaymentStatus = 'Pending' | 'Succeeded' | 'Failed';
+
+export const PaymentStatus = {
+    Pending: 'Pending' as PaymentStatus,
+    Succeeded: 'Succeeded' as PaymentStatus,
+    Failed: 'Failed' as PaymentStatus
+};
 

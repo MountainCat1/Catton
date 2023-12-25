@@ -9,14 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PaymentDto } from './paymentDto';
 
 
-export interface TicketDto { 
-    id?: string;
-    createdDate?: string;
-    ticketTemplateName?: string | null;
-    ticketTemplateId?: string;
-    paymentDto?: PaymentDto;
+export interface CheckoutSessionDetailsDto { 
+    id?: string | null;
+    url?: string | null;
+    expiresAt?: string;
 }
 

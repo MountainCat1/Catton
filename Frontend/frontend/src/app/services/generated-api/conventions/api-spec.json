@@ -2227,6 +2227,24 @@
         },
         "additionalProperties": false
       },
+      "CheckoutSessionDetailsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "ConventionCreateDto": {
         "type": "object",
         "properties": {
@@ -2376,6 +2394,47 @@
         },
         "additionalProperties": false
       },
+      "PaymentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "checkoutSession": {
+            "$ref": "#/components/schemas/CheckoutSessionDetailsDto"
+          },
+          "paymentStatus": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentStatus": {
+        "enum": [
+          "Pending",
+          "Succeeded",
+          "Failed"
+        ],
+        "type": "string"
+      },
       "TicketCreateDto": {
         "type": "object",
         "properties": {
@@ -2404,6 +2463,9 @@
           "ticketTemplateId": {
             "type": "string",
             "format": "uuid"
+          },
+          "paymentDto": {
+            "$ref": "#/components/schemas/PaymentDto"
           }
         },
         "additionalProperties": false

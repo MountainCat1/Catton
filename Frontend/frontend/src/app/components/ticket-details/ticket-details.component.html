@@ -14,6 +14,19 @@
       <h2>Ticket template ID</h2>
       <p>{{value.ticketTemplateId}}</p>
 
+
+      <h1>Payment</h1>
+
+      <h2>Payment ID</h2>
+      <p>{{value.paymentDto!.id}}</p>
+
+      <h2>Payment Status</h2>
+      <p>{{value.paymentDto!.paymentStatus}}</p>
+
+      <h2>Checkout session</h2>
+      <a href="{{value.paymentDto!.checkoutSession?.url}}">[Link]</a>
+
+
       <br/>
       <hr>
       <br/>
