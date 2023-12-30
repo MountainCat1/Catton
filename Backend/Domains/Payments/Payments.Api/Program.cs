@@ -130,7 +130,7 @@ services.AddScoped<IQueryMediator, QueryMediator>();
 // ========= RUN  =========
 var app = builder.Build();
 
-if (app.Configuration.GetValue<bool>("MIGRATE"))
+if (app.Configuration.GetValue<bool>("MIGRATE_DATABASE"))
     await app.MigrateDatabaseAsync<PaymentsDbContext>();
 
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("ENABLE_SWAGGER"))
@@ -150,7 +150,7 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("AllowOrigins");
 
-if (!app.Environment.IsDevelopment())
+if (app.Configuration.GetValue<bool>("HTTPS_REDIRECT"))
     app.UseHttpsRedirection();
 
 app.UseAuthorization();

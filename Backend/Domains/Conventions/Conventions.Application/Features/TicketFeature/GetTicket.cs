@@ -1,5 +1,6 @@
 ﻿using Catut.Application.Abstractions;
 using Catut.Application.Errors;
+using Catut.Application.Exceptions;
 using Catut.Application.Services;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Ticket;
@@ -55,7 +56,21 @@ public class GetTicketsHandler : IRequestHandler<GetTicketRequest, TicketDto>
             throw new NotFoundError();
         }
 
-        var paymentDto = await _paymentsApi.PaymentsGETAsync(ticket.PaymentId, cancellationToken);
+        PaymentDto? paymentDto;
+        try
+        {
+           paymentDto = await _paymentsApi.PaymentsGETAsync(ticket.PaymentId, cancellationToken);
+        }catch (ApiException e)
+        {
+            if (e.StatusCode == 404)
+            {
+                paymentDto = null;
+            }
+            else
+            {
+                throw;
+            }
+        }
 
         return ticket.ToDto(paymentDto);
     }

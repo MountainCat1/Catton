@@ -91,7 +91,8 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("AllowOrigins");
 
-app.UseHttpsRedirection();
+if (app.Configuration.GetValue<bool>("HTTPS_REDIRECT"))
+    app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
