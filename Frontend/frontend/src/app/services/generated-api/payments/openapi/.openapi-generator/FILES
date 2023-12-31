@@ -3,16 +3,11 @@
 README.md
 api.module.ts
 api/api.ts
-api/payment.service.ts
+api/webhook.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/checkoutSessionDetailsDto.ts
-model/errorResponse.ts
 model/models.ts
-model/paymentCreateDto.ts
-model/paymentDto.ts
-model/paymentStatus.ts
 param.ts
 variables.ts

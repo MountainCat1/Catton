@@ -1,3 +1,3 @@
-export * from './payment.service';
-import { PaymentService } from './payment.service';
-export const APIS = [PaymentService];
+export * from './webhook.service';
+import { WebhookService } from './webhook.service';
+export const APIS = [WebhookService];

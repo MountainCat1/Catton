@@ -53,7 +53,7 @@ public class Attendee : Entity
         
         var paymentId = await paymentDomainService.CreatePaymentAsync(ticketTemplate.Price, ticketTemplate.Currency);
         
-        var ticket = Ticket.CreateInstance(ticketTemplate, paymentId);
+        var ticket = Ticket.CreateInstance(ticketTemplate, paymentId, this.Id);
 
         _tickets.Add(ticket);
         

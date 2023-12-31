@@ -1,5 +1,5 @@
 <div class="details-content">
-  <ng-container *ngIf="(attendee$ | withHttpLoading | async) as result">
+  <ng-container *ngIf="(ticket$ | withHttpLoading | async) as result">
     <ng-container *ngIf="result.loading">
       <mat-spinner class="loading-spinner"></mat-spinner>
     </ng-container>
@@ -26,6 +26,16 @@
       <h2>Checkout session</h2>
       <a href="{{value.paymentDto!.checkoutSession?.url}}">[Link]</a>
 
+      <div class="details-action-button-container">
+        <button mat-raised-button class="details-action-button"
+                (click)="openDeleteDialog('125ms', '0ms')">
+          Remove from the convention
+        </button>
+        <button mat-raised-button class="details-action-button"
+                (click)="console.log('Not implemented')">
+          Edit
+        </button>
+      </div>
 
       <br/>
       <hr>

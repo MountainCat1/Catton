@@ -6,8 +6,11 @@ namespace ConventionDomain.Application.Dtos.Ticket
     {
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
+        
         public string TicketTemplateName { get; set; }
         public Guid TicketTemplateId { get; set; }
+        
+        public Guid AttendeeId { get; set; }
 
         public PaymentDto? PaymentDto { get; set; }
     }
@@ -23,6 +26,8 @@ namespace ConventionDomain.Application.Dtos.Ticket
 
                 TicketTemplateName = ticket.TicketTemplate.Name,
                 TicketTemplateId = ticket.TicketTemplate.Id,
+                
+                AttendeeId = ticket.AttendeeId,
                 
                 PaymentDto = paymentDto
             };

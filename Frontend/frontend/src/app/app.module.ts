@@ -54,6 +54,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { TicketsComponent } from './components/tickets/tickets.component';
 import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
 import { TicketTemplatesComponent } from './components/ticket-templates/ticket-templates.component';
+import { TicketDeleteConfirmDialogComponent } from './components/ticket-details/ticket-delete-confirm-dialog/ticket-delete-confirm-dialog.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -90,6 +91,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     TicketsComponent,
     TicketDetailsComponent,
     TicketTemplatesComponent,
+    TicketDeleteConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,

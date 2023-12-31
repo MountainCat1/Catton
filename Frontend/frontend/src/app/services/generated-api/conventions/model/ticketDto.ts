@@ -17,6 +17,7 @@ export interface TicketDto {
     createdDate?: string;
     ticketTemplateName?: string | null;
     ticketTemplateId?: string;
+    attendeeId?: string;
     paymentDto?: PaymentDto;
 }
 

@@ -2464,6 +2464,10 @@
             "type": "string",
             "format": "uuid"
           },
+          "attendeeId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "paymentDto": {
             "$ref": "#/components/schemas/PaymentDto"
           }
