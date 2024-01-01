@@ -64,4 +64,7 @@ export class TicketTemplatesComponent {
     await this.navigationService.toTicketTemplateDetails(row.id);
   }
 
+  navigateToCreateTicketTemplate() {
+
+  }
 }

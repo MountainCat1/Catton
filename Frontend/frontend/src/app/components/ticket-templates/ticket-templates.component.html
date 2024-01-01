@@ -1,5 +1,8 @@
 <h1 class="page-header">Ticket Templates</h1>
-
+<button mat-raised-button class="details-action-button"
+        (click)="navigateToCreateTicketTemplate()">
+  Create
+</button>
 <ng-container *ngIf="(tickets$ | withHttpLoading | async) as result">
   <ng-container *ngIf="result.loading">
     <mat-spinner class="loading-spinner"></mat-spinner>
