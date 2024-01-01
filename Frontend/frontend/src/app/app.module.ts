@@ -1,6 +1,7 @@
-import {NgModule} from '@angular/core';
+import {inject, Inject, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
+import { JwtModule } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {TestAuthComponent} from './components/test-auth/test-auth.component';
@@ -37,27 +38,33 @@ import {
   ConventionService
 } from "./services/generated-api/conventions";
 import {MatCardModule} from "@angular/material/card";
-import { StaticChipComponent } from './generic-components/static-chip/static-chip.component';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { UserInfoComponent } from './components/user-info/user-info.component';
+import {StaticChipComponent} from './generic-components/static-chip/static-chip.component';
+import {MainMenuComponent} from './components/main-menu/main-menu.component';
+import {UserInfoComponent} from './components/user-info/user-info.component';
 import {MatRippleModule} from "@angular/material/core";
-import { OrganizersComponent } from './components/organizers/organizers.component';
-import { InitialRedirectComponent } from './components/initial-redirect/initial-redirect.component';
+import {OrganizersComponent} from './components/organizers/organizers.component';
+import {InitialRedirectComponent} from './components/initial-redirect/initial-redirect.component';
 import {NgOptimizedImage} from "@angular/common";
-import { AttendeesComponent } from './components/attendees/attendees.component';
+import {AttendeesComponent} from './components/attendees/attendees.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
-import { AttendeeDetailsComponent } from './components/attendee-details/attendee-details.component';
-import { AttendeeDeleteConfirmDialogComponent } from './components/attendee-details/attendee-delete-confirm/attendee-delete-confirm-dialog.component';
+import {AttendeeDetailsComponent} from './components/attendee-details/attendee-details.component';
+import {
+  AttendeeDeleteConfirmDialogComponent
+} from './components/attendee-details/attendee-delete-confirm/attendee-delete-confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { TicketsComponent } from './components/tickets/tickets.component';
-import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
-import { TicketTemplatesComponent } from './components/ticket-templates/ticket-templates.component';
-import { TicketDeleteConfirmDialogComponent } from './components/ticket-details/ticket-delete-confirm-dialog/ticket-delete-confirm-dialog.component';
-import { TicketTemplateDetailsComponent } from './components/ticket-template-details/ticket-template-details.component';
-import { TicketTemplateDeleteConfirmComponent } from './components/ticket-template-details/ticket-template-delete-confirm/ticket-template-delete-confirm.component';
-import { TicketTemplateCreateComponent } from './components/ticket-template-create/ticket-template-create.component';
+import {TicketsComponent} from './components/tickets/tickets.component';
+import {TicketDetailsComponent} from './components/ticket-details/ticket-details.component';
+import {TicketTemplatesComponent} from './components/ticket-templates/ticket-templates.component';
+import {
+  TicketDeleteConfirmDialogComponent
+} from './components/ticket-details/ticket-delete-confirm-dialog/ticket-delete-confirm-dialog.component';
+import {TicketTemplateDetailsComponent} from './components/ticket-template-details/ticket-template-details.component';
+import {
+  TicketTemplateDeleteConfirmComponent
+} from './components/ticket-template-details/ticket-template-delete-confirm/ticket-template-delete-confirm.component';
+import {TicketTemplateCreateComponent} from './components/ticket-template-create/ticket-template-create.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -99,33 +106,41 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     TicketTemplateDeleteConfirmComponent,
     TicketTemplateCreateComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        GoogleSigninButtonModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatSlideToggleModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatIconModule,
-        MatChipsModule,
-        FormsModule,
-        MatProgressSpinnerModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatCardModule,
-        MatRippleModule,
-        NgOptimizedImage,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatDialogModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    GoogleSigninButtonModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatRippleModule,
+    NgOptimizedImage,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          const authService = inject(AuthService);
+          return authService.getToken()!;
+        },
+      },
+    }),
+  ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

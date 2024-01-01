@@ -24,16 +24,18 @@ import {TicketTemplatesComponent} from "./components/ticket-templates/ticket-tem
 import {TicketTemplateDetailsComponent} from "./components/ticket-template-details/ticket-template-details.component";
 import {DetailRedirectGuardGuard} from "./services/detail-redirect-guard.guard";
 import {TicketTemplateCreateComponent} from "./components/ticket-template-create/ticket-template-create.component";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   const authService = inject(AuthService);
+  const jwtHelper = inject(JwtHelperService);
   const router = inject(Router);
   const authToken = authService.getToken();
 
-  if (authToken) {
+  if (authToken && !jwtHelper.isTokenExpired(authToken)) {
     return of(true); // Allow access to the route
   } else {
     router.navigate(['/sign-in']);
