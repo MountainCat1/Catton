@@ -56,6 +56,7 @@ import { TicketDetailsComponent } from './components/ticket-details/ticket-detai
 import { TicketTemplatesComponent } from './components/ticket-templates/ticket-templates.component';
 import { TicketDeleteConfirmDialogComponent } from './components/ticket-details/ticket-delete-confirm-dialog/ticket-delete-confirm-dialog.component';
 import { TicketTemplateDetailsComponent } from './components/ticket-template-details/ticket-template-details.component';
+import { TicketTemplateDeleteConfirmComponent } from './components/ticket-template-details/ticket-template-delete-confirm/ticket-template-delete-confirm.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -94,6 +95,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     TicketTemplatesComponent,
     TicketDeleteConfirmDialogComponent,
     TicketTemplateDetailsComponent,
+    TicketTemplateDeleteConfirmComponent,
   ],
   imports: [
     BrowserModule,
