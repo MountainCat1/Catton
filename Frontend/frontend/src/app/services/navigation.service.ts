@@ -46,7 +46,12 @@ export class NavigationService {
 
   async toTicketTemplateDetails(id : string) {
     const conventionId = this.getParam('conventionId')
-    return await this.router.navigate([`c/${conventionId}/ticket-templates/${id}`]);
+    return await this.router.navigate([`c/${conventionId}/ticket-templates/details/${id}`]);
+  }
+
+  async toTicketTemplateCreate(id : string) {
+    const conventionId = this.getParam('conventionId')
+    return await this.router.navigate([`c/${conventionId}/ticket-templates/create`]);
   }
 
   public async navigateToTickets() {

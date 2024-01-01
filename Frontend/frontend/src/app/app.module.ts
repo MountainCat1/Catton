@@ -20,7 +20,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatChipsModule} from "@angular/material/chips";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {WithHttpLoadingPipe} from "./with-loading.pipe";
@@ -57,6 +57,7 @@ import { TicketTemplatesComponent } from './components/ticket-templates/ticket-t
 import { TicketDeleteConfirmDialogComponent } from './components/ticket-details/ticket-delete-confirm-dialog/ticket-delete-confirm-dialog.component';
 import { TicketTemplateDetailsComponent } from './components/ticket-template-details/ticket-template-details.component';
 import { TicketTemplateDeleteConfirmComponent } from './components/ticket-template-details/ticket-template-delete-confirm/ticket-template-delete-confirm.component';
+import { TicketTemplateCreateComponent } from './components/ticket-template-create/ticket-template-create.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -96,33 +97,35 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     TicketDeleteConfirmDialogComponent,
     TicketTemplateDetailsComponent,
     TicketTemplateDeleteConfirmComponent,
+    TicketTemplateCreateComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    GoogleSigninButtonModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-    MatChipsModule,
-    FormsModule,
-    MatProgressSpinnerModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCardModule,
-    MatRippleModule,
-    NgOptimizedImage,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        GoogleSigninButtonModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatIconModule,
+        MatChipsModule,
+        FormsModule,
+        MatProgressSpinnerModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatCardModule,
+        MatRippleModule,
+        NgOptimizedImage,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatDialogModule,
+        ReactiveFormsModule
+    ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

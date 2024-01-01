@@ -7,7 +7,7 @@ import {Observable, tap} from "rxjs";
 import {Location} from '@angular/common'
 import {MatDialog} from "@angular/material/dialog";
 import {
-  AttendeeDeleteConfirmDialog,
+  AttendeeDeleteConfirmDialogData,
   AttendeeDeleteConfirmDialogComponent
 } from "./attendee-delete-confirm/attendee-delete-confirm-dialog.component";
 import {map} from "rxjs/operators";

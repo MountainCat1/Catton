@@ -22,6 +22,8 @@ import {TicketsComponent} from "./components/tickets/tickets.component";
 import {TicketDetailsComponent} from "./components/ticket-details/ticket-details.component";
 import {TicketTemplatesComponent} from "./components/ticket-templates/ticket-templates.component";
 import {TicketTemplateDetailsComponent} from "./components/ticket-template-details/ticket-template-details.component";
+import {DetailRedirectGuardGuard} from "./services/detail-redirect-guard.guard";
+import {TicketTemplateCreateComponent} from "./components/ticket-template-create/ticket-template-create.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -48,7 +50,8 @@ const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: 'tickets', component: TicketsComponent},
   {path: 'tickets/:ticketId', component: TicketDetailsComponent},
   {path: 'ticket-templates', component: TicketTemplatesComponent},
-  {path: 'ticket-templates/:ticketTemplateId', component: TicketTemplateDetailsComponent},
+  {path: 'ticket-templates/details/:ticketTemplateId', component: TicketTemplateDetailsComponent},
+  {path: 'ticket-templates/create', component: TicketTemplateCreateComponent},
 ]
 
 const SECURE_ROUTES: Routes = [

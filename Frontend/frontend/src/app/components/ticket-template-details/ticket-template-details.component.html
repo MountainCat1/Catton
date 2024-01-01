@@ -8,15 +8,13 @@
       <h2>Description</h2>
       <p>{{value.description}}</p>
       <h2>Price</h2>
-      <p>{{value.price}}</p>
-      <h2>Price</h2>
-      <p>{{value.price}}</p>
+      {{ value.price | number:'1.2-2' }} PLN
       <h2>Ticket Template ID</h2>
       <p>{{value.id}}</p>
       <h2>Created Date</h2>
       <p>{{value.createDate | date:'dd MMMM yyyy hh:mm'}}</p>
       <h2>Last Edit Author ID</h2>
-      <p>{{value.lastEditAuthorId}}}</p>
+      <p>{{value.lastEditAuthorId}}</p>
       <h2>Availability</h2>
       <p>{{value.available}}</p>
 

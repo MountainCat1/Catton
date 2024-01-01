@@ -38,9 +38,7 @@ export class TicketTemplatesComponent {
   ) {
   }
 
-  ngOnInit()
-    :
-    void {
+  ngOnInit() {
     this.route.params.subscribe(params => {
       this.conventionId = params['conventionId'];
       this.tickets$ = this.ticketTemplateService.apiConventionsConventionIdTicketTemplatesGet(this.conventionId);
@@ -64,7 +62,7 @@ export class TicketTemplatesComponent {
     await this.navigationService.toTicketTemplateDetails(row.id);
   }
 
-  navigateToCreateTicketTemplate() {
-
+  async navigateToCreateTicketTemplate() {
+    await this.navigationService.toTicketTemplateCreate(this.conventionId);
   }
 }

@@ -1,0 +1,26 @@
+<form [formGroup]="ticketTemplateForm" (ngSubmit)="onSubmit()" class="entity-form">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" class="right-align" placeholder="0" formControlName="price">
+    <!--    <span matTextPrefix>$&nbsp;</span>-->
+    <span matTextPrefix>PLN</span>
+    <span matTextSuffix>.00</span>
+  </mat-form-field>
+
+  <!-- Add other input fields here -->
+  <div class="submit-button-container">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!ticketTemplateForm.valid"
+            class="submit-button">Submit
+    </button>
+  </div>
+</form>
