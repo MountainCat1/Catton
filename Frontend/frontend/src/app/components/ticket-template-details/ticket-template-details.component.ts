@@ -73,4 +73,7 @@ export class TicketTemplateDetailsComponent {
   }
 
   protected readonly console = console;
+  async navigateToEditPage(){
+    await this.navigationService.toTicketTemplateEdit(this.ticketTemplateId);
+  }
 }

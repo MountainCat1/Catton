@@ -25,6 +25,7 @@ import {TicketTemplateDetailsComponent} from "./components/ticket-template-detai
 import {DetailRedirectGuardGuard} from "./services/detail-redirect-guard.guard";
 import {TicketTemplateCreateComponent} from "./components/ticket-template-create/ticket-template-create.component";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {TicketTemplateEditComponent} from "./components/ticket-template-edit/ticket-template-edit.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -53,6 +54,7 @@ const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: 'tickets/:ticketId', component: TicketDetailsComponent},
   {path: 'ticket-templates', component: TicketTemplatesComponent},
   {path: 'ticket-templates/details/:ticketTemplateId', component: TicketTemplateDetailsComponent},
+  {path: 'ticket-templates/edit/:ticketTemplateId', component: TicketTemplateEditComponent},
   {path: 'ticket-templates/create', component: TicketTemplateCreateComponent},
 ]
 
