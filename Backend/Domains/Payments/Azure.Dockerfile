@@ -1,4 +1,4 @@
-﻿ARG ProjectName=Conventions
+﻿ARG ProjectName=Payments
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
@@ -26,6 +26,4 @@ EXPOSE 80
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-
-ENTRYPOINT ["dotnet", "Conventions.Api.dll"]
-
+ENTRYPOINT ["dotnet", "Payments.Api.dll"]
