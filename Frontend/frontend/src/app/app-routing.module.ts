@@ -18,16 +18,25 @@ import {InitialRedirectComponent} from "./components/initial-redirect/initial-re
 import {PublicPopupComponent} from "./generic-components/public-popup/public-popup.component";
 import {AttendeesComponent} from "./components/attendees/attendees.component";
 import {AttendeeDetailsComponent} from "./components/attendee-details/attendee-details.component";
+import {TicketsComponent} from "./components/tickets/tickets.component";
+import {TicketDetailsComponent} from "./components/ticket-details/ticket-details.component";
+import {TicketTemplatesComponent} from "./components/ticket-templates/ticket-templates.component";
+import {TicketTemplateDetailsComponent} from "./components/ticket-template-details/ticket-template-details.component";
+import {DetailRedirectGuardGuard} from "./services/detail-redirect-guard.guard";
+import {TicketTemplateCreateComponent} from "./components/ticket-template-create/ticket-template-create.component";
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {TicketTemplateEditComponent} from "./components/ticket-template-edit/ticket-template-edit.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   const authService = inject(AuthService);
+  const jwtHelper = inject(JwtHelperService);
   const router = inject(Router);
   const authToken = authService.getToken();
 
-  if (authToken) {
+  if (authToken && !jwtHelper.isTokenExpired(authToken)) {
     return of(true); // Allow access to the route
   } else {
     router.navigate(['/sign-in']);
@@ -41,6 +50,12 @@ const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: 'organizers', component: OrganizersComponent},
   {path: 'attendees', component: AttendeesComponent},
   {path: 'attendees/:accountId', component: AttendeeDetailsComponent},
+  {path: 'tickets', component: TicketsComponent},
+  {path: 'tickets/:ticketId', component: TicketDetailsComponent},
+  {path: 'ticket-templates', component: TicketTemplatesComponent},
+  {path: 'ticket-templates/details/:ticketTemplateId', component: TicketTemplateDetailsComponent},
+  {path: 'ticket-templates/edit/:ticketTemplateId', component: TicketTemplateEditComponent},
+  {path: 'ticket-templates/create', component: TicketTemplateCreateComponent},
 ]
 
 const SECURE_ROUTES: Routes = [

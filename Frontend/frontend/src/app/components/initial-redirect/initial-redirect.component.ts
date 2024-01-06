@@ -13,6 +13,7 @@ export class InitialRedirectComponent implements OnInit{
     private navigationService : NavigationService,
 
   ) {
+    console.log("Initial redirect component started!")
     authService.tryGetAccount().subscribe(async x => {
       if(x == undefined){
         await navigationService.toSignIn();
@@ -23,7 +24,6 @@ export class InitialRedirectComponent implements OnInit{
 
 
   ngOnInit(): void {
-
 
   }
 

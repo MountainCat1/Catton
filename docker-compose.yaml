@@ -87,3 +87,16 @@ services:
       - ASPNETCORE_ENVIRONMENT=DockerCompose
       - ENABLE_SWAGGER=true
       - MIGRATE_DATABASE=true
+  payments_domain:
+    env_file:
+      - dockerCompose.env
+    build:
+      context: ./Backend/Domains/Payments
+      dockerfile: Dockerfile
+    ports:
+      - "4003:80"
+      - "5003:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DockerCompose
+      - ENABLE_SWAGGER=true
+      - MIGRATE_DATABASE=true

@@ -102,7 +102,10 @@ public static class AuthorizationPoliciesDefiner
         {
             new IsOrganizerOfRequirement()
         });
-        
+        options.AddPolicyWithRequirements(Policies.DeleteTicket, new IAuthorizationRequirement[]
+        {
+            new IsOrganizerOfRequirement()
+        });
     }
 
     private static void AddPolicyWithRequirements(

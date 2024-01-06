@@ -1,0 +1,1 @@
+Stripe, PayPal, Square, or Authorize.Net.

@@ -6,7 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {NavigationService} from "../../../services/navigation.service";
 
 
-export interface AttendeeDeleteConfirmDialog {
+export interface AttendeeDeleteConfirmDialogData {
   attendeeUsername: string,
   attendeeId: string,
   conventionId: string
@@ -21,7 +21,7 @@ export class AttendeeDeleteConfirmDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AttendeeDeleteConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AttendeeDeleteConfirmDialog,
+    @Inject(MAT_DIALOG_DATA) public data: AttendeeDeleteConfirmDialogData,
     private attendeeService: AttendeeService,
     private route: ActivatedRoute,
     private navigation: NavigationService

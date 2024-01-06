@@ -7,14 +7,13 @@ using Catut.Application.Middlewares;
 using Catut.Application.Services;
 using Catut.Infrastructure.Abstractions;
 using ConventionDomain.Application;
-using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization.Extensions;
-using ConventionDomain.Application.Configuration;
+using ConventionDomain.Application.DomainServices;
 using ConventionDomain.Application.Services;
-using Conventions.Api.Configuration;
 using Conventions.Api.Extensions;
 using Conventions.Api.Extensions.ServiceCollection;
 using Conventions.Domain.Repositories;
+using Conventions.Domain.Services;
 using Conventions.Infrastructure.Contexts;
 using Conventions.Infrastructure.Repositories;
 using FluentValidation;
@@ -22,6 +21,7 @@ using FluentValidation.AspNetCore;
 using HashidsNet;
 using MediatR;
 using OpenApi.Accounts;
+using OpenApi.Payments;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,7 +77,6 @@ services.AddLogging(loggingBuilder =>
 {
     loggingBuilder.AddConsole();
     loggingBuilder.AddDebug();
-    // loggingBuilder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 });
 
 //  === INSTALLERS ===
@@ -92,6 +91,7 @@ services.AddAsymmetricAuthentication(jwtConfig);
 services.AddSingleton<IHashids, Hashids>(x => new Hashids(hashIdsConfig.Salt, hashIdsConfig.MinHashLenght));
 
 services.AddApiHttpClinet<IAccountsApi, AccountsApi>();
+services.AddApiHttpClinet<IPaymentsApi, PaymentsApi>();
 
 services.AddScoped<IConventionRepository, ConventionRepository>();
 
@@ -112,6 +112,8 @@ services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Application
 services.AddScoped<IConvenitonUnitOfWork, ConventionDomainUnitOfWork>();
 services.AddScoped<ICommandMediator, ConventionCommandMediator>();
 services.AddScoped<IQueryMediator, QueryMediator>();
+
+services.AddScoped<IPaymentDomainService, PaymentDomainService>();
 
 #endregion
 
@@ -142,7 +144,8 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("AllowOrigins");
 
-app.UseHttpsRedirection();
+if (app.Configuration.GetValue<bool>("HTTPS_REDIRECT"))
+    app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
-using ConventionDomain.Application.Abstractions;
+using Catut.Application.Abstractions;
+using Catut.Application.Services;
 using ConventionDomain.Application.Dtos.Convention;
-using ConventionDomain.Application.Services;
 using Conventions.Domain.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

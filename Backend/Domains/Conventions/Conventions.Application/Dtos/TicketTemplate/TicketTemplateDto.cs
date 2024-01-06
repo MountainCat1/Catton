@@ -7,11 +7,11 @@ public class TicketTemplateDto
     public string Name { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
-    public bool Avaliable { get; set; }
+    public bool Available { get; set; }
 
     public DateTime CreateDate { get; set; }
 
-    public string ConvetionId { get; set; } = "";
+    public string ConventionId { get; set; } = "";
 
     public Guid? LastEditAuthorId { get; set; }
     public Guid AuthorId { get; set; }
@@ -28,7 +28,7 @@ public static class TicketTemplateExtensions
             Name = ticketTemplate.Name,
             Description = ticketTemplate.Description,
             Price = ticketTemplate.Price,
-            Avaliable = ticketTemplate.Avaliable,
+            Available = ticketTemplate.Avaliable,
             CreateDate = ticketTemplate.CreatedDate,
             LastEditAuthorId = ticketTemplate.LastEditAuthorId,
             AuthorId = ticketTemplate.AuthorId

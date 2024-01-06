@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>ConventionDomain.Application</RootNamespace>
@@ -13,11 +13,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Azure.Identity" Version="1.10.2" />
-      <PackageReference Include="Catut.Application" Version="1.0.27" />
+      <PackageReference Include="Azure.Identity" Version="1.10.4" />
+      <PackageReference Include="Catut.Application" Version="1.0.34" />
       <PackageReference Include="Hashids.net" Version="1.7.0" />
-      <PackageReference Include="MediatR" Version="12.0.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Abstractions\" />
+      <Folder Include="Configuration\" />
     </ItemGroup>
 
 </Project>

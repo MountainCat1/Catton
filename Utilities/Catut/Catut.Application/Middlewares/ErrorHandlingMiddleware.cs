@@ -5,6 +5,7 @@ using Catut.Application.Errors;
 using Catut.Application.Exceptions;
 using Catut.Domain.Abstractions;
 using Catut.Infrastructure.Abstractions;
+using Catut.Infrastructure.Exception;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 

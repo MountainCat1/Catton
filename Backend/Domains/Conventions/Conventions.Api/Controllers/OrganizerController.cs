@@ -1,5 +1,5 @@
-﻿using Catut.Application.Dtos;
-using ConventionDomain.Application.Abstractions;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Dtos;
 using ConventionDomain.Application.Dtos.Organizer;
 using ConventionDomain.Application.Features.OrganizerFeature;
 using Microsoft.AspNetCore.Authorization;

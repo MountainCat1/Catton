@@ -20,6 +20,7 @@ public class TicketTemplate : Entity
     public string Description { get; set; } = null!;
     public decimal Price { get; set; } 
     public bool Avaliable { get; set; }
+    public string Currency { get; set; }
 
     public DateTime CreatedDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
@@ -41,6 +42,7 @@ public class TicketTemplate : Entity
             Description = description,
             Price = price,
             Avaliable = false,
+            Currency = "pln", // TODO: Make it a variable somehow
             
             CreatedDate = DateTime.UtcNow,
             LastUpdateDate = DateTime.UtcNow,

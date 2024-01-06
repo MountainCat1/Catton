@@ -59,10 +59,6 @@ export class AttendeesComponent implements OnInit, AfterViewInit  {
     this.dataSource.sort = this.sort!;
   }
 
-  onTableClick(row: any) {
-
-  }
-
   async onRowClicked(row : any) {
      await this.navigationService.toAttendeeDetails(row.accountId);
   }

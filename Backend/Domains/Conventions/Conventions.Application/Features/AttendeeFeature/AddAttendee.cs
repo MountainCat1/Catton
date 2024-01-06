@@ -1,10 +1,10 @@
-﻿using Catut.Application.Errors;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Errors;
+using Catut.Application.Services;
 using Catut.Domain.Errors;
-using ConventionDomain.Application.Abstractions;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Attendee;
 using ConventionDomain.Application.Extensions;
-using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;

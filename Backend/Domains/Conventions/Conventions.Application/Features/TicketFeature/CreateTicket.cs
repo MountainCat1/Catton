@@ -1,13 +1,15 @@
-﻿using Catut.Application.Errors;
-using ConventionDomain.Application.Abstractions;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Errors;
+using Catut.Application.Services;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Ticket;
 using ConventionDomain.Application.Extensions;
-using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
+using Conventions.Domain.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using OpenApi.Payments;
 
 namespace ConventionDomain.Application.Features.TicketFeature;
 
@@ -23,15 +25,21 @@ public class CreateTicketRequestHandler : IRequestHandler<CreateTicketRequest, T
     private readonly IConventionRepository _conventionRepository;
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserAccessor _userAccessor;
+    private readonly IPaymentDomainService _paymentDomainService;
+    private readonly IPaymentsApi _paymentsApi;
 
     public CreateTicketRequestHandler(
         IConventionRepository conventionRepository,
         IAuthorizationService authorizationService,
-        IUserAccessor userAccessor)
+        IUserAccessor userAccessor,
+        IPaymentDomainService paymentDomainService,
+        IPaymentsApi paymentsApi)
     {
         _conventionRepository = conventionRepository;
         _authorizationService = authorizationService;
         _userAccessor = userAccessor;
+        _paymentDomainService = paymentDomainService;
+        _paymentsApi = paymentsApi;
     }
 
     public async Task<TicketDto> Handle(CreateTicketRequest request, CancellationToken cancellationToken)
@@ -56,9 +64,11 @@ public class CreateTicketRequestHandler : IRequestHandler<CreateTicketRequest, T
         if (attendee is null)
             throw new NotFoundError($"The attendee ({request.AttendeeId}) could not be found.");
 
-        var ticket = attendee.AddTicket(ticketTemplate);
+        var ticket = await attendee.AddTicketAsync(ticketTemplate, _paymentDomainService);
 
-        return ticket.ToDto();
+        var paymentDto = await _paymentsApi.PaymentsGETAsync(ticket.PaymentId, cancellationToken);
+
+        return ticket.ToDto(paymentDto);
     }
 
     private async Task PerformAuthorizationAsync(Convention convention, Guid attendeeId, IUserAccessor userAccessor)

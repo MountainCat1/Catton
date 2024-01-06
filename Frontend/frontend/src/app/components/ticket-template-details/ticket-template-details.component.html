@@ -1,0 +1,44 @@
+<div class="details-content">
+  <ng-container *ngIf="(ticketTemplate$ | withHttpLoading | async) as result">
+    <ng-container *ngIf="result.loading">
+      <mat-spinner class="loading-spinner"></mat-spinner>
+    </ng-container>
+    <ng-container *ngIf="result.value as value">
+      <h1>{{value.name}}</h1>
+      <h2>Description</h2>
+      <p>{{value.description}}</p>
+      <h2>Price</h2>
+      <p>{{ value.price | number:'1.2-2' }} PLN</p>
+      <h2>Ticket Template ID</h2>
+      <p>{{value.id}}</p>
+      <h2>Created Date</h2>
+      <p>{{value.createDate | date:'dd MMMM yyyy hh:mm'}}</p>
+      <h2>Last Edit Author ID</h2>
+      <p>{{value.lastEditAuthorId}}</p>
+      <h2>Availability</h2>
+      <p>{{value.available}}</p>
+
+
+      <div class="details-action-button-container">
+        <button mat-raised-button class="details-action-button"
+                (click)="openDeleteDialog('125ms', '0ms')">
+          Remove
+        </button>
+        <button mat-raised-button class="details-action-button"
+                (click)="navigateToEditPage()">
+          Edit
+        </button>
+      </div>
+      <br/>
+      <hr>
+      <br/>
+
+      <div class="details-page-align-right">
+        <button mat-raised-button (click)="back()" class="details-page-element-right">Go back</button>
+
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+</div>

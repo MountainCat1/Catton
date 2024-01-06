@@ -1,9 +1,9 @@
-﻿using Catut.Application.Errors;
-using ConventionDomain.Application.Abstractions;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Errors;
+using Catut.Application.Services;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Ticket;
 using ConventionDomain.Application.Extensions;
-using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;
@@ -43,7 +43,7 @@ public class DeleteTicketRequestHandler : IRequestHandler<DeleteTicketRequest, T
 
         await PerformAuthorizationAsync(convention, req.AttendeeId, _userAccessor);
 
-        var attendee = convention.Attendees.FirstOrDefault(x => x.AccountId == req.AttendeeId);
+        var attendee = convention.Attendees.FirstOrDefault(x => x.Id == req.AttendeeId);
 
         if (attendee is null)
             throw new NotFoundError($"The attendee ({req.AttendeeId}) could not be found.");
@@ -52,6 +52,8 @@ public class DeleteTicketRequestHandler : IRequestHandler<DeleteTicketRequest, T
         
         if(ticket is null)
             throw new NotFoundError($"The ticket ({req.TicketId}) could not be found.");
+
+        attendee.RemoveTicket(ticket);
         
         return ticket.ToDto();
     }

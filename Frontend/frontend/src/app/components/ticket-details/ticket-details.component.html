@@ -1,0 +1,52 @@
+<div class="details-content">
+  <ng-container *ngIf="(ticket$ | withHttpLoading | async) as result">
+    <ng-container *ngIf="result.loading">
+      <mat-spinner class="loading-spinner"></mat-spinner>
+    </ng-container>
+    <ng-container *ngIf="result.value as value">
+      <h1>Ticket</h1>
+      <h2>Account ID</h2>
+      <p>{{value.createdDate}}</p>
+      <h2>Joined Date</h2>
+      <p>{{value.createdDate | date:'dd MMMM yyyy hh:mm'}}</p>
+      <h2>Ticket template name</h2>
+      <p>{{value.ticketTemplateName}}</p>
+      <h2>Ticket template ID</h2>
+      <p>{{value.ticketTemplateId}}</p>
+
+
+      <h1>Payment</h1>
+
+      <h2>Payment ID</h2>
+      <p>{{value.paymentDto!.id}}</p>
+
+      <h2>Payment Status</h2>
+      <p>{{value.paymentDto!.paymentStatus}}</p>
+
+      <h2>Checkout session</h2>
+      <a href="{{value.paymentDto!.checkoutSession?.url}}">[Link]</a>
+
+      <div class="details-action-button-container">
+        <button mat-raised-button class="details-action-button"
+                (click)="openDeleteDialog('125ms', '0ms')">
+          Remove from the convention
+        </button>
+        <button mat-raised-button class="details-action-button"
+                (click)="console.log('Not implemented')">
+          Edit
+        </button>
+      </div>
+
+      <br/>
+      <hr>
+      <br/>
+
+      <div class="details-page-align-right">
+        <button mat-raised-button (click)="back()" class="details-page-element-right">Go back</button>
+
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+</div>

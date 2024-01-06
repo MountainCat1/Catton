@@ -1,8 +1,8 @@
-﻿using ConventionDomain.Application.Abstractions;
+﻿using Catut.Application.Abstractions;
+using Catut.Application.Services;
 using ConventionDomain.Application.Authorization;
 using ConventionDomain.Application.Dtos.Convention;
 using ConventionDomain.Application.Extensions;
-using ConventionDomain.Application.Services;
 using Conventions.Domain.Entities;
 using Conventions.Domain.Repositories;
 using MediatR;

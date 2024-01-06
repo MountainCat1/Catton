@@ -7,10 +7,10 @@ using NSwag.CodeGeneration.CSharp;
 
 internal class Program
 {
+    private static readonly HttpClient httpClient = new HttpClient();
+
     public static async Task Main(string[] args)
     {
-        WebClient wclient = new WebClient();
-
         var docNames = LoadSource();
 
         Console.WriteLine(GetSourceCodeDirectory());
@@ -40,9 +40,19 @@ internal class Program
         {
             var url = $"http://localhost:4000/swagger/docs/{version}/{docsName}";
             Console.WriteLine($"Generating api client from {url}");
-            var document = await OpenApiDocument.FromJsonAsync(wclient.DownloadString(url));
 
-            wclient.Dispose();
+            string json;
+            try
+            {
+                json = await httpClient.GetStringAsync(url);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Error fetching JSON: {e.Message}");
+                return;
+            }
+
+            var document = await OpenApiDocument.FromJsonAsync(json);
 
             var className = ConvertToPascalCase($"{docsName}-api");
 

@@ -25,7 +25,7 @@ func main() {
 
 	url := "https://localhost:5000/api/accounts/login"
 
-	credentials := Credentials{"admin@admin.admin", "foo"}
+	credentials := Credentials{"admin@localhost.co", "admin"}
 
 	jsonData, err := json.Marshal(credentials)
 	if err != nil {

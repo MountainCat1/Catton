@@ -7,7 +7,7 @@ import {Observable, tap} from "rxjs";
 import {Location} from '@angular/common'
 import {MatDialog} from "@angular/material/dialog";
 import {
-  AttendeeDeleteConfirmDialog,
+  AttendeeDeleteConfirmDialogData,
   AttendeeDeleteConfirmDialogComponent
 } from "./attendee-delete-confirm/attendee-delete-confirm-dialog.component";
 import {map} from "rxjs/operators";
@@ -45,8 +45,6 @@ export class AttendeeDetailsComponent implements OnInit {
       this.attendeeId = params['accountId'];
       this.attendee$ = this.attendeeService.apiConventionsConventionIdAttendeesAccountIdGet(this.conventionId, this.attendeeId);
     });
-
-
   }
 
   openDeleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

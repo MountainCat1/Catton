@@ -1,5 +1,6 @@
 ﻿using Catut.Domain.Abstractions;
 using Catut.Domain.Errors;
+using Conventions.Domain.Services;
 using Conventions.Domain.Validators;
 
 namespace Conventions.Domain.Entities;
@@ -20,9 +21,12 @@ public class Attendee : Entity
     public string AccountUsername { get; set; }
     public Uri? AccountAvatarUri { get; set; }
 
+    private readonly AttendeeValidator _validator;
+
 
     private Attendee()
     {
+        _validator = new AttendeeValidator();
     }
     
     internal static Attendee CreateInstance(
@@ -33,7 +37,7 @@ public class Attendee : Entity
         var entity = new Attendee()
         {
             AccountId = accountId,
-            CreatedDate = DateTime.Now,
+            CreatedDate = DateTime.UtcNow,
             AccountUsername = accountUsername,
             AccountAvatarUri = accountProfilePicture,
         };
@@ -43,12 +47,16 @@ public class Attendee : Entity
         return entity;
     }
 
-    public Ticket AddTicket(TicketTemplate ticketTemplate)
+    public async Task<Ticket> AddTicketAsync(TicketTemplate ticketTemplate, IPaymentDomainService paymentDomainService)
     {
-        var ticket = Ticket.CreateInstance(ticketTemplate);
-            
-        _tickets.Add(ticket);
+        ticketTemplate.ValidateAndThrow();
+        
+        var paymentId = await paymentDomainService.CreatePaymentAsync(ticketTemplate.Price, ticketTemplate.Currency);
+        
+        var ticket = Ticket.CreateInstance(ticketTemplate, paymentId, this.Id);
 
+        _tickets.Add(ticket);
+        
         return ticket;
     }
     
@@ -61,7 +69,7 @@ public class Attendee : Entity
     
     public void ValidateAndThrow()
     {
-        var result = new AttendeeValidator().Validate(this);
+        var result = _validator.Validate(this);
         
         if (result.IsValid)
             return;

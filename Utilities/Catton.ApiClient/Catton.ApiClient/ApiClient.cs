@@ -15,7 +15,7 @@ public class ApiClient : IApiClient
     
     public void AddBearer(string jwt)
     {
-        Jwt = jwt;;
+        Jwt = jwt;
     }
     protected Task ProcessResponseAsync(HttpClient client, HttpResponseMessage response, CancellationToken cancellationToken)
     {

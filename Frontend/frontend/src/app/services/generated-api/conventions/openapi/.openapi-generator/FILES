@@ -6,6 +6,7 @@ api/api.ts
 api/attendee.service.ts
 api/convention.service.ts
 api/organizer.service.ts
+api/ticket.service.ts
 api/ticketTemplate.service.ts
 configuration.ts
 encoder.ts
@@ -13,6 +14,7 @@ git_push.sh
 index.ts
 model/attendeeCreateDto.ts
 model/attendeeDto.ts
+model/checkoutSessionDetailsDto.ts
 model/conventionCreateDto.ts
 model/conventionDto.ts
 model/conventionUpdateDto.ts
@@ -22,6 +24,10 @@ model/organizerCreateDto.ts
 model/organizerDto.ts
 model/organizerRole.ts
 model/organizerUpdateDto.ts
+model/paymentDto.ts
+model/paymentStatus.ts
+model/ticketCreateDto.ts
+model/ticketDto.ts
 model/ticketTemplateCreateDto.ts
 model/ticketTemplateDto.ts
 model/ticketTemplateUpdateDto.ts

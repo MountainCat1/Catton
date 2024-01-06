@@ -1,5 +1,6 @@
 export * from './attendeeCreateDto';
 export * from './attendeeDto';
+export * from './checkoutSessionDetailsDto';
 export * from './conventionCreateDto';
 export * from './conventionDto';
 export * from './conventionUpdateDto';
@@ -8,6 +9,10 @@ export * from './organizerCreateDto';
 export * from './organizerDto';
 export * from './organizerRole';
 export * from './organizerUpdateDto';
+export * from './paymentDto';
+export * from './paymentStatus';
+export * from './ticketCreateDto';
+export * from './ticketDto';
 export * from './ticketTemplateCreateDto';
 export * from './ticketTemplateDto';
 export * from './ticketTemplateUpdateDto';
