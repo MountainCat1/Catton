@@ -6,6 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <RootNamespace>Accounts.Application</RootNamespace>
+
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+<!--        <NoWarn>$(NoWarn);1591</NoWarn>-->
     </PropertyGroup>
 
     <ItemGroup>

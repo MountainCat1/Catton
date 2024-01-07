@@ -1,0 +1,140 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/accounts{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catton-accounts.azurewebsites.net",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/accounts{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET",
+        "DELETE"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "accounts"
+    },
+    {
+      "DownstreamPathTemplate": "/api/accounts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catton-accounts.azurewebsites.net",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/accounts",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET",
+        "DELETE"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "accounts"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/conventions/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catton-conventions.azurewebsites.net",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/conventions/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET",
+        "DELETE"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "conventions"
+    },
+    {
+      "DownstreamPathTemplate": "/api/conventions",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catton-conventions.azurewebsites.net",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/conventions",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET",
+        "DELETE"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "conventions"
+    },
+    {
+      "DownstreamPathTemplate": "/api/webhooks/stripe",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catton-payments.azurewebsites.net",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/webhooks/stripe",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "GET",
+        "DELETE"
+      ],
+      "SwaggerEndpoint": "/swagger/v1/swagger.json",
+      "SwaggerKey": "payments"
+    }
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "catton-api-gateway.azurewebsites.net",
+    "LogLevel": {
+      "Default": "Debug"
+    }
+  },
+
+  "SwaggerEndPoints": [
+    {
+      "Key": "accounts",
+      "Config": [
+        {
+          "Name": "Accounts API",
+          "Version": "v1",
+          "Url": "https://catton-accounts.azurewebsites.net/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "conventions",
+      "Config": [
+        {
+          "Name": "Conventions API",
+          "Version": "v1",
+          "Url": "https://catton-conventions.azurewebsites.net/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "payments",
+      "Config": [
+        {
+          "Name": "Payments API",
+          "Version": "v1",
+          "Url": "https://catton-payments.azurewebsites.net/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

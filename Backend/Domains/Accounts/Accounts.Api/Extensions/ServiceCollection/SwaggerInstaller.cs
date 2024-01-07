@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using System.Reflection;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Accounts.Application.Extensions.ServiceCollection;
@@ -10,6 +11,9 @@ public static class SwaggerInstaller
         services.AddSwaggerGen(o =>
         {
             o.AddSwaggerAuthUi();
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            o.IncludeXmlComments(xmlPath);
         });
 
         return services;
