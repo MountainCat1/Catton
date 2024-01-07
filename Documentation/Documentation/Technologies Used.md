@@ -53,13 +53,14 @@
   - Accounts Domain
   - Payments Domain
   - Conventions Domain
+  - Payments Domain
 
 ### API Gateway
 
 - We employ the Ocelot NuGet package as our API gateway to efficiently route traffic from a single domain to various backend services.
 - API gateway contains configs for running it in IDE environment, Docker environment and Azure environment.
 
-### Database Access
+### Database and Persistence
 
 - The Catton application relies on Microsoft's Entity Framework for all database access, ensuring that all requests are processed through this Object-Relational Mapping (ORM) framework.
 - Catton uses Code First approach to Entity Framework, where we define our database schema using C# classes and then generate the database from these classes.
@@ -93,6 +94,14 @@
   - Microsoft.AspNetCore.Authentication.JwtBearer - used for authentication
   - Azure.Security.KeyVault.Secrets - used for accessing Azure Key Vault
   - Azure.Storage.Blobs - used for accessing Azure Blob Storage
+
+### Payments
+- Catton uses Stripe as its payment gateway.
+- Catton uses Stripe Nuget package to communicate with Stripe API.
+- Catton uses Stripe Checkout to handle payments.
+- Catton uses Stripe Webhooks to handle asynchronous events.
+- `Catton/Backend/Domains/Payments/Payments.Api/StripeDocker/run_stripe.sh` can be used to test functionalities that use Stripe locally.
+
 ---
 
 # Frontend
