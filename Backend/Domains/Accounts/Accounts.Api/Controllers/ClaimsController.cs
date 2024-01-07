@@ -17,7 +17,7 @@ public class ClaimsController : Controller
         _mediator = mediator;
     }
 
-    [HttpGet]
+    [HttpGet(Name = "GetClaims")]
     [Authorize]
     [ProducesResponseType(typeof(GetClaimsResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType( typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]

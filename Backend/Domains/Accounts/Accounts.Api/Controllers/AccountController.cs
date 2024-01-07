@@ -32,7 +32,7 @@ public class AccountController : Controller
     /// <returns>An AuthTokenResponseContract on successful authentication</returns>
     /// <response code="200">Returns an AuthTokenResponseContract on successful authentication</response>
     /// <response code="403">Returns an ErrorResponse on authentication failure</response>
-    [HttpPost("login")]
+    [HttpPost("login", Name = "Authenticate")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(AuthTokenResponseContract), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status403Forbidden)]
@@ -52,7 +52,7 @@ public class AccountController : Controller
     /// <returns>A success message or empty response on successful account creation</returns>
     /// <response code="200">Returns a success message or empty response on successful account creation</response>
     /// <response code="400">Returns a string message in case of an invalid request</response>
-    [HttpPost]
+    [HttpPost(Name = "RegisterAccount")]
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -72,7 +72,7 @@ public class AccountController : Controller
     /// <returns>The account details if found</returns>
     /// <response code="200">Returns the account details if found</response>
     /// <response code="404">Returns an ErrorResponse if the account is not found</response>
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "GetAccount")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(AccountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
@@ -95,7 +95,7 @@ public class AccountController : Controller
     /// <response code="200">Returns the account details of the authenticated user</response>
     /// <response code="401">Returns an ErrorResponse if the user is unauthorized</response>
     /// <response code="404">Returns an ErrorResponse if the account is not found</response>
-    [HttpGet("me")]
+    [HttpGet("me", Name = "GetMyAccount")]
     [Authorize]
     [ProducesResponseType(typeof(AccountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]

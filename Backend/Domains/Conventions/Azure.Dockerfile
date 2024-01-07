@@ -14,7 +14,11 @@ COPY . .
 WORKDIR "/src/$ProjectName.Api"
 RUN dotnet build "$ProjectName.Api.csproj" -c Release -o /app/build
 
+
 FROM build AS publish
+
+ARG ProjectName
+
 RUN dotnet publish "$ProjectName.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
@@ -26,6 +30,4 @@ EXPOSE 80
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-
 ENTRYPOINT ["dotnet", "Conventions.Api.dll"]
-
