@@ -1,0 +1,11 @@
+.openapi-generator-ignore
+Apis/AccountApi.md
+Apis/ClaimsApi.md
+Models/AccountDto.md
+Models/AuthTokenResponseContract.md
+Models/AuthViaPasswordRequestContract.md
+Models/ClaimDto.md
+Models/CreatePasswordAccountRequestContract.md
+Models/ErrorResponse.md
+Models/GetClaimsResponseDto.md
+README.md
