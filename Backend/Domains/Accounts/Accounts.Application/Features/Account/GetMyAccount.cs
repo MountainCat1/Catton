@@ -3,6 +3,7 @@ using Accounts.Service.Dtos;
 using Accounts.Service.Extensions;
 using Accounts.Service.Extensions.DtoMapping;
 using Accounts.Service.Services;
+using Catut.Application.Services;
 using MediatR;
 
 namespace Accounts.Service.Features.Account;

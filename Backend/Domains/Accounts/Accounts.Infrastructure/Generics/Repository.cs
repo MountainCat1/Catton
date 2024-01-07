@@ -2,6 +2,7 @@
 using Catut.Domain.Abstractions;
 using Catut.Infrastructure.Abstractions;
 using Catut.Infrastructure.Errors.Database;
+using Catut.Infrastructure.Exception;
 using Catut.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

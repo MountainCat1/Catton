@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
-      <PackageReference Include="Catut.Application" Version="1.0.24" />
+      <PackageReference Include="Catut.Application" Version="1.0.34" />
       <PackageReference Include="Google.Apis.Auth" Version="1.60.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
     </ItemGroup>
