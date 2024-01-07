@@ -1,5 +1,8 @@
 # DevOps
 
+### Rest API
+https://catton-api-gateway.azurewebsites.net/swagger
+
 ### Hosting
 - Catton is hosted on Azure.
 - Catton uses Azure App Service to host all of its services.
