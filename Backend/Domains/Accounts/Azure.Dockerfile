@@ -24,8 +24,4 @@ WORKDIR /app
 
 COPY --from=publish /app/publish .
 
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password=PASSWORD
-ENV ASPNETCORE_URLS="https://+;http://+" 
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-
 ENTRYPOINT ["dotnet", "Accounts.Api.dll"]
