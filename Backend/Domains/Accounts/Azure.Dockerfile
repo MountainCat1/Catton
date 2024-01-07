@@ -1,33 +1,31 @@
-﻿ARG ProjectName=Accounts
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-
-ARG ProjectName
-
 WORKDIR /src
-COPY ["$ProjectName.Api/$ProjectName.Api.csproj", "$ProjectName.Api/"]
-RUN dotnet restore "$ProjectName.Api/$ProjectName.Api.csproj"
+
+COPY ["Accounts.Api/Accounts.Api.csproj", "Accounts.Api/"]
+RUN dotnet restore "Accounts.Api/Accounts.Api.csproj"
+
 COPY . .
-WORKDIR "/src/$ProjectName.Api"
-RUN dotnet build "$ProjectName.Api.csproj" -c Release -o /app/build
+
+WORKDIR "/src/Accounts.Api"
+
+RUN dotnet build "Accounts.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
 
-ARG ProjectName
-
-RUN dotnet publish "$ProjectName.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Accounts.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
-
-ARG ProjectName
-
-EXPOSE 80
-
 WORKDIR /app
+
 COPY --from=publish /app/publish .
 
-ENV entrypoint="$ProjectName.Api.dll"
-ENTRYPOINT ["dotnet", "$entrypoint"]
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password=PASSWORD
+ENV ASPNETCORE_URLS="https://+;http://+" 
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+
+ENTRYPOINT ["dotnet", "Accounts.Api.dll"]
