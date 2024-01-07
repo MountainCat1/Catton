@@ -30,6 +30,6 @@ EXPOSE 80
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV ASPNETCORE_URLS="https://+;http://+" 
+ENV ASPNETCORE_URLS="http://+" 
 
 ENTRYPOINT ["dotnet", "Conventions.Api.dll"]
