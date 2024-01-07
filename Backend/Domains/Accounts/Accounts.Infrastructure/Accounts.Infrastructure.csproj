@@ -12,8 +12,8 @@
 
     <ItemGroup>
       <PackageReference Include="Catut.Infrastructure" Version="1.0.8" />
-      <PackageReference Include="FluentValidation" Version="11.5.2" />
-      <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.1.0-develop.1403" />
+      <PackageReference Include="FluentValidation" Version="11.9.0" />
+      <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.1.4-develop.1638" />
       <PackageReference Include="MediatR" Version="12.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">

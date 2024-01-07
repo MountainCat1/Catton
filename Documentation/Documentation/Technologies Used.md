@@ -62,12 +62,18 @@
 ### Database Access
 
 - The Catton application relies on Microsoft's Entity Framework for all database access, ensuring that all requests are processed through this Object-Relational Mapping (ORM) framework.
+- Catton uses Code First approach to Entity Framework, where we define our database schema using C# classes and then generate the database from these classes.
+- Catton uses Repository pattern to abstract away the database access logic from the rest of the application.
+- Catton uses Unit of Work pattern to ensure that all database operations are performed in a single transaction.
+- Catton uses Mediator pattern to decouple the business logic from the database access logic.
+- Catton uses CQRS pattern to separate the read and write operations on the database.
 
 ### API Schema
 
 - Our backend follows a RESTful API schema for modeling its API.
 - All API endpoints are documented using Swagger.
 - All API endpoints that need authentication use JWT tokens.
+- All API endpoints that need authentication use `Authorization` header with `Bearer` token.
 
 ### Catut Nuget packages
 - Catton uses custom Nuget package that contains common login used across all backend services
