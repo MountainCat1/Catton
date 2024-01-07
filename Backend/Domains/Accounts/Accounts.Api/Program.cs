@@ -19,12 +19,37 @@ using MediatR;
 var builder = WebApplication.CreateBuilder(args);
 
 // ========= CONFIGURATION  =========
+#region Configuration
+
 var configuration = builder.Configuration;
 
-configuration.AddJsonFile("Secrets/authentication.json");
-configuration.AddJsonFile("Secrets/jwt.json");
+if (configuration.GetRequiredEnvironmentVariable<bool>("USE_BLOB_CONFIGURATION"))
+{
+    Console.WriteLine("Loading configuration from Azure Blob Storage...");
+    configuration.AddAzureBlobJsonConfiguration(new BlobStorageConfig()
+    {
+        ConnectionString = configuration.GetRequiredConnectionString("AzureBlobStorage"),
+        ContainerName = configuration.GetRequiredEnvironmentVariable<string>("AZURE_BLOB_STORAGE_CONTAINER_NAME")
+    }, "appsettings.json");
+}
 
-var jwtConfig = configuration.GetConfiguration<JwtConfig>();
+if (configuration.GetRequiredEnvironmentVariable<bool>("USE_AZURE_KEY_VAULT"))
+{
+    Console.WriteLine("Loading secrets from Azure Key Vault...");
+    configuration.InstallAzureSecrets();
+}
+else
+{
+    Console.WriteLine("Loading secrets from local files...");
+    configuration.AddJsonFile("Secrets/jwt.json");
+    configuration.AddJsonFile("Secrets/hash_ids.json");
+}
+
+
+var jwtConfig = configuration.GetSecret<JwtConfig>();
+var hashIdsConfig = configuration.GetSecret<HashIdsConfig>();
+
+#endregion
 
 // Add services to the container.
 

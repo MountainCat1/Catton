@@ -11,7 +11,8 @@ fi
 
 
 mapfile -t serviceNames < $serviceNamesFile
-targetFramework=typescript-angular
+#targetFramework=typescript-angular
+targetFramework=markdown
 
 # Loop through the array and use sed to remove \r from each element
 for i in "${!serviceNames[@]}"; do
