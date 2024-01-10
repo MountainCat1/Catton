@@ -5,6 +5,7 @@ public static class Policies
     // Conventions
     public const string ReadConvention = nameof(ReadConvention);
     public const string UpdateConvention = nameof(UpdateConvention);
+    public const string ReadOneConvention = nameof(ReadOneConvention);
     
     // Organizer
     public const string ReadOrganizer = nameof(ReadOrganizer);

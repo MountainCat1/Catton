@@ -8,32 +8,103 @@
         "type": "tabs",
         "children": [
           {
-            "id": "3fdf53b42d85d88b",
+            "id": "4dba12cf75cc25a2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Welcome.md",
+                "file": "Select Convention.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "8543e7c685b7609f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Convention Main Menu.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7bdcf89f1de1cc22",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sidebar.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "8781a4a9c0a4c0ec",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Ticket Templates.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "0cb4826338e26c61",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Attendees.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "572e32550e0a7472",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_Welcome.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "8f0bc98ceee6b0da",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tickets.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "9580a0a54ae78fe6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sign In.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
-      },
-      {
-        "id": "637c1ec5fdfc1120",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "ed2d2906f84e4430",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {}
-            }
-          }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -99,7 +170,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Welcome.md",
+                "file": "_Welcome.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Welcome.md",
+                "file": "_Welcome.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,7 +210,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Welcome.md"
+                "file": "_Welcome.md"
               }
             }
           }
@@ -160,8 +231,29 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3fdf53b42d85d88b",
+  "active": "572e32550e0a7472",
   "lastOpenFiles": [
-    "Welcome.md"
+    "Ticket Templates.md",
+    "_Welcome.md",
+    "Organizers.md",
+    "Sign In.md",
+    "imgs/sign_in.png",
+    "Tickets.md",
+    "imgs/ticket_details.png",
+    "imgs/tickets_list.png",
+    "Welcome.md",
+    "Convention Main Menu.md",
+    "Attendees.md",
+    "Select Convention.md",
+    "Sidebar.md",
+    "imgs/organizers_list.png",
+    "imgs/attendees_list.png",
+    "imgs/ticket_templates_list.png",
+    "imgs/sidebar_button.png",
+    "img.png",
+    "imgs/sidebar.png",
+    "imgs/select_convention.png",
+    "imgs",
+    "Main Menu.md"
   ]
 }

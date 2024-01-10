@@ -40,7 +40,7 @@ public class GetConventionRequestHandler : IRequestHandler<GetConventionRequest,
         if (convention is null)
             throw new NotFoundError($"Convention with an id {id} does not exist");
 
-        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.ReadConvention);
+        await _authorizationService.AuthorizeAndThrowAsync(_userAccessor.User, convention, Policies.ReadOneConvention);
 
         return convention.ToDto();
     }
