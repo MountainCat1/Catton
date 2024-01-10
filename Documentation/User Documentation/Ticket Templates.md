@@ -7,3 +7,11 @@ In the ticket templates page, you can create, edit, and delete ticket templates.
 * You can click on column headers to sort the table by that column.
 
 ![[ticket_templates_list.png]]
+
+`/c/<convention ID>/ticket-templates/<ticket ID>`
+
+In the ticket template details page.
+* Click on the edit button to navigate to the edit ticket form.
+* Click on the delete button to delete the ticket.
+
+![[ticket_template_details.png]]
