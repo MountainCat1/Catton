@@ -48,4 +48,8 @@ export class OrganizersComponent implements OnInit, AfterViewInit {
   async onRowClicked(row : any) {
     await this.navigationService.toOrganizerDetails(row.accountId);
   }
+
+  async navigateToCreateOrganizer() {
+    await this.navigationService.toCreateOrganizer();
+  }
 }

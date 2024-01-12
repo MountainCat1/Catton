@@ -20,6 +20,7 @@ public static class ConventionOrganizerExtensions
         {
             AccountId = organizer.AccountId,
             CreatedDate = organizer.CreatedDate,
+            ConventionId = organizer.ConventionId,
             
             Role = organizer.Role,
             

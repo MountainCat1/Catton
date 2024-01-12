@@ -68,6 +68,7 @@ import {TicketTemplateCreateComponent} from './components/ticket-template-create
 import { TicketTemplateEditComponent } from './components/ticket-template-edit/ticket-template-edit.component';
 import { OrganizerDetailsComponent } from './components/organizer-details/organizer-details.component';
 import { OrganizerDeleteConfirmDialogComponent } from './components/organizer-details/organizer-delete-confirm-dialog/organizer-delete-confirm-dialog.component';
+import { OrganizerCreateComponent } from './components/organizer-create/organizer-create.component';
 
 const RegisterBackendConfiguration = (authService: AuthService) => new AccountConfiguration(
   {
@@ -111,6 +112,7 @@ const RegisterBackendConfiguration = (authService: AuthService) => new AccountCo
     TicketTemplateEditComponent,
     OrganizerDetailsComponent,
     OrganizerDeleteConfirmDialogComponent,
+    OrganizerCreateComponent,
   ],
   imports: [
     BrowserModule,

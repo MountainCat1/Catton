@@ -1,0 +1,15 @@
+<h1 class="form-header">Add Organizer</h1>
+
+<form [formGroup]="organizerForm" (ngSubmit)="onSubmit()" class="entity-form">
+  <mat-form-field>
+    <mat-label>Account ID</mat-label>
+    <input matInput formControlName="accountId">
+  </mat-form-field>
+
+  <!-- Add other input fields here -->
+  <div class="submit-button-container">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!organizerForm.valid"
+            class="submit-button">Submit
+    </button>
+  </div>
+</form>
