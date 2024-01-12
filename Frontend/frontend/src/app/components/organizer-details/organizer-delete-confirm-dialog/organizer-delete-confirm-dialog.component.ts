@@ -35,7 +35,7 @@ export class OrganizerDeleteConfirmDialogComponent {
         this.data.conventionId,
         this.data.accountId)
       .subscribe(async x => {
-        await this.navigation.toTickets()
+        await this.navigation.toOrganizers()
       })
   }
 }
