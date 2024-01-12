@@ -1,0 +1,45 @@
+<div class="details-content">
+  <ng-container *ngIf="(organizer$ | withHttpLoading | async) as result">
+    <ng-container *ngIf="result.loading">
+      <mat-spinner class="loading-spinner"></mat-spinner>
+    </ng-container>
+    <ng-container *ngIf="result.value as value">
+      <h1>Organizer</h1>
+      <h2>Account ID</h2>
+      <p>{{value.accountId}}</p>
+      <h2>Joined Date</h2>
+      <p>{{value.createdDate | date:'dd MMMM yyyy hh:mm'}}</p>
+      <h2>Role</h2>
+      <p>{{value.role}}</p>
+
+
+      <h1>Account</h1>
+      <h2>Username</h2>
+      <p>{{value.accountUsername}}</p>
+      <h2>Avatar Uri</h2>
+      <p>{{value.accountAvatarUri ?? "Not set"}}</p>
+
+      <div class="details-action-button-container">
+        <button mat-raised-button class="details-action-button"
+                (click)="openDeleteDialog('125ms', '0ms')">
+          Remove from the convention
+        </button>
+        <button mat-raised-button class="details-action-button"
+                (click)="console.log('Not implemented')">
+          Edit
+        </button>
+      </div>
+
+      <br/>
+      <hr>
+      <br/>
+
+      <div class="details-page-align-right">
+        <button mat-raised-button (click)="back()" class="details-page-element-right">Go back</button>
+
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+</div>

@@ -44,4 +44,8 @@ export class OrganizersComponent implements OnInit, AfterViewInit {
   }
 
   protected readonly getFriendlyErrorMessage = getFriendlyErrorMessage;
+
+  async onRowClicked(row : any) {
+    await this.navigationService.toOrganizerDetails(row.accountId);
+  }
 }
