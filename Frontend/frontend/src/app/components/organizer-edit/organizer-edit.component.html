@@ -1,0 +1,22 @@
+<h1 class="form-header">Edit Organizer</h1>
+
+
+<h2>Account Username</h2>
+<p>{{organzier.accountUsername}}</p>
+<h2>Account ID</h2>
+<p>{{organzier.accountId}}</p>
+
+<form [formGroup]="organizerForm" (ngSubmit)="onSubmit()" class="entity-form">
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <mat-select id="role" formControlName="role">
+      <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="submit-button-container">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!organizerForm.valid"
+            class="submit-button">Submit
+    </button>
+  </div>
+</form>

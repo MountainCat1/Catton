@@ -28,6 +28,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {TicketTemplateEditComponent} from "./components/ticket-template-edit/ticket-template-edit.component";
 import {OrganizerDetailsComponent} from "./components/organizer-details/organizer-details.component";
 import {OrganizerCreateComponent} from "./components/organizer-create/organizer-create.component";
+import {OrganizerEditComponent} from "./components/organizer-edit/organizer-edit.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -51,6 +52,7 @@ const SECURE_ROUTES_CONVENTION_SELECTED = [
   {path: '', component: MainMenuComponent},
   {path: 'organizers', component: OrganizersComponent},
   {path: 'organizers/create', component: OrganizerCreateComponent},
+  {path: 'organizers/edit/:accountId', component: OrganizerEditComponent},
   {path: 'organizers/:accountId', component: OrganizerDetailsComponent},
   {path: 'attendees', component: AttendeesComponent},
   {path: 'attendees/:accountId', component: AttendeeDetailsComponent},

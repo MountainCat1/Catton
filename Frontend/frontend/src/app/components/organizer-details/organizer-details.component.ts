@@ -65,4 +65,8 @@ export class OrganizerDetailsComponent {
   }
 
   protected readonly console = console;
+
+  async navigateToEditOrganizer() {
+    await this.navigationService.toEditOrganizer(this.accountId);
+  }
 }

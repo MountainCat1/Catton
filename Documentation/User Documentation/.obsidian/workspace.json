@@ -73,7 +73,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sidebar.md",
+                "file": "Organizers.md",
                 "mode": "source",
                 "source": false
               }
@@ -170,7 +170,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Sidebar.md",
+                "file": "Organizers.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -187,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Sidebar.md",
+                "file": "Organizers.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -210,7 +210,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Sidebar.md"
+                "file": "Organizers.md"
               }
             }
           }
@@ -234,25 +234,25 @@
   "active": "572e32550e0a7472",
   "lastOpenFiles": [
     "Ticket Templates.md",
-    "Tickets.md",
-    "imgs/ticket_template_details.png",
-    "_Welcome.md",
+    "Select Convention.md",
     "Organizers.md",
+    "Tickets.md",
+    "Sidebar.md",
+    "Convention Main Menu.md",
+    "imgs/organizer_details.png",
+    "Attendees.md",
+    "imgs/organizers_list.png",
+    "imgs/ticket_template_details.png",
+    "imgs/convention_main_menu.png",
+    "imgs/sidebar_button.png",
+    "_Welcome.md",
     "Sign In.md",
     "imgs/sign_in.png",
     "imgs/ticket_details.png",
     "imgs/tickets_list.png",
     "Welcome.md",
-    "Convention Main Menu.md",
-    "Attendees.md",
-    "Select Convention.md",
-    "Sidebar.md",
-    "imgs/organizers_list.png",
     "imgs/attendees_list.png",
     "imgs/ticket_templates_list.png",
-    "imgs/sidebar_button.png",
-    "img.png",
-    "imgs/sidebar.png",
     "imgs",
     "Main Menu.md"
   ]
