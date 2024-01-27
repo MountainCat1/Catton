@@ -42,12 +42,12 @@ else
 {
     Console.WriteLine("Loading secrets from local files...");
     configuration.AddJsonFile("Secrets/jwt.json");
-    configuration.AddJsonFile("Secrets/hash_ids.json");
+    // configuration.AddJsonFile("Secrets/hash_ids.json");
 }
 
 
 var jwtConfig = configuration.GetSecret<JwtConfig>();
-var hashIdsConfig = configuration.GetSecret<HashIdsConfig>();
+// var hashIdsConfig = configuration.GetSecret<HashIdsConfig>();
 
 #endregion
 
@@ -80,6 +80,7 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,
 
 services.AddSingleton<IApiExceptionMapper, ApiExceptionMapper>();
 services.AddSingleton<IDatabaseErrorMapper, DatabaseErrorMapper>();
+services.AddSingleton<IDomainErrorMapper, DomainErrorMapper>();
 services.AddSingleton<IApplicationErrorMapper, ApplicationErrorMapper>();
 
 services.AddScoped<IAccountRepository, AccountRepository>();
